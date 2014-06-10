@@ -24,13 +24,13 @@ Scintilator3D::Scintilator3D(int index, double x, double y, double z,  double le
 {
   double r_PMT = 2.0; 
   // scintilator
-  Double_t izhodisce[3]={x,y,z};
-  TGeoBBox *scint_box = new TGeoBBox("scint_box",0.9*height/2.0,thickness/2.0,length/2.0,izhodisce);
+  Double_t StartingPoint[3]={x,y,z};
+  TGeoBBox *scint_box = new TGeoBBox("scint_box",0.9*height/2.0,thickness/2.0,length/2.0,StartingPoint);
   scint = new TGeoVolume("scint",scint_box);
   scint->SetLineColor(5);
   paddle->AddNode(scint,1);
 
-  // stranska obroba scintilatorja
+  // stranska obroba scintilatorja -- side skirt scintillator
   TGeoBBox *side_box = new TGeoBBox("side_box",0.5*0.1*height/2.0,thickness/2.0,length/2.0);
   TGeoVolume *sides = new TGeoVolume("sides",side_box);
   sides->SetLineColor(kBlack);

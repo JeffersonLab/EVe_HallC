@@ -25,9 +25,9 @@ using namespace std;
 
 Scintilator::Scintilator(int index, double x, double y, double a, double b, double length)
 {
-   // x in y sta koordinati spodnjega levega roba objekta. a in b pa 
-   // dolocata vetrikalno in horizontalno velikost fotopomnozevalke.
-   // !!! Koordinate tock so vedno med 0 in 1. 
+   // x and y coordinates of the lower left edge of the object. 
+   // a and b determine the vertical and horizontal size of the photomultiplier
+   // !! Coordinates of the vertices are always between 0 and 1. 
 
    sx0 = x- a*0.21875;
    sy0 = y;
@@ -35,7 +35,7 @@ Scintilator::Scintilator(int index, double x, double y, double a, double b, doub
    sb = b;
    paddle_length = length;
 
-   // najprej naredimo levo fotopomnozevalko
+   // first make left photomultiplier
    Double_t xL[7] = {a*0.0 + sx0 ,a*0.09375 + sx0 ,a*0.21875 + sx0 , a*0.21875 + sx0 , a*0.09375 + sx0 , a*0.0 + sx0 , a*0.0 + sx0 };
    Double_t yL[7] = {b*0.175 + y, b*0.175 + y, b*0.25 + y, b*0.0 + y, b*0.075 + y, b*0.075 + y, b*0.175 + y};
    plineL = new TPolyLine(7,xL,yL);
@@ -45,7 +45,7 @@ Scintilator::Scintilator(int index, double x, double y, double a, double b, doub
    plineL->Draw("f");
    plineL->Draw();
 
-   // sedaj naredimo desno fotopomnozevalko
+   // Then right photomultiplier
 
    Double_t xR[7] = {a*0.78125 + sx0 ,a*0.90625 + sx0 ,a*1.0 + sx0 ,a*1.0 + sx0 ,a*0.90625 + sx0 , a*0.78125 + sx0 , a*0.78125 + sx0 };
    Double_t yR[7] = {b*0.25 + y , b*0.175 + y, b*0.175 + y, b*0.075 + y, b*0.075 + y, b*0.0 + y, b*0.25 + y};
@@ -57,7 +57,7 @@ Scintilator::Scintilator(int index, double x, double y, double a, double b, doub
    plineR->Draw("f");
    plineR->Draw();
 
-   // sedaj naredimo se scintilacijski material
+   // Now do the scintillation material
 
    Double_t xscint[5] = {a*0.21875 + sx0, a*0.78125 + sx0, a*0.78125 + sx0, a*0.21875 + sx0, a*0.21875 + sx0};
    Double_t yscint[5] = {b*0.0 + y, b*0.0 + y, b*0.25 + y,b*0.25 + y, b*0.0 + y};
@@ -99,26 +99,25 @@ Scintilator::~Scintilator()
 void Scintilator::hit(double left, double right, double y)
 {
   double min = -10000.0;
-  // ce komora ni bila zadeta vrne program 1E-35
-  // ce je bila komora legitimno zadeta vrne program
-  // stevilko, ki je manjsa od 0.
-  // Program lahko vrne tudi nekaj kar je >0 
-  // vendar tega program ne tretira, kot legitimni
-  // dogodek
+  // If the chamber was not hit the program returns 1e-35
+  // If the chamber was a legitimate hit, the program returns a number 
+  // that is less than 0.
+  // The program can also return something that is >0
+  // but this is not treated as a legit event.
  
-  // zadeta je bila le desna fotopomnozevalka
+  // Hit was just right photomultiplier
   if (left<min && right>min)
   {
     plineR->SetFillColor(2);
   } 
 
-  // zadeta je bila le leva fotopomnozevalka
+  // Hit was only left photomultiplier
   if (left>min  && right<min )
   {
     plineL->SetFillColor(2);
   }
 
-  // zadeti sta obe fotopomnozevalki
+  // Hit 2 photomultipliers
   if (left>min && right>min)
   {
     plineR->SetFillColor(3);

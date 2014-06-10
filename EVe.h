@@ -113,7 +113,7 @@ private:
 
   TTree *t1;
 
-    // Prva MWDC komora
+    // First MWDC chamber
   Double_t B_mwdc_u1_nhits;
   Double_t B_mwdc_u1p_nhits;
   Double_t B_mwdc_v1_nhits;
@@ -136,7 +136,7 @@ private:
   Double_t B_mwdc_x1p_hit_time[MAX_HITS_NUM];
   
     
-  // Druga MWDC komora
+  // Other MWDC chamber
   
   Double_t B_mwdc_u2_nhits;
   Double_t B_mwdc_u2p_nhits;

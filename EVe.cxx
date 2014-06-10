@@ -275,13 +275,13 @@ void EVe::CreateUprojection()
      u2p = new WirePlane("U2p",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2+0.002),cst->transLtoCL(L2),1.0,1.0,1);
 */
 
-     u1 = new WirePlane((char*)"U1",MWDC1_U1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     // u1 = new WirePlane((char*)"U1",MWDC1_U1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
    
-     u1p = new WirePlane((char*)"U1p",MWDC1_U1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+     // u1p = new WirePlane((char*)"U1p",MWDC1_U1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-     u2 = new WirePlane((char*)"U2",MWDC2_U2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     // u2 = new WirePlane((char*)"U2",MWDC2_U2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
   
-     u2p = new WirePlane((char*)"U2p",MWDC2_U2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     // u2p = new WirePlane((char*)"U2p",MWDC2_U2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c1->Update();
   }
@@ -296,11 +296,11 @@ void EVe::CreateVprojection()
      c2->cd();
      c2->Clear();
 
-    v1 = new WirePlane((char*)"V1",MWDC1_V1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-    v1p = new WirePlane((char*)"V1p",MWDC1_V1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
+    // v1 = new WirePlane((char*)"V1",MWDC1_V1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+    // v1p = new WirePlane((char*)"V1p",MWDC1_V1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
 
-    v2 = new WirePlane((char*)"V2",MWDC2_V2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-    v2p = new WirePlane((char*)"V2p",MWDC2_V2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
+    // v2 = new WirePlane((char*)"V2",MWDC2_V2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+    // v2p = new WirePlane((char*)"V2p",MWDC2_V2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c2->Update();
   }
@@ -314,11 +314,11 @@ void EVe::CreateXprojection()
      c4->cd();
      c4->Clear();
 
-    x1 = new WirePlane((char*)"X1",MWDC1_X1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-    x1p = new WirePlane((char*)"X1p",MWDC1_X1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+    // x1 = new WirePlane((char*)"X1",MWDC1_X1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+    // x1p = new WirePlane((char*)"X1p",MWDC1_X1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-    x2 = new WirePlane((char*)"X2",MWDC2_X2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-    x2p = new WirePlane((char*)"X2p",MWDC2_X2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+    // x2 = new WirePlane((char*)"X2",MWDC2_X2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+    // x2p = new WirePlane((char*)"X2p",MWDC2_X2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c4->Update();
   }
@@ -330,15 +330,15 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-   CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
-   CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
+   // CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
+   // CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
    CStransform *dE_cst = new CStransform(canvas_length, canvas_dE_posx, canvas_dE_posy);
    CStransform *E_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy);
 
    // TODO: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
-   mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
-   mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
+   // mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
+   // mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
   
    sdE = new ScintilationPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst);
    sE = new ScintilationPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst);
@@ -378,97 +378,97 @@ void EVe::initRun(char *filename)
 #endif
 
   // Now we read all data
-  t1->SetBranchAddress( "BB.mwdc.u1.nhits", &B_mwdc_u1_nhits);
-  t1->SetBranchAddress( "BB.mwdc.u1p.nhits", &B_mwdc_u1p_nhits);
-  t1->SetBranchAddress( "BB.mwdc.u2.nhits", &B_mwdc_v2p_nhits);
-  t1->SetBranchAddress( "BB.mwdc.u2p.nhits", &B_mwdc_v2_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.u1.nhits", &B_mwdc_u1_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.u1p.nhits", &B_mwdc_u1p_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.u2.nhits", &B_mwdc_v2p_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.u2p.nhits", &B_mwdc_v2_nhits);
 
-  t1->SetBranchAddress( "BB.mwdc.v1.nhits", &B_mwdc_v1_nhits);
-  t1->SetBranchAddress( "BB.mwdc.v1p.nhits", &B_mwdc_v1p_nhits);
-  t1->SetBranchAddress( "BB.mwdc.v2.nhits", &B_mwdc_u2p_nhits);
-  t1->SetBranchAddress( "BB.mwdc.v2p.nhits", &B_mwdc_u2_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.v1.nhits", &B_mwdc_v1_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.v1p.nhits", &B_mwdc_v1p_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.v2.nhits", &B_mwdc_u2p_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.v2p.nhits", &B_mwdc_u2_nhits);
 
-  t1->SetBranchAddress( "BB.mwdc.x1.nhits", &B_mwdc_x1_nhits);
-  t1->SetBranchAddress( "BB.mwdc.x1p.nhits", &B_mwdc_x1p_nhits);
-  t1->SetBranchAddress( "BB.mwdc.x2.nhits", &B_mwdc_x2p_nhits);
-  t1->SetBranchAddress( "BB.mwdc.x2p.nhits", &B_mwdc_x2_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.x1.nhits", &B_mwdc_x1_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.x1p.nhits", &B_mwdc_x1p_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.x2.nhits", &B_mwdc_x2p_nhits);
+  // t1->SetBranchAddress( "BB.mwdc.x2p.nhits", &B_mwdc_x2_nhits);
 
 
-  // U-wire plane
-  t1->SetBranchAddress( "BB.mwdc.u1.hit.wire", &B_mwdc_u1_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.u1p.hit.wire", &B_mwdc_u1p_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.u2.hit.wire", &B_mwdc_v2p_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.u2p.hit.wire", &B_mwdc_v2_hit_wire);
+  // // U-wire plane
+  // t1->SetBranchAddress( "BB.mwdc.u1.hit.wire", &B_mwdc_u1_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.u1p.hit.wire", &B_mwdc_u1p_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.u2.hit.wire", &B_mwdc_v2p_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.u2p.hit.wire", &B_mwdc_v2_hit_wire);
 
-  t1->SetBranchAddress( "BB.mwdc.u1.hit.time", &B_mwdc_u1_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.u1p.hit.time", &B_mwdc_u1p_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.u2.hit.time", &B_mwdc_v2p_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.u2p.hit.time", &B_mwdc_v2_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.u1.hit.time", &B_mwdc_u1_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.u1p.hit.time", &B_mwdc_u1p_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.u2.hit.time", &B_mwdc_v2p_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.u2p.hit.time", &B_mwdc_v2_hit_time);
 
-  t1->SetBranchAddress( "BB.mwdc.u.nroads", &B_mwdc_u_nroads); 
-  t1->SetBranchAddress( "BB.mwdc.u.rd.zL", &B_mwdc_u_rd_zL);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.zU", &B_mwdc_u_rd_zU);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.xLL", &B_mwdc_u_rd_xLL);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.xLR", &B_mwdc_u_rd_xLR);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.xUL", &B_mwdc_u_rd_xUL);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.xUR", &B_mwdc_u_rd_xUR);
+  // t1->SetBranchAddress( "BB.mwdc.u.nroads", &B_mwdc_u_nroads); 
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.zL", &B_mwdc_u_rd_zL);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.zU", &B_mwdc_u_rd_zU);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.xLL", &B_mwdc_u_rd_xLL);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.xLR", &B_mwdc_u_rd_xLR);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.xUL", &B_mwdc_u_rd_xUL);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.xUR", &B_mwdc_u_rd_xUR);
   
-  t1->SetBranchAddress( "BB.mwdc.u.rd.good", &B_mwdc_u_rd_good);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.pos", &B_mwdc_u_rd_pos);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.slope", &B_mwdc_u_rd_slope);
-  t1->SetBranchAddress( "BB.mwdc.u.rd.chi2", &B_mwdc_u_rd_chi2);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.good", &B_mwdc_u_rd_good);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.pos", &B_mwdc_u_rd_pos);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.slope", &B_mwdc_u_rd_slope);
+  // t1->SetBranchAddress( "BB.mwdc.u.rd.chi2", &B_mwdc_u_rd_chi2);
  
-  // V-wire plane
-  t1->SetBranchAddress( "BB.mwdc.v1.hit.wire", &B_mwdc_v1_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.v1p.hit.wire", &B_mwdc_v1p_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.v2.hit.wire", &B_mwdc_u2p_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.v2p.hit.wire", &B_mwdc_u2_hit_wire);
+  // // V-wire plane
+  // t1->SetBranchAddress( "BB.mwdc.v1.hit.wire", &B_mwdc_v1_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.v1p.hit.wire", &B_mwdc_v1p_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.v2.hit.wire", &B_mwdc_u2p_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.v2p.hit.wire", &B_mwdc_u2_hit_wire);
 
-  t1->SetBranchAddress( "BB.mwdc.v1.hit.time", &B_mwdc_v1_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.v1p.hit.time", &B_mwdc_v1p_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.v2.hit.time", &B_mwdc_u2p_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.v2p.hit.time", &B_mwdc_u2_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.v1.hit.time", &B_mwdc_v1_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.v1p.hit.time", &B_mwdc_v1p_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.v2.hit.time", &B_mwdc_u2p_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.v2p.hit.time", &B_mwdc_u2_hit_time);
 
-  t1->SetBranchAddress( "BB.mwdc.v.nroads", &B_mwdc_v_nroads); 
-  t1->SetBranchAddress( "BB.mwdc.v.rd.zL", &B_mwdc_v_rd_zL);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.zU", &B_mwdc_v_rd_zU);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.xLL", &B_mwdc_v_rd_xLL);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.xLR", &B_mwdc_v_rd_xLR);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.xUL", &B_mwdc_v_rd_xUL);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.xUR", &B_mwdc_v_rd_xUR);
+  // t1->SetBranchAddress( "BB.mwdc.v.nroads", &B_mwdc_v_nroads); 
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.zL", &B_mwdc_v_rd_zL);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.zU", &B_mwdc_v_rd_zU);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.xLL", &B_mwdc_v_rd_xLL);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.xLR", &B_mwdc_v_rd_xLR);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.xUL", &B_mwdc_v_rd_xUL);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.xUR", &B_mwdc_v_rd_xUR);
   
-  t1->SetBranchAddress( "BB.mwdc.v.rd.good", &B_mwdc_v_rd_good);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.pos", &B_mwdc_v_rd_pos);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.slope", &B_mwdc_v_rd_slope);
-  t1->SetBranchAddress( "BB.mwdc.v.rd.chi2", &B_mwdc_v_rd_chi2);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.good", &B_mwdc_v_rd_good);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.pos", &B_mwdc_v_rd_pos);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.slope", &B_mwdc_v_rd_slope);
+  // t1->SetBranchAddress( "BB.mwdc.v.rd.chi2", &B_mwdc_v_rd_chi2);
 
-  // X-wire plane
-  t1->SetBranchAddress( "BB.mwdc.x1.hit.wire", &B_mwdc_x1_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.x1p.hit.wire", &B_mwdc_x1p_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.x2.hit.wire", &B_mwdc_x2p_hit_wire);
-  t1->SetBranchAddress( "BB.mwdc.x2p.hit.wire", &B_mwdc_x2_hit_wire);
+  // // X-wire plane
+  // t1->SetBranchAddress( "BB.mwdc.x1.hit.wire", &B_mwdc_x1_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.x1p.hit.wire", &B_mwdc_x1p_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.x2.hit.wire", &B_mwdc_x2p_hit_wire);
+  // t1->SetBranchAddress( "BB.mwdc.x2p.hit.wire", &B_mwdc_x2_hit_wire);
 
-  t1->SetBranchAddress( "BB.mwdc.x1.hit.time", &B_mwdc_x1_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.x1p.hit.time", &B_mwdc_x1p_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.x2.hit.time", &B_mwdc_x2p_hit_time);
-  t1->SetBranchAddress( "BB.mwdc.x2p.hit.time", &B_mwdc_x2_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.x1.hit.time", &B_mwdc_x1_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.x1p.hit.time", &B_mwdc_x1p_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.x2.hit.time", &B_mwdc_x2p_hit_time);
+  // t1->SetBranchAddress( "BB.mwdc.x2p.hit.time", &B_mwdc_x2_hit_time);
 
-  t1->SetBranchAddress( "BB.mwdc.x.nroads", &B_mwdc_x_nroads); 
-  t1->SetBranchAddress( "BB.mwdc.x.rd.zL", &B_mwdc_x_rd_zL);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.zU", &B_mwdc_x_rd_zU);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.xLL", &B_mwdc_x_rd_xLL);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.xLR", &B_mwdc_x_rd_xLR);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.xUL", &B_mwdc_x_rd_xUL);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.xUR", &B_mwdc_x_rd_xUR);
+  // t1->SetBranchAddress( "BB.mwdc.x.nroads", &B_mwdc_x_nroads); 
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.zL", &B_mwdc_x_rd_zL);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.zU", &B_mwdc_x_rd_zU);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.xLL", &B_mwdc_x_rd_xLL);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.xLR", &B_mwdc_x_rd_xLR);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.xUL", &B_mwdc_x_rd_xUL);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.xUR", &B_mwdc_x_rd_xUR);
   
-  t1->SetBranchAddress( "BB.mwdc.x.rd.good", &B_mwdc_x_rd_good);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.pos", &B_mwdc_x_rd_pos);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.slope", &B_mwdc_x_rd_slope);
-  t1->SetBranchAddress( "BB.mwdc.x.rd.chi2", &B_mwdc_x_rd_chi2);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.good", &B_mwdc_x_rd_good);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.pos", &B_mwdc_x_rd_pos);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.slope", &B_mwdc_x_rd_slope);
+  // t1->SetBranchAddress( "BB.mwdc.x.rd.chi2", &B_mwdc_x_rd_chi2);
 
-  t1->SetBranchAddress( "BB.mwdc.u.ngood", &B_mwdc_u_ngood);
-  t1->SetBranchAddress( "BB.mwdc.v.ngood", &B_mwdc_v_ngood);
-  t1->SetBranchAddress( "BB.mwdc.x.ngood", &B_mwdc_x_ngood);
+  // t1->SetBranchAddress( "BB.mwdc.u.ngood", &B_mwdc_u_ngood);
+  // t1->SetBranchAddress( "BB.mwdc.v.ngood", &B_mwdc_v_ngood);
+  // t1->SetBranchAddress( "BB.mwdc.x.ngood", &B_mwdc_x_ngood);
 
 
   t1->SetBranchAddress( "BB.tr.n", &B_tr_n);
@@ -522,14 +522,14 @@ void EVe::DoDraw(int event)
   if (fTextButtonProj->IsOn() && fTextButtonUPlane->IsOn())
   {
 
-#if DEBUG_LEVEL >= 3
-    cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
-    cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
-    cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
-    cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
-    cout<<endl;
-    cout<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
+//     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
+//     cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
+//     cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
+//     cout<<endl;
+//     cout<<endl;
+// #endif
 
     c1->cd();
     u1->clear();  
@@ -545,330 +545,331 @@ void EVe::DoDraw(int event)
     title->SetTextSize(0.03);
     title->Draw();   
 
-    for (int i = 0; i<B_mwdc_u1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** U1 Wire No.: "<<B_mwdc_u1_hit_wire[i]<<" is: "<<B_mwdc_u1_hit_time[i]<<endl;
-#endif
-        u1->SetWire(B_mwdc_u1_hit_wire[i],1.0E9*B_mwdc_u1_hit_time[i]); 
-    }
+ //    for (int i = 0; i<B_mwdc_u1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** U1 Wire No.: "<<B_mwdc_u1_hit_wire[i]<<" is: "<<B_mwdc_u1_hit_time[i]<<endl;
+// #endif
+//         u1->SetWire(B_mwdc_u1_hit_wire[i],1.0E9*B_mwdc_u1_hit_time[i]); 
+//     }
     
-    for (int i = 0; i<B_mwdc_u1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** U1p Wire No.: "<<B_mwdc_u1p_hit_wire[i]<<" is: "<<B_mwdc_u1p_hit_time[i]<<endl;
-#endif
-        u1p->SetWire(B_mwdc_u1p_hit_wire[i],1.0E9*B_mwdc_u1p_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_u1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** U1p Wire No.: "<<B_mwdc_u1p_hit_wire[i]<<" is: "<<B_mwdc_u1p_hit_time[i]<<endl;
+// #endif
+//         u1p->SetWire(B_mwdc_u1p_hit_wire[i],1.0E9*B_mwdc_u1p_hit_time[i]); 
+//     }
 
-    for (int i = 0; i<B_mwdc_u2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** U2 Wire No.: "<<B_mwdc_u2_hit_wire[i]<<" is: "<<B_mwdc_u2_hit_time[i]<<endl;
-#endif
-        u2->SetWire(B_mwdc_u2_hit_wire[i],1.0E9*B_mwdc_u2_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_u2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** U2 Wire No.: "<<B_mwdc_u2_hit_wire[i]<<" is: "<<B_mwdc_u2_hit_time[i]<<endl;
+// #endif
+//         u2->SetWire(B_mwdc_u2_hit_wire[i],1.0E9*B_mwdc_u2_hit_time[i]); 
+//     }
     
-    for (int i = 0; i<B_mwdc_u2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** U2p Wire No.: "<<B_mwdc_u2p_hit_wire[i]<<" is: "<<B_mwdc_u2p_hit_time[i]<<endl;
-#endif
-        u2p->SetWire(B_mwdc_u2p_hit_wire[i],1.0E9*B_mwdc_u2p_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_u2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** U2p Wire No.: "<<B_mwdc_u2p_hit_wire[i]<<" is: "<<B_mwdc_u2p_hit_time[i]<<endl;
+// #endif
+//         u2p->SetWire(B_mwdc_u2p_hit_wire[i],1.0E9*B_mwdc_u2p_hit_time[i]); 
+//     }
 
-    umrd->Clear();
-    for (int q=0; q< MAX_ROADS_NUM; q++) utr[q]->Clear();
+//     umrd->Clear();
+//     for (int q=0; q< MAX_ROADS_NUM; q++) utr[q]->Clear();
 
-#if DEBUG_LEVEL >= 3
-    cout<<"Number of roads in U projection is: "<<B_mwdc_u_nroads<<endl;
-    cout<<"Number of good roads in U projection is: "<<B_mwdc_u_ngood<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Number of roads in U projection is: "<<B_mwdc_u_nroads<<endl;
+//     cout<<"Number of good roads in U projection is: "<<B_mwdc_u_ngood<<endl;
+// #endif
     
-    for (int j = 0; j<B_mwdc_u_nroads; j++)
-    { 
-#if DEBUG_LEVEL >= 3
-        cout<<"******** Data for road No.: "<<j<<" of: "<<B_mwdc_u_nroads<<" ************"<<endl;
-        cout<<"-----> zL: "<<B_mwdc_u_rd_zL[j]<<endl;
-	cout<<"-----> zU: "<<B_mwdc_u_rd_zU[j]<<endl;
-	cout<<"-----> xLL: "<<B_mwdc_u_rd_xLL[j]<<endl;
-	cout<<"-----> xLR: "<<B_mwdc_u_rd_xLR[j]<<endl;
-	cout<<"-----> xUL: "<<B_mwdc_u_rd_xUL[j]<<endl;
-	cout<<"-----> xUR: "<<B_mwdc_u_rd_xUR[j]<<endl;
-        cout<<endl;
-	cout<<"-----> good: "<<B_mwdc_u_rd_good[j]<<endl;
-	cout<<"-----> chi2: "<<B_mwdc_u_rd_chi2[j]<<endl;
-	cout<<"-----> pos: "<<B_mwdc_u_rd_pos[j]<<endl;
-	cout<<"-----> slope: "<<B_mwdc_u_rd_slope[j]<<endl;
-        cout<<"************************************************"<<endl;
-#endif
+//     for (int j = 0; j<B_mwdc_u_nroads; j++)
+//     { 
+// #if DEBUG_LEVEL >= 3
+//         cout<<"******** Data for road No.: "<<j<<" of: "<<B_mwdc_u_nroads<<" ************"<<endl;
+//         cout<<"-----> zL: "<<B_mwdc_u_rd_zL[j]<<endl;
+// 	cout<<"-----> zU: "<<B_mwdc_u_rd_zU[j]<<endl;
+// 	cout<<"-----> xLL: "<<B_mwdc_u_rd_xLL[j]<<endl;
+// 	cout<<"-----> xLR: "<<B_mwdc_u_rd_xLR[j]<<endl;
+// 	cout<<"-----> xUL: "<<B_mwdc_u_rd_xUL[j]<<endl;
+// 	cout<<"-----> xUR: "<<B_mwdc_u_rd_xUR[j]<<endl;
+//         cout<<endl;
+// 	cout<<"-----> good: "<<B_mwdc_u_rd_good[j]<<endl;
+// 	cout<<"-----> chi2: "<<B_mwdc_u_rd_chi2[j]<<endl;
+// 	cout<<"-----> pos: "<<B_mwdc_u_rd_pos[j]<<endl;
+// 	cout<<"-----> slope: "<<B_mwdc_u_rd_slope[j]<<endl;
+//         cout<<"************************************************"<<endl;
+// #endif
 	
 
-cout<<"Sem tlele 1"<<endl;
-	 Double_t y[4] = {B_mwdc_u_rd_zL[j],
-			  B_mwdc_u_rd_zU[j],
-			  B_mwdc_u_rd_zU[j], 
-			  B_mwdc_u_rd_zL[j]};
+// cout<<"Sem tlele 1"<<endl;
+// 	 Double_t y[4] = {B_mwdc_u_rd_zL[j],
+// 			  B_mwdc_u_rd_zU[j],
+// 			  B_mwdc_u_rd_zU[j], 
+// 			  B_mwdc_u_rd_zL[j]};
 
-        Double_t x[4] = {B_mwdc_u_rd_xLL[j],
-			 B_mwdc_u_rd_xUL[j], 
-			 B_mwdc_u_rd_xUR[j], 
-			 B_mwdc_u_rd_xLR[j]};
+//         Double_t x[4] = {B_mwdc_u_rd_xLL[j],
+// 			 B_mwdc_u_rd_xUL[j], 
+// 			 B_mwdc_u_rd_xUR[j], 
+// 			 B_mwdc_u_rd_xLR[j]};
 
-cout<<"Sem tlele 2"<<endl;	
+// cout<<"Sem tlele 2"<<endl;	
 
-	if (fTextButtonRoads->IsOn()) umrd->Show(j,x,y);
+// 	if (fTextButtonRoads->IsOn()) umrd->Show(j,x,y);
 
-cout<<"Sem tlele 3"<<endl;
-        if (B_mwdc_u_rd_good[j]>0 && (fTextButtonTrackProj->IsOn()) )
-	{
-cout<<"Sem tlele 3a"<<endl;
-		// If road is good, then we draw the calculated track.
-		double tz1 = -0.4; // in meters
-		double tz2 = 1.2; // in meters
-cout<<"Sem tlele 3b"<<endl;
-		double tx1 = B_mwdc_u_rd_slope[j]*tz1 + B_mwdc_u_rd_pos[j];
-cout<<"Sem tlele 3c"<<endl;
-		double tx2 = B_mwdc_u_rd_slope[j]*tz2 + B_mwdc_u_rd_pos[j];
+// cout<<"Sem tlele 3"<<endl;
+//         if (B_mwdc_u_rd_good[j]>0 && (fTextButtonTrackProj->IsOn()) )
+// 	{
+// cout<<"Sem tlele 3a"<<endl;
+// 		// If road is good, then we draw the calculated track.
+// 		double tz1 = -0.4; // in meters
+// 		double tz2 = 1.2; // in meters
+// cout<<"Sem tlele 3b"<<endl;
+// 		double tx1 = B_mwdc_u_rd_slope[j]*tz1 + B_mwdc_u_rd_pos[j];
+// cout<<"Sem tlele 3c"<<endl;
+// 		double tx2 = B_mwdc_u_rd_slope[j]*tz2 + B_mwdc_u_rd_pos[j];
 		
-cout<<"Sem tlele 3d"<<endl;
-cout<<j<<endl;
-		utr[j]->DrawMe(tx1,tz1,tx2,tz2);
-cout<<"Sem tlele 3e"<<endl;
-	}
-    }
-cout<<"Sem tlele 4"<<endl;
-    c1->Draw();
-    c1->Update(); 
+// cout<<"Sem tlele 3d"<<endl;
+// cout<<j<<endl;
+// 		utr[j]->DrawMe(tx1,tz1,tx2,tz2);
+// cout<<"Sem tlele 3e"<<endl;
+// 	}
+//     }
+// cout<<"Sem tlele 4"<<endl;
+//     c1->Draw();
+//     c1->Update(); 
 
-cout<<"Sem tlele 5"<<endl;
-  }
+// cout<<"Sem tlele 5"<<endl;
+//   }
 
-//_________________________ Lets handle v-projection view ______________________________
+// //_________________________ Lets handle v-projection view ______________________________
 
-  if (fTextButtonProj->IsOn() && fTextButtonVPlane->IsOn())
-  {
+//   if (fTextButtonProj->IsOn() && fTextButtonVPlane->IsOn())
+//   {
 
-#if DEBUG_LEVEL >= 3
-    cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
-    cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
-    cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
-    cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
-    cout<<endl;
-    cout<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
+//     cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
+//     cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
+//     cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
+//     cout<<endl;
+//     cout<<endl;
+// #endif
 
-    c2->cd();
-    v1->clear();  
-    v1p->clear();
-    v2->clear();  
-    v2p->clear();
+//     c2->cd();
+//     v1->clear();  
+//     v1p->clear();
+//     v2->clear();  
+//     v2p->clear();
 
-    c2->Update();
+//     c2->Update();
 
 
-    if (title != NULL) delete title;
-    title = new TLatex(0.02,0.96, graph_title);
-    title->SetTextSize(0.03);
-    title->Draw();   
+//     if (title != NULL) delete title;
+//     title = new TLatex(0.02,0.96, graph_title);
+//     title->SetTextSize(0.03);
+//     title->Draw();   
 
-    for (int i = 0; i<B_mwdc_v1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** V1 Wire No.: "<<B_mwdc_v1_hit_wire[i]<<" is: "<<B_mwdc_v1_hit_time[i]<<endl;
-#endif
-        v1->SetWire(B_mwdc_v1_hit_wire[i],1.0E9*B_mwdc_v1_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_v1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** V1 Wire No.: "<<B_mwdc_v1_hit_wire[i]<<" is: "<<B_mwdc_v1_hit_time[i]<<endl;
+// #endif
+//         v1->SetWire(B_mwdc_v1_hit_wire[i],1.0E9*B_mwdc_v1_hit_time[i]); 
+//     }
     
-    for (int i = 0; i<B_mwdc_v1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** V1p Wire No.: "<<B_mwdc_v1p_hit_wire[i]<<" is: "<<B_mwdc_v1p_hit_time[i]<<endl;
-#endif
-        v1p->SetWire(B_mwdc_v1p_hit_wire[i],1.0E9*B_mwdc_v1p_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_v1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** V1p Wire No.: "<<B_mwdc_v1p_hit_wire[i]<<" is: "<<B_mwdc_v1p_hit_time[i]<<endl;
+// #endif
+//         v1p->SetWire(B_mwdc_v1p_hit_wire[i],1.0E9*B_mwdc_v1p_hit_time[i]); 
+//     }
 
-    for (int i = 0; i<B_mwdc_v2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** V2 Wire No.: "<<B_mwdc_v2_hit_wire[i]<<" is: "<<B_mwdc_v2_hit_time[i]<<endl;
-#endif
-        v2->SetWire(B_mwdc_v2_hit_wire[i],1.0E9*B_mwdc_v2_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_v2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** V2 Wire No.: "<<B_mwdc_v2_hit_wire[i]<<" is: "<<B_mwdc_v2_hit_time[i]<<endl;
+// #endif
+//         v2->SetWire(B_mwdc_v2_hit_wire[i],1.0E9*B_mwdc_v2_hit_time[i]); 
+//     }
     
-    for (int i = 0; i<B_mwdc_v2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** V2p Wire No.: "<<B_mwdc_v2p_hit_wire[i]<<" is: "<<B_mwdc_v2p_hit_time[i]<<endl;
-#endif
-        v2p->SetWire(B_mwdc_v2p_hit_wire[i],1.0E9*B_mwdc_v2p_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_v2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** V2p Wire No.: "<<B_mwdc_v2p_hit_wire[i]<<" is: "<<B_mwdc_v2p_hit_time[i]<<endl;
+// #endif
+//         v2p->SetWire(B_mwdc_v2p_hit_wire[i],1.0E9*B_mwdc_v2p_hit_time[i]); 
+//     }
 
-    vmrd->Clear();
-    for (int q=0; q< MAX_ROADS_NUM; q++) vtr[q]->Clear();
+//     vmrd->Clear();
+//     for (int q=0; q< MAX_ROADS_NUM; q++) vtr[q]->Clear();
 
-#if DEBUG_LEVEL >= 3
-    cout<<"Number of roads in V projection is: "<<B_mwdc_v_nroads<<endl;
-    cout<<"Number of good roads in V projection is: "<<B_mwdc_v_ngood<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Number of roads in V projection is: "<<B_mwdc_v_nroads<<endl;
+//     cout<<"Number of good roads in V projection is: "<<B_mwdc_v_ngood<<endl;
+// #endif
    
-    for (int j = 0; j<B_mwdc_v_nroads; j++)
-    { 
-#if DEBUG_LEVEL >= 3
-        cout<<"******** Data for V road No.: "<<j<<" ************"<<endl;
-        cout<<"-----> zL: "<<B_mwdc_v_rd_zL[j]<<endl;
-	cout<<"-----> zU: "<<B_mwdc_v_rd_zU[j]<<endl;
-	cout<<"-----> xLL: "<<B_mwdc_v_rd_xLL[j]<<endl;
-	cout<<"-----> xLR: "<<B_mwdc_v_rd_xLR[j]<<endl;
-	cout<<"-----> xUL: "<<B_mwdc_v_rd_xUL[j]<<endl;
-	cout<<"-----> xUR: "<<B_mwdc_v_rd_xUR[j]<<endl;
-        cout<<endl;
-	cout<<"-----> good: "<<B_mwdc_v_rd_good[j]<<endl;
-	cout<<"-----> chi2: "<<B_mwdc_v_rd_chi2[j]<<endl;
-	cout<<"-----> pos: "<<B_mwdc_v_rd_pos[j]<<endl;
-	cout<<"-----> slope: "<<B_mwdc_v_rd_slope[j]<<endl;
-        cout<<"************************************************"<<endl;
-#endif
-	 Double_t y[4] = {B_mwdc_v_rd_zL[j],
-			  B_mwdc_v_rd_zU[j],
-			  B_mwdc_v_rd_zU[j], 
-			  B_mwdc_v_rd_zL[j]};
+//     for (int j = 0; j<B_mwdc_v_nroads; j++)
+//     { 
+// #if DEBUG_LEVEL >= 3
+//         cout<<"******** Data for V road No.: "<<j<<" ************"<<endl;
+//         cout<<"-----> zL: "<<B_mwdc_v_rd_zL[j]<<endl;
+// 	cout<<"-----> zU: "<<B_mwdc_v_rd_zU[j]<<endl;
+// 	cout<<"-----> xLL: "<<B_mwdc_v_rd_xLL[j]<<endl;
+// 	cout<<"-----> xLR: "<<B_mwdc_v_rd_xLR[j]<<endl;
+// 	cout<<"-----> xUL: "<<B_mwdc_v_rd_xUL[j]<<endl;
+// 	cout<<"-----> xUR: "<<B_mwdc_v_rd_xUR[j]<<endl;
+//         cout<<endl;
+// 	cout<<"-----> good: "<<B_mwdc_v_rd_good[j]<<endl;
+// 	cout<<"-----> chi2: "<<B_mwdc_v_rd_chi2[j]<<endl;
+// 	cout<<"-----> pos: "<<B_mwdc_v_rd_pos[j]<<endl;
+// 	cout<<"-----> slope: "<<B_mwdc_v_rd_slope[j]<<endl;
+//         cout<<"************************************************"<<endl;
+// #endif
+// 	 Double_t y[4] = {B_mwdc_v_rd_zL[j],
+// 			  B_mwdc_v_rd_zU[j],
+// 			  B_mwdc_v_rd_zU[j], 
+// 			  B_mwdc_v_rd_zL[j]};
 
-        Double_t x[4] = {B_mwdc_v_rd_xLL[j],
-			 B_mwdc_v_rd_xUL[j], 
-			 B_mwdc_v_rd_xUR[j], 
-			 B_mwdc_v_rd_xLR[j]};
+//         Double_t x[4] = {B_mwdc_v_rd_xLL[j],
+// 			 B_mwdc_v_rd_xUL[j], 
+// 			 B_mwdc_v_rd_xUR[j], 
+// 			 B_mwdc_v_rd_xLR[j]};
 	
-	if (fTextButtonRoads->IsOn()) vmrd->Show(j,x,y);
+// 	if (fTextButtonRoads->IsOn()) vmrd->Show(j,x,y);
 
-        if (B_mwdc_v_rd_good[j]>0 && fTextButtonTrackProj->IsOn() )
-	{
-		// If road is good, then we draw the calculated track.
-		double tz1 = -0.4; // in meters
-		double tz2 = 1.2; // in meters
-		double tx1 = B_mwdc_v_rd_slope[j]*tz1 + B_mwdc_v_rd_pos[j];
-		double tx2 = B_mwdc_v_rd_slope[j]*tz2 + B_mwdc_v_rd_pos[j];
+//         if (B_mwdc_v_rd_good[j]>0 && fTextButtonTrackProj->IsOn() )
+// 	{
+// 		// If road is good, then we draw the calculated track.
+// 		double tz1 = -0.4; // in meters
+// 		double tz2 = 1.2; // in meters
+// 		double tx1 = B_mwdc_v_rd_slope[j]*tz1 + B_mwdc_v_rd_pos[j];
+// 		double tx2 = B_mwdc_v_rd_slope[j]*tz2 + B_mwdc_v_rd_pos[j];
 		
-		vtr[j]->DrawMe(tx1,tz1,tx2,tz2);
-	}
-    }
-    c2->Draw();
-    c2->Update(); 
-  }
+// 		vtr[j]->DrawMe(tx1,tz1,tx2,tz2);
+// 	}
+//     }
+//     c2->Draw();
+//     c2->Update(); 
+//   }
 
-//_________________________ Lets handle x-projection view ______________________________
+// //_________________________ Lets handle x-projection view ______________________________
 
-  if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
-  {
+//   if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
+//   {
     
-#if DEBUG_LEVEL >= 3
-    cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
-    cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
-    cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
-    cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
-    cout<<endl;
-    cout<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
+//     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
+//     cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
+//     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
+//     cout<<endl;
+//     cout<<endl;
+// #endif
 
-    c4->cd();
-    x1->clear();  
-    x1p->clear();
-    x2->clear();  
-    x2p->clear();
+//     c4->cd();
+//     x1->clear();  
+//     x1p->clear();
+//     x2->clear();  
+//     x2p->clear();
 
-    c4->Update();
+//     c4->Update();
 
 
-    if (title != NULL) delete title;
-    title = new TLatex(0.02,0.96, graph_title);
-    title->SetTextSize(0.03);
-    title->Draw();   
+//     if (title != NULL) delete title;
+//     title = new TLatex(0.02,0.96, graph_title);
+//     title->SetTextSize(0.03);
+//     title->Draw();   
 
-    for (int i = 0; i<B_mwdc_x1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** X1 Wire No.: "<<B_mwdc_x1_hit_wire[i]<<" is: "<<B_mwdc_x1_hit_time[i]<<endl;
-#endif
-        x1->SetWire(B_mwdc_x1_hit_wire[i],1.0E9*B_mwdc_x1_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_x1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** X1 Wire No.: "<<B_mwdc_x1_hit_wire[i]<<" is: "<<B_mwdc_x1_hit_time[i]<<endl;
+// #endif
+//         x1->SetWire(B_mwdc_x1_hit_wire[i],1.0E9*B_mwdc_x1_hit_time[i]); 
+//     }
     
-    for (int i = 0; i<B_mwdc_x1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** X1p Wire No.: "<<B_mwdc_x1p_hit_wire[i]<<" is: "<<B_mwdc_x1p_hit_time[i]<<endl;
-#endif
-        x1p->SetWire(B_mwdc_x1p_hit_wire[i],1.0E9*B_mwdc_x1p_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_x1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** X1p Wire No.: "<<B_mwdc_x1p_hit_wire[i]<<" is: "<<B_mwdc_x1p_hit_time[i]<<endl;
+// #endif
+//         x1p->SetWire(B_mwdc_x1p_hit_wire[i],1.0E9*B_mwdc_x1p_hit_time[i]); 
+//     }
 
-    for (int i = 0; i<B_mwdc_x2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** X2 Wire No.: "<<B_mwdc_x2_hit_wire[i]<<" is: "<<B_mwdc_x2_hit_time[i]<<endl;
-#endif
-        x2->SetWire(B_mwdc_x2_hit_wire[i],1.0E9*B_mwdc_x2_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_x2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** X2 Wire No.: "<<B_mwdc_x2_hit_wire[i]<<" is: "<<B_mwdc_x2_hit_time[i]<<endl;
+// #endif
+//         x2->SetWire(B_mwdc_x2_hit_wire[i],1.0E9*B_mwdc_x2_hit_time[i]); 
+//     }
     
-    for (int i = 0; i<B_mwdc_x2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-        cout<<"***** X2p Wire No.: "<<B_mwdc_x2p_hit_wire[i]<<" is: "<<B_mwdc_x2p_hit_time[i]<<endl;
-#endif
-        x2p->SetWire(B_mwdc_x2p_hit_wire[i],1.0E9*B_mwdc_x2p_hit_time[i]); 
-    }
+//     for (int i = 0; i<B_mwdc_x2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+//         cout<<"***** X2p Wire No.: "<<B_mwdc_x2p_hit_wire[i]<<" is: "<<B_mwdc_x2p_hit_time[i]<<endl;
+// #endif
+//         x2p->SetWire(B_mwdc_x2p_hit_wire[i],1.0E9*B_mwdc_x2p_hit_time[i]); 
+//     }
 
-    xmrd->Clear();
-    for (int q=0; q< MAX_ROADS_NUM; q++) xtr[q]->Clear();
+//     xmrd->Clear();
+//     for (int q=0; q< MAX_ROADS_NUM; q++) xtr[q]->Clear();
 
-#if DEBUG_LEVEL >= 3
-    cout<<"Number of roads in X projection is: "<<B_mwdc_x_nroads<<endl;
-    cout<<"Number of good roads in X projection is: "<<B_mwdc_x_ngood<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Number of roads in X projection is: "<<B_mwdc_x_nroads<<endl;
+//     cout<<"Number of good roads in X projection is: "<<B_mwdc_x_ngood<<endl;
+// #endif
 
-    for (int j = 0; j<B_mwdc_x_nroads; j++)
-    { 
-#if DEBUG_LEVEL >= 3
-        cout<<"******** Data for X road No.: "<<" ************"<<endl;
-        cout<<"-----> zL: "<<B_mwdc_x_rd_zL[j]<<endl;
-	cout<<"-----> zU: "<<B_mwdc_x_rd_zU[j]<<endl;
-	cout<<"-----> xLL: "<<B_mwdc_x_rd_xLL[j]<<endl;
-	cout<<"-----> xLR: "<<B_mwdc_x_rd_xLR[j]<<endl;
-	cout<<"-----> xUL: "<<B_mwdc_x_rd_xUL[j]<<endl;
-	cout<<"-----> xUR: "<<B_mwdc_x_rd_xUR[j]<<endl;
-        cout<<endl;
-	cout<<"-----> good: "<<B_mwdc_x_rd_good[j]<<endl;
-	cout<<"-----> chi2: "<<B_mwdc_x_rd_chi2[j]<<endl;
-	cout<<"-----> pos: "<<B_mwdc_x_rd_pos[j]<<endl;
-	cout<<"-----> slope: "<<B_mwdc_x_rd_slope[j]<<endl;
-        cout<<"************************************************"<<endl;
-#endif	
-	 Double_t y[4] = {B_mwdc_x_rd_zL[j],
-			  B_mwdc_x_rd_zU[j],
-			  B_mwdc_x_rd_zU[j], 
-			  B_mwdc_x_rd_zL[j]};
+//     for (int j = 0; j<B_mwdc_x_nroads; j++)
+//     { 
+// #if DEBUG_LEVEL >= 3
+//         cout<<"******** Data for X road No.: "<<" ************"<<endl;
+//         cout<<"-----> zL: "<<B_mwdc_x_rd_zL[j]<<endl;
+// 	cout<<"-----> zU: "<<B_mwdc_x_rd_zU[j]<<endl;
+// 	cout<<"-----> xLL: "<<B_mwdc_x_rd_xLL[j]<<endl;
+// 	cout<<"-----> xLR: "<<B_mwdc_x_rd_xLR[j]<<endl;
+// 	cout<<"-----> xUL: "<<B_mwdc_x_rd_xUL[j]<<endl;
+// 	cout<<"-----> xUR: "<<B_mwdc_x_rd_xUR[j]<<endl;
+//         cout<<endl;
+// 	cout<<"-----> good: "<<B_mwdc_x_rd_good[j]<<endl;
+// 	cout<<"-----> chi2: "<<B_mwdc_x_rd_chi2[j]<<endl;
+// 	cout<<"-----> pos: "<<B_mwdc_x_rd_pos[j]<<endl;
+// 	cout<<"-----> slope: "<<B_mwdc_x_rd_slope[j]<<endl;
+//         cout<<"************************************************"<<endl;
+// #endif	
+// 	 Double_t y[4] = {B_mwdc_x_rd_zL[j],
+// 			  B_mwdc_x_rd_zU[j],
+// 			  B_mwdc_x_rd_zU[j], 
+// 			  B_mwdc_x_rd_zL[j]};
 
-        Double_t x[4] = {B_mwdc_x_rd_xLL[j],
-			 B_mwdc_x_rd_xUL[j], 
-			 B_mwdc_x_rd_xUR[j], 
-			 B_mwdc_x_rd_xLR[j]};
+//         Double_t x[4] = {B_mwdc_x_rd_xLL[j],
+// 			 B_mwdc_x_rd_xUL[j], 
+// 			 B_mwdc_x_rd_xUR[j], 
+// 			 B_mwdc_x_rd_xLR[j]};
 	
-	if (fTextButtonRoads->IsOn()) xmrd->Show(j,x,y);
+// 	if (fTextButtonRoads->IsOn()) xmrd->Show(j,x,y);
 
-        if (B_mwdc_x_rd_good[j]>0 && fTextButtonTrackProj->IsOn())
-	{
-		// If road is good, then we draw the calculated track.
-		double tz1 = -0.4; // in meters
-		double tz2 = 1.2; // in meters
-		double tx1 = B_mwdc_x_rd_slope[j]*tz1 + B_mwdc_x_rd_pos[j];
-		double tx2 = B_mwdc_x_rd_slope[j]*tz2 + B_mwdc_x_rd_pos[j];
+//         if (B_mwdc_x_rd_good[j]>0 && fTextButtonTrackProj->IsOn())
+// 	{
+// 		// If road is good, then we draw the calculated track.
+// 		double tz1 = -0.4; // in meters
+// 		double tz2 = 1.2; // in meters
+// 		double tx1 = B_mwdc_x_rd_slope[j]*tz1 + B_mwdc_x_rd_pos[j];
+// 		double tx2 = B_mwdc_x_rd_slope[j]*tz2 + B_mwdc_x_rd_pos[j];
 		
-		xtr[j]->DrawMe(tx1,tz1,tx2,tz2);
-	}
-    }
+// 		xtr[j]->DrawMe(tx1,tz1,tx2,tz2);
+// 	}
+//     }
   
-    c4->Draw();
-    c4->Update(); 
-  }
+//     c4->Draw();
+//     c4->Update(); 
+//   }
 
+  }
 
 //_________________________ Lets handle Planar view  ______________________________
 
@@ -884,130 +885,130 @@ cout<<"Sem tlele 5"<<endl;
 
     //***************** First Chamber
 
-#if DEBUG_LEVEL >= 3
-    cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
-    cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
-    cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
-    cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
-    cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
-    cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
+//     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
+//     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
+//     cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
+//     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
+//     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
+// #endif
 
-    mwdc1->clear();
-    for(int i = 0; i<B_mwdc_u1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
-#endif
-        mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
-    } 
+//     mwdc1->clear();
+//     for(int i = 0; i<B_mwdc_u1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
+// #endif
+//         mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
+//     } 
 
-    for(int i = 0; i<B_mwdc_u1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
-#endif
-        mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
-    } 
-
-
-    for(int i = 0; i<B_mwdc_v1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
-#endif
-        mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
-    } 
-
-    for(int i = 0; i<B_mwdc_v1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
-#endif
-        mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_u1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
+// #endif
+//         mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
-#endif
-        mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_v1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
+// #endif
+//         mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
+//     } 
+
+//     for(int i = 0; i<B_mwdc_v1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
+// #endif
+//         mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
-#endif
-        mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_x1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
+// #endif
+//         mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
+//     } 
 
 
-    //***************** Second Chamber
-
-#if DEBUG_LEVEL >= 3
-    cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
-    cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
-    cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
-    cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
-    cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
-    cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
-#endif
-
-    mwdc2->clear();
-    for(int i = 0; i<B_mwdc_u2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
-#endif
-        mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
-    } 
-
-    for(int i = 0; i<B_mwdc_u2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
-#endif
-        mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_x1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
+// #endif
+//         mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_v2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
-#endif
-        mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
-    } 
+//     //***************** Second Chamber
 
-    for(int i = 0; i<B_mwdc_v2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
-#endif
-        mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
-    } 
+// #if DEBUG_LEVEL >= 3
+//     cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
+//     cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
+//     cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
+//     cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
+//     cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
+//     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
+// #endif
+
+//     mwdc2->clear();
+//     for(int i = 0; i<B_mwdc_u2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
+// #endif
+//         mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
+//     } 
+
+//     for(int i = 0; i<B_mwdc_u2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
+// #endif
+//         mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
-#endif
-        mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_v2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
+// #endif
+//         mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
+//     } 
+
+//     for(int i = 0; i<B_mwdc_v2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
+// #endif
+//         mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
-#endif
-        mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_x2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
+// #endif
+//         mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
+//     } 
+
+
+//     for(int i = 0; i<B_mwdc_x2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3
+// 	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
+// #endif
+//         mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
+//     } 
  
 
     //******** Now scintillaion planes
@@ -1137,111 +1138,111 @@ for (int i = 0; i<E_PN; i++)
 
     //***************** First chamber
 
-    bigbite->mwdc1->clear();
-    for(int i = 0; i<B_mwdc_u1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
-    } 
+//     bigbite->mwdc1->clear();
+//     for(int i = 0; i<B_mwdc_u1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
+//     } 
 
-    for(int i = 0; i<B_mwdc_u1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_u1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
+//     } 
 
-    for(int i = 0; i<B_mwdc_v1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_v1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
+//     } 
 
-    for(int i = 0; i<B_mwdc_v1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
-    } 
-
-
-    for(int i = 0; i<B_mwdc_x1_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_v1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x1p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_x1_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
+//     } 
 
-    //***************** Second chamber
+
+//     for(int i = 0; i<B_mwdc_x1p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
+//     } 
+
+//     //***************** Second chamber
 
    
-    bigbite->mwdc2->clear();
-    for(int i = 0; i<B_mwdc_u2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
-    } 
+//     bigbite->mwdc2->clear();
+//     for(int i = 0; i<B_mwdc_u2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
+//     } 
 
-    for(int i = 0; i<B_mwdc_u2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
-    } 
-
-
-    for(int i = 0; i<B_mwdc_v2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
-    } 
-
-    for(int i = 0; i<B_mwdc_v2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_u2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x2_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_v2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
+//     } 
+
+//     for(int i = 0; i<B_mwdc_v2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
+//     } 
 
 
-    for(int i = 0; i<B_mwdc_x2p_nhits; i++)
-    {
-#if DEBUG_LEVEL >= 3	
-	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
-#endif
-        bigbite->mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
-    } 
+//     for(int i = 0; i<B_mwdc_x2_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
+//     } 
+
+
+//     for(int i = 0; i<B_mwdc_x2p_nhits; i++)
+//     {
+// #if DEBUG_LEVEL >= 3	
+// 	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
+// #endif
+//         bigbite->mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
+//     } 
 
     // Now scintillaion plane
     bigbite->scintdE->clear();

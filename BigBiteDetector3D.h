@@ -19,7 +19,7 @@
 #include "TGeoBBox.h"
 #include "TGeoTrd2.h"
 #include "TGeoTube.h"
-#include "BigBiteOgrodje3D.h"
+///#include "BigBiteOgrodje3D.h"
 #include "ScintilationPlane3D.h"
 #include "MWDChamber3D.h"
 #include  "TGeoPhysicalNode.h"

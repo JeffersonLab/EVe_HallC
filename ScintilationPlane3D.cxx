@@ -25,8 +25,8 @@ ScintilationPlane3D::ScintilationPlane3D(char *ime, int n, double x, double y, d
 {
    N = n;
 
-   // koordinate x, y, z dolocajo sredisce scintilacijske ravnine
-   // izracunajmo sredisce ravnine
+   // koordinate x, y, z - determine the center of scintillation plane
+   // Compute the center plane
  
    double sy0 = y;
    double sx0 = x - (height*(n)/2.0 - height/2.0);

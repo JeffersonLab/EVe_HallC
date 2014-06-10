@@ -45,7 +45,7 @@ WirePlane::WirePlane(char *ime, int n, double x, double y, double l, double a, d
      wire[i] = new TEllipse(x0+a*fac*(i), y0, a*0.001, b*0.001);
      wire[i]->SetFillColor(kBlack);
      wire[i]->Draw();
-     // sedaj naredimo se signali, ki so veliki nic
+     // Draw the wires, initializing them all to 0 (no hits)
      time[i] = new TLine(x0+a*fac*(i), y0+0.0, x0+a*fac*(i), y0-0.0);
      time[i] -> SetLineColor(kBlack);
      time[i] -> Draw();

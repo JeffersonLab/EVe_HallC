@@ -35,15 +35,16 @@ BigBiteDetector3D::BigBiteDetector3D()
 
 
       TGeoRotation r1;
+      TGeoRotation r2;
       TGeoTranslation t1(100.0, 0.0, 60.0);
       TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1); 
 
-      TGeoVolume *ogrodje_volume = mgr->MakeBox("ogrodje_volume",medium,50,50,200);
-      BigBiteOgrodje3D *ogrodje = new BigBiteOgrodje3D( 0.0, 0.0, 0.0, ogrodje_volume);
-      r1.SetAngles(90,0,90,90,0,0);
-      t1.SetTranslation(magnet_xpos, magnet_ypos, magnet_zpos);
-      comb = new TGeoCombiTrans(t1, r1);
-      top->AddNodeOverlap(ogrodje_volume,1, comb);
+      // TGeoVolume *ogrodje_volume = mgr->MakeBox("ogrodje_volume",medium,50,50,200);
+      // BigBiteOgrodje3D *ogrodje = new BigBiteOgrodje3D( 0.0, 0.0, 0.0, ogrodje_volume);
+      // r1.SetAngles(90,0,90,90,0,0);
+      // t1.SetTranslation(magnet_xpos, magnet_ypos, magnet_zpos);
+      // comb = new TGeoCombiTrans(t1, r1);
+      // top->AddNodeOverlap(ogrodje_volume,1, comb);
 
       // Fist MWDC      
       // TODO: Wire number is different in different wire planes. For now we asume
@@ -68,9 +69,10 @@ BigBiteDetector3D::BigBiteDetector3D()
       // dE - Scintillation Plane
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
       scintdE = new ScintilationPlane3D((char*)"dE-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
-      r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
+      // r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
+      r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
       t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos);
-      comb = new TGeoCombiTrans(t1, r1); 
+      comb = new TGeoCombiTrans(t1, r2); 
       top->AddNodeOverlap(scint_volume2,1,comb);
 
       // E - Scintillation Plane  

@@ -10,7 +10,7 @@
   char filename[300];  
   FILE *fd;
   const char* paths[] = {  
-    "/adaqfs/home/adaq/e04007/onlana/ROOTfiles/",
+    "/u/home/davispbr/hcana-copy/EVe/",
     "./",
     0
   };

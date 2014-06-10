@@ -4,7 +4,7 @@
 // 
 //  by miham
 // 
-//  This class is used to create planar view one scintilation paddle.
+//  This class is used to create planar view one scintillation paddle.
 //
 //
 //*************************************************************************  

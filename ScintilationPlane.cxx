@@ -31,13 +31,13 @@ ScintilationPlane::ScintilationPlane(char *ime, int n,  double plength, double p
    paddle_length = plength;
    paddle_height = pheight;
 
-   // v osnovi ima paddle, ki smo ga narisali taksne dimenzije
+   //Basically a paddle - draw dimensions
    double fpaddleH = 0.25;
    double fpaddleL = 0.5625;
-   // Sedaj pa je treba paddle spraviti v merilo. Zato izvedemo vse te transformacije
-   // Potem bo paddle res velik toliko kot je treba
+   // Now it should be placed in a paddle criterion - all these transformations
+   // Then the really big paddle as much as it should be
    
-   // now we make proper transformation to get to the left upper corner.
+   // now we make proper transformations to get to the left upper corner.
    sx0 = cst->transXtoCX(0.0) - cst->transLtoCL(paddle_length/2.0); 
    sy0 = cst->transYtoCY(0.0) + cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
 
@@ -61,7 +61,7 @@ ScintilationPlane::ScintilationPlane(char *ime, int n,  double plength, double p
 
    for(int i = 0; i<MAX_TRACK_NUM; i++)track_circ[i] = new TEllipse(0,0,0);
    
-   cout<<"Scintilation Plane is created!"<<endl;
+   cout<<"Scintillation Plane is created!"<<endl;
 }
 
 
