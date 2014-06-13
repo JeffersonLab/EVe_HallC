@@ -29,6 +29,7 @@ public:
 protected:
   double sx0, sy0,spmtx,spmty;  // starting positions for coordinates
   double paddle_length;
+  int pmtnum;                //# of PMTS on scintillator (1 or 2)
   TPolyLine *plineL;
   TPolyLine *plineR;
   TPolyLine *scintillator; 

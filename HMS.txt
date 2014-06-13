@@ -1,0 +1,11 @@
+////// Input text file for Eve Event Display.     ////////
+////// HMS for Hall C text file                   ////////
+
+ScintXlength = 
+ScintYlength = 
+ScintZlength = 
+PMTnum = 
+
+HodXpos =
+HodYpos = 
+HodPaddleN = 

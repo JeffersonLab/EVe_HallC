@@ -34,6 +34,7 @@ Scintillator::Scintillator(int index, double xpos, double ypos, double pmtx, dou
    spmtx = pmtx;
    spmty = pmty;
    paddle_length = length;
+   PMTn = pmtnum;
 
    // first make left photomultiplier
    Double_t xL[7] = {pmtx*0.0 + sx0 ,pmtx*0.09375 + sx0 ,pmtx*0.21875 + sx0 , pmtx*0.21875 + sx0 , pmtx*0.09375 + sx0 , pmtx*0.0 + sx0 , pmtx*0.0 + sx0 };
@@ -46,7 +47,7 @@ Scintillator::Scintillator(int index, double xpos, double ypos, double pmtx, dou
    plineL->Draw();
 
    // Then right photomultiplier
-
+   if (PMTn == 2) {
    Double_t xR[7] = {pmtx*0.78125 + sx0 ,pmtx*0.90625 + sx0 ,pmtx*1.0 + sx0 ,pmtx*1.0 + sx0 ,pmtx*0.90625 + sx0 , pmtx*0.78125 + sx0 , pmtx*0.78125 + sx0 };
    Double_t yR[7] = {pmty*0.25 + ypos , pmty*0.175 + ypos, pmty*0.175 + ypos, pmty*0.075 + ypos, pmty*0.075 + ypos, pmty*0.0 + ypos, pmty*0.25 + ypos};
 
@@ -56,6 +57,7 @@ Scintillator::Scintillator(int index, double xpos, double ypos, double pmtx, dou
    plineR->SetLineWidth(1);
    plineR->Draw("f");
    plineR->Draw();
+   }
 
    // Now do the scintillation material
 
