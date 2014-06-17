@@ -8,8 +8,8 @@
 */
 ///////////////////////////////////////
 
-#ifndef ROOT_scintillatorpaddle
-#define ROOT_scintillatorpaddle
+#ifndef ROOT_ScintillatorPaddle
+#define ROOT_ScintillatorPaddle
 
 #include "TCanvas.h"
 #include "TPolyLine.h"
