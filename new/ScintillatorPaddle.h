@@ -26,7 +26,7 @@ class ScintillatorPaddle {
   void clear();
 
  protected:
-  double x0, y0, pa, py;
+  double x0, y0, pa, pb;
   double paddle_length;
   int n;
   TPolyLine *plineL;

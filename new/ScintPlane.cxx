@@ -40,7 +40,7 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   sb = CH/fpaddleH; 
 
   for(int i=0;i<n;i++) {
-    paddle[i] = new ScintillationPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, 2);
+    paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, 2);
   }
 
 

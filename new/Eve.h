@@ -8,8 +8,8 @@
 */
 ///////////////////////////////////////
 
-#ifndef ROOT_EVe
-#define ROOT_EVe
+#ifndef ROOT_Eve
+#define ROOT_Eve
 
 
 #include "TCanvas.h"
@@ -23,6 +23,8 @@
 #include "TTree.h"
 #include "TFile.h"
 
+#include "CStransform.h"
+#include "ScintPlane.h"
 #include "THaRun.h"
 #include <TString.h>
 #include <TGFileDialog.h>
@@ -35,6 +37,8 @@ class Eve{
   Eve(const TGWindow *p,UInt_t w, UInt_t h);
   ~Eve();
   
+
+  void CreateWires();
   void initRun(char *filename);
   void DoDraw(int event);
   void doNext();
@@ -62,7 +66,8 @@ class Eve{
 
   TGNumberEntry *fNumberEntry1; 
 
-
+  ScintPlane *sdE;
+  ScintPlane *sE;
 
 
   int EventNumber;
@@ -74,11 +79,31 @@ class Eve{
   TTree *t1;
 
 
+  // variables for scintillation plane
+  Double_t B_tp_e_nhit;
+  Double_t B_tp_e_LT[25];
+  Double_t B_tp_e_RT[25];
+  Double_t B_tp_e_hit_ypos[25];
+  Double_t B_tp_e_hit_bar[25];
+  
+  
+  Double_t B_tp_de_nhit;
+  Double_t B_tp_de_LT[25];
+  Double_t B_tp_de_RT[25];
+  Double_t B_tp_de_hit_ypos[25];
+  Double_t B_tp_de_hit_bar[25];
+
+
+  int run_number;
+  const char *crun_number;
+  
+  const char *graph_title;
+  
+  TLatex *title;
 
 
 
 
 
-
-}
+};
 #endif

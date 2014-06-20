@@ -9,7 +9,7 @@
 */
 ///////////////////////////////////////
 
-#include "Scintilator.h"
+#include "ScintillatorPaddle.h"
 #include "TMath.h"
 #include <cstring>
 #include <cstdio>
@@ -61,7 +61,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
 
   // Scintillation Material
  
-  Double_t xscint[5] = {a*0.21875 + sx0, a*0.78125 + sx0, a*0.78125 + sx0, a*0.21875 + sx0, a*0.21875 + sx0};
+  Double_t xscint[5] = {a*0.21875 + x0, a*0.78125 + x0, a*0.78125 + x0, a*0.21875 + x0, a*0.21875 + x0};
   Double_t yscint[5] = {b*0.0 + y, b*0.0 + y, b*0.25 + y,b*0.25 + y, b*0.0 + y};
 
   scint = new TPolyLine(5,xscint,yscint);

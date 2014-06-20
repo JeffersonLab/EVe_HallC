@@ -5,23 +5,20 @@
 # that can be loaded from a script.
 # List only the implementation files (*.cxx). For every implementation file
 # there must be a corresponding header file (*.h).
-SRC  =   Scintilator.cxx ScintilationPlane.cxx \
-	 Scintilator3D.cxx ScintilationPlane3D.cxx\
-         MWDChamber.cxx MWDChamber3D.cxx \
-         BigBiteOgrodje3D.cxx BigBiteDetector3D.cxx WirePlane.cxx \
-	 CStransform.cxx Road.cxx MultiRoads.cxx Track.cxx TPremica3D.cxx Trajectory3D.cxx \
-	 FullTrajectory3D.cxx EVe.cxx
+SRC  =   ScintillatorPaddle.cxx ScintPlane.cxx \
+	 CStransform.cxx \
+	 Eve.cxx
 
 # Name of your package. 
 # The shared library that will be built will get the name lib$(PACKAGE).so
-PACKAGE = EVe
+PACKAGE = Eve
 # Name of the LinkDef file
 LINKDEF = $(PACKAGE)_LinkDef.h
 #------------------------------------------------------------------------------
 # This part defines overall options and directory locations.
 # Change as necessary,
 # Compile debug version
-export DEBUG = 1
+#export DEBUG = 1
 # Architecture to compile for
 ARCH          = linuxegcs
 #ARCH          = solarisCC5
