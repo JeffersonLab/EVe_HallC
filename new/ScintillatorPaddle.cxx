@@ -18,7 +18,7 @@
 
 using namespace std;
 
-ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, double b, double length, int num) 
+ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, double b, double length, int PMTn) 
 {
 
   // x and y are the coords of the lower left edge of the object
@@ -32,7 +32,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   pa = a;
   pb = b;
   paddle_length = length;
-  n = num;
+  n = PMTn;
   n = 2;
 
   // Left PMT
