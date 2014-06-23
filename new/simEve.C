@@ -1,7 +1,7 @@
 {
   #include <TGClient.h>
   gSystem->Load("libGeom");
-  gSystem->Load("libEVe.so");
+  gSystem->Load("libEve.so");
   
 
   int nrun, nev;

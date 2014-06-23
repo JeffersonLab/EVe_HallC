@@ -8,8 +8,8 @@
 */
 ///////////////////////////////////////
 
-#ifndef ROOT_EVe_DB
-#define ROOT_EVe_DB
+#ifndef ROOT_Eve_DB
+#define ROOT_Eve_DB
 
 // Technical Variables for internal puposes of event display
 	

@@ -3,5 +3,5 @@
 \#*
 *.o
 *.d
-EVeDict.*
+EveDict.*
 libEve.so

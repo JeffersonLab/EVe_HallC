@@ -32,7 +32,7 @@
 
 
 class Eve{
-  RQ_OBJECT("Eve");
+  RQ_OBJECT("Eve")
  public:
   Eve(const TGWindow *p,UInt_t w, UInt_t h);
   ~Eve();
