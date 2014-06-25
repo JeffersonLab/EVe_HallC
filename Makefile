@@ -5,7 +5,7 @@
 # that can be loaded from a script.
 # List only the implementation files (*.cxx). For every implementation file
 # there must be a corresponding header file (*.h).
-SRC  =   Scintilator.cxx ScintilationPlane.cxx \
+SRC  =   ScintillatorPaddle.cxx ScintPlane.cxx \
 	 Scintilator3D.cxx ScintilationPlane3D.cxx\
          MWDChamber.cxx MWDChamber3D.cxx \
          BigBiteOgrodje3D.cxx BigBiteDetector3D.cxx WirePlane.cxx \

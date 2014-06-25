@@ -340,8 +340,8 @@ void EVe::CreateWires()
    // mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
    // mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
   
-   sdE = new ScintilationPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst);
-   sE = new ScintilationPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst);
+   sdE = new ScintPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst);
+   sE = new ScintPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst);
 
    // In the end we plot a coordinate system
 

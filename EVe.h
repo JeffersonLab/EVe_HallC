@@ -28,7 +28,7 @@
 #include "CStransform.h"
 #include "MultiRoads.h"
 #include "Track.h"
-#include "ScintilationPlane.h"
+#include "ScintPlane.h"
 #include "BigBiteDetector3D.h"
 #include "THaRun.h"
 #include <TString.h>
@@ -81,8 +81,8 @@ private:
   MWDChamber *mwdc1;
   MWDChamber *mwdc2;
 
-  ScintilationPlane *sdE;
-  ScintilationPlane *sE;
+  ScintPlane *sdE;
+  ScintPlane *sE;
 
   int EventNumber;
   int TotalNumberOfEvents;

@@ -34,11 +34,11 @@ Eve::Eve(const TGWindow *p, UInt_t w, UInt_t h)
    // embedded canvas
    fRootEmbeddedCanvas = new TRootEmbeddedCanvas(0,fMainFrame,h-16, h-16);
    Int_t wfRootEmbeddedCanvas = fRootEmbeddedCanvas->GetCanvasWindowId();
-   c1 = new TCanvas("c1", 10, 10, wfRootEmbeddedCanvas);
-   c2 = new TCanvas("c2", 10, 10, wfRootEmbeddedCanvas);
+   // c1 = new TCanvas("c1", 10, 10, wfRootEmbeddedCanvas);
+   // c2 = new TCanvas("c2", 10, 10, wfRootEmbeddedCanvas);
    c3 = new TCanvas("c3", 10, 10, wfRootEmbeddedCanvas);
-   c4 = new TCanvas("c4", 10, 10, wfRootEmbeddedCanvas);
-   c5 = new TCanvas("c5", 10, 10, wfRootEmbeddedCanvas);
+   // c4 = new TCanvas("c4", 10, 10, wfRootEmbeddedCanvas);
+   // c5 = new TCanvas("c5", 10, 10, wfRootEmbeddedCanvas);
    fMainFrame->AddFrame(fRootEmbeddedCanvas, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fRootEmbeddedCanvas->MoveResize(8,8,h-16,h-16);
 
