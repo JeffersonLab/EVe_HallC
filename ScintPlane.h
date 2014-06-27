@@ -19,6 +19,7 @@
 #include "TLatex.h"
 #include "CStransform.h"
 #include "TEllipse.h"
+#include "GetVariables.h"
 #include "EVe_DB.h"
 
 class ScintPlane {

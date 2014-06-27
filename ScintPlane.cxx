@@ -25,10 +25,12 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   N = n;
   paddle_length = plength;
   paddle_height = pheight;
-
+  
+  string PMTnumber = "Number of paddle PMTs = ";
   double fpaddleH = 0.25;
   double fpaddleL = 0.5625;
-  int numPMT = 2;
+  int numPMT = GetVariables(PMTnumber);
+  int rot = 1;
 
 
   sx0 = cst->transXtoCX(0.0) - cst->transLtoCL(paddle_length/2.0); 
@@ -41,7 +43,7 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   sb = CH/fpaddleH; 
 
   for(int i=0;i<n;i++) {
-    paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, numPMT);
+    paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, numPMT, rot);
   }
 
 

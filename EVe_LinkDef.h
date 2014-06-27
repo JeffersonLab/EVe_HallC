@@ -5,6 +5,7 @@
 #pragma link off all functions;
 
 #pragma link C++ class ScintillatorPaddle;
+#pragma ling C++ class GetVariables;
 #pragma link C++ class Scintilator3D;
 #pragma link C++ class ScintPlane;
 #pragma link C++ class ScintilationPlane3D;

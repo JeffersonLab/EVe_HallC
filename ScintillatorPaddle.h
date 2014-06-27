@@ -20,7 +20,7 @@
 class ScintillatorPaddle {
 
  public:
-  ScintillatorPaddle(int index, double x, double y, double a, double b, double length, int PMTn);
+  ScintillatorPaddle(int index, double x, double y, double a, double b, double length, int PMTn, int rotation);
   virtual ~ScintillatorPaddle();
   void hit(double left, double right, double y);
   void clear();
@@ -28,7 +28,7 @@ class ScintillatorPaddle {
  protected:
   double sx0, sy0, sa, sb;
   double paddle_length;
-  int n;
+  int n, rot;
   TPolyLine *plineL;
   TPolyLine *plineR;
   TPolyLine *scint; 

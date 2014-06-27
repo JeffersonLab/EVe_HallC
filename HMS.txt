@@ -1,11 +1,10 @@
 ////// Input text file for Eve Event Display.     ////////
 ////// HMS for Hall C text file                   ////////
 
-ScintXlength = 
+Scintillator Paddle Length = 
 ScintYlength = 
 ScintZlength = 
-PMTnum = 
-
+Number of paddle PMTs = 2
 HodXpos =
 HodYpos = 
 HodPaddleN = 

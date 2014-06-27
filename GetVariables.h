@@ -11,17 +11,28 @@
 #ifndef ROOT_getvariables
 #define ROOT_getvariables
 
-#include <vector>
 #include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <cstring>
 
 class GetVariables {
 
  public:
-  GetVariables(ifstream file);
+  GetVariables(string variable);
   virtual ~GetVariables();
+  double outvar;
+  int outint;
 
  protected:
   ifstream infile;
-}
+  string var;
+  string tempstr;
+  string intcheck;
+  int x;
+  char varchar[100];   /// conversion of string to char to convert to double
+  
+};
 
 #endif
