@@ -8,14 +8,19 @@
 //
 //************************************************************************* 
 
-#ifndef ROOT_getvariables
-#define ROOT_getvariables
+#ifndef ROOT_GetVariables
+#define ROOT_GetVariables
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include <inttypes.h>
+#include <utility>
+#include "TString.h"
 
 class GetVariables {
 
