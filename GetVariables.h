@@ -25,18 +25,21 @@
 class GetVariables {
 
  public:
-  GetVariables(string variable);
+  GetVariables();
   virtual ~GetVariables();
+  int GetInt(std::string variable_int);
+  double GetDbl(std::string variable_dbl);
   double outvar;
   int outint;
 
  protected:
   ifstream infile;
-  string var;
-  string tempstr;
-  string intcheck;
+  std::string intvar;
+  std::string dblvar;
+  std::string tempstr;
+  // int intcheck;
   int x;
-  char varchar[100];   /// conversion of string to char to convert to double
+  // char varchar[100];   /// conversion of string to char to convert to double
   
 };
 

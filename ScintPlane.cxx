@@ -26,10 +26,10 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   paddle_length = plength;
   paddle_height = pheight;
   
-  string PMTnumber = "Number of paddle PMTs = ";
+  std::string PMTnumber = "Number of paddle PMTs = ";
   double fpaddleH = 0.25;
   double fpaddleL = 0.5625;
-  int numPMT = GetVariables(PMTnumber);
+  int numPMT = GetInt(PMTnumber);
   int rot = 1;
 
 
