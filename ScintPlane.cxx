@@ -31,7 +31,8 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   // std::string PMTnumber = "Number of paddle PMTs = ";
   double fpaddleH = 0.25;
   double fpaddleL = 0.5625;
-  int numPMT = myvars->GetInt("Number of paddle PMTs = ");
+  int numPMT = myvars->GetInt("Number of paddle PMTs =");
+  cout << "PMT num: " << numPMT << endl;
   int rot = 1;
 
 
