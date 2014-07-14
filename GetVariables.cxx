@@ -12,13 +12,11 @@
 
 using namespace std;
 
-GetVariables::GetVariables() 
+GetVariables::GetVariables(std::string filename)
 {
-
-  //  var = variable;
-
-  infile.open("HMS.txt");
-
+  file = filename;
+  infile.open(filename.c_str());
+  
   // while(!infile.eof()) {
   //   getline(infile,tempstr);   /// reads in from infile and puts in tempstr
   //   x = tempstr.find(var);   /// gets position of front of var string
@@ -46,6 +44,16 @@ GetVariables::~GetVariables()
   /// Destructor
 }
  
+// void GetVariables::GetFile(std::string filename)
+// {
+//   file = filename;
+  
+//   infile.open(file);
+//   if (infile.is_open()) {
+//     cout << "File is open" endl;
+//   }
+// }
+
 int GetVariables::GetInt(std::string variable_int)
 {
   intvar = variable_int;

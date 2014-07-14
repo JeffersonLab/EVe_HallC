@@ -11,6 +11,7 @@
 #ifndef ROOT_ScintPlane
 #define ROOT_ScintPlane
 
+#define __cplusplus 1
 #include "TCanvas.h"
 #include "TPolyLine.h"
 #include "TBox.h"
@@ -37,6 +38,7 @@ protected:
   double paddle_length;
   double paddle_height;
   ScintillatorPaddle *paddle[MAX_PADDLE_NUM];
+  //GetVariables myvars;
   TLatex *title;
   CStransform *cst;
   TEllipse *track_circ[MAX_TRACK_NUM];

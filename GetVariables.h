@@ -25,15 +25,18 @@
 class GetVariables {
 
  public:
-  GetVariables();
+  GetVariables(std::string filename);
   virtual ~GetVariables();
+  // void GetFile(std::string filename);
   int GetInt(std::string variable_int);
-  double GetDbl(std::string variable_dbl);
+  double GetDouble(std::string variable_dbl);
   double outvar;
   int outint;
+  std::string file;
 
  protected:
   ifstream infile;
+
   std::string intvar;
   std::string dblvar;
   std::string tempstr;
