@@ -11,7 +11,6 @@
 #ifndef ROOT_ScintPlane
 #define ROOT_ScintPlane
 
-#define __cplusplus 1
 #include "TCanvas.h"
 #include "TPolyLine.h"
 #include "TBox.h"
