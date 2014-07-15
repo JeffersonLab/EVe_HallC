@@ -16,7 +16,7 @@
 
 using namespace std;
 
-ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans)
+ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, int horizontal)
 {
  
   // Converting plenth & pheight [m] into pixels
@@ -25,16 +25,21 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   N = n;
   paddle_length = plength;
   paddle_height = pheight;
+  horiz = horizontal;
   std::string geometry = "HMS.txt";
-  GetVariables *myvars = new GetVariables(geometry);
-
-  // std::string PMTnumber = "Number of paddle PMTs = ";
+  GetVariables *pmt = new GetVariables(geometry);
+  
   double fpaddleH = 0.25;
   double fpaddleL = 0.5625;
-  int numPMT = myvars->GetInt("Number of paddle PMTs =");
-  cout << "PMT num: " << numPMT << endl;
-  int rot = 1;
+  int numPMT = pmt->GetInt("Number of paddle PMTs =");
 
+  cout << horiz << " horiiz" << endl;
+  if (horiz == 1) {
+    rot = 1;
+  }
+  else {
+    rot =0;
+  }
 
   sx0 = cst->transXtoCX(0.0) - cst->transLtoCL(paddle_length/2.0); 
   sy0 = cst->transYtoCY(0.0) + cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);

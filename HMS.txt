@@ -4,7 +4,9 @@
 Scintillator Paddle Length = 
 ScintYlength = 
 ScintZlength = 
-Number of paddle PMTs = 2
+Number of paddle PMTs = 2	
+1st Scint Array Rotation = 1
+2nd Scint Array Rotation = 0
 HodXpos =
 HodYpos = 
 HodPaddleN = 

@@ -8,7 +8,7 @@
 // 
 //
 //*************************************************************************
- 
+
 
 // TODO: FULL tracks are not working yet poperly, because, I dont know
 // precise positions of the target, chambers etc. 
@@ -340,8 +340,13 @@ void EVe::CreateWires()
    // mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
    // mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
   
-   sdE = new ScintPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst);
-   sE = new ScintPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst);
+   GetVariables *orientation1 = new GetVariables("HMS.txt");
+   int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
+   GetVariables *orientation2 = new GetVariables("HMS.txt");
+   int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
+   sdE = new ScintPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst, orient1);
+
+   sE = new ScintPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst, orient2);
 
    // In the end we plot a coordinate system
 
