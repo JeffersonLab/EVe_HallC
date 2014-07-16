@@ -244,7 +244,7 @@ void EVe::Create3DView()
    c5->cd();
    c5->Clear();
 
-   bigbite = new BigBiteDetector3D();
+   detector = new Detector3D();
    c5->Update();
 }
 
@@ -332,21 +332,47 @@ void EVe::CreateWires()
    c3->Clear();
    // CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
    // CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
+
+   GetVariables *vars = new GetVariables("HMS.txt");
+   int NScintPlanes = vars->GetInt("Number of Scint Planes =");
+   
+
    CStransform *dE_cst = new CStransform(canvas_length, canvas_dE_posx, canvas_dE_posy);
    CStransform *E_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy);
+
+   if (NScintPlanes == 4) {
+     s2x_cst = new CStransform(canvas_length, canvas_dE_posx-0.3, canvas_dE_posy);
+     s2y_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy-0.3);
+   }
 
    // TODO: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
    // mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
    // mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
   
-   GetVariables *orientation1 = new GetVariables("HMS.txt");
-   int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
-   GetVariables *orientation2 = new GetVariables("HMS.txt");
-   int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
-   sdE = new ScintPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst, orient1);
+   /// Variables to generate scintillator planes
 
-   sE = new ScintPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst, orient2);
+
+   int orient1 = vars->GetInt("1st Scint Array Rotation =");
+
+   int orient2 = vars->GetInt("2nd Scint Array Rotation =");
+   
+
+   int nPaddles1 = vars->GetInt("1st Scint Array NPaddles =");
+ 
+   int nPaddles2 = vars->GetInt("2nd Scint Array NPaddles =");
+
+
+   sdE = new ScintPlane((char*)"dE-plane", nPaddles1, dE_length, dE_height, dE_cst, orient1);
+   
+   sE = new ScintPlane((char*)"E-plane", nPaddles2, E_length, E_height, E_cst, orient2);
+
+   if (NScintPlanes == 4) {
+     s2X = new ScintPlane((char*)"s2X-plane", nPaddles1, dE_length, dE_height, s2x_cst, orient1);
+   
+     s2Y = new ScintPlane((char*)"s2Y-plane", nPaddles2, E_length, E_height, s2y_cst, orient2);
+   }
+
 
    // In the end we plot a coordinate system
 

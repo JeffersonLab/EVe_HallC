@@ -5,3 +5,5 @@
 *.d
 EVeDict.*
 .root_hist
+*.eps
+4ScintPlanes*

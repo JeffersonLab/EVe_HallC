@@ -6,13 +6,12 @@
 
 #pragma link C++ class ScintillatorPaddle;
 #pragma ling C++ class GetVariables;
-#pragma link C++ class Scintilator3D;
+#pragma link C++ class ScintillatorPaddle3D;
 #pragma link C++ class ScintPlane;
-#pragma link C++ class ScintilationPlane3D;
+#pragma link C++ class ScintPlane3D;
 #pragma link C++ class MWDChamber;
 #pragma link C++ class MWDChamber3D;
-#pragma link C++ class BigBiteOgrodje3D;
-#pragma link C++ class BigBiteDetector3D;
+#pragma link C++ class Detector3D;
 #pragma link C++ class WirePlane;
 #pragma link C++ class CStransform;
 #pragma link C++ class Road;

@@ -50,8 +50,15 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   sa = CL/fpaddleL;
   sb = CH/fpaddleH; 
 
-  for(int i=0;i<n;i++) {
-    paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, numPMT, rot);
+  if (horiz == 1) {
+    for(int i=0;i<n;i++) {
+      paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, numPMT, rot);
+    }
+  }
+  else {
+    for(int i=0;i<n;i++) {
+      paddle[i] = new ScintillatorPaddle(i, sx0, sy0+i*fpaddleH*sb, sa, sb, paddle_length, numPMT, rot);
+    }
   }
 
 

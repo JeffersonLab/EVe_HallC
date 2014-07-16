@@ -1,16 +1,15 @@
-//************************************************************************* 
-//  BigBiteDetector3D.cxx  - 4/14/2008
-// 
-//  by miham
-// 
-//  This class joins together magnet and all detectors (in 3D view) and creates 
-//  full 3D view of the Big Bite spectrometer. It also handles the
-//  creation and manipulation with 3D ( full and partial ) tracks.
-// 
-//
-//************************************************************************* 
+///////////////////////////////////////
+/*  Detector3D.h  7/17/14
+    
+    Ben Davis-Purcell
 
-#include "BigBiteDetector3D.h"
+    Class that joins all detectors in 3D view
+    and handles 3D full and partial tracks
+
+*/
+///////////////////////////////////////
+
+#include "Detector3D.h"
 #include "TMath.h"
 #include <cstring>
 #include <cstdio>
@@ -25,7 +24,7 @@
 
 using namespace std;
 
-BigBiteDetector3D::BigBiteDetector3D()
+Detector3D::Detector3D()
 {
    
       mgr = new TGeoManager("Geom", "Composite shape example");
@@ -35,7 +34,7 @@ BigBiteDetector3D::BigBiteDetector3D()
 
 
       TGeoRotation r1;
-      TGeoRotation r2;
+      //TGeoRotation r2;
       TGeoTranslation t1(100.0, 0.0, 60.0);
       TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1); 
 
@@ -68,16 +67,16 @@ BigBiteDetector3D::BigBiteDetector3D()
 
       // dE - Scintillation Plane
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
-      scintdE = new ScintilationPlane3D((char*)"dE-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
-      // r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
-      r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
+      scintdE = new ScintPlane3D((char*)"dE-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
+      r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
+      //r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
       t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos);
-      comb = new TGeoCombiTrans(t1, r2); 
+      comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume2,1,comb);
 
       // E - Scintillation Plane  
       TGeoVolume *scint_volume1 = mgr->MakeBox("scint_volume1",medium,111,5,100);
-      scintE = new ScintilationPlane3D((char*)"E-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1);
+      scintE = new ScintPlane3D((char*)"E-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1);
       r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
       t1.SetTranslation(E_xpos, E_ypos, E_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
@@ -123,17 +122,17 @@ BigBiteDetector3D::BigBiteDetector3D()
        top->Raytrace();
 
 
-       cout<<"BigBite Created!"<<endl;
+       cout<<"Detector Created!"<<endl;
 }
 
 
-BigBiteDetector3D::~BigBiteDetector3D()
+Detector3D::~Detector3D()
 {
 
 }
 
 
-void BigBiteDetector3D::ClearTracks()
+void Detector3D::ClearTracks()
 {	
 	
        for (int i = 0; i<10; i++)

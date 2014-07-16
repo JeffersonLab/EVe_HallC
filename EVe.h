@@ -29,7 +29,7 @@
 #include "MultiRoads.h"
 #include "Track.h"
 #include "ScintPlane.h"
-#include "BigBiteDetector3D.h"
+#include "Detector3D.h"
 #include "THaRun.h"
 #include <TString.h>
 #include <TGFileDialog.h>
@@ -83,6 +83,8 @@ private:
 
   ScintPlane *sdE;
   ScintPlane *sE;
+  ScintPlane *s2X;
+  ScintPlane *s2Y;
 
   int EventNumber;
   int TotalNumberOfEvents;
@@ -104,6 +106,8 @@ private:
   WirePlane *x2p;
  
   CStransform *cst;
+  CStransform *s2x_cst;
+  CStransform *s2y_cst;
   MultiRoads *umrd;
   Track *utr[MAX_ROADS_NUM];
   MultiRoads *vmrd;
@@ -241,7 +245,7 @@ private:
   Double_t B_tp_de_hit_bar[25];
 
 
-  BigBiteDetector3D *bigbite;
+  Detector3D *detector;
 
   int run_number;
   const char *crun_number;
