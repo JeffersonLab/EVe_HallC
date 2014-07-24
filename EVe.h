@@ -231,19 +231,24 @@ private:
 
 
   // variables for scintilation plane
-  Double_t B_tp_e_nhit;
-  Double_t B_tp_e_LT[25];
-  Double_t B_tp_e_RT[25];
-  Double_t B_tp_e_hit_ypos[25];
-  Double_t B_tp_e_hit_bar[25];
+  /* Double_t B_tp_e_nhit; */
+  /* Double_t B_tp_e_LT[25]; */
+  /* Double_t B_tp_e_RT[25]; */
+  /* Double_t B_tp_e_hit_ypos[25]; */
+  /* Double_t B_tp_e_hit_bar[25]; */
  
 
-  Double_t B_tp_de_nhit;
-  Double_t B_tp_de_LT[25];
-  Double_t B_tp_de_RT[25];
-  Double_t B_tp_de_hit_ypos[25];
-  Double_t B_tp_de_hit_bar[25];
-
+  /* Double_t B_tp_de_nhit; */
+  /* Double_t B_tp_de_LT[25]; */
+  /* Double_t B_tp_de_RT[25]; */
+  /* Double_t B_tp_de_hit_ypos[25]; */
+  /* Double_t B_tp_de_hit_bar[25]; */
+  Int_t Ndata_H_hod_1x_negtdchits;
+  Double_t H_hod_1x_negtdchits[25];
+  Double_t H_hod_1x_postdchits[25];
+  Int_t Ndata_H_hod_1y_negtdchits;
+  Double_t H_hod_1y_negtdchits[25];
+  Double_t H_hod_1y_postdchits[25];
 
   Detector3D *detector;
 

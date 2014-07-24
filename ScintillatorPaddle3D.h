@@ -24,7 +24,7 @@ class ScintillatorPaddle3D {
  public:
   ScintillatorPaddle3D(int index, double x, double y, double z, double length, double height ,double thickness ,TGeoVolume *paddle, int numPMT);
   virtual ~ScintillatorPaddle3D();
-  void hit(double left, double right);
+  void hit(double left, double right, int nPMT);
   void clear();
   
  protected:
@@ -32,7 +32,7 @@ class ScintillatorPaddle3D {
   TGeoVolume *scint;
   TGeoVolume *pmt1;
   TGeoVolume *pmt2;
-  int n;
+  //  int n;
   
 };
 

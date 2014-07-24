@@ -68,7 +68,7 @@ Detector3D::Detector3D()
       // dE - Scintillation Plane
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
       scintdE = new ScintPlane3D((char*)"dE-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
-      r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
+      r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
       //r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
       t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
@@ -82,11 +82,29 @@ Detector3D::Detector3D()
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume1,1,comb);
 
+      //s2x Scint Plane
+      TGeoVolume *scint_volume3 = mgr->MakeBox("scint_volume3",medium,111,5,100);
+      s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume3);
+      r1.SetAngles(180 - dE_tilt, 0, 90 - dE_tilt, 0, 90, 90);
+      t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos-20.0);
+      comb = new TGeoCombiTrans(t1, r1); 
+      top->AddNodeOverlap(scint_volume3,1,comb);
+
+      //s2y Scint Plane
+      TGeoVolume *scint_volume4 = mgr->MakeBox("scint_volume4",medium,111,5,100);
+      // changed volume size to 60
+      s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume4);
+      r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
+      t1.SetTranslation(E_xpos, E_ypos, E_zpos-20.0);
+      comb = new TGeoCombiTrans(t1, r1); 
+      top->AddNodeOverlap(scint_volume4,1,comb);
+
+
       // Target
-      TGeoTube *cev = new TGeoTube("cev",0.0, 10, 15);
-      TGeoVolume *target = new TGeoVolume("target",cev);
-      target->SetLineColor(kBlack);
-      top->AddNodeOverlap(target,1);
+      // TGeoTube *cev = new TGeoTube("cev",0.0, 10, 15);
+      // TGeoVolume *target = new TGeoVolume("target",cev);
+      // target->SetLineColor(kBlack);
+      // top->AddNodeOverlap(target,1);
 
 
        // In the end we create potential tracks

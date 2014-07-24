@@ -19,7 +19,7 @@ using namespace std;
 
 ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double z,  double length, double height, double thickness, TGeoVolume *paddle, int numPMT)
 {
-  n = numPMT;
+  //  n = numPMT;
   double r_PMT = 2.0; 
   // scintillator paddle
   Double_t StartingPoint[3]={x,y,z};
@@ -40,7 +40,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   TGeoVolume *pmtedge1 = new TGeoVolume("pmtedge1",trapezoid1);
   pmtedge1->SetLineColor(kBlack);
   paddle->AddNode(pmtedge1,1, new TGeoTranslation(0.0+x,0.0+y,length/2.0 + length/10.0 +z));
-  if (n==2) {
+  if (numPMT==2) {
     TGeoTrd2 *trapezoid2 = new TGeoTrd2("trapezoid2",thickness/4.0, height/2.0, thickness/4.0, thickness/2.0, length/10.0);
     TGeoVolume *pmtedge2 = new TGeoVolume("pmtedge2",trapezoid2);
     pmtedge2->SetLineColor(kBlack);
@@ -52,7 +52,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   pmt1->SetLineColor(kBlack);
   paddle->AddNode(pmt1,1, new TGeoTranslation(0.0+x,0.0+y, (length/2.0 + 2.0*length/10.0+ 0.3*length/2.0) + z));
 
-  if (n==2) {
+  if (numPMT==2) {
     TGeoTube *tube2 = new TGeoTube("tube2",0.0, r_PMT , 0.3*length/2.0);
     pmt2 = new TGeoVolume("pmt2",tube2);
     pmt2->SetLineColor(kBlack);
@@ -66,7 +66,7 @@ ScintillatorPaddle3D::~ScintillatorPaddle3D()
 }
 
 
-void ScintillatorPaddle3D::hit(double left, double right)
+void ScintillatorPaddle3D::hit(double left, double right, int nPMT)
 {
   double min = -10000.0;
   // If scint. plane is not hit, then left or right
@@ -78,7 +78,7 @@ void ScintillatorPaddle3D::hit(double left, double right)
   {
     pmt1->SetLineColor(2);
   } 
-  if (n==2) {     ///// R and L may need to be swapped to match planar L/R
+  if (nPMT==2) {     ///// R and L may need to be swapped to match planar L/R
     // Only left PMT got signal
     if (left>min  && right<min )
       {

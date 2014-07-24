@@ -39,6 +39,8 @@ public:
   MWDChamber3D *mwdc2;
   ScintPlane3D *scintE;
   ScintPlane3D *scintdE;
+  ScintPlane3D *s2xplane;
+  ScintPlane3D *s2yplane;
   Trajectory3D *partialTrack[10];
   FullTrajectory3D *fullTrack[10]; 
   

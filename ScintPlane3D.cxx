@@ -22,7 +22,7 @@ ScintPlane3D::ScintPlane3D(char *name, int n, double x, double y, double z, doub
 
    GetVariables *ptr = new GetVariables("HMS.txt");
    int number = ptr->GetInt("Number of Paddle PMTs =");
-   
+
    // Determine center of scint plane
  
    double sy0 = y;
@@ -44,10 +44,12 @@ ScintPlane3D::~ScintPlane3D()
 
 void ScintPlane3D::paddleHit(int num, double left, double right)
 {
+  GetVariables *ptr = new GetVariables("HMS.txt");
+  int numb = ptr->GetInt("Number of Paddle PMTs =");
   if (num<N)
     {
       
-      paddle[num]->hit(left,right);
+      paddle[num]->hit(left,right,numb);
     }
 }
 
