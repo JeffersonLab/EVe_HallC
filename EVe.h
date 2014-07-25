@@ -244,11 +244,13 @@ private:
   /* Double_t B_tp_de_hit_ypos[25]; */
   /* Double_t B_tp_de_hit_bar[25]; */
   Int_t Ndata_H_hod_1x_negtdchits;
-  Double_t H_hod_1x_negtdchits[25];
-  Double_t H_hod_1x_postdchits[25];
+  Int_t Ndata_H_hod_1x_postdchits;
+  Double_t H_hod_1x_negtdchits[16];
+  Double_t H_hod_1x_postdchits[16];
   Int_t Ndata_H_hod_1y_negtdchits;
-  Double_t H_hod_1y_negtdchits[25];
-  Double_t H_hod_1y_postdchits[25];
+  Int_t Ndata_H_hod_1y_postdchits;
+  Double_t H_hod_1y_negtdchits[16];
+  Double_t H_hod_1y_postdchits[16];
 
   Detector3D *detector;
 

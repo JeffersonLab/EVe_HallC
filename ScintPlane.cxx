@@ -77,6 +77,10 @@ ScintPlane::~ScintPlane()
   // Destructor
 }
 
+/* 
+ * paddleHit() will turn on PMTs for paddle <num> if the TDC data in <left> and <right> 
+ * correspond to a good hit.
+ */
 void ScintPlane::paddleHit(int num, double left, double right, double y)
 {
   if (num<N)
@@ -85,6 +89,20 @@ void ScintPlane::paddleHit(int num, double left, double right, double y)
     }
   
 }
+
+void ScintPlane::paddleLeftHit(int padn)
+{
+  paddle[padn]->HitLeft();
+
+}
+
+
+void ScintPlane::paddleRightHit(int pad)
+{
+  paddle[pad]->HitRight();
+
+}
+
 
 void ScintPlane::clear()
 {

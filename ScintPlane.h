@@ -27,6 +27,8 @@ class ScintPlane {
   ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, int horizontal);
   virtual ~ScintPlane();
   void paddleHit(int num, double left, double right, double y);
+  void paddleLeftHit(int padn);
+  void paddleRightHit(int pad);
   void Track(double x, double y, int i);
   void clear();
   

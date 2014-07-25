@@ -151,7 +151,7 @@ ScintillatorPaddle::~ScintillatorPaddle()
 
 void ScintillatorPaddle::hit(double left, double right, double y)
 {
-  double min = -10000.0;
+  double min = -10000.0;  // FIXME
   // If the paddle was not hit the program returns 1e-35
   // If the paddle was hit, the program returns a number 
   // that is less than 0.
@@ -186,6 +186,20 @@ void ScintillatorPaddle::hit(double left, double right, double y)
     }
 
 }
+
+void ScintillatorPaddle::HitLeft()
+{
+  plineL->SetFillColor(4);
+
+}
+
+
+void ScintillatorPaddle::HitRight()
+{
+  plineR->SetFillColor(4);
+
+}
+
 
 void ScintillatorPaddle::clear()
 {

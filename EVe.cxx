@@ -399,16 +399,16 @@ void EVe::CreateWires()
 
 void EVe::initRun(char *filename)
 {
-   cout << "Reading file " << endl;
-   TFile *f1 = new TFile(filename, "r");
-   t1 = (TTree*) f1->Get("T");
-   TotalNumberOfEvents =  t1->GetEntries();
-
-   THaRun* runinfo = (THaRun*)gROOT->FindObject("Run_Data");
-   if(runinfo==NULL) run_number = 0;
-   else run_number = runinfo->GetNumber(); 
-   cout<<"RUN #: "<<run_number<<endl;
-
+  cout << "Reading file " << endl;
+  TFile *f1 = new TFile(filename, "r");
+  t1 = (TTree*) f1->Get("T");
+  TotalNumberOfEvents =  t1->GetEntries();
+  
+  THaRun* runinfo = (THaRun*)gROOT->FindObject("Run_Data");
+  if(runinfo==NULL) run_number = 0;
+  else run_number = runinfo->GetNumber(); 
+  cout<<"RUN #: "<<run_number<<endl;
+  
 #if DEBUG_LEVEL >= 3
    cout<<"Number of Entries is: "<<TotalNumberOfEvents<<endl;
 #endif
@@ -529,15 +529,17 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
   // t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
 
-  t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
-  t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
-  t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
+   t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
+   t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
   // t1->SetBranchAddress( "BB.tp.e.hit_ypos", &B_tp_e_hit_ypos);
   //t1->SetBranchAddress( "BB.tp.e.hit_bar", &B_tp_e_hit_bar);
   
-  t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
-  t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
-  t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
+   t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
+   t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
   //t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
   //t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
   
@@ -1081,7 +1083,8 @@ void EVe::DoDraw(int event)
    //double dEbar_yposfake[dE_PN];
    //int Ebar[E_PN];
    //int dEbar[dE_PN];
-
+   sE->clear();
+   sdE->clear();
    for (int q = 0; q<E_PN; q++) Ebar_ypos[q] = 0.0;
    for (int q = 0; q<dE_PN; q++) dEbar_ypos[q] = 0.0;
 	
@@ -1091,48 +1094,63 @@ void EVe::DoDraw(int event)
      //	int bar = (int)(B_tp_e_hit_bar[q]);
      //  double ypos = B_tp_e_hit_ypos[q];
        //	Ebar_ypos[bar] = ypos;
-
-       dEbar_ypos[q] = 0.01;
+       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
+       sdE->paddleRightHit(H_hod_1x_negtdchits[q]);
+       // dEbar_ypos[q] = 0.01;
        // #if DEBUG_LEVEL >= 3
        // 	cout<<"--> Bar E: "<<bar<<" Y pos: "<<ypos<<endl;
        // #endif
      }
-   
+   //  cout << Ndata_H_hod_1x_postdchits <<"  " <<  H_hod_1x_postdchits[1]  << endl;
+   for (Int_t q=0;q<Ndata_H_hod_1x_postdchits;q++)
+     {
+       cout << Ndata_H_hod_1x_postdchits <<"  " <<  H_hod_1x_postdchits[q]  << endl;
+       sdE->paddleLeftHit(H_hod_1x_postdchits[q]);
+     }
+
+   //// ADD IN HITS FOR OTHER PLANES
+
+
    //   for (int q = 0; q<B_tp_de_nhit; q++)
    for (int q = 0; q<Ndata_H_hod_1y_negtdchits; q++)
      {
        //	int bar = (int)(B_tp_de_hit_bar[q]);
        // double ypos = B_tp_de_hit_ypos[q];
        //	dEbar_ypos[bar] = ypos;
-          
-       Ebar_ypos[q]=0.01;
+
+       sE->paddleRightHit(H_hod_1y_negtdchits[q]);
+
+       //  Ebar_ypos[q]=0.01;
        // #if DEBUG_LEVEL >= 3
        // 	cout<<"--> Bar dE: "<<bar<<" Y pos: "<<ypos<<endl;
        // #endif
      }
-
-   sE->clear();
-   sdE->clear();
-   for (int i = 0; i<dE_PN; i++)
+   for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
      {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"| dE -L: "<<B_tp_de_LT[i]<<" dE - R: "<<B_tp_de_RT[i]<<".....YPOS: "<<dEbar_ypos[i]<<" |"<<endl;
-// #endif
+       sE->paddleLeftHit(H_hod_1y_postdchits[q]);
+     }
+   // sE->clear();
+   // sdE->clear();
+  //  for (int i = 0; i<dE_PN; i++)
+//      {
+// // #if DEBUG_LEVEL >= 3
+// // 	cout<<"| dE -L: "<<B_tp_de_LT[i]<<" dE - R: "<<B_tp_de_RT[i]<<".....YPOS: "<<dEbar_ypos[i]<<" |"<<endl;
+// // #endif
 
-//	sdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i] , -dEbar_ypos[i]);
+// //	sdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i] , -dEbar_ypos[i]);
 
-       sE->paddleHit(i,H_hod_1x_negtdchits[i] ,H_hod_1x_postdchits[i] , -dEbar_ypos[i]);
-     }  
+//        //   sE->paddleHit(i,H_hod_1x_negtdchits[i] ,H_hod_1x_postdchits[i] , -dEbar_ypos[i]);
+//      }  
 
-   for (int i = 0; i<E_PN; i++)
-     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"| E -L: "<<B_tp_e_LT[i]<<" E - R: "<<B_tp_e_RT[i]<<".....YPOS:"<<Ebar_ypos[i]<<"|"<<endl;
-// #endif
+//    for (int i = 0; i<E_PN; i++)
+//      {
+// // #if DEBUG_LEVEL >= 3
+// // 	cout<<"| E -L: "<<B_tp_e_LT[i]<<" E - R: "<<B_tp_e_RT[i]<<".....YPOS:"<<Ebar_ypos[i]<<"|"<<endl;
+// // #endif
 
-//	sE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i] , -Ebar_ypos[i]);
-       sdE->paddleHit(i,H_hod_1y_negtdchits[i] ,H_hod_1y_postdchits[i] , -Ebar_ypos[i]);
-     }  
+// //	sE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i] , -Ebar_ypos[i]);
+//        sdE->paddleHit(i,H_hod_1y_negtdchits[i] ,H_hod_1y_postdchits[i] , -Ebar_ypos[i]);
+//      }  
 
 
     //****** Now we draw Trajectories through detectors
@@ -1189,8 +1207,8 @@ void EVe::DoDraw(int event)
 //     }  
 
 
-//     c3->Draw();
-//     c3->Update();
+   c3->Draw();
+   c3->Update();
 
   }
 

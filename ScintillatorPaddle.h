@@ -23,6 +23,8 @@ class ScintillatorPaddle {
   ScintillatorPaddle(int index, double x, double y, double a, double b, double length, int PMTn, int rotation);
   virtual ~ScintillatorPaddle();
   void hit(double left, double right, double y);
+  void HitLeft();
+  void HitRight();
   void clear();
 
  protected:
