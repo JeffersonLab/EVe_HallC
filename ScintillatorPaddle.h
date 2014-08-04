@@ -25,6 +25,7 @@ class ScintillatorPaddle {
   void hit(double left, double right, double y);
   void HitLeft();
   void HitRight();
+  void HitBoth();
   void clear();
 
  protected:

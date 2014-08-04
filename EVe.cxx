@@ -368,9 +368,9 @@ void EVe::CreateWires()
    int nPaddles2 = pad2->GetInt("2nd Scint Array NPaddles =");
    
 
-   sdE = new ScintPlane((char*)"dE-plane", nPaddles1, dE_length, dE_height, dE_cst, orient1);
+   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, dE_length, dE_height, dE_cst, orient1);
    
-   sE = new ScintPlane((char*)"E-plane", nPaddles2, E_length, E_height, E_cst, orient2);
+   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, E_length, E_height, E_cst, orient2);
    
    if (NScintPlanes == 4) {
      s2X = new ScintPlane((char*)"s2X-plane", nPaddles1, dE_length, dE_height, s2x_cst, orient1);
@@ -529,6 +529,7 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
   // t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
 
+   /// S1X
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
    t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
@@ -536,13 +537,26 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.tp.e.hit_ypos", &B_tp_e_hit_ypos);
   //t1->SetBranchAddress( "BB.tp.e.hit_bar", &B_tp_e_hit_bar);
   
+   ///S1Y
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
    t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
    t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
   //t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
   //t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
-  
+
+   ///S2X
+   t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
+   t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
+   t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);
+
+   ///S2Y
+   t1->SetBranchAddress( "Ndata.H.hod.2y.negtdchits", &Ndata_H_hod_2y_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.2y.postdchits", &Ndata_H_hod_2y_postdchits);
+   t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
+   t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
+
   /* TRACKS
 #if FULL_TRACK > 0
   t1->SetBranchAddress( "BB.tr.px", &B_tr_px);
@@ -1079,12 +1093,16 @@ void EVe::DoDraw(int event)
 
    double Ebar_ypos[E_PN];
    double dEbar_ypos[dE_PN];
+   double matchR[16];
+   double matchL[16];
    // double Ebar_yposfake[E_PN];
    //double dEbar_yposfake[dE_PN];
    //int Ebar[E_PN];
    //int dEbar[dE_PN];
-   sE->clear();
-   sdE->clear();
+   s1Y->clear();
+   s1X->clear();
+   s2X->clear();
+   s2Y->clear();
    for (int q = 0; q<E_PN; q++) Ebar_ypos[q] = 0.0;
    for (int q = 0; q<dE_PN; q++) dEbar_ypos[q] = 0.0;
 	
@@ -1095,19 +1113,33 @@ void EVe::DoDraw(int event)
      //  double ypos = B_tp_e_hit_ypos[q];
        //	Ebar_ypos[bar] = ypos;
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
-       sdE->paddleRightHit(H_hod_1x_negtdchits[q]);
+       matchR[q] = H_hod_1x_negtdchits[q];
+       s1X->paddleRightHit(H_hod_1x_negtdchits[q]);
        // dEbar_ypos[q] = 0.01;
        // #if DEBUG_LEVEL >= 3
        // 	cout<<"--> Bar E: "<<bar<<" Y pos: "<<ypos<<endl;
        // #endif
      }
-   //  cout << Ndata_H_hod_1x_postdchits <<"  " <<  H_hod_1x_postdchits[1]  << endl;
+
    for (Int_t q=0;q<Ndata_H_hod_1x_postdchits;q++)
      {
-       cout << Ndata_H_hod_1x_postdchits <<"  " <<  H_hod_1x_postdchits[q]  << endl;
-       sdE->paddleLeftHit(H_hod_1x_postdchits[q]);
+     
+       matchL[q]= H_hod_1x_postdchits[q];
+       s1X->paddleLeftHit(H_hod_1x_postdchits[q]);
      }
 
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 
+	 s1X->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s1X->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
    //// ADD IN HITS FOR OTHER PLANES
 
 
@@ -1117,8 +1149,9 @@ void EVe::DoDraw(int event)
        //	int bar = (int)(B_tp_de_hit_bar[q]);
        // double ypos = B_tp_de_hit_ypos[q];
        //	dEbar_ypos[bar] = ypos;
-
-       sE->paddleRightHit(H_hod_1y_negtdchits[q]);
+       cout << Ndata_H_hod_1y_negtdchits <<"  " <<  H_hod_1y_negtdchits[q]  << endl;
+       matchR[q] = H_hod_1y_negtdchits[q];
+       s1Y->paddleRightHit(H_hod_1y_negtdchits[q]);
 
        //  Ebar_ypos[q]=0.01;
        // #if DEBUG_LEVEL >= 3
@@ -1127,8 +1160,82 @@ void EVe::DoDraw(int event)
      }
    for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
      {
-       sE->paddleLeftHit(H_hod_1y_postdchits[q]);
+  
+       matchL[q]= H_hod_1y_postdchits[q];
+       s1Y->paddleLeftHit(H_hod_1y_postdchits[q]);
      }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 s1Y->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s1Y->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+   /// S2X PLANE
+   for (Int_t q = 0; q<Ndata_H_hod_2x_negtdchits; q++)
+     {
+       
+       matchR[q] = H_hod_2x_negtdchits[q];
+       s2X->paddleRightHit(H_hod_2x_negtdchits[q]);
+       
+     }
+   
+   for (Int_t q=0;q<Ndata_H_hod_2x_postdchits;q++)
+     {
+     
+       matchL[q]= H_hod_2x_postdchits[q];
+       s2X->paddleLeftHit(H_hod_2x_postdchits[q]);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 
+	 s2X->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s2X->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+   /// S2Y PLANE
+   for (Int_t q = 0; q<Ndata_H_hod_2y_negtdchits; q++)
+     {
+       
+       matchR[q] = H_hod_2y_negtdchits[q];
+       s2Y->paddleRightHit(H_hod_2y_negtdchits[q]);
+       
+     }
+   
+   for (Int_t q=0;q<Ndata_H_hod_2y_postdchits;q++)
+     {
+     
+       matchL[q]= H_hod_2y_postdchits[q];
+       s2Y->paddleLeftHit(H_hod_2y_postdchits[q]);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 
+	 s2Y->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s2Y->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
    // sE->clear();
    // sdE->clear();
   //  for (int i = 0; i<dE_PN; i++)

@@ -100,7 +100,12 @@ void ScintPlane::paddleLeftHit(int padn)
 void ScintPlane::paddleRightHit(int pad)
 {
   paddle[pad]->HitRight();
+  
+}
 
+void ScintPlane::paddleBothHit(int padnum)
+{
+  paddle[padnum]->HitBoth();
 }
 
 

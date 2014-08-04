@@ -81,8 +81,8 @@ private:
   MWDChamber *mwdc1;
   MWDChamber *mwdc2;
 
-  ScintPlane *sdE;
-  ScintPlane *sE;
+  ScintPlane *s1X;
+  ScintPlane *s1Y;
   ScintPlane *s2X;
   ScintPlane *s2Y;
 
@@ -251,6 +251,14 @@ private:
   Int_t Ndata_H_hod_1y_postdchits;
   Double_t H_hod_1y_negtdchits[16];
   Double_t H_hod_1y_postdchits[16];
+  Int_t Ndata_H_hod_2x_negtdchits;
+  Int_t Ndata_H_hod_2x_postdchits;
+  Double_t H_hod_2x_negtdchits[16];
+  Double_t H_hod_2x_postdchits[16];
+  Int_t Ndata_H_hod_2y_negtdchits;
+  Int_t Ndata_H_hod_2y_postdchits;
+  Double_t H_hod_2y_negtdchits[16];
+  Double_t H_hod_2y_postdchits[16];
 
   Detector3D *detector;
 

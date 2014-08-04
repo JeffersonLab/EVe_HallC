@@ -189,15 +189,21 @@ void ScintillatorPaddle::hit(double left, double right, double y)
 
 void ScintillatorPaddle::HitLeft()
 {
-  plineL->SetFillColor(4);
+  plineL->SetFillColor(2);
 
 }
 
 
 void ScintillatorPaddle::HitRight()
 {
-  plineR->SetFillColor(4);
+  plineR->SetFillColor(2);
+  
+}
 
+void ScintillatorPaddle::HitBoth()
+{
+  plineR->SetFillColor(3);
+  plineL->SetFillColor(3);
 }
 
 
