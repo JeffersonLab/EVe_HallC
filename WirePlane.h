@@ -26,7 +26,7 @@
 class WirePlane {
   
 public:
-  WirePlane(char *ime, int n, double x, double y, double l, double a, double b, int f=0);
+  WirePlane(char *name, int n, double x, double y, double l, double a, double b, int f=0);
   virtual ~WirePlane();
   void SetWire(int i, double t);
   void clear();
@@ -35,7 +35,7 @@ public:
 
 protected:
   int WireNum;
-   double x0, y0,a0,b0;
+  double x0, y0,a0,b0;
   double rescale_me;
   TEllipse *wire[400];
   TLine *time[400];

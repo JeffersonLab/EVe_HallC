@@ -265,23 +265,23 @@ void EVe::CreateUprojection()
      fRootEmbeddedCanvas->AdoptCanvas(c1);
      c1->cd();
      c1->Clear();
-/*
-     u1 = new WirePlane("U1",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1),cst->transLtoCL(L1),1.0,1.0,-1);
+
+     // u1 = new WirePlane("U1",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1),cst->transLtoCL(L1),1.0,1.0,-1);
    
-     u1p = new WirePlane("U1p",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1+0.002),cst->transLtoCL(L1),1.0,1.0,1);
+     // u1p = new WirePlane("U1p",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1+0.002),cst->transLtoCL(L1),1.0,1.0,1);
 
-     u2 = new WirePlane("U2",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2),cst->transLtoCL(L2),1.0,1.0,-1);
+     // u2 = new WirePlane("U2",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2),cst->transLtoCL(L2),1.0,1.0,-1);
   
-     u2p = new WirePlane("U2p",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2+0.002),cst->transLtoCL(L2),1.0,1.0,1);
-*/
+     // u2p = new WirePlane("U2p",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2+0.002),cst->transLtoCL(L2),1.0,1.0,1);
 
-     // u1 = new WirePlane((char*)"U1",MWDC1_U1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+
+     u1 = new WirePlane((char*)"U1",MWDC1_U1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
    
-     // u1p = new WirePlane((char*)"U1p",MWDC1_U1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+     u1p = new WirePlane((char*)"U1p",MWDC1_U1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-     // u2 = new WirePlane((char*)"U2",MWDC2_U2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     u2 = new WirePlane((char*)"U2",MWDC2_U2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
   
-     // u2p = new WirePlane((char*)"U2p",MWDC2_U2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     u2p = new WirePlane((char*)"U2p",MWDC2_U2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c1->Update();
   }
@@ -296,11 +296,11 @@ void EVe::CreateVprojection()
      c2->cd();
      c2->Clear();
 
-    // v1 = new WirePlane((char*)"V1",MWDC1_V1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-    // v1p = new WirePlane((char*)"V1p",MWDC1_V1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
+     v1 = new WirePlane((char*)"V1",MWDC1_V1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     v1p = new WirePlane((char*)"V1p",MWDC1_V1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
 
-    // v2 = new WirePlane((char*)"V2",MWDC2_V2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-    // v2p = new WirePlane((char*)"V2p",MWDC2_V2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
+     v2 = new WirePlane((char*)"V2",MWDC2_V2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     v2p = new WirePlane((char*)"V2p",MWDC2_V2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c2->Update();
   }
@@ -314,11 +314,11 @@ void EVe::CreateXprojection()
      c4->cd();
      c4->Clear();
 
-    // x1 = new WirePlane((char*)"X1",MWDC1_X1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-    // x1p = new WirePlane((char*)"X1p",MWDC1_X1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+     x1 = new WirePlane((char*)"X1",MWDC1_X1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     x1p = new WirePlane((char*)"X1p",MWDC1_X1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-    // x2 = new WirePlane((char*)"X2",MWDC2_X2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-    // x2p = new WirePlane((char*)"X2p",MWDC2_X2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     x2 = new WirePlane((char*)"X2",MWDC2_X2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     x2p = new WirePlane((char*)"X2p",MWDC2_X2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c4->Update();
   }
@@ -330,8 +330,8 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-   // CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
-   // CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
+   CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
+   CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
 
    GetVariables *vars = new GetVariables("HMS.txt");
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
@@ -347,8 +347,8 @@ void EVe::CreateWires()
 
    // TODO: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
-   // mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
-   // mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
+   mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
+   mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
   
    /// Variables to generate scintillator planes
 
@@ -1106,6 +1106,7 @@ void EVe::DoDraw(int event)
    for (int q = 0; q<E_PN; q++) Ebar_ypos[q] = 0.0;
    for (int q = 0; q<dE_PN; q++) dEbar_ypos[q] = 0.0;
 	
+   ///S1X
    //   for (Int_t q = 0; q<B_tp_e_nhit; q++)
    for (Int_t q = 0; q<Ndata_H_hod_1x_negtdchits; q++)
      {
@@ -1140,8 +1141,8 @@ void EVe::DoDraw(int event)
      matchR[i]=0;
      matchL[i]=0;
    }
-   //// ADD IN HITS FOR OTHER PLANES
 
+   ///S1Y
 
    //   for (int q = 0; q<B_tp_de_nhit; q++)
    for (int q = 0; q<Ndata_H_hod_1y_negtdchits; q++)
