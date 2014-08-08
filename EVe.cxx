@@ -87,20 +87,20 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    // Here are ratio buttons for selecting MWDC 
    TGButtonGroup *fGroupFrame1 = new TGButtonGroup(fMainFrame,"Projections:", kVerticalFrame);
    fGroupFrame1->SetLayoutBroken(kTRUE);
-   fTextButtonUPlane = new TGRadioButton(fGroupFrame1,"U-Projection");
-   fGroupFrame1->AddFrame(fTextButtonUPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonUPlane->MoveResize(8,24,106,20);
-   
    fTextButtonXPlane = new TGRadioButton(fGroupFrame1,"X-Projection");
    fGroupFrame1->AddFrame(fTextButtonXPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonXPlane->MoveResize(8,40,106,20);
+   fTextButtonXPlane->MoveResize(8,24,106,20);
+   
+   fTextButtonUVPlane = new TGRadioButton(fGroupFrame1,"UV-Projection");
+   fGroupFrame1->AddFrame(fTextButtonUVPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButtonUVPlane->MoveResize(8,40,106,20);
 
-   fTextButtonVPlane = new TGRadioButton(fGroupFrame1,"V-Projection");
-   fGroupFrame1->AddFrame(fTextButtonVPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonVPlane->MoveResize(8,56,106,20);
+   fTextButtonYPlane = new TGRadioButton(fGroupFrame1,"Y-Projection");
+   fGroupFrame1->AddFrame(fTextButtonYPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButtonYPlane->MoveResize(8,56,106,20);
 
    // In the beginning the first button is down
-   fTextButtonUPlane->SetState(kButtonDown);
+   fTextButtonXPlane->SetState(kButtonDown);
 
    fGroupFrame1->SetLayoutManager(new TGVerticalLayout(fGroupFrame1));
    fGroupFrame1->Resize(128,120);
@@ -204,9 +204,9 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
   
    if (fTextButtonProj->IsOn())
    {
-     if (fTextButtonUPlane->IsOn()) CreateUprojection(); 
-     if (fTextButtonVPlane->IsOn()) CreateVprojection();
-     if (fTextButtonXPlane->IsOn()) CreateXprojection();
+     if (fTextButtonXPlane->IsOn()) CreateXprojection(); 
+     if (fTextButtonUVPlane->IsOn()) CreateUVprojection();
+     if (fTextButtonYPlane->IsOn()) CreateYprojection();
      if (fTextButton3dView->IsOn()) Create3DView();
    }
    
@@ -214,9 +214,9 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
   
    if (fTextButton3dView->IsOn()) Create3DView();
 
-   fTextButtonUPlane->Connect("Clicked()", "EVe", this, "CreateUprojection()");
-   fTextButtonVPlane->Connect("Clicked()", "EVe", this, "CreateVprojection()");
    fTextButtonXPlane->Connect("Clicked()", "EVe", this, "CreateXprojection()");
+   fTextButtonUVPlane->Connect("Clicked()", "EVe", this, "CreateUVprojection()");
+   fTextButtonYPlane->Connect("Clicked()", "EVe", this, "CreateYprojection()");
    fTextButtonWires->Connect("Clicked()", "EVe", this, "CreateWires()");
    fTextButton3dView->Connect("Clicked()", "EVe", this, "Create3DView()");
    fTextButtonProj->Connect("Clicked()", "EVe", this, "SelectProj()");
@@ -251,13 +251,13 @@ void EVe::Create3DView()
 
 void EVe::SelectProj()
 {
-     if (fTextButtonUPlane->IsOn()) CreateUprojection(); 
-     if (fTextButtonVPlane->IsOn()) CreateVprojection();
-     if (fTextButtonXPlane->IsOn()) CreateXprojection();
+     if (fTextButtonXPlane->IsOn()) CreateXprojection(); 
+     if (fTextButtonUVPlane->IsOn()) CreateUVprojection();
+     if (fTextButtonYPlane->IsOn()) CreateYprojection();
      if (fTextButton3dView->IsOn()) Create3DView();
 }
 
-void EVe::CreateUprojection()
+void EVe::CreateXprojection()
 {
 
  if (fTextButtonProj->IsOn())
@@ -275,19 +275,19 @@ void EVe::CreateUprojection()
      // u2p = new WirePlane("U2p",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2+0.002),cst->transLtoCL(L2),1.0,1.0,1);
 
 
-     u1 = new WirePlane((char*)"U1",MWDC1_U1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     x1 = new WirePlane((char*)"X1",MWDC1_X,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
    
-     u1p = new WirePlane((char*)"U1p",MWDC1_U1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+     x1p = new WirePlane((char*)"X1p",MWDC1_Xp,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-     u2 = new WirePlane((char*)"U2",MWDC2_U2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     x2 = new WirePlane((char*)"X2",MWDC1_X,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
   
-     u2p = new WirePlane((char*)"U2p",MWDC2_U2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     x2p = new WirePlane((char*)"X2p",MWDC1_Xp,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c1->Update();
   }
 }
 
-void EVe::CreateVprojection()
+void EVe::CreateUVprojection()
 {
   if (fTextButtonProj->IsOn())
   {
@@ -296,17 +296,17 @@ void EVe::CreateVprojection()
      c2->cd();
      c2->Clear();
 
-     v1 = new WirePlane((char*)"V1",MWDC1_V1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-     v1p = new WirePlane((char*)"V1p",MWDC1_V1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
+     u1 = new WirePlane((char*)"U1",MWDC1_U,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     v1 = new WirePlane((char*)"V1",MWDC1_V,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
 
-     v2 = new WirePlane((char*)"V2",MWDC2_V2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-     v2p = new WirePlane((char*)"V2p",MWDC2_V2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
+     u2 = new WirePlane((char*)"U2",MWDC1_U,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     v2 = new WirePlane((char*)"V2",MWDC1_V,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c2->Update();
   }
 }
 
-void EVe::CreateXprojection()
+void EVe::CreateYprojection()
 {
   if (fTextButtonProj->IsOn())
   {
@@ -314,11 +314,11 @@ void EVe::CreateXprojection()
      c4->cd();
      c4->Clear();
 
-     x1 = new WirePlane((char*)"X1",MWDC1_X1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-     x1p = new WirePlane((char*)"X1p",MWDC1_X1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+     y1 = new WirePlane((char*)"Y1",MWDC1_Y,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     y1p = new WirePlane((char*)"Y1p",MWDC1_Yp,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-     x2 = new WirePlane((char*)"X2",MWDC2_X2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-     x2p = new WirePlane((char*)"X2p",MWDC2_X2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     y2 = new WirePlane((char*)"Y2",MWDC1_Y,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
+     y2p = new WirePlane((char*)"Y2p",MWDC1_Yp,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
 
      c4->Update();
   }
@@ -347,8 +347,8 @@ void EVe::CreateWires()
 
    // TODO: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
-   mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
-   mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
+   mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, mwdc1_cst,0);
+   mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC1_X, L2, mwdc2_cst,0);
   
    /// Variables to generate scintillator planes
 
@@ -419,6 +419,7 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.mwdc.u2.nhits", &B_mwdc_v2p_nhits);
   // t1->SetBranchAddress( "BB.mwdc.u2p.nhits", &B_mwdc_v2_nhits);
 
+
   // t1->SetBranchAddress( "BB.mwdc.v1.nhits", &B_mwdc_v1_nhits);
   // t1->SetBranchAddress( "BB.mwdc.v1p.nhits", &B_mwdc_v1p_nhits);
   // t1->SetBranchAddress( "BB.mwdc.v2.nhits", &B_mwdc_u2p_nhits);
@@ -428,6 +429,54 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.mwdc.x1p.nhits", &B_mwdc_x1p_nhits);
   // t1->SetBranchAddress( "BB.mwdc.x2.nhits", &B_mwdc_x2p_nhits);
   // t1->SetBranchAddress( "BB.mwdc.x2p.nhits", &B_mwdc_x2_nhits);
+
+   t1->SetBranchAddress( "Ndata.H.dc.1u1.tdchits", &Ndata_H_dc_1u1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.1v1.tdchits", &Ndata_H_dc_1v1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2u1.tdchits", &Ndata_H_dc_2u1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2v1.tdchits", &Ndata_H_dc_2v1_tdchits);
+
+   t1->SetBranchAddress( "Ndata.H.dc.1x1.tdchits", &Ndata_H_dc_1x1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.1x2.tdchits", &Ndata_H_dc_1x2_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2x1.tdchits", &Ndata_H_dc_2x1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2x2.tdchits", &Ndata_H_dc_2x2_tdchits);
+
+   t1->SetBranchAddress( "Ndata.H.dc.1y1.tdchits", &Ndata_H_dc_1y1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.1y2.tdchits", &Ndata_H_dc_1y2_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2y1.tdchits", &Ndata_H_dc_2y1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2y2.tdchits", &Ndata_H_dc_2y2_tdchits);
+
+   /// UV Wire plane
+   t1->SetBranchAddress( "H.dc.1u1.tdchits", &H_dc_1u1_tdchits);
+   t1->SetBranchAddress( "H.dc.1v1.tdchits", &H_dc_1v1_tdchits);
+   t1->SetBranchAddress( "H.dc.2u1.tdchits", &H_dc_2u1_tdchits);
+   t1->SetBranchAddress( "H.dc.2v1.tdchits", &H_dc_2v1_tdchits);
+
+   t1->SetBranchAddress( "H.dc.1u1.time", &H_dc_1u1_time);
+   t1->SetBranchAddress( "H.dc.1v1.time", &H_dc_1v1_time);
+   t1->SetBranchAddress( "H.dc.2u1.time", &H_dc_2u1_time);
+   t1->SetBranchAddress( "H.dc.2v1.time", &H_dc_2v1_time);
+
+   /// X Wire plane
+   t1->SetBranchAddress( "H.dc.1x1.tdchits", &H_dc_1x1_tdchits);
+   t1->SetBranchAddress( "H.dc.1x2.tdchits", &H_dc_1x2_tdchits);
+   t1->SetBranchAddress( "H.dc.2x1.tdchits", &H_dc_2x1_tdchits);
+   t1->SetBranchAddress( "H.dc.2x2.tdchits", &H_dc_2x2_tdchits);
+
+   t1->SetBranchAddress( "H.dc.1x1.time", &H_dc_1x1_time);
+   t1->SetBranchAddress( "H.dc.1x2.time", &H_dc_1x2_time);
+   t1->SetBranchAddress( "H.dc.2x1.time", &H_dc_2x1_time);
+   t1->SetBranchAddress( "H.dc.2x2.time", &H_dc_2x2_time);
+
+   /// Y Wire plane
+   t1->SetBranchAddress( "H.dc.1y1.tdchits", &H_dc_1y1_tdchits);
+   t1->SetBranchAddress( "H.dc.1y2.tdchits", &H_dc_1y2_tdchits);
+   t1->SetBranchAddress( "H.dc.2y1.tdchits", &H_dc_2y1_tdchits);
+   t1->SetBranchAddress( "H.dc.2y2.tdchits", &H_dc_2y2_tdchits);
+
+   t1->SetBranchAddress( "H.dc.1y1.time", &H_dc_1y1_time);
+   t1->SetBranchAddress( "H.dc.1y2.time", &H_dc_1y2_time);
+   t1->SetBranchAddress( "H.dc.2y1.time", &H_dc_2y1_time);
+   t1->SetBranchAddress( "H.dc.2y2.time", &H_dc_2y2_time);
 
 
   // // U-wire plane
@@ -586,9 +635,9 @@ void EVe::DoDraw(int event)
    //cout<<"Char #: "<<graph_title<<endl;
   
 
-//_______________________ Lets handle u-projection view _______________________________________
+//_______________________ Lets handle UV-projection view _______________________________________
 
-  if (fTextButtonProj->IsOn() && fTextButtonUPlane->IsOn())
+  if (fTextButtonProj->IsOn() && fTextButtonUVPlane->IsOn())
   {
 
 // #if DEBUG_LEVEL >= 3
@@ -602,9 +651,9 @@ void EVe::DoDraw(int event)
 
     c1->cd();
     u1->clear();  
-    u1p->clear(); 
+    v1->clear(); 
     u2->clear();  
-    u2p->clear();
+    v2->clear();
 
     c1->Update();
 
@@ -614,37 +663,29 @@ void EVe::DoDraw(int event)
     title->SetTextSize(0.03);
     title->Draw();   
 
- //    for (int i = 0; i<B_mwdc_u1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U1 Wire No.: "<<B_mwdc_u1_hit_wire[i]<<" is: "<<B_mwdc_u1_hit_time[i]<<endl;
-// #endif
-//         u1->SetWire(B_mwdc_u1_hit_wire[i],1.0E9*B_mwdc_u1_hit_time[i]); 
-//     }
-    
-//     for (int i = 0; i<B_mwdc_u1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U1p Wire No.: "<<B_mwdc_u1p_hit_wire[i]<<" is: "<<B_mwdc_u1p_hit_time[i]<<endl;
-// #endif
-//         u1p->SetWire(B_mwdc_u1p_hit_wire[i],1.0E9*B_mwdc_u1p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
+      {
 
-//     for (int i = 0; i<B_mwdc_u2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U2 Wire No.: "<<B_mwdc_u2_hit_wire[i]<<" is: "<<B_mwdc_u2_hit_time[i]<<endl;
-// #endif
-//         u2->SetWire(B_mwdc_u2_hit_wire[i],1.0E9*B_mwdc_u2_hit_time[i]); 
-//     }
+        u1->SetWire(H_dc_1u1_tdchits[i],1.0E9*H_dc_1u1_time[i]); 
+      }
     
-//     for (int i = 0; i<B_mwdc_u2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U2p Wire No.: "<<B_mwdc_u2p_hit_wire[i]<<" is: "<<B_mwdc_u2p_hit_time[i]<<endl;
-// #endif
-//         u2p->SetWire(B_mwdc_u2p_hit_wire[i],1.0E9*B_mwdc_u2p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
+      {
+
+        v1->SetWire(H_dc_1v1_tdchits[i],1.0E9*H_dc_1v1_time[i]); 
+      }
+
+    for (int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
+      {
+
+        u2->SetWire(H_dc_2u1_tdchits[i],1.0E9*H_dc_2u1_time[i]); 
+      }
+    
+    for (int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
+      {
+
+        v2->SetWire(H_dc_2v1_tdchits[i],1.0E9*H_dc_2v1_time[i]); 
+      }
 
 //     umrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) utr[q]->Clear();
@@ -711,12 +752,12 @@ void EVe::DoDraw(int event)
 //     c1->Update(); 
 
 // cout<<"Sem tlele 5"<<endl;
-//   }
+  }
 
-// //_________________________ Lets handle v-projection view ______________________________
+// //_________________________ Lets handle X-projection view ______________________________
 
-//   if (fTextButtonProj->IsOn() && fTextButtonVPlane->IsOn())
-//   {
+  if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
+    {
 
 // #if DEBUG_LEVEL >= 3
 //     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
@@ -727,51 +768,43 @@ void EVe::DoDraw(int event)
 //     cout<<endl;
 // #endif
 
-//     c2->cd();
-//     v1->clear();  
-//     v1p->clear();
-//     v2->clear();  
-//     v2p->clear();
+      c2->cd();
+      x1->clear();  
+      x1p->clear();
+      x2->clear();  
+      x2p->clear();
+      
+      c2->Update();
+      
+      
+      if (title != NULL) delete title;
+      title = new TLatex(0.02,0.96, graph_title);
+      title->SetTextSize(0.03);
+      title->Draw();   
 
-//     c2->Update();
+   for (int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
+      {
 
-
-//     if (title != NULL) delete title;
-//     title = new TLatex(0.02,0.96, graph_title);
-//     title->SetTextSize(0.03);
-//     title->Draw();   
-
-//     for (int i = 0; i<B_mwdc_v1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V1 Wire No.: "<<B_mwdc_v1_hit_wire[i]<<" is: "<<B_mwdc_v1_hit_time[i]<<endl;
-// #endif
-//         v1->SetWire(B_mwdc_v1_hit_wire[i],1.0E9*B_mwdc_v1_hit_time[i]); 
-//     }
+        x1->SetWire(H_dc_1x1_tdchits[i],1.0E9*H_dc_1x1_time[i]); 
+      }
     
-//     for (int i = 0; i<B_mwdc_v1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V1p Wire No.: "<<B_mwdc_v1p_hit_wire[i]<<" is: "<<B_mwdc_v1p_hit_time[i]<<endl;
-// #endif
-//         v1p->SetWire(B_mwdc_v1p_hit_wire[i],1.0E9*B_mwdc_v1p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
+      {
 
-//     for (int i = 0; i<B_mwdc_v2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V2 Wire No.: "<<B_mwdc_v2_hit_wire[i]<<" is: "<<B_mwdc_v2_hit_time[i]<<endl;
-// #endif
-//         v2->SetWire(B_mwdc_v2_hit_wire[i],1.0E9*B_mwdc_v2_hit_time[i]); 
-//     }
+        x1p->SetWire(H_dc_1x2_tdchits[i],1.0E9*H_dc_1x2_time[i]); 
+      }
+
+    for (int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
+      {
+
+        x2->SetWire(H_dc_2x1_tdchits[i],1.0E9*H_dc_2x1_time[i]); 
+      }
     
-//     for (int i = 0; i<B_mwdc_v2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V2p Wire No.: "<<B_mwdc_v2p_hit_wire[i]<<" is: "<<B_mwdc_v2p_hit_time[i]<<endl;
-// #endif
-//         v2p->SetWire(B_mwdc_v2p_hit_wire[i],1.0E9*B_mwdc_v2p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
+      {
+
+        x2p->SetWire(H_dc_2x2_tdchits[i],1.0E9*H_dc_2x2_time[i]); 
+      }
 
 //     vmrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) vtr[q]->Clear();
@@ -821,14 +854,14 @@ void EVe::DoDraw(int event)
 // 		vtr[j]->DrawMe(tx1,tz1,tx2,tz2);
 // 	}
 //     }
-//     c2->Draw();
-//     c2->Update(); 
-//   }
+      c2->Draw();
+      c2->Update(); 
+    }
 
-// //_________________________ Lets handle x-projection view ______________________________
+// //_________________________ Lets handle Y-projection view ______________________________
 
-//   if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
-//   {
+  if (fTextButtonProj->IsOn() && fTextButtonYPlane->IsOn())
+    {
     
 // #if DEBUG_LEVEL >= 3
 //     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
@@ -839,51 +872,44 @@ void EVe::DoDraw(int event)
 //     cout<<endl;
 // #endif
 
-//     c4->cd();
-//     x1->clear();  
-//     x1p->clear();
-//     x2->clear();  
-//     x2p->clear();
+      c4->cd();
+      y1->clear();  
+      y1p->clear();
+      y2->clear();  
+      y2p->clear();
 
-//     c4->Update();
+      c4->Update();
 
 
-//     if (title != NULL) delete title;
-//     title = new TLatex(0.02,0.96, graph_title);
-//     title->SetTextSize(0.03);
-//     title->Draw();   
+      if (title != NULL) delete title;
+      title = new TLatex(0.02,0.96, graph_title);
+      title->SetTextSize(0.03);
+      title->Draw();   
 
-//     for (int i = 0; i<B_mwdc_x1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X1 Wire No.: "<<B_mwdc_x1_hit_wire[i]<<" is: "<<B_mwdc_x1_hit_time[i]<<endl;
-// #endif
-//         x1->SetWire(B_mwdc_x1_hit_wire[i],1.0E9*B_mwdc_x1_hit_time[i]); 
-//     }
+
+      for (int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
+	{
+
+	  y1->SetWire(H_dc_1y1_tdchits[i],1.0E9*H_dc_1y1_time[i]); 
+	}
     
-//     for (int i = 0; i<B_mwdc_x1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X1p Wire No.: "<<B_mwdc_x1p_hit_wire[i]<<" is: "<<B_mwdc_x1p_hit_time[i]<<endl;
-// #endif
-//         x1p->SetWire(B_mwdc_x1p_hit_wire[i],1.0E9*B_mwdc_x1p_hit_time[i]); 
-//     }
+      for (int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
+	{
 
-//     for (int i = 0; i<B_mwdc_x2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X2 Wire No.: "<<B_mwdc_x2_hit_wire[i]<<" is: "<<B_mwdc_x2_hit_time[i]<<endl;
-// #endif
-//         x2->SetWire(B_mwdc_x2_hit_wire[i],1.0E9*B_mwdc_x2_hit_time[i]); 
-//     }
-    
-//     for (int i = 0; i<B_mwdc_x2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X2p Wire No.: "<<B_mwdc_x2p_hit_wire[i]<<" is: "<<B_mwdc_x2p_hit_time[i]<<endl;
-// #endif
-//         x2p->SetWire(B_mwdc_x2p_hit_wire[i],1.0E9*B_mwdc_x2p_hit_time[i]); 
-//     }
+	  y1p->SetWire(H_dc_1y2_tdchits[i],1.0E9*H_dc_1y2_time[i]); 
+	}
+
+      for (int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
+	{
+	  
+	  y2->SetWire(H_dc_2y1_tdchits[i],1.0E9*H_dc_2y1_time[i]); 
+	}
+      
+      for (int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
+	{
+	  
+	  y2p->SetWire(H_dc_2y2_tdchits[i],1.0E9*H_dc_2y2_time[i]); 
+	}
 
 //     xmrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) xtr[q]->Clear();
@@ -934,11 +960,11 @@ void EVe::DoDraw(int event)
 // 	}
 //     }
   
-//     c4->Draw();
-//     c4->Update(); 
+      c4->Draw();
+      c4->Update(); 
 //   }
 
-  }
+    }
 
 //_________________________ Lets handle Planar view  ______________________________
 
@@ -956,6 +982,8 @@ void EVe::DoDraw(int event)
 
     //***************** First Chamber
 
+    ///// START HERE TO GET PLANAR VIEW WORKING FOR WIRE CHAMBERS
+
 // #if DEBUG_LEVEL >= 3
 //     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
 //     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
@@ -965,7 +993,7 @@ void EVe::DoDraw(int event)
 //     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
 // #endif
 
-//     mwdc1->clear();
+    mwdc1->clear();
 //     for(int i = 0; i<B_mwdc_u1_nhits; i++)
 //     {
 // #if DEBUG_LEVEL >= 3

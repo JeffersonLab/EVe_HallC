@@ -32,7 +32,12 @@ const int MWDC1_X1p_WN = 107;//142;
 const int MWDC1_V1_WN = 52;//141;
 const int MWDC1_V1p_WN = 52;//141;
 
-
+const int MWDC1_X = 113;
+const int MWDC1_Xp = 113;
+const int MWDC1_U = 107;
+const int MWDC1_V = 107;
+const int MWDC1_Y = 52;
+const int MWDC1_Yp = 52;
 
 // 2. MWDC variables
 

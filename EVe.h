@@ -42,9 +42,9 @@ class EVe{
 public:
   EVe(const TGWindow *p, UInt_t w, UInt_t h);
   ~EVe();
-  void CreateUprojection();
-  void CreateVprojection();
   void CreateXprojection();
+  void CreateUVprojection();
+  void CreateYprojection();
   void CreateWires();
   void Create3DView();
   void initRun(char *filename);
@@ -66,9 +66,9 @@ private:
   TCanvas *c3;
   TCanvas *c4;
   TCanvas *c5;
-  TGRadioButton *fTextButtonUPlane;
-  TGRadioButton *fTextButtonVPlane;
   TGRadioButton *fTextButtonXPlane;
+  TGRadioButton *fTextButtonUVPlane;
+  TGRadioButton *fTextButtonYPlane;
   TGRadioButton *fTextButton3dView;
   TGRadioButton *fTextButtonProj;	
 
@@ -90,20 +90,35 @@ private:
   int TotalNumberOfEvents;
 
 
-  WirePlane *u1;
-  WirePlane *u1p;
-  WirePlane *u2;
-  WirePlane *u2p;
+  /* WirePlane *u1; */
+  /* WirePlane *u1p; */
+  /* WirePlane *u2; */
+  /* WirePlane *u2p; */
 
-  WirePlane *v1;
-  WirePlane *v1p;
-  WirePlane *v2;
-  WirePlane *v2p;
+  /* WirePlane *v1; */
+  /* WirePlane *v1p; */
+  /* WirePlane *v2; */
+  /* WirePlane *v2p; */
+
+  /* WirePlane *x1; */
+  /* WirePlane *x1p; */
+  /* WirePlane *x2; */
+  /* WirePlane *x2p; */
 
   WirePlane *x1;
   WirePlane *x1p;
   WirePlane *x2;
   WirePlane *x2p;
+
+  WirePlane *u1;
+  WirePlane *v1;
+  WirePlane *u2;
+  WirePlane *v2;
+
+  WirePlane *y1;
+  WirePlane *y1p;
+  WirePlane *y2;
+  WirePlane *y2p;
  
   CStransform *cst;
   CStransform *s2x_cst;
@@ -125,6 +140,13 @@ private:
   Double_t B_mwdc_x1_nhits;
   Double_t B_mwdc_x1p_nhits;
 
+  Int_t Ndata_H_dc_1u1_tdchits;
+  Int_t Ndata_H_dc_1v1_tdchits;
+  Int_t Ndata_H_dc_1x1_tdchits;
+  Int_t Ndata_H_dc_1x2_tdchits;
+  Int_t Ndata_H_dc_1y1_tdchits;
+  Int_t Ndata_H_dc_1y2_tdchits;
+
   Double_t B_mwdc_u1_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_u1p_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_v1_hit_wire[MAX_HITS_NUM];
@@ -132,13 +154,28 @@ private:
   Double_t B_mwdc_x1_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_x1p_hit_wire[MAX_HITS_NUM];
 
+  Double_t H_dc_1u1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1v1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1x1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1x2_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1y1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1y2_tdchits[MAX_HITS_NUM];
+
+
   Double_t B_mwdc_u1_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_u1p_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_v1_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_v1p_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_x1_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_x1p_hit_time[MAX_HITS_NUM];
-  
+
+  Double_t H_dc_1u1_time[MAX_HITS_NUM];
+  Double_t H_dc_1v1_time[MAX_HITS_NUM];
+  Double_t H_dc_1x1_time[MAX_HITS_NUM];
+  Double_t H_dc_1x2_time[MAX_HITS_NUM];
+  Double_t H_dc_1y1_time[MAX_HITS_NUM];
+  Double_t H_dc_1y2_time[MAX_HITS_NUM];
+
     
   // Other MWDC chamber
   
@@ -149,12 +186,27 @@ private:
   Double_t B_mwdc_x2_nhits;
   Double_t B_mwdc_x2p_nhits;
 
+  Int_t Ndata_H_dc_2u1_tdchits;
+  Int_t Ndata_H_dc_2v1_tdchits;
+  Int_t Ndata_H_dc_2x1_tdchits;
+  Int_t Ndata_H_dc_2x2_tdchits;
+  Int_t Ndata_H_dc_2y1_tdchits;
+  Int_t Ndata_H_dc_2y2_tdchits;
+
   Double_t B_mwdc_u2_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_u2p_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_v2_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_v2p_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_x2_hit_wire[MAX_HITS_NUM];
   Double_t B_mwdc_x2p_hit_wire[MAX_HITS_NUM];
+
+
+  Double_t H_dc_2u1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2v1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2x1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2x2_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2y1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2y2_tdchits[MAX_HITS_NUM];
   
   Double_t B_mwdc_u2_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_u2p_hit_time[MAX_HITS_NUM];
@@ -163,6 +215,12 @@ private:
   Double_t B_mwdc_x2_hit_time[MAX_HITS_NUM];
   Double_t B_mwdc_x2p_hit_time[MAX_HITS_NUM];
 
+  Double_t H_dc_2u1_time[MAX_HITS_NUM];
+  Double_t H_dc_2v1_time[MAX_HITS_NUM];
+  Double_t H_dc_2x1_time[MAX_HITS_NUM];
+  Double_t H_dc_2x2_time[MAX_HITS_NUM];
+  Double_t H_dc_2y1_time[MAX_HITS_NUM];
+  Double_t H_dc_2y2_time[MAX_HITS_NUM];
 
   // U projekcija
   
