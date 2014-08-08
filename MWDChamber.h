@@ -26,7 +26,7 @@ class MWDChamber {
   
 public:
   //MWDChamber(char *ime, int n, double x, double y, double a, double b, int t);
-  MWDChamber(char *ime, int n, double Hight, CStransform *cst, int t);
+  MWDChamber(char *name, int n, double Hight, CStransform *cst, int t);
   virtual ~MWDChamber();
   void u1WireHit(int i);
   void u2WireHit(int i);
@@ -38,9 +38,9 @@ public:
   void Track(double x, double y, int i);
 
 protected:
-  int Num; // stevilo linij !!! not true
-  TPolyLine *okvir;
-  TPolyLine *okvir2;
+  int Num; // number of lines !!! not true
+  TPolyLine *box;
+  TPolyLine *box2;
   TLine *u1_wires[1000];
   TLine *u2_wires[1000];
   TLine *v1_wires[1000];

@@ -21,7 +21,7 @@
 
 using namespace std;
 
-MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t)
+MWDChamber::MWDChamber(char *name, int n, double Hight, CStransform *trans, int t)
 {
    type = t;
 
@@ -30,9 +30,6 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
    double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Hight)/8;
    double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Hight)/2;
 
-#if DEBUG_LEVEL >= 3	
-   cout<<"x "<<x<<" y "<<y<<endl;	
-#endif
 
    double a = cst->transLtoCL(Hight); 
    double b = cst->transLtoCL(Hight);
@@ -41,45 +38,43 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
    fb = b;
 
    // n = actual number of wires
-   // Num = number ow wires that we draw
+   // Num = number of wires that we draw
 
    if ((n/5.0 - int(n/5.0))>0) Num =  (int) (n/5.0) + 1; // must be rounded up
    else Num = (int) (n/5.0);
 
-#if DEBUG_LEVEL >= 3	
-   cout<<"IMAMO n = "<<n<<", Num = "<<Num<<endl;
-#endif
+
   
    double LL = 0.25;
    double HH = 1.0;
 
 
-   Double_t xokvir[5] = {a*0.0-0.05*a+x, a*0.0-0.05*a+x, a*LL+0.05*a+x, a*LL+0.05*a+x, a*0.0-0.05*a+x};
-   Double_t yokvir[5] = {b*0.0-0.05*b+y, b*HH+0.05*b+y, b*HH+0.05*b+y, b*0.0-0.05*b+y, b*0.0-0.05*b+y};
-   okvir = new TPolyLine(5,xokvir,yokvir);
-   okvir->SetFillColor(38);
-   okvir->SetLineColor(1);
-   okvir->SetLineWidth(1);
-   okvir->Draw("f");
-   okvir->Draw();
+   Double_t xbox[5] = {a*0.0-0.05*a+x, a*0.0-0.05*a+x, a*LL+0.05*a+x, a*LL+0.05*a+x, a*0.0-0.05*a+x};
+   Double_t ybox[5] = {b*0.0-0.05*b+y, b*HH+0.05*b+y, b*HH+0.05*b+y, b*0.0-0.05*b+y, b*0.0-0.05*b+y};
+   box = new TPolyLine(5,xbox,ybox);
+   box->SetFillColor(38);
+   box->SetLineColor(1);
+   box->SetLineWidth(1);
+   box->Draw("f");
+   box->Draw();
 
 
-   Double_t xokvir2[5] = {a*0.0+x, a*0.0+x, a*LL+x, a*LL+x, a*0.0+x};
-   Double_t yokvir2[5] = {b*0.0+y,b*HH+y, b*HH+y, b*0.0+y, b*0.0+y};
-   okvir2 = new TPolyLine(5,xokvir2,yokvir2);
-   okvir2->SetFillColor(0);
-   okvir2->SetLineColor(1);
-   okvir2->SetLineWidth(1);
-   okvir2->Draw("f");
-   okvir2->Draw();
+   Double_t xbox2[5] = {a*0.0+x, a*0.0+x, a*LL+x, a*LL+x, a*0.0+x};
+   Double_t ybox2[5] = {b*0.0+y,b*HH+y, b*HH+y, b*0.0+y, b*0.0+y};
+   box2 = new TPolyLine(5,xbox2,ybox2);
+   box2->SetFillColor(0);
+   box2->SetLineColor(1);
+   box2->SetLineWidth(1);
+   box2->Draw("f");
+   box2->Draw();
   
-   // Najprej komora s po dvema nivojema zic
+   // The first chamber with 2 levels of wires
 
   
    if (type==0)
    {
 
-     // sedaj naredimo prvo ravnino x-drotkov
+     // The 1st plane x-drotkov
      for (int i = 0; i<Num; i++)
      {
 	double fac = (HH)*(i)/(Num);
@@ -88,7 +83,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
         x1_wires[i]->Draw(); 
 	
      }
-     // sedaj naredimo drugo ravnino x-drotkov
+     // 2nd plane x-drotkov
      for (int i = 0; i<Num; i++)
      {
         double fac =  (HH)/Num/2.0 + (HH)*(i)/(Num);
@@ -97,7 +92,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
         x2_wires[i]->Draw(); 
 	
     }
-     // sedaj naredimo prvo ravnino v-drotkov
+     // 1st plane v-drotkov
      for (int i = 0; i<Num; i++)
      {
 	double cn =- (HH*2.0/sqrt(3.))/(Num)*(i) + HH;
@@ -122,7 +117,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
 	}
      }
 
-     // sedaj naredimo drugo ravnino v-drotkov
+     // 2nd plane v-drotkov
      for (int i = 0; i<Num; i++)
      {
 	double cn = -(HH*2.0/sqrt(3.))/Num/2 - (HH*2.0/sqrt(3.))/(Num)*(i) + HH;
@@ -149,7 +144,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
      }
 
 
-     // sedaj naredimo prvo ravnino u-drotkov
+     // 1st plane u-drotkov
 
      for (int i = 0; i<Num; i++)
      {
@@ -176,7 +171,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
      }
 
 
-     // sedaj naredimo drugo ravnino v-drotkov
+     // 2nd plane v-drotkov
 
      for (int i = 0; i<Num; i++)
      {
@@ -203,7 +198,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
 	}
      }
 
-     // sedaj naredimo se semaforcek
+     // sedaj naredimo se semaforcek ?????
 
      u1_circ = new TEllipse(a*(LL+0.02+0.05)+x,b*0.8+y, a*0.01, b*0.01 );
      u1_circ->SetFillColor(kGray);
@@ -257,7 +252,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
    else if (type==1) /// SECON TYPE
    {
 
-     // sedaj naredimo prvo ravnino x-drotkov
+     // 1st plane x-drotkov
      for (int i = 0; i<Num; i++)
      {
 	double fac = (HH)*(i)/(Num);
@@ -267,7 +262,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
 	
      }
 
-     // sedaj naredimo prvo ravnino v-drotkov
+     // 1st plane v-drotkov
      for (int i = 0; i<Num; i++)
      {
 	double cn =- (HH*2.0/sqrt(3.))/(Num)*(i) + HH;
@@ -293,7 +288,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
      }
 
   
-     // sedaj naredimo prvo ravnino u-drotkov
+     // 1st plane u-drotkov
 
      for (int i = 0; i<Num; i++)
      {
@@ -352,7 +347,7 @@ MWDChamber::MWDChamber(char *ime, int n, double Hight, CStransform *trans, int t
  
    }
 
-   title = new TLatex(x,b*1.06+y, ime);
+   title = new TLatex(x,b*1.06+y, name);
    title->SetTextSize(0.03);
    title->Draw(); 
 
@@ -369,14 +364,14 @@ MWDChamber::~MWDChamber()
 
 void MWDChamber::u1WireHit(int i)
 {
-  int kvocient = (int) i/5;
-  if (kvocient<Num)
+  int quotient = (int) i/5;
+  if (quotient<Num)
   {
 #if DEBUG_LEVEL >= 3	
-    cout<<"****u1WireHit: "<<kvocient<<endl;
+    cout<<"****u1WireHit: "<<quotient<<endl;
 #endif
-    u1_wires[kvocient]->SetLineColor(kGreen);
-    u1_wires[kvocient]->SetLineWidth(3);
+    u1_wires[quotient]->SetLineColor(kGreen);
+    u1_wires[quotient]->SetLineWidth(3);
     u1_circ->SetFillColor(kGreen);
   }
   else
@@ -389,14 +384,14 @@ void MWDChamber::u1WireHit(int i)
 
 void MWDChamber::u2WireHit(int i)
 {
-  int kvocient = (int) i/5;
-  if (kvocient<Num && type==0)
+  int quotient = (int) i/5;
+  if (quotient<Num && type==0)
   {
 #if DEBUG_LEVEL >= 3	
-    cout<<"****u2WireHit: "<<kvocient<<endl;
+    cout<<"****u2WireHit: "<<quotient<<endl;
 #endif
-    u2_wires[kvocient]->SetLineColor(kGreen+3);
-    u2_wires[kvocient]->SetLineWidth(3);
+    u2_wires[quotient]->SetLineColor(kGreen+3);
+    u2_wires[quotient]->SetLineWidth(3);
     u2_circ->SetFillColor(kGreen+3);
   }
   else
@@ -409,14 +404,14 @@ void MWDChamber::u2WireHit(int i)
 
 void MWDChamber::v1WireHit(int i)
 {
-  int kvocient = (int) i/5;
-  if (kvocient<Num )
+  int quotient = (int) i/5;
+  if (quotient<Num )
   {
 #if DEBUG_LEVEL >= 3	
-    cout<<"****v1WireHit: "<<kvocient<<endl;
+    cout<<"****v1WireHit: "<<quotient<<endl;
 #endif
-    v1_wires[kvocient]->SetLineColor(kAzure+8);
-    v1_wires[kvocient]->SetLineWidth(3);
+    v1_wires[quotient]->SetLineColor(kAzure+8);
+    v1_wires[quotient]->SetLineWidth(3);
     v1_circ->SetFillColor(kAzure+8);
   }
   else
@@ -430,14 +425,14 @@ void MWDChamber::v1WireHit(int i)
 
 void MWDChamber::v2WireHit(int i)
 {
-  int kvocient = (int) i/5;
-  if (kvocient<Num && type==0)
+  int quotient = (int) i/5;
+  if (quotient<Num && type==0)
   {
 #if DEBUG_LEVEL >= 3	
-    cout<<"****v2WireHit: "<<kvocient<<endl;
+    cout<<"****v2WireHit: "<<quotient<<endl;
 #endif
-    v2_wires[kvocient]->SetLineColor(kBlue);
-    v2_wires[kvocient]->SetLineWidth(3);
+    v2_wires[quotient]->SetLineColor(kBlue);
+    v2_wires[quotient]->SetLineWidth(3);
     v2_circ->SetFillColor(kBlue);
   }
   else
@@ -451,14 +446,14 @@ void MWDChamber::v2WireHit(int i)
 
 void MWDChamber::x1WireHit(int i)
 {
-  int kvocient = (int) i/5;
-  if (kvocient<Num)
+  int quotient = (int) i/5;
+  if (quotient<Num)
   {
 #if DEBUG_LEVEL >= 3	
-    cout<<"****x1WireHit: "<<kvocient<<endl;
+    cout<<"****x1WireHit: "<<quotient<<endl;
 #endif
-    x1_wires[kvocient]->SetLineColor(kRed);
-    x1_wires[kvocient]->SetLineWidth(3);
+    x1_wires[quotient]->SetLineColor(kRed);
+    x1_wires[quotient]->SetLineWidth(3);
     x1_circ->SetFillColor(kRed);
   }
   else
@@ -473,14 +468,14 @@ void MWDChamber::x1WireHit(int i)
 
 void MWDChamber::x2WireHit(int i)
 {
-  int kvocient = (int) i/5;
-  if (kvocient<Num && type==0)
+  int quotient = (int) i/5;
+  if (quotient<Num && type==0)
   {
 #if DEBUG_LEVEL >= 3	
-    cout<<"****x2WireHit: "<<kvocient<<endl;
+    cout<<"****x2WireHit: "<<quotient<<endl;
 #endif
-    x2_wires[kvocient]->SetLineColor(kRed+2);
-    x2_wires[kvocient]->SetLineWidth(3);
+    x2_wires[quotient]->SetLineColor(kRed+2);
+    x2_wires[quotient]->SetLineWidth(3);
     x2_circ->SetFillColor(kRed+2);
   }
   else

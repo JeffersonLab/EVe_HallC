@@ -20,24 +20,24 @@
 // 1. MWDC variables
 
 	/// Height of the first chamber  
-    	const double L1 = 1.40;
+const double L1 = 1.20;
 
 	/// Wire number per plane 
-	const int MWDC1_U1_WN = 141;
-	const int MWDC1_U1p_WN = 141;
+const int MWDC1_U1_WN =113;// 141;
+const int MWDC1_U1p_WN = 113;//141;
 
-	const int MWDC1_X1_WN = 142;
-	const int MWDC1_X1p_WN = 142;
+const int MWDC1_X1_WN = 107;//142;
+const int MWDC1_X1p_WN = 107;//142;
 
-	const int MWDC1_V1_WN = 141;
-	const int MWDC1_V1p_WN = 141;
+const int MWDC1_V1_WN = 52;//141;
+const int MWDC1_V1p_WN = 52;//141;
 
 
 
 // 2. MWDC variables
 
 	/// Height of the second chamber 
-    	const double L2 = 2.0; 
+const double L2 = 1.20; 
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the second
@@ -45,14 +45,14 @@
 
 
 	/// Wire number per plane 
-	const int MWDC2_U2_WN = 200;
-	const int MWDC2_U2p_WN = 200;
+const int MWDC2_U2_WN = 113;//200;
+const int MWDC2_U2p_WN = 113;//200;
 
-	const int MWDC2_X2_WN = 202;
-	const int MWDC2_X2p_WN = 202;
+const int MWDC2_X2_WN = 107;//202;
+const int MWDC2_X2p_WN = 107;//202;
 
-	const int MWDC2_V2_WN = 200;
-	const int MWDC2_V2p_WN = 200;
+const int MWDC2_V2_WN = 52;//200;
+const int MWDC2_V2p_WN = 52;//200;
 
 
 
@@ -152,12 +152,12 @@
 const double canvas_length = 5.0; // 4.0
 
 	/// Position of the 1. MWDC inside a canvas in pixels
-	const double canvas_MWDC1_posx = 0.1; 
-	const double canvas_MWDC1_posy = 0.5;
+	const double canvas_MWDC1_posx = 0.3; 
+	const double canvas_MWDC1_posy = 0.18;
 
 	/// Position of the 1. MWDC inside a canvas in pixels
-	const double canvas_MWDC2_posx = 0.3; 
-	const double canvas_MWDC2_posy = 0.5;
+	const double canvas_MWDC2_posx = 0.5; 
+	const double canvas_MWDC2_posy = 0.18;
 
 	/// Position of the dE-plane inside a canvas in pixels
 const double canvas_dE_posx = 0.57; 
