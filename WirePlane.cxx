@@ -95,7 +95,7 @@ void WirePlane::SetWire(int i, double t)
        time[i]->SetLineColor(kBlue);
      }
   }
-  cout<<"Tlele sem!"<<endl;
+
 }
 
 void WirePlane::clear()

@@ -555,15 +555,13 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.mwdc.v.ngood", &B_mwdc_v_ngood);
   // t1->SetBranchAddress( "BB.mwdc.x.ngood", &B_mwdc_x_ngood);
 
-   /* TRACKS
-  t1->SetBranchAddress( "BB.tr.n", &B_tr_n);
-  t1->SetBranchAddress( "BB.tr.x", &B_tr_x);
-  t1->SetBranchAddress( "BB.tr.y", &B_tr_y);
-  t1->SetBranchAddress( "BB.tr.ph", &B_tr_ph);
-  t1->SetBranchAddress( "BB.tr.th", &B_tr_th);
-   */  
-
-  //// HOW DO THESE REFERENCES WORK?
+   /// TRACKS
+  // t1->SetBranchAddress( "Ndata.H.tr.x", &Ndata_H_tr_x);
+  // t1->SetBranchAddress( "H.tr.x", &H_tr_x);
+  // t1->SetBranchAddress( "H.tr.y", &H_tr_y);
+  // t1->SetBranchAddress( "HH.tr.ph", &H_tr_ph);
+  // t1->SetBranchAddress( "HH.tr.th", &H_tr_th); 
+  
 
 
   // t1->SetBranchAddress( "BB.tp.e.nhit", &B_tp_e_nhit);
@@ -982,7 +980,6 @@ void EVe::DoDraw(int event)
 
     //***************** First Chamber
 
-    ///// START HERE TO GET PLANAR VIEW WORKING FOR WIRE CHAMBERS
 
 // #if DEBUG_LEVEL >= 3
 //     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
@@ -994,56 +991,48 @@ void EVe::DoDraw(int event)
 // #endif
 
     mwdc1->clear();
-//     for(int i = 0; i<B_mwdc_u1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
-//     } 
 
-//     for(int i = 0; i<B_mwdc_u1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
-//     } 
+    /// X plane
 
+    for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
+      {
+	
+        mwdc1->x1WireHit(H_dc_1x1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
+      {
+	
+        mwdc1->xpWireHit(H_dc_1x2_tdchits[i]);
+      } 
 
-//     for(int i = 0; i<B_mwdc_v1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
-//     } 
+    /// UV plane
 
-//     for(int i = 0; i<B_mwdc_v1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
+      {
+	
+        mwdc1->uWireHit(H_dc_1u1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
+      {
+	
+        mwdc1->vWireHit(H_dc_1v1_tdchits[i]);
+      } 
 
+    /// Y plane
 
-//     for(int i = 0; i<B_mwdc_x1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
+      {
+	
+        mwdc1->y1WireHit(H_dc_1y1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
+      {
+	
+        mwdc1->ypWireHit(H_dc_1y2_tdchits[i]);
+      } 
 
 
 //     //***************** Second Chamber
@@ -1057,57 +1046,49 @@ void EVe::DoDraw(int event)
 //     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
 // #endif
 
-//     mwdc2->clear();
-//     for(int i = 0; i<B_mwdc_u2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
-//     } 
+    mwdc2->clear();
 
-//     for(int i = 0; i<B_mwdc_u2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
-//     } 
+    /// X plane
 
+    for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
+      {
+	
+        mwdc2->x1WireHit(H_dc_2x1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
+      {
+	
+        mwdc2->xpWireHit(H_dc_2x2_tdchits[i]);
+      } 
 
-//     for(int i = 0; i<B_mwdc_v2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
-//     } 
+    /// UV plane
 
-//     for(int i = 0; i<B_mwdc_v2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
+      {
+	
+        mwdc2->uWireHit(H_dc_2u1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
+      {
+	
+        mwdc2->vWireHit(H_dc_2v1_tdchits[i]);
+      } 
 
+    /// Y plane
 
-//     for(int i = 0; i<B_mwdc_x2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
+      {
+	
+        mwdc2->y1WireHit(H_dc_2y1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
+      {
+	
+        mwdc2->ypWireHit(H_dc_2y2_tdchits[i]);
+      } 
  
 
     /////  ******** Now scintillation planes
