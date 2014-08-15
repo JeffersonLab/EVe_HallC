@@ -524,7 +524,7 @@ void MWDChamber::clear()
 void MWDChamber::Track(double x, double y, int i)
 {
 //#if DEBUG_LEVEL >= 3	
-	cout<<"HURA: TRACK: (x,y): "<<x<<", "<<y<<endl;
+//	cout<<"HURA: TRACK: (x,y): "<<x<<", "<<y<<endl;
 //#endif
 
 	// First we need to transform meters to pixels

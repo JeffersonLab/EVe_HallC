@@ -556,11 +556,11 @@ void EVe::initRun(char *filename)
   // t1->SetBranchAddress( "BB.mwdc.x.ngood", &B_mwdc_x_ngood);
 
    /// TRACKS
-  // t1->SetBranchAddress( "Ndata.H.tr.x", &Ndata_H_tr_x);
-  // t1->SetBranchAddress( "H.tr.x", &H_tr_x);
-  // t1->SetBranchAddress( "H.tr.y", &H_tr_y);
-  // t1->SetBranchAddress( "HH.tr.ph", &H_tr_ph);
-  // t1->SetBranchAddress( "HH.tr.th", &H_tr_th); 
+   t1->SetBranchAddress( "Ndata.H.tr.x", &Ndata_H_tr_x);
+   t1->SetBranchAddress( "H.tr.x", &H_tr_x);
+   t1->SetBranchAddress( "H.tr.y", &H_tr_y);
+   t1->SetBranchAddress( "H.tr.ph", &H_tr_ph);
+   t1->SetBranchAddress( "H.tr.th", &H_tr_th); 
   
 
 
@@ -1270,58 +1270,62 @@ void EVe::DoDraw(int event)
 //      }  
 
 
+
+
+
     //****** Now we draw Trajectories through detectors
     	 
-//     if (B_tr_n>0  && fTextButtonTrack->IsOn())
-//     {		
-// 	for(int q =0; q<B_tr_n; q++)
-// 	{
-// 		double x0 = B_tr_x[q];
-// 		double y0 = B_tr_y[q];
-//  		double th = B_tr_th[q];
-// 		double ph = B_tr_ph[q];
+   if (Ndata_H_tr_x > 0 && fTextButtonTrack->IsOn())
+     {		
+       for(int q =0; q<Ndata_H_tr_x; q++)
+	 {
+	   double x0 = H_tr_x[q];
+	   double y0 = H_tr_y[q];
+	   double th = H_tr_th[q];
+	   double ph = H_tr_ph[q];
 
-// 		double z1 = MWDC2_z; ///!!! This value depends of the exp. setting
-// 		//double x1 = x0 + tan(th)*z1;
-// 		//double y1 = y0 + tan(ph)*z1;
-// 		double x1 = x0 + th*z1;
-// 		double y1 = y0 + ph*z1;    
+	   double z1 = MWDC2_z; ///!!! This value depends of the exp. setting
+		//double x1 = x0 + tan(th)*z1;
+		//double y1 = y0 + tan(ph)*z1;
+	   double x1 = x0 + th*z1;
+	   double y1 = y0 + ph*z1;    
   
-// //#if DEBUG_LEVEL >= 3
-// 		cout<<"Q: "<<q<<endl;
-// 		cout<<"~~~~~>th0: "<<th<<", ph0: "<<ph<<endl;
-// 		cout<<"~~~~~>x0: "<<x0<<", y0: "<<y0<<endl;
-// 		cout<<"~~~~~>x1: "<<x1<<", y1: "<<y1<<endl;
-// //#endif
-// 		mwdc1->Track(x0,y0,q);
-// 		mwdc2->Track(x1,y1,q);
+//#if DEBUG_LEVEL >= 3
+	   //	cout<<"Q: "<<q<<endl;
+	   //	cout<<"~~~~~>th0: "<<th<<", ph0: "<<ph<<endl;
+	   //	cout<<"~~~~~>x0: "<<x0<<", y0: "<<y0<<endl;
+	   //	cout<<"~~~~~>x1: "<<x1<<", y1: "<<y1<<endl;
+//#endif
+
+	   mwdc1->Track(x0,y0,q);
+	   mwdc2->Track(x1,y1,q);
 
 
-// 		double z3 = dE_z;
-// 		//double x3 = x0 + tan(th)*z3;
-// 		//double y3 = y0 + tan(ph)*z3;
-// 		double x3 = x0 + th*z3;
-// 		double y3 = y0 + ph*z3;
+	   double z3 = dE_z;
+		//double x3 = x0 + tan(th)*z3;
+		//double y3 = y0 + tan(ph)*z3;
+	   double x3 = x0 + th*z3;
+	   double y3 = y0 + ph*z3;
 
 // #if DEBUG_LEVEL >= 3	
 // 		cout<<"~~~~~>x3: "<<x3<<", y3: "<<y3<<endl;
 // #endif
-// 		sdE->Track(x3,y3,q);
+	   s1X->Track(x3,y3,q);
 
-// 		double z4 = E_z;
-// 		//double x4 = x0 + tan(th)*z4;
-// 		//double y4 = y0 + tan(ph)*z4;
-// 		double x4 = x0 + th*z4;
-// 		double y4 = y0 + ph*z4;
+	   double z4 = E_z;
+		//double x4 = x0 + tan(th)*z4;
+		//double y4 = y0 + tan(ph)*z4;
+	   double x4 = x0 + th*z4;
+	   double y4 = y0 + ph*z4;
 
 
 // #if DEBUG_LEVEL >= 3	
 // 		cout<<"~~~~~>x4: "<<x4<<", y4: "<<y4<<endl;
 // #endif
-// 		sE->Track(x4,y4,q);
-// 	}
-  
-//     }  
+	     s1Y->Track(x4,y4,q);
+	 }
+       
+     }  
 
 
    c3->Draw();
@@ -1577,7 +1581,7 @@ void EVe::doNextGood()
     EventNumber++; // rise the number for one;
     t1->GetEntry(EventNumber);
     fNumberEntry1->SetNumber(EventNumber); // write that to the display 
-    if (B_tr_n > 0.0) // check if event is good (if there is at least 1 good track).
+    if (Ndata_H_tr_x > 0) // check if event is good (if there is at least 1 good track).
     { 
 	DoDraw(EventNumber);
 	break;
@@ -1593,7 +1597,7 @@ void EVe::doPreviousGood()
     EventNumber--; // lower the number for one;
     t1->GetEntry(EventNumber);
     fNumberEntry1->SetNumber(EventNumber); // write that to the display 
-    if (B_tr_n > 0.0) // check if event is good (if there is at least 1 good track).
+    if (Ndata_H_tr_x > 0) // check if event is good (if there is at least 1 good track).
     { 
 	DoDraw(EventNumber);
 	break;

@@ -93,7 +93,7 @@ const int MWDC2_V2p_WN = 52;//200;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the E scintillation plane;
-	const double E_z = 1.1;
+	const double E_z = 1.0;
 
 // U-projection variables
 

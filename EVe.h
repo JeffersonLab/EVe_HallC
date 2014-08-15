@@ -133,12 +133,12 @@ private:
   TTree *t1;
 
     // First MWDC chamber
-  Double_t B_mwdc_u1_nhits;
-  Double_t B_mwdc_u1p_nhits;
-  Double_t B_mwdc_v1_nhits;
-  Double_t B_mwdc_v1p_nhits;
-  Double_t B_mwdc_x1_nhits;
-  Double_t B_mwdc_x1p_nhits;
+  /* Double_t B_mwdc_u1_nhits; */
+  /* Double_t B_mwdc_u1p_nhits; */
+  /* Double_t B_mwdc_v1_nhits; */
+  /* Double_t B_mwdc_v1p_nhits; */
+  /* Double_t B_mwdc_x1_nhits; */
+  /* Double_t B_mwdc_x1p_nhits; */
 
   Int_t Ndata_H_dc_1u1_tdchits;
   Int_t Ndata_H_dc_1v1_tdchits;
@@ -147,12 +147,12 @@ private:
   Int_t Ndata_H_dc_1y1_tdchits;
   Int_t Ndata_H_dc_1y2_tdchits;
 
-  Double_t B_mwdc_u1_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_u1p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v1_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v1p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x1_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x1p_hit_wire[MAX_HITS_NUM];
+  /* Double_t B_mwdc_u1_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_u1p_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v1_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v1p_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x1_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x1p_hit_wire[MAX_HITS_NUM]; */
 
   Double_t H_dc_1u1_tdchits[MAX_HITS_NUM];
   Double_t H_dc_1v1_tdchits[MAX_HITS_NUM];
@@ -162,12 +162,12 @@ private:
   Double_t H_dc_1y2_tdchits[MAX_HITS_NUM];
 
 
-  Double_t B_mwdc_u1_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_u1p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v1_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v1p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x1_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x1p_hit_time[MAX_HITS_NUM];
+  /* Double_t B_mwdc_u1_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_u1p_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v1_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v1p_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x1_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x1p_hit_time[MAX_HITS_NUM]; */
 
   Double_t H_dc_1u1_time[MAX_HITS_NUM];
   Double_t H_dc_1v1_time[MAX_HITS_NUM];
@@ -179,12 +179,12 @@ private:
     
   // Other MWDC chamber
   
-  Double_t B_mwdc_u2_nhits;
-  Double_t B_mwdc_u2p_nhits;
-  Double_t B_mwdc_v2_nhits;
-  Double_t B_mwdc_v2p_nhits;
-  Double_t B_mwdc_x2_nhits;
-  Double_t B_mwdc_x2p_nhits;
+  /* Double_t B_mwdc_u2_nhits; */
+  /* Double_t B_mwdc_u2p_nhits; */
+  /* Double_t B_mwdc_v2_nhits; */
+  /* Double_t B_mwdc_v2p_nhits; */
+  /* Double_t B_mwdc_x2_nhits; */
+  /* Double_t B_mwdc_x2p_nhits; */
 
   Int_t Ndata_H_dc_2u1_tdchits;
   Int_t Ndata_H_dc_2v1_tdchits;
@@ -193,12 +193,12 @@ private:
   Int_t Ndata_H_dc_2y1_tdchits;
   Int_t Ndata_H_dc_2y2_tdchits;
 
-  Double_t B_mwdc_u2_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_u2p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v2_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v2p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x2_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x2p_hit_wire[MAX_HITS_NUM];
+  /* Double_t B_mwdc_u2_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_u2p_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v2_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v2p_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x2_hit_wire[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x2p_hit_wire[MAX_HITS_NUM]; */
 
 
   Double_t H_dc_2u1_tdchits[MAX_HITS_NUM];
@@ -208,12 +208,12 @@ private:
   Double_t H_dc_2y1_tdchits[MAX_HITS_NUM];
   Double_t H_dc_2y2_tdchits[MAX_HITS_NUM];
   
-  Double_t B_mwdc_u2_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_u2p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v2_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v2p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x2_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x2p_hit_time[MAX_HITS_NUM];
+  /* Double_t B_mwdc_u2_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_u2p_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v2_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_v2p_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x2_hit_time[MAX_HITS_NUM]; */
+  /* Double_t B_mwdc_x2p_hit_time[MAX_HITS_NUM]; */
 
   Double_t H_dc_2u1_time[MAX_HITS_NUM];
   Double_t H_dc_2v1_time[MAX_HITS_NUM];
@@ -274,17 +274,24 @@ private:
   Double_t B_mwdc_v_ngood; 
   Double_t B_mwdc_x_ngood;
  
-  Double_t B_tr_n;
-  Double_t B_tr_x[MAX_TRACK_NUM];
-  Double_t B_tr_y[MAX_TRACK_NUM];
-  Double_t B_tr_ph[MAX_TRACK_NUM];
-  Double_t B_tr_th[MAX_TRACK_NUM];
+  /* Double_t B_tr_n; */
+  /* Double_t B_tr_x[MAX_TRACK_NUM]; */
+  /* Double_t B_tr_y[MAX_TRACK_NUM]; */
+  /* Double_t B_tr_ph[MAX_TRACK_NUM]; */
+  /* Double_t B_tr_th[MAX_TRACK_NUM]; */
 
-  Double_t B_tr_px[MAX_TRACK_NUM];
-  Double_t B_tr_py[MAX_TRACK_NUM];
-  Double_t B_tr_pz[MAX_TRACK_NUM];
-  Double_t B_tr_p[MAX_TRACK_NUM];
+  /* Double_t B_tr_px[MAX_TRACK_NUM]; */
+  /* Double_t B_tr_py[MAX_TRACK_NUM]; */
+  /* Double_t B_tr_pz[MAX_TRACK_NUM]; */
+  /* Double_t B_tr_p[MAX_TRACK_NUM]; */
 
+
+  /// TRACKING
+  Int_t Ndata_H_tr_x;
+  Double_t H_tr_x[MAX_TRACK_NUM];
+  Double_t H_tr_y[MAX_TRACK_NUM];
+  Double_t H_tr_ph[MAX_TRACK_NUM];
+  Double_t H_tr_th[MAX_TRACK_NUM];
 
 
 
