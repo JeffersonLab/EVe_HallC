@@ -23,7 +23,7 @@
 class MWDChamber3D {
   
 public:
-  MWDChamber3D(char *ime, int t, int n, double x, double y, double z, double width, double height, TGeoVolume *paddle);
+  MWDChamber3D(char *name, int t, int n, double x, double y, double z, double width, double height, TGeoVolume *paddle);
   virtual ~MWDChamber3D();
   void u1WireHit(int i);
   void u2WireHit(int i);
@@ -35,7 +35,7 @@ public:
 
 protected:
   int Num; // stevilo linij !!! not true
-  TGeoTube *cev1;
+  TGeoTube *tube1;
   int type;
 
   TPremica3D *x1_wires[300];

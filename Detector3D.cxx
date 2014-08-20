@@ -45,13 +45,13 @@ Detector3D::Detector3D()
       // comb = new TGeoCombiTrans(t1, r1);
       // top->AddNodeOverlap(ogrodje_volume,1, comb);
 
-      // Fist MWDC      
+      // First MWDC      
       // TODO: Wire number is different in different wire planes. For now we asume
       // in 3D view, that the number of wires is in all three w.p. the same. 
       TGeoVolume *mwdc_volume = mgr->MakeBox("mwdc_volume1",medium,50,5,100);
       mwdc1 = new MWDChamber3D((char*)"MWDC1",0, MWDC1_X1_WN, 0.0, 0.0, 0.0, MWDC1_length, MWDC1_height, mwdc_volume);
       r1.SetAngles(90,90,90+MWDC1_tilt,180,MWDC1_tilt,180);
-      t1.SetTranslation(MWDC1_xpos, MWDC1_ypos, MWDC1_zpos);
+      t1.SetTranslation(MWDC1_xpos-50.0, MWDC1_ypos, MWDC1_zpos);
       comb = new TGeoCombiTrans(t1, r1);
       top->AddNodeOverlap(mwdc_volume,1, comb);
 
@@ -61,22 +61,22 @@ Detector3D::Detector3D()
       TGeoVolume *mwdc_volume2 = mgr->MakeBox("mwdc_volume2",medium,50,5,105);
       mwdc2 = new MWDChamber3D((char*)"MWDC2",0, MWDC2_X2_WN, 0.0, 0.0, 0.0, MWDC2_length, MWDC2_height, mwdc_volume2);
       r1.SetAngles(90,90,90+MWDC2_tilt,180,MWDC2_tilt,180);
-      t1.SetTranslation(MWDC2_xpos, MWDC2_ypos, MWDC2_zpos);
+      t1.SetTranslation(MWDC2_xpos-30.0, MWDC2_ypos, MWDC2_zpos);
       comb = new TGeoCombiTrans(t1, r1);
       top->AddNodeOverlap(mwdc_volume2,1, comb);
 
-      // dE - Scintillation Plane
+      // s1x - Scintillation Plane
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
-      scintdE = new ScintPlane3D((char*)"dE-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
+      s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
       r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
       //r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
       t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume2,1,comb);
 
-      // E - Scintillation Plane  
+      // s1y - Scintillation Plane  
       TGeoVolume *scint_volume1 = mgr->MakeBox("scint_volume1",medium,111,5,100);
-      scintE = new ScintPlane3D((char*)"E-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1);
+      s1yplane = new ScintPlane3D((char*)"s1y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1);
       r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
       t1.SetTranslation(E_xpos, E_ypos, E_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
@@ -86,7 +86,7 @@ Detector3D::Detector3D()
       TGeoVolume *scint_volume3 = mgr->MakeBox("scint_volume3",medium,111,5,100);
       s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume3);
       r1.SetAngles(180 - dE_tilt, 0, 90 - dE_tilt, 0, 90, 90);
-      t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos-20.0);
+      t1.SetTranslation(dE_xpos+100.0, dE_ypos, dE_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume3,1,comb);
 
@@ -95,7 +95,7 @@ Detector3D::Detector3D()
       // changed volume size to 60
       s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume4);
       r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
-      t1.SetTranslation(E_xpos, E_ypos, E_zpos-20.0);
+      t1.SetTranslation(E_xpos+100.0, E_ypos, E_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume4,1,comb);
 

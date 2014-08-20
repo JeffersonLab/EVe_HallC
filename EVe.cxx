@@ -373,9 +373,9 @@ void EVe::CreateWires()
    s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, E_length, E_height, E_cst, orient2);
    
    if (NScintPlanes == 4) {
-     s2X = new ScintPlane((char*)"s2X-plane", nPaddles1, dE_length, dE_height, s2x_cst, orient1);
+     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, dE_length, dE_height, s2x_cst, orient1);
      
-     s2Y = new ScintPlane((char*)"s2Y-plane", nPaddles2, E_length, E_height, s2y_cst, orient2);
+     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, E_length, E_height, s2y_cst, orient2);
    }
 
 
@@ -1458,8 +1458,10 @@ void EVe::DoDraw(int event)
 //     } 
 
     // Now scintillaion plane
-    detector->scintdE->clear();
-    detector->scintE->clear();
+    detector->s1xplane->clear();
+    detector->s1yplane->clear();
+    detector->s2xplane->clear();
+    detector->s2yplane->clear();
 //     for (int i = 0; i<dE_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
 //     for (int i = 0; i<E_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
 

@@ -37,8 +37,8 @@ public:
   TGeoManager *mgr;
   MWDChamber3D *mwdc1;
   MWDChamber3D *mwdc2;
-  ScintPlane3D *scintE;
-  ScintPlane3D *scintdE;
+  ScintPlane3D *s1xplane;
+  ScintPlane3D *s1yplane;
   ScintPlane3D *s2xplane;
   ScintPlane3D *s2yplane;
   Trajectory3D *partialTrack[10];

@@ -186,7 +186,7 @@ const double canvas_E_posy = 0.5;
 	/// Position and tilt of the center of the 1. MWDC
 	const double MWDC1_xpos = 225.0; // [cm] 
 	const double MWDC1_ypos = 0.0; // [cm]
-	const double MWDC1_zpos = 17.0; // [cm]
+	const double MWDC1_zpos = 17.0-81.0*0.17365; // [cm]
 	const double MWDC1_length = 35.0; // [cm]
 	const double MWDC1_height = 140.0; //[cm]
 	const double MWDC1_tilt  = 10.0; // [deg]
@@ -196,8 +196,8 @@ const double canvas_E_posy = 0.5;
 	const double MWDC2_xpos = 225.0 + 81.0*0.9848; // [cm] 
 	const double MWDC2_ypos = 0.0; // [cm]
 	const double MWDC2_zpos = 17.0 + 81.0*0.17365; // [cm]
-	const double MWDC2_length = 50.0; // [cm]
-	const double MWDC2_height = 200.0; //[cm]
+	const double MWDC2_length = 35.0; // [cm]
+	const double MWDC2_height = 140.0; //[cm]
 	const double MWDC2_tilt  = 10.0; // [deg]
 
 	/// Position and tilt of the center of the dE-plane
