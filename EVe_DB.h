@@ -19,8 +19,11 @@
 
 // 1. MWDC variables
 
+/// Chamber width
+const double MWDC_width = 0.56;  /// [m]
+
 	/// Height of the first chamber  
-const double L1 = 1.20;
+const double L1 = 1.13;  /// [m]
 
 	/// Wire number per plane 
 const int MWDC1_U1_WN =113;// 141;
@@ -42,7 +45,7 @@ const int MWDC1_Yp = 52;
 // 2. MWDC variables
 
 	/// Height of the second chamber 
-const double L2 = 1.20; 
+const double L2 = 1.13;  // [m] 
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the second
@@ -95,61 +98,61 @@ const int MWDC2_V2p_WN = 52;//200;
 	/// the beginning of the E scintillation plane;
 	const double E_z = 1.0;
 
-// U-projection variables
-
-	/// Distance between the begining of the first chamber and 
-	/// the U1-plane
-	const double u1_dist = 0.0; 
-
-	/// Distance between the begining of the first chamber and 
-	/// the U1p-plane
-	const double u1p_dist = 0.0064;
-
-	/// Distance between the begining of the first chamber and 
-	/// the U2-plane
-	const double u2_dist = 0.805225;//0.838675;
-
-	/// Distance between the begining of the first chamber and 
-	/// the U2p-plane
-	const double u2p_dist = 0.799325;//0.832775;
-
-// V-projection variables
-	
-	/// Distance between the begining of the first chamber and 
-	/// the V1-plane
-	const double v1_dist = 0.028775;
-
-	/// Distance between the begining of the first chamber and 
-	/// the V1p-plane
-	const double v1p_dist = 0.035175;
-
-	/// Distance between the begining of the first chamber and 
-	/// the V2-plane
-	const double v2_dist = 0.838675; // 0.805225;
-
-	/// Distance between the begining of the first chamber and 
-	/// the V2p-plane
-	const double v2p_dist = 0.832775; //0.799325;
-
-
-
 // X-projection variables
 
 	/// Distance between the begining of the first chamber and 
 	/// the X1-plane
-	const double x1_dist = 0.0128;
+	const double x1_dist = 0.0; 
 
 	/// Distance between the begining of the first chamber and 
 	/// the X1p-plane
-	const double x1p_dist = 0.022375;
+	const double x1p_dist = 0.0064;
 
 	/// Distance between the begining of the first chamber and 
 	/// the X2-plane
-	const double x2_dist = 0.825875;
+	const double x2_dist = 0.8122;//0.838675;
 
 	/// Distance between the begining of the first chamber and 
 	/// the X2p-plane
-	const double x2p_dist = 0.812125;
+	const double x2p_dist = 0.812284;//0.832775;
+
+// UV-projection variables
+	
+	/// Distance between the begining of the first chamber and 
+	/// the U1-plane
+	const double u1_dist = 0.0128;
+
+	/// Distance between the begining of the first chamber and 
+	/// the V1-plane
+	const double v1_dist = 0.0192;
+
+	/// Distance between the begining of the first chamber and 
+	/// the U2-plane
+	const double u2_dist = 0.825; // 0.805225;
+
+	/// Distance between the begining of the first chamber and 
+	/// the V2-plane
+	const double v2_dist = 0.8314; //0.799325;
+
+
+
+// Y-projection variables
+
+	/// Distance between the begining of the first chamber and 
+	/// the Y1-plane
+const double y1_dist = 0.028775;
+
+	/// Distance between the begining of the first chamber and 
+	/// the Y1p-plane
+const double y1p_dist = 0.035175;
+
+	/// Distance between the begining of the first chamber and 
+	/// the Y2-plane
+	const double y2_dist = 0.840975;
+
+	/// Distance between the begining of the first chamber and 
+	/// the Y2p-plane
+	const double y2p_dist = 0.847375;
 
 // Planar view variables
 

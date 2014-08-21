@@ -25,7 +25,7 @@ class MWDChamber {
   
 public:
   //MWDChamber(char *ime, int n, double x, double y, double a, double b, int t);
-  MWDChamber(char *name, int n, double Height, CStransform *cst, int t);
+  MWDChamber(char *name, int n, double Height, double width, CStransform *cst, int t);
   virtual ~MWDChamber();
   void uWireHit(int i);
   void vWireHit(int i);

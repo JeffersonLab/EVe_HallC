@@ -21,15 +21,24 @@
 
 using namespace std;
 
-MWDChamber::MWDChamber(char *name, int n, double Height, CStransform *trans, int t)
+MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransform *trans, int t)
 {
    type = t;
 
    cst = trans;
 
-   double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Height)/8;
-   double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
+   /// FIXME -- Add in new width variable for class that reads in actual width (and change corresponding width variables that are currently based on the height as well
 
+   /// Width (left to right) = 56.0 cm
+   /// Height = 113 cm
+   /// Ratio H/w = 2.017857
+
+   // double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Height)/8; 
+   // double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
+   // What are these??
+
+   double x =  cst->transXtoCX(0.0) - cst->transLtoCL(width)/2; 
+   double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
 
    double a = cst->transLtoCL(Height); 
    double b = cst->transLtoCL(Height);
@@ -45,8 +54,8 @@ MWDChamber::MWDChamber(char *name, int n, double Height, CStransform *trans, int
 
 
   
-   double LL = 0.25;
-   double HH = 1.0;
+   double LL = 0.495575;  /// Ratio of height to width, with height scaled to 1
+   double HH = 1.0;  
 
 
    Double_t xbox[5] = {a*0.0-0.05*a+x, a*0.0-0.05*a+x, a*LL+0.05*a+x, a*LL+0.05*a+x, a*0.0-0.05*a+x};
@@ -528,19 +537,19 @@ void MWDChamber::Track(double x, double y, int i)
 //#endif
 
 	// First we need to transform meters to pixels
-	double CX =  cst->transXtoCX(-y);
-   	double CY =  cst->transYtoCY(-x);	
+  double CX =  cst->transXtoCX(x);   /// -y ??
+  double CY =  cst->transYtoCY(y);   /// -x ??
 
-	track_circ[i]->SetX1(CX);
-	track_circ[i]->SetY1(CY);
-	track_circ[i]->SetR1(0.008);
-	track_circ[i]->SetR2(0.008);
-	//track_circ[i]->SetLineColor(kOrange+8);
-	track_circ[i]->SetLineColor(1+i);
-	track_circ[i]->SetLineWidth(2);
-	//track_circ[i]->SetFillColor(kYellow);
-	//track_circ[i]->SetFillColor(kOrange+0-i);
-     	track_circ[i]->Draw();
+  track_circ[i]->SetX1(CX);
+  track_circ[i]->SetY1(CY);
+  track_circ[i]->SetR1(0.008);
+  track_circ[i]->SetR2(0.008);
+  //track_circ[i]->SetLineColor(kOrange+8);
+  track_circ[i]->SetLineColor(1+i);
+  track_circ[i]->SetLineWidth(2);
+  //track_circ[i]->SetFillColor(kYellow);
+  //track_circ[i]->SetFillColor(kOrange+0-i);
+  track_circ[i]->Draw();
 	
   
 }

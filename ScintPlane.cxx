@@ -129,8 +129,8 @@ void ScintPlane::clear()
 
 void ScintPlane::Track(double x, double y, int i)
 {
-  double CX =  cst->transXtoCX(-y);
-  double CY =  cst->transYtoCY(-x);	
+  double CX =  cst->transXtoCX(x);  /// -y ??
+  double CY =  cst->transYtoCY(y);  /// -x ??	
 
   track_circ[i]->SetX1(CX);
   track_circ[i]->SetY1(CY);
