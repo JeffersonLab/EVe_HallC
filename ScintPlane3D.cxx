@@ -16,22 +16,33 @@
 
 using namespace std;
 
-ScintPlane3D::ScintPlane3D(char *name, int n, double x, double y, double z, double length, double height, double thickness, TGeoVolume *paddles)
+ScintPlane3D::ScintPlane3D(char *name, int n, double x, double y, double z, double length, double height, double thickness, TGeoVolume *paddles, int horizontal)
 {
    N = n;
-
    GetVariables *ptr = new GetVariables("HMS.txt");
    int number = ptr->GetInt("Number of paddle PMTs =");
+   int rot;
+   if (horizontal == 1) {
+     rot = 1;
+   }
+   else {
+     rot = 0;
+   }
 
    // Determine center of scint plane
  
    double sy0 = y;
    double sx0 = x - (height*(n)/2.0 - height/2.0);
    double sz0 = z;
-
+   /// Need to incorporate a translation into rotation planes
    for(int i = 0; i<n; i++)
    {
-     paddle[i] = new ScintillatorPaddle3D(i, height*i+sx0, 0.0+sy0, 0.0+sz0, length, height, thickness, paddles, number);
+     if (rot ==1) {
+       paddle[i] = new ScintillatorPaddle3D(i, height*i+sx0, 0.0+sy0, 0.0+sz0, length, height, thickness, paddles, number, rot);
+     }
+     else {
+       paddle[i] = new ScintillatorPaddle3D(i, height*i-sx0, 0.0+sy0, 0.0+sz0, length, height, thickness, paddles, number, rot);
+     }
    }
    
    cout<<"Scintillation Plane 3D is created!"<<endl;

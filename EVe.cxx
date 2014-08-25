@@ -317,8 +317,8 @@ void EVe::CreateYprojection()
      y1 = new WirePlane((char*)"Y1",MWDC1_Y,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(y1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
      y1p = new WirePlane((char*)"Y1p",MWDC1_Yp,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(y1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-     y2 = new WirePlane((char*)"Y2",MWDC1_Y,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(y2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-     y2p = new WirePlane((char*)"Y2p",MWDC1_Yp,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(y2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     y2 = new WirePlane((char*)"Y2",MWDC1_Y,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(y2_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     y2p = new WirePlane((char*)"Y2p",MWDC1_Yp,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(y2p_dist),cst->transLtoCL(L2),1.0,1.0,+1);
 
      c4->Update();
   }
@@ -341,8 +341,8 @@ void EVe::CreateWires()
    CStransform *E_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy);
 
    if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvas_length, canvas_dE_posx-0.3, canvas_dE_posy);
-     s2y_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy-0.3);
+     s2x_cst = new CStransform(canvas_length, 0.57, 0.5);
+     s2y_cst = new CStransform(canvas_length, 0.84, 0.2);
    }
 
    // TODO: Wire number is different in different wire planes. For now we asume
@@ -381,12 +381,12 @@ void EVe::CreateWires()
 
    // In the end we plot a coordinate system
 
-   TArrow *xaxis = new TArrow(0.95, 0.15, 0.95, 0.02, 0.02, "|>");
+   TArrow *xaxis = new TArrow(0.82, 0.02, 0.95, 0.02, 0.02, "|>");
    xaxis->Draw();
-   TArrow *yaxis = new TArrow(0.95, 0.15, 0.82, 0.15, 0.02, "|>");
+   TArrow *yaxis = new TArrow(0.82, 0.02, 0.82, 0.15, 0.02, "|>");
    yaxis->Draw();
 
-   TLatex *xtext = new TLatex(0.965,0.03, "x");
+   TLatex *xtext = new TLatex(0.94,0.03, "x");
    xtext->SetTextSize(0.03);
    xtext->Draw();  
 
@@ -1287,10 +1287,15 @@ void EVe::DoDraw(int event)
      {		
        for(int q =0; q<Ndata_H_tr_x; q++)
 	 {
-	   double x0 = H_tr_x[q];
-	   double y0 = H_tr_y[q];
-	   double th = H_tr_th[q];
-	   double ph = H_tr_ph[q];
+	   // double x0 = H_tr_x[q]/100; /// [cm] to [m]
+	   // double y0 = H_tr_y[q]/100;
+	   // double th = H_tr_th[q];
+	   // double ph = H_tr_ph[q];
+	   
+	   double x0 = 0.0;
+	   double y0 = 0.0;
+	   double th = 0.0;
+	   double ph = 0.0;
 
 	   double z1 = MWDC2_z; ///!!! This value depends of the exp. setting
 		//double x1 = x0 + tan(th)*z1;
@@ -1331,6 +1336,18 @@ void EVe::DoDraw(int event)
 // 		cout<<"~~~~~>x4: "<<x4<<", y4: "<<y4<<endl;
 // #endif
 	     s1Y->Track(x4,y4,q);
+
+	     double z5 = s2x_z;
+	     double x5 = x0 + th*z5;
+	     double y5 = y0 + ph*z5;
+
+	     s2X->Track(x5,y5,q);
+
+	     double z6 = s2y_z;
+	     double x6 = x0 + th*z6;
+	     double y6 = y0 + ph*z6;
+
+	     s2Y->Track(x6,y6,q);
 	 }
        
      }  

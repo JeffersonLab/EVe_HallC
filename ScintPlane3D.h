@@ -22,7 +22,7 @@
 class ScintPlane3D {
 
 public:
-  ScintPlane3D(char *name, int n, double x, double y, double z, double length, double height, double thickness, TGeoVolume *paddles);
+  ScintPlane3D(char *name, int n, double x, double y, double z, double length, double height, double thickness, TGeoVolume *paddles, int horizontal);
   virtual ~ScintPlane3D();
   void paddleHit(int num, double left, double right);
   void clear();

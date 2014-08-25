@@ -1,7 +1,0 @@
-*.root
-*~
-\#*
-*.o
-*.d
-EveDict.*
-libEve.so

@@ -29,17 +29,21 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   std::string geometry = "HMS.txt";
   GetVariables *pmt = new GetVariables(geometry);
   
+
+  //// FIXME:: convert to HMS units
   double fpaddleH = 0.25;
   double fpaddleL = 0.5625;
   int numPMT = pmt->GetInt("Number of paddle PMTs =");
 
-  cout << horiz << " horiiz" << endl;
+  // cout << horiz << " horiiz" << endl;
   if (horiz == 1) {
     rot = 1;
   }
   else {
     rot =0;
   }
+
+  /// Conversion between canvas units and actual units goes back and forth. Rotation hard-coded into ScintillatorPaddle class but does not match up with this class - scaling factors need to be fixed
 
   sx0 = cst->transXtoCX(0.0) - cst->transLtoCL(paddle_length/2.0); 
   sy0 = cst->transYtoCY(0.0) + cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);

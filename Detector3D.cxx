@@ -67,7 +67,14 @@ Detector3D::Detector3D()
 
       // s1x - Scintillation Plane
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
-      s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2);
+   GetVariables *orientation1 = new GetVariables("HMS.txt");
+
+   int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
+  
+   GetVariables *orientation2 = new GetVariables("HMS.txt");
+
+   int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
+   s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2, orient1);
       r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
       //r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
       t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos);
@@ -76,7 +83,7 @@ Detector3D::Detector3D()
 
       // s1y - Scintillation Plane  
       TGeoVolume *scint_volume1 = mgr->MakeBox("scint_volume1",medium,111,5,100);
-      s1yplane = new ScintPlane3D((char*)"s1y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1);
+      s1yplane = new ScintPlane3D((char*)"s1y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1, orient2);
       r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
       t1.SetTranslation(E_xpos, E_ypos, E_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
@@ -84,7 +91,7 @@ Detector3D::Detector3D()
 
       //s2x Scint Plane
       TGeoVolume *scint_volume3 = mgr->MakeBox("scint_volume3",medium,111,5,100);
-      s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume3);
+      s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume3, orient1);
       r1.SetAngles(180 - dE_tilt, 0, 90 - dE_tilt, 0, 90, 90);
       t1.SetTranslation(dE_xpos+100.0, dE_ypos, dE_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
@@ -93,7 +100,7 @@ Detector3D::Detector3D()
       //s2y Scint Plane
       TGeoVolume *scint_volume4 = mgr->MakeBox("scint_volume4",medium,111,5,100);
       // changed volume size to 60
-      s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume4);
+      s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume4, orient2);
       r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
       t1.SetTranslation(E_xpos+100.0, E_ypos, E_zpos);
       comb = new TGeoCombiTrans(t1, r1); 

@@ -18,11 +18,12 @@
 #include "TGeoBBox.h"
 #include "TGeoTrd2.h"
 #include "TGeoTube.h"
+#include "TGeoPhysicalNode.h"
 
 class ScintillatorPaddle3D {
   
  public:
-  ScintillatorPaddle3D(int index, double x, double y, double z, double length, double height ,double thickness ,TGeoVolume *paddle, int numPMT);
+  ScintillatorPaddle3D(int index, double x, double y, double z, double length, double height ,double thickness ,TGeoVolume *paddle, int numPMT, int rotation);
   virtual ~ScintillatorPaddle3D();
   void hit(double left, double right, int nPMT);
   void clear();
