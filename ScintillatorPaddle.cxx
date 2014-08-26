@@ -25,7 +25,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   // a is the vertical size of the PMT
   // b is the horizontal size of the PMT
   // length is the length (horizontal) of the scintillator
-  // PMTn is the number of PMTs on the scintillator (1 or 2)
+  // PMTn is the number of PMTs on the scintillator paddle (1 or 2)
   // rotation is currently a T/F for a vertical or horizontal paddle. 
   // rotation == 1 for horizontal paddles, 0 (or other) for vertical paddles
 
@@ -89,6 +89,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   
   /// vertical paddle
   else {
+    // x and y coordinates reversed for vertical paddle
     // Left PMT
     Double_t xL[7] = {b*0.175 + y, b*0.175 + y, b*0.25 + y, b*0.0 + y, b*0.075 + y, b*0.075 + y, b*0.175 + y};
     Double_t yL[7] = {a*0.0 + sx0 ,a*0.09375 + sx0 ,a*0.21875 + sx0 , a*0.21875 +sx0 , a*0.09375 + sx0 , a*0.0 + sx0 , a*0.0 + sx0 };
@@ -149,9 +150,10 @@ ScintillatorPaddle::~ScintillatorPaddle()
 }
 
 
+/// OLD hit method - currently not in use but here for reference
 void ScintillatorPaddle::hit(double left, double right, double y)
 {
-  double min = -10000.0;  // FIXME
+  double min = -10000.0; 
   // If the paddle was not hit the program returns 1e-35
   // If the paddle was hit, the program returns a number 
   // that is less than 0.
@@ -187,6 +189,8 @@ void ScintillatorPaddle::hit(double left, double right, double y)
 
 }
 
+
+// NEW hit method (3 functions) -- must be similarly implemented in 3D paddles
 void ScintillatorPaddle::HitLeft()
 {
   plineL->SetFillColor(2);

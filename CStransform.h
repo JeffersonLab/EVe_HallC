@@ -4,7 +4,7 @@
 //  by miham
 // 
 //  We use this class to transform real coordinate values from MWDC and 
-//  Scint. (that we get from data) to pixels inside a canvas, where we
+//  Scintillators (that we get from data) to pixels inside a canvas, where we
 //  want to draw out data. 
 // 
 //

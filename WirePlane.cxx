@@ -48,13 +48,13 @@ WirePlane::WirePlane(char *name, int n, double x, double y, double l, double a, 
      time[i] -> Draw();
    }
  
-   if (type==1)
+   if (type==1)  // Back Planes - X' , V , Y'
    {
      TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*(0.008-0.01), name);
      title->SetTextSize(b*0.02);
      title->Draw();   
    }
-   else if (type==-1)
+   else if (type==-1)   // Front Planes - X, U, Y
    {
      TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*(0.008+0.01), name);
      title->SetTextSize(b*0.02);
@@ -78,12 +78,12 @@ void WirePlane::SetWire(int i, double t)
   cout<<planename<<"Index is: "<<i<<", T is: "<<t<<endl;
   if (i < WireNum)
   {
-     if (type==1)
+    if (type==1)  // Back Planes - X' , V , Y'
      {
        time[i]->SetY1(rescale_me*t+y0);
        time[i]->SetLineColor(kGreen+1);
      }
-     else if (type==-1)
+     else if (type==-1) // Front Planes - X, U, Y
      {
        time[i]->SetY2(-1.0*rescale_me*t+y0);
        time[i]->SetLineColor(kRed);

@@ -9,6 +9,7 @@
 ///////////////////////////////////////
 
 #include "ScintillatorPaddle3D.h"
+#include "EVe_DB.h"
 #include "TMath.h"
 #include <cstring>
 #include <cstdio>
@@ -19,8 +20,10 @@ using namespace std;
 
 ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double z,  double length, double height, double thickness, TGeoVolume *paddle, int numPMT, int rotation)
 {
+  plength = s1x_paddle_length;
   //  n = numPMT;
   double r_PMT = 2.0; 
+
   // scintillator paddle
   Double_t StartingPoint[3]={x,y,z};
   TGeoBBox *scint_box = new TGeoBBox("scint_box",0.9*height/2.0,thickness/2.0,length/2.0,StartingPoint);
@@ -28,14 +31,16 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   scint->SetLineColor(5);
 
   TGeoRotation *rot1 = new TGeoRotation("rot1", 0.0,0.0,90.0,90.0,90.0,0.0);
-  /* Rotated 90 deg about paddle axis
+  TGeoCombiTrans *combo = new TGeoCombiTrans(plength/2.0, 0.0, -plength/1.0, rot1); /// add on for rotated paddles
+
+  /* This rotates 90 deg about paddle axis
   TGeoRotation *rot1 = new TGeoRotation("rot1",90.0, 90.0, 90.0,180.0,0.0,0.0);
   */
   if (rotation == 1) {
     paddle->AddNode(scint,1);
   }
   else {
-    paddle->AddNode(scint,1, rot1);
+    paddle->AddNode(scint,1, combo);
   }
 
   // side skirt scintillator
@@ -43,16 +48,16 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   TGeoVolume *sides = new TGeoVolume("sides",side_box);
   sides->SetLineColor(kBlack);
   TGeoTranslation *trans1 = new TGeoTranslation((0.9+0.05)*height/2.0+x,0.0 + y,0.0 + z);
-  //TGeoTranslation trans1( (0.9+0.05)*height/2.0+x,0.0 + y,0.0 + z);
 
   // r1->SetAngles(0,0,90,90,0,0);
   // (90,0,90,90,0,0) is no rotation (by GEANT3 angles)
-  TGeoCombiTrans *combo1 = new TGeoCombiTrans((0.9+0.05)*height/2.0+x,0.0 + y,0.0 + z, rot1);
-  TGeoCombiTrans *combo2 = new TGeoCombiTrans(-(0.9+0.05)*height/2.0 + x,0.0 + y,0.0 + z, rot1);
+
+  TGeoCombiTrans *combo1 = new TGeoCombiTrans((0.9+0.05)*height/2.0+x + plength/2.0 ,0.0 + y,0.0 + z - plength, rot1);
+  TGeoCombiTrans *combo2 = new TGeoCombiTrans(-(0.9+0.05)*height/2.0 + x + plength/2.0 ,0.0 + y,0.0 + z - plength, rot1);
 
 
   TGeoTranslation *trans2 = new TGeoTranslation(-(0.9+0.05)*height/2.0 + x,0.0 + y,0.0 + z);
-  //TGeoCombiTrans *combo2 = new TGeoCombiTrans(trans2, rot1);
+
   if (rotation == 1) {
     paddle->AddNode(sides, 1, trans1);
     paddle->AddNode(sides, 2, trans2);
@@ -65,7 +70,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   TGeoVolume *pmtedge1 = new TGeoVolume("pmtedge1",trapezoid1);
   pmtedge1->SetLineColor(kBlack);
 
-  TGeoCombiTrans *combo3 = new TGeoCombiTrans(0.0+x,0.0+y,length/2.0 + length/10.0 +z, rot1);
+  TGeoCombiTrans *combo3 = new TGeoCombiTrans(0.0+x +plength/2.0,0.0+y,length/2.0 + length/10.0 +z - plength, rot1);
   if (rotation ==1) {
     paddle->AddNode(pmtedge1,1, new TGeoTranslation(0.0+x,0.0+y,length/2.0 + length/10.0 +z));
   }
@@ -78,7 +83,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
     TGeoVolume *pmtedge2 = new TGeoVolume("pmtedge2",trapezoid2);
     pmtedge2->SetLineColor(kBlack);
     
-    TGeoCombiTrans *combo4 = new TGeoCombiTrans(0.0+x,0.0+y,-length/2.0 - length/10.0+z, rot1);
+    TGeoCombiTrans *combo4 = new TGeoCombiTrans(0.0+x + plength/2.0,0.0+y,-length/2.0 - length/10.0+z - plength, rot1);
     if (rotation ==1) {
       paddle->AddNode(pmtedge2,1, new TGeoTranslation(0.0+x,0.0+y,-length/2.0 - length/10.0+z));
     }
@@ -89,7 +94,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   TGeoTube *tube1 = new TGeoTube("tube1",0.0, r_PMT , 0.3*length/2.0);
   pmt1 = new TGeoVolume("pmt1",tube1);
   pmt1->SetLineColor(kBlack);
-  TGeoCombiTrans *combo5 = new TGeoCombiTrans(0.0+x,0.0+y, (length/2.0 + 2.0*length/10.0+ 0.3*length/2.0) + z, rot1);
+  TGeoCombiTrans *combo5 = new TGeoCombiTrans(0.0+x + plength/2.0 ,0.0+y, (length/2.0 + 2.0*length/10.0+ 0.3*length/2.0) + z - plength, rot1);
 
   if (rotation ==1 ) {
     paddle->AddNode(pmt1,1, new TGeoTranslation(0.0+x,0.0+y, (length/2.0 + 2.0*length/10.0+ 0.3*length/2.0) + z));
@@ -101,7 +106,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
     TGeoTube *tube2 = new TGeoTube("tube2",0.0, r_PMT , 0.3*length/2.0);
     pmt2 = new TGeoVolume("pmt2",tube2);
     pmt2->SetLineColor(kBlack);
-    TGeoCombiTrans *combo6 = new TGeoCombiTrans(0.0+x,0.0+y,-(length/2.0 + 2.0*length/10.0+ 0.3*length/2.0)+z, rot1);
+    TGeoCombiTrans *combo6 = new TGeoCombiTrans(0.0+x + plength/2.0,0.0+y,-(length/2.0 + 2.0*length/10.0+ 0.3*length/2.0)+z - plength, rot1);
 
     if (rotation ==1) {
       paddle->AddNode(pmt2,1, new TGeoTranslation(0.0+x,0.0+y,-(length/2.0 + 2.0*length/10.0+ 0.3*length/2.0)+z));
@@ -117,6 +122,8 @@ ScintillatorPaddle3D::~ScintillatorPaddle3D()
 
 }
 
+
+/// FIXME:: This hit method needs to be re-written or a new one must be added to            create hits analogous to tdchits as in the ScintillatorPaddle planar            class. This will be propagated through to the ScintPlane3D class and            the Detector3D class.
 
 void ScintillatorPaddle3D::hit(double left, double right, int nPMT)
 {

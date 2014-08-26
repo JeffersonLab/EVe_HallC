@@ -1,4 +1,3 @@
-
 //************************************************************************* 
 //  Trajectory3D.cxx  - 4/14/2008
 // 
@@ -21,15 +20,15 @@
 
 #include "EVe_DB.h"
 
-#define EBUG_LEVEL 0
+#define DEBUG_LEVEL 0
 
 
 using namespace std;
 
-Trajectory3D::Trajectory3D(char *ime, TGeoVolume *tvolume, TGeoManager *mgr, char *pot)
+Trajectory3D::Trajectory3D(char *objectname, TGeoVolume *tvolume, TGeoManager *mgr, char *pot)
 {
 	for (int i = 0; i<100; i++) name[i] = 0;
-       	strcat(name,ime);
+       	strcat(name,objectname);
 	
         manager = mgr;  
       	TGeoTube *tube = new TGeoTube("tube",0.0, 0.0, 0.0);	
@@ -39,7 +38,7 @@ Trajectory3D::Trajectory3D(char *ime, TGeoVolume *tvolume, TGeoManager *mgr, cha
 
 	for (int i = 0; i<100; i++) path[i] = 0;
 	strcat(path, pot);
-	strcat(path, ime);
+	strcat(path, objectname);
 	strcat(path, "_1");
 
 #if DEBUG_LEVEL >= 3

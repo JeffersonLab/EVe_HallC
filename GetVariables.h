@@ -8,8 +8,6 @@
 //
 //************************************************************************* 
 
-//#ifndef __CINT__
-
 #ifndef ROOT_GetVariables
 #define ROOT_GetVariables
 
@@ -27,7 +25,6 @@ class GetVariables {
  public:
   GetVariables(std::string filename);
   virtual ~GetVariables();
-  // void GetFile(std::string filename);
   int GetInt(std::string variable_int);
   double GetDouble(std::string variable_dbl);
   double outvar;
@@ -40,12 +37,8 @@ class GetVariables {
   std::string intvar;
   std::string dblvar;
   std::string tempstr;
-  // int intcheck;
   int x;
-  // char varchar[100];   /// conversion of string to char to convert to double
   
 };
 
 #endif
-
-//#endif

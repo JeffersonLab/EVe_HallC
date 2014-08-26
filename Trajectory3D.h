@@ -25,7 +25,7 @@
 class Trajectory3D {
   
 public:
-  Trajectory3D(char *ime,TGeoVolume *tvolume, TGeoManager *mgr,  char *pot);
+  Trajectory3D(char *objectname,TGeoVolume *tvolume, TGeoManager *mgr,  char *pot);
   void Track(double xf, double yf, double zf, double thetaf, double phif);
   virtual ~Trajectory3D();
   void ClearTrack();

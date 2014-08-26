@@ -1,4 +1,6 @@
 {
+  /// Macro for running EVe with hodtest.root . Can easily be updated to work with any compatible .root file, or dynamically input as in simEVe.C    ///
+
   #include <TGClient.h>
   gSystem->Load("libGeom");
   gSystem->Load("libEVe.so");

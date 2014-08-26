@@ -3,7 +3,7 @@
 // 
 //  by miham
 // 
-//  This file contains all data regarding the Big Bite spectrometer
+//  This file contains all data regarding the HMS spectrometer
 //  (distances, sizes, wire numbers, etc.)
 // 
 //
@@ -13,9 +13,11 @@
 #define ROOT_EVe_DB
 
 
-	/// Big Bite angle
+/// FIXME:: This whole file should really be removed and the detector data
+///         should be dynamically input throughout the code, not hardcoded
+///         like it currently is. The GetVariables class was implemented 
+///         to do this but has not been completely integrated into the code.
 
-	const double BB_angle = -54.0*3.141592654/180.0; //[deg]
 
 // 1. MWDC variables
 
@@ -26,14 +28,14 @@ const double MWDC_width = 0.56;  /// [m]
 const double L1 = 1.13;  /// [m]
 
 	/// Wire number per plane 
-const int MWDC1_U1_WN =113;// 141;
-const int MWDC1_U1p_WN = 113;//141;
+const int MWDC1_U1_WN =113;
+const int MWDC1_U1p_WN = 113;
 
-const int MWDC1_X1_WN = 107;//142;
-const int MWDC1_X1p_WN = 107;//142;
+const int MWDC1_X1_WN = 107;
+const int MWDC1_X1p_WN = 107;
 
-const int MWDC1_V1_WN = 52;//141;
-const int MWDC1_V1p_WN = 52;//141;
+const int MWDC1_V1_WN = 52;
+const int MWDC1_V1p_WN = 52;
 
 const int MWDC1_X = 113;
 const int MWDC1_Xp = 113;
@@ -69,34 +71,34 @@ const int MWDC2_V2p_WN = 52;//200;
 // s1x-plane variables
 
 	/// number of paddles
-	const int dE_PN  = 16;
+	const int s1x_PN  = 16;
 	
 	/// Paddle length
-	const double dE_length = 0.755;
+	const double s1x_length = 0.755;
 
 	/// Paddle height
-	const double dE_height = 0.0753;
+	const double s1x_height = 0.0753;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the s1x scintillation plane;
-	const double dE_z = 1.29753;
+	const double s1x_z = 1.29753;
 	 
 	
 
 // s1y-plane variables
 
 	/// number of paddles
-	const int E_PN  = 10;
+	const int s1y_PN  = 10;
 
 	/// Paddle length
-	const double E_length = 0.755;
+	const double s1y_length = 0.755;
 
 	/// Paddle height
-	const double E_height = 0.0753;
+	const double s1y_height = 0.0753;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the s1y scintillation plane;
-	const double E_z = 1.49443;
+	const double s1y_z = 1.49443;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the s2x scintillation plane;
@@ -176,23 +178,21 @@ const double canvas_length = 5.0; // 4.35
 	const double canvas_MWDC2_posy = 0.18;
 
 	/// Position of the dE-plane inside a canvas in pixels
-const double canvas_dE_posx = 0.27; 
-const double canvas_dE_posy = 0.5;
+const double canvas_s1x_posx = 0.27; 
+const double canvas_s1x_posy = 0.5;
 
 	/// Position of the E-plane inside a canvas in pixels
-const double canvas_E_posx = 0.84; 
-const double canvas_E_posy = 0.5;
+const double canvas_s1y_posx = 0.84; 
+const double canvas_s1y_posy = 0.5;
 
 
 // 3D view variables
-
-	/// Position of the center of the BB magnet
-	const double magnet_xpos = 141.0; // [cm]
-	const double magnet_ypos = 0.0; // [cm]
-	const double magnet_zpos = -30.0; // [cm]
 	
+///  This variable is needed for FullTrajectory3D, and is left in to be used as ///  an example while still allowing the code to compile.
 	/// Distance from target to the front face of the BB magnet
 	const double magnet_face_dist  = 110.0; // [cm]
+///
+
 
 	/// Position and tilt of the center of the 1. MWDC
 	const double MWDC1_xpos = 225.0; // [cm] 
@@ -212,25 +212,26 @@ const double canvas_E_posy = 0.5;
 	const double MWDC2_tilt  = 10.0; // [deg]
 
 	/// Position and tilt of the center of the dE-plane
-	const double dE_xpos = 225.0 + 100.0*0.9848; // [cm] 
-	const double dE_ypos = 0.0; // [cm]
-	const double dE_zpos = 77.83; // [cm]
-	const double dE_paddle_length = 50.0; // [cm]
-	const double dE_paddle_height = 8.6; //[cm]
-	const double dE_paddle_thickness = 0.3; //[cm]
-	const double dE_tilt  = 10.0; // [deg]
+	const double s1x_xpos = 225.0 + 100.0*0.9848; // [cm] 
+	const double s1x_ypos = 0.0; // [cm]
+	const double s1x_zpos = 77.83; // [cm]
+	const double s1x_paddle_length = 75.5; // [cm]
+	const double s1x_paddle_height = 7.53; //[cm]
+	const double s1x_paddle_thickness = 1.067; //[cm]
+	const double s1x_tilt  = 10.0; // [deg]
 
 	/// Position and tilt of the center of the E-plane
-	const double E_xpos = 225.0 + 110.0*0.9848; // [cm] 
-	const double E_ypos = 0.0; // [cm]
-	const double E_zpos = 97.520; // [cm]
-	const double E_paddle_length = 75.5; // [cm]
-	const double E_paddle_height = 7.53; //[cm]
-	const double E_paddle_thickness = 1.067; //[cm]
-	const double E_tilt  = 10.0; // [deg]
+	const double s1y_xpos = 225.0 + 110.0*0.9848; // [cm] 
+	const double s1y_ypos = 0.0; // [cm]
+	const double s1y_zpos = 97.520; // [cm]
+	const double s1y_paddle_length = 75.5; // [cm]
+	const double s1y_paddle_height = 7.53; //[cm]
+	const double s1y_paddle_thickness = 1.067; //[cm]
+	const double s1y_tilt  = 10.0; // [deg]
 
 // Technical Variables for internal puposes of ev. display
-	
+/// FIXME:: Not quite sure why the following constants need to exist	
+
 	/// Maximum number of paddles in the scin. plane
 	const int MAX_PADDLE_NUM =  100; 
 

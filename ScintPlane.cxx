@@ -31,8 +31,8 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   
 
   //// FIXME:: convert to HMS units
-  double fpaddleH = 0.25;
-  double fpaddleL = 0.5625;
+  double fpaddleH = 0.25;  ///  0.25 /// Alpha (1/canvas_length)
+  double fpaddleL = 0.5625;  /// 0.5625 before -- why these values??
   int numPMT = pmt->GetInt("Number of paddle PMTs =");
 
   // cout << horiz << " horiiz" << endl;
@@ -43,7 +43,7 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
     rot =0;
   }
 
-  /// Conversion between canvas units and actual units goes back and forth. Rotation hard-coded into ScintillatorPaddle class but does not match up with this class - scaling factors need to be fixed
+  /// FIXME:: Conversion between canvas units and actual units goes back and forth. Rotation hard-coded into ScintillatorPaddle class but does not match up with this class - scaling factors need to be fixed
 
   sx0 = cst->transXtoCX(0.0) - cst->transLtoCL(paddle_length/2.0); 
   sy0 = cst->transYtoCY(0.0) + cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
@@ -81,10 +81,8 @@ ScintPlane::~ScintPlane()
   // Destructor
 }
 
-/* 
- * paddleHit() will turn on PMTs for paddle <num> if the TDC data in <left> and <right> 
- * correspond to a good hit.
- */
+/* paddleHit() will turn on PMTs for paddle <num> if the TDC data in <left> and <right> correspond to a good hit.
+ */ // -- OLD hit method
 void ScintPlane::paddleHit(int num, double left, double right, double y)
 {
   if (num<N)
@@ -94,6 +92,8 @@ void ScintPlane::paddleHit(int num, double left, double right, double y)
   
 }
 
+
+/// NEW hit method used for tdchits. Needs to be implemented in ScintPlane3D
 void ScintPlane::paddleLeftHit(int padn)
 {
   paddle[padn]->HitLeft();
@@ -133,8 +133,8 @@ void ScintPlane::clear()
 
 void ScintPlane::Track(double x, double y, int i)
 {
-  double CX =  cst->transXtoCX(x);  /// -y ??
-  double CY =  cst->transYtoCY(y);  /// -x ??	
+  double CX =  cst->transXtoCX(x); 
+  double CY =  cst->transYtoCY(y); 	
 
   track_circ[i]->SetX1(CX);
   track_circ[i]->SetY1(CY);

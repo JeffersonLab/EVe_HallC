@@ -1,11 +1,10 @@
-
 //************************************************************************* 
 //  MWDChamber.h  - 4/14/2008
 // 
 //  by miham
 // 
 //  This class is used to create planar view of the MWDC.
-//
+//  Updated by Ben Davis-Purcell - 8/26/2014
 //
 //*************************************************************************   
 #ifndef ROOT_MWDChamber
@@ -24,7 +23,6 @@
 class MWDChamber {
   
 public:
-  //MWDChamber(char *ime, int n, double x, double y, double a, double b, int t);
   MWDChamber(char *name, int n, double Height, double width, CStransform *cst, int t);
   virtual ~MWDChamber();
   void uWireHit(int i);
@@ -37,7 +35,7 @@ public:
   void Track(double x, double y, int i);
 
 protected:
-  int Num; // number of lines !!! not true
+  int Num; 
   TPolyLine *box;
   TPolyLine *box2;
   TLine *u_wires[1000];

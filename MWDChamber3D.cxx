@@ -5,7 +5,7 @@
 // 
 //  This class is used to create 3D simulation of MWDC and to show hit wires
 //
-//
+//  Updated by Ben Davis-Purcell - 8/26/2014
 //*************************************************************************  
 
 
@@ -25,18 +25,14 @@ using namespace std;
 
 MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double z, double width, double height, TGeoVolume *paddle)
 {
-   // Type 0 is a chamber that has double wire layers  e.g. UUXXYY
-   // Type 1 is chamber with single wire layers e.g. UXV
+   // Type 0 is a chamber that has double wire layers  e.g. XX'UVYY'
+   // Type 1 is chamber with single wire layers e.g. XUY
    type = t;
 
    // n = actual number of wires
    // Num = number ow wires that we draw
-   if ((n/5.0 - int(n/5.0))>0) Num =  (int) (n/5.0) + 1; // mus be rounded up
+   if ((n/5.0 - int(n/5.0))>0) Num =  (int) (n/5.0) + 1; // must be rounded up
    else Num = (int) (n/5.0);
-
-#if DEBUG_LEVEL >= 3
-   cout<<"IMAMO n = "<<n<<", Num = "<<Num<<endl;
-#endif
 
    // First we create a frame
    Double_t starting_point1[3]={-(width + 1.0)/2.0+x,y,z};
@@ -62,13 +58,13 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
      for (int i = 0; i<Num; i++)
      {
 	double fac = (height)*(i)/(Num);
-        x1_wires[i] = new TPremica3D(-width/2.0+x, -0.25, (height/2.0-fac)+y, width/2.0+x, -0.25, (height/2.0-fac)+y, 0.2, paddle);
+        x1_wires[i] = new TWire3D(-width/2.0+x, -0.25, (height/2.0-fac)+y, width/2.0+x, -0.25, (height/2.0-fac)+y, 0.2, paddle);
      }
 
      for (int i = 0; i<Num; i++)
      {
         double fac =  (height)/Num/2.0 + (height)*(i)/(Num);
-        x2_wires[i] = new TPremica3D(-width/2.0+x, 0.25, (height/2.0-fac)+y, width/2.0+x, 0.25 , (height/2.0-fac)+y, 0.2, paddle);
+        x2_wires[i] = new TWire3D(-width/2.0+x, 0.25, (height/2.0-fac)+y, width/2.0+x, 0.25 , (height/2.0-fac)+y, 0.2, paddle);
      }
  
      // V-wires
@@ -78,16 +74,16 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
 
         if (cn <= height - sqrt(3.)/3.0*width && cn>=0.0 )
         {
-	  v1_wires[i] = new TPremica3D (0.0+x - width/2.0, 1.25 , cn+y-height/2.0, width+x- width/2.0, 1.25, (sqrt(3.)/3.0*width+ cn)+y-height/2.0, 0.2, paddle);
+	  v1_wires[i] = new TWire3D (0.0+x - width/2.0, 1.25 , cn+y-height/2.0, width+x- width/2.0, 1.25, (sqrt(3.)/3.0*width+ cn)+y-height/2.0, 0.2, paddle);
           
         }
         else if (cn>height - sqrt(3.)/3.0*width)
 	{
-	  v1_wires[i] = new TPremica3D (0.0+x - width/2.0, 1.25, cn+y-height/2.0, (height-cn)*3.0/sqrt(3.)+x- width/2.0, 1.25, height+y-height/2.0, 0.2, paddle);
+	  v1_wires[i] = new TWire3D (0.0+x - width/2.0, 1.25, cn+y-height/2.0, (height-cn)*3.0/sqrt(3.)+x- width/2.0, 1.25, height+y-height/2.0, 0.2, paddle);
 	}
 	else
 	{
-	  v1_wires[i] = new TPremica3D((3.0/sqrt(3.)*(-cn))+x - width/2.0, 1.25, height*0.0+y-height/2.0, width+x- width/2.0, 1.25, (width -3.0/sqrt(3.)*(-cn))*sqrt(3.)/3+y-height/2.0, 0.2, paddle);
+	  v1_wires[i] = new TWire3D((3.0/sqrt(3.)*(-cn))+x - width/2.0, 1.25, height*0.0+y-height/2.0, width+x- width/2.0, 1.25, (width -3.0/sqrt(3.)*(-cn))*sqrt(3.)/3+y-height/2.0, 0.2, paddle);
 	}
      }
 
@@ -97,15 +93,15 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
 
         if (cn <= height - sqrt(3.)/3.0*width && cn>=0.0 )
         {
-	  v2_wires[i] = new TPremica3D (0.0+x - width/2.0, 1.75, cn+y-height/2.0, width+x- width/2.0, 1.75, (sqrt(3.)/3.0*width+ cn)+y-height/2.0, 0.2, paddle);   
+	  v2_wires[i] = new TWire3D (0.0+x - width/2.0, 1.75, cn+y-height/2.0, width+x- width/2.0, 1.75, (sqrt(3.)/3.0*width+ cn)+y-height/2.0, 0.2, paddle);   
         }
         else if (cn>height - sqrt(3.)/3.0*width)
 	{
-	  v2_wires[i] = new TPremica3D (0.0+x - width/2.0, 1.75, cn+y-height/2.0, (height-cn)*3.0/sqrt(3.)+x - width/2.0, 1.75, height+y-height/2.0, 0.2, paddle);  
+	  v2_wires[i] = new TWire3D (0.0+x - width/2.0, 1.75, cn+y-height/2.0, (height-cn)*3.0/sqrt(3.)+x - width/2.0, 1.75, height+y-height/2.0, 0.2, paddle);  
 	}
 	else
 	{
-	  v2_wires[i] = new TPremica3D ((3.0/sqrt(3.)*(-cn))+x - width/2.0, 1.75, height*0.0+y-height/2.0, width+x- width/2.0, 1.75, (width -3.0/sqrt(3.)*(-cn))*sqrt(3.)/3+y-height/2.0, 0.2, paddle); 
+	  v2_wires[i] = new TWire3D ((3.0/sqrt(3.)*(-cn))+x - width/2.0, 1.75, height*0.0+y-height/2.0, width+x- width/2.0, 1.75, (width -3.0/sqrt(3.)*(-cn))*sqrt(3.)/3+y-height/2.0, 0.2, paddle); 
 	}
 
      }
@@ -118,15 +114,15 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
 
 	if (cn < height && cn >width*sqrt(3.)/3.0)
 	{
-	  u1_wires[i] = new TPremica3D(0.0+x-width/2.0, -1.75, cn+y - height/2.0, width+x-width/2.0, -1.75, (-width*sqrt(3.)/3.0+ cn)+y - height/2.0, 0.2, paddle);
+	  u1_wires[i] = new TWire3D(0.0+x-width/2.0, -1.75, cn+y - height/2.0, width+x-width/2.0, -1.75, (-width*sqrt(3.)/3.0+ cn)+y - height/2.0, 0.2, paddle);
 	}
 	else if (cn>=height)
 	{
-	  u1_wires[i] = new TPremica3D((cn-height)*3.0/sqrt(3.0)+x-width/2.0, -1.75, height+y- height/2.0, width+x-width/2.0, -1.75, (-sqrt(3.)/3.0*width+ cn)+y- height/2.0, 0.2, paddle);
+	  u1_wires[i] = new TWire3D((cn-height)*3.0/sqrt(3.0)+x-width/2.0, -1.75, height+y- height/2.0, width+x-width/2.0, -1.75, (-sqrt(3.)/3.0*width+ cn)+y- height/2.0, 0.2, paddle);
 	}
 	else
 	{
-	  u1_wires[i] = new TPremica3D(0.0+x -width/2.0, -1.75, cn+y - height/2.0, (cn*3.0/sqrt(3.0))+x-width/2.0+0.001, -1.75, 0.0+y -height/2.0, 0.2, paddle);
+	  u1_wires[i] = new TWire3D(0.0+x -width/2.0, -1.75, cn+y - height/2.0, (cn*3.0/sqrt(3.0))+x-width/2.0+0.001, -1.75, 0.0+y -height/2.0, 0.2, paddle);
 	}
      }
 
@@ -137,15 +133,15 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
 
 	if (cn < height && cn >width*sqrt(3.)/3.0)
 	{
-	  u2_wires[i] =  new TPremica3D(0.0+x - width/2.0, -1.25, cn+y-height/2.0, width+x- width/2.0, -1.25, (-width*sqrt(3.)/3.0+ cn)+y-height/2.0+0.001, 0.2, paddle);
+	  u2_wires[i] =  new TWire3D(0.0+x - width/2.0, -1.25, cn+y-height/2.0, width+x- width/2.0, -1.25, (-width*sqrt(3.)/3.0+ cn)+y-height/2.0+0.001, 0.2, paddle);
 	}
 	else if (cn>=height)
 	{
-	  u2_wires[i] =  new TPremica3D((cn-height)*3.0/sqrt(3.0)+x - width/2.0, -1.25, height +y-height/2.0, width+x - width/2.0+0.001, -1.25, (-sqrt(3.)/3.0*width+ cn)+y-height/2.0+0.001, 0.2, paddle);
+	  u2_wires[i] =  new TWire3D((cn-height)*3.0/sqrt(3.0)+x - width/2.0, -1.25, height +y-height/2.0, width+x - width/2.0+0.001, -1.25, (-sqrt(3.)/3.0*width+ cn)+y-height/2.0+0.001, 0.2, paddle);
 	}
 	else
 	{
-	  u2_wires[i] =  new TPremica3D(0.0+x- width/2.0, -1.25, cn+y- height/2.0, (cn*3.0/sqrt(3.0))+x- width/2.0 +0.001, -1.25, 0.0+y- height/2.0+0.0001, 0.2, paddle);
+	  u2_wires[i] =  new TWire3D(0.0+x- width/2.0, -1.25, cn+y- height/2.0, (cn*3.0/sqrt(3.0))+x- width/2.0 +0.001, -1.25, 0.0+y- height/2.0+0.0001, 0.2, paddle);
 	}
      }
 
@@ -157,7 +153,7 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
      for (int i = 0; i<Num; i++)
      {
 	double fac = (height)*(i)/(Num);
-        x1_wires[i] = new TPremica3D(-width/2.0+x, 0.0, (height/2.0-fac)+y, width/2.0+x, 0.0, (height/2.0-fac)+y, 0.2, paddle);
+        x1_wires[i] = new TWire3D(-width/2.0+x, 0.0, (height/2.0-fac)+y, width/2.0+x, 0.0, (height/2.0-fac)+y, 0.2, paddle);
      }
 
      // V- wires
@@ -167,16 +163,16 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
 
         if (cn <= height - sqrt(3.)/3.0*width && cn>=0.0 )
         {
-	  v1_wires[i] = new TPremica3D (0.0+x - width/2.0, 1.0 , cn+y-height/2.0, width+x- width/2.0, 1.0, (sqrt(3.)/3.0*width+ cn)+y-height/2.0, 0.2, paddle);
+	  v1_wires[i] = new TWire3D (0.0+x - width/2.0, 1.0 , cn+y-height/2.0, width+x- width/2.0, 1.0, (sqrt(3.)/3.0*width+ cn)+y-height/2.0, 0.2, paddle);
           
         }
         else if (cn>height - sqrt(3.)/3.0*width)
 	{
-	  v1_wires[i] = new TPremica3D (0.0+x - width/2.0, 1.0, cn+y-height/2.0, (height-cn)*3.0/sqrt(3.)+x- width/2.0, 1.0, height+y-height/2.0, 0.2, paddle);
+	  v1_wires[i] = new TWire3D (0.0+x - width/2.0, 1.0, cn+y-height/2.0, (height-cn)*3.0/sqrt(3.)+x- width/2.0, 1.0, height+y-height/2.0, 0.2, paddle);
 	}
 	else
 	{
-	  v1_wires[i] = new TPremica3D((3.0/sqrt(3.)*(-cn))+x - width/2.0, 1.0, height*0.0+y-height/2.0, width+x- width/2.0, 1.0, (width -3.0/sqrt(3.)*(-cn))*sqrt(3.)/3+y-height/2.0, 0.2, paddle);
+	  v1_wires[i] = new TWire3D((3.0/sqrt(3.)*(-cn))+x - width/2.0, 1.0, height*0.0+y-height/2.0, width+x- width/2.0, 1.0, (width -3.0/sqrt(3.)*(-cn))*sqrt(3.)/3+y-height/2.0, 0.2, paddle);
 	}
      }
 
@@ -187,15 +183,15 @@ MWDChamber3D::MWDChamber3D(char *name, int t, int n, double x, double y, double 
 	
 	if (cn < height && cn >width*sqrt(3.)/3.0)
 	{
-	  u1_wires[i] = new TPremica3D(0.0+x-width/2.0, -1.0, cn+y - height/2.0, width+x-width/2.0, -1.0, (-width*sqrt(3.)/3.0+ cn)+y - height/2.0, 0.2, paddle);
+	  u1_wires[i] = new TWire3D(0.0+x-width/2.0, -1.0, cn+y - height/2.0, width+x-width/2.0, -1.0, (-width*sqrt(3.)/3.0+ cn)+y - height/2.0, 0.2, paddle);
 	}
 	else if (cn>=height)
 	{
-	  u1_wires[i] = new TPremica3D((cn-height)*3.0/sqrt(3.0)+x-width/2.0, -1.0, height+y- height/2.0, width+x-width/2.0, -1.0, (-sqrt(3.)/3.0*width+ cn)+y- height/2.0, 0.2, paddle);
+	  u1_wires[i] = new TWire3D((cn-height)*3.0/sqrt(3.0)+x-width/2.0, -1.0, height+y- height/2.0, width+x-width/2.0, -1.0, (-sqrt(3.)/3.0*width+ cn)+y- height/2.0, 0.2, paddle);
 	}
 	else
 	{
-	  u1_wires[i] = new TPremica3D(0.0+x -width/2.0, -1.0, cn+y - height/2.0, (cn*3.0/sqrt(3.0))+x-width/2.0+0.001, -1.0, 0.0+y -height/2.0, 0.2, paddle);
+	  u1_wires[i] = new TWire3D(0.0+x -width/2.0, -1.0, cn+y - height/2.0, (cn*3.0/sqrt(3.0))+x-width/2.0+0.001, -1.0, 0.0+y -height/2.0, 0.2, paddle);
 	}
      }
    }
@@ -218,12 +214,7 @@ void MWDChamber3D::u1WireHit(int i)
 #endif
     u1_wires[quotient]->SetColor(2);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+  
 }
 
 void MWDChamber3D::u2WireHit(int i)
@@ -236,12 +227,7 @@ void MWDChamber3D::u2WireHit(int i)
 #endif
     u2_wires[quotient]->SetColor(2);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 
@@ -255,12 +241,7 @@ void MWDChamber3D::v1WireHit(int i)
 #endif
     v1_wires[quotient]->SetColor(3);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 
@@ -274,12 +255,7 @@ void MWDChamber3D::v2WireHit(int i)
 #endif
     v2_wires[quotient]->SetColor(3);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 
@@ -293,12 +269,7 @@ void MWDChamber3D::x1WireHit(int i)
 #endif
     x1_wires[quotient]->SetColor(4);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 
@@ -312,12 +283,7 @@ void MWDChamber3D::x2WireHit(int i)
 #endif
     x2_wires[quotient]->SetColor(4);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 void MWDChamber3D::clear()

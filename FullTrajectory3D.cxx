@@ -29,7 +29,7 @@
 
 using namespace std;
 
-FullTrajectory3D::FullTrajectory3D(char *ime, TGeoVolume *tvolume, TGeoManager *mgr, char *pot)
+FullTrajectory3D::FullTrajectory3D(char *name, TGeoVolume *tvolume, TGeoManager *mgr, char *pot)
 {
 	manager = mgr;
 
@@ -37,13 +37,13 @@ FullTrajectory3D::FullTrajectory3D(char *ime, TGeoVolume *tvolume, TGeoManager *
 	TGeoTube *tube = new TGeoTube("tube",0.0, 0.0, 0.0);
 	
 	for (int i = 0; i<100; i++) namea[i] = 0;
-        strcat(namea,ime);
+        strcat(namea,name);
         strcat(namea, "a");
 
 
 	for (int i = 0; i<100; i++) patha[i] = 0;
 	strcat(patha, pot);
-	strcat(patha, ime);
+	strcat(patha, name);
 	strcat(patha, "a_1");		
 
 #if DEBUG_LEVEL >= 3	
@@ -57,12 +57,12 @@ FullTrajectory3D::FullTrajectory3D(char *ime, TGeoVolume *tvolume, TGeoManager *
 // Second part of the trajectory
 
 	for (int i = 0; i<100; i++) nameb[i] = 0;
-        strcat(nameb,ime);
+        strcat(nameb,name);
         strcat(nameb, "b");
 
 	for (int i = 0; i<100; i++) pathb[i] = 0;
 	strcat(pathb, pot);
-	strcat(pathb, ime);
+	strcat(pathb, name);
 	strcat(pathb, "b_1");		
 
 #if DEBUG_LEVEL >= 3	
@@ -77,12 +77,12 @@ FullTrajectory3D::FullTrajectory3D(char *ime, TGeoVolume *tvolume, TGeoManager *
 // Third part of the trajectory
 
 	for (int i = 0; i<100; i++) namec[i] = 0;
-        strcat(namec,ime);
+        strcat(namec,name);
         strcat(namec, "c");
 
 	for (int i = 0; i<100; i++) pathc[i] = 0;
 	strcat(pathc, pot);
-	strcat(pathc, ime);
+	strcat(pathc, name);
 	strcat(pathc, "c_1");		
 	
 #if DEBUG_LEVEL >= 3

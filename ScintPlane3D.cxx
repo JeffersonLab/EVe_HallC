@@ -34,7 +34,8 @@ ScintPlane3D::ScintPlane3D(char *name, int n, double x, double y, double z, doub
    double sy0 = y;
    double sx0 = x - (height*(n)/2.0 - height/2.0);
    double sz0 = z;
-   /// Need to incorporate a translation into rotation planes
+
+   /// FIXME:: Need to incorporate a translation into rotation planes
    for(int i = 0; i<n; i++)
    {
      if (rot ==1) {
@@ -53,6 +54,7 @@ ScintPlane3D::~ScintPlane3D()
 
 }
 
+// FIXME:: Need to implement new tdchit method as in ScintPlane.cxx
 void ScintPlane3D::paddleHit(int num, double left, double right)
 {
   GetVariables *ptr = new GetVariables("HMS.txt");

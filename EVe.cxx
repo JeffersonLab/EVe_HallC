@@ -1,4 +1,3 @@
-
 //************************************************************************* 
 //  EVe.cxx  - 4/14/2008
 // 
@@ -6,12 +5,13 @@
 // 
 //  This is the main class of the event display. 
 // 
+//  Updated by Ben Davis-Purcell - 8/26/14
 //
 //*************************************************************************
 
 
-// TODO: FULL tracks are not working yet poperly, because, I dont know
-// precise positions of the target, chambers etc. 
+// FIXME: FULL tracks are not working yet properly because
+// precise positions of the target, chambers etc. are unknown 
 
 #include "EVe.h"
 #include "TMath.h"
@@ -26,7 +26,7 @@
 
 #define DEBUG_LEVEL  0
 
-// If you want full tracks set FULL_TRACK = 1, but for this you will also need some //additional variables.
+// If you want full tracks set FULL_TRACK = 1, but for this you will also need  // some additional variables.
 #define FULL_TRACK 0
 
 
@@ -55,7 +55,7 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    fRootEmbeddedCanvas->MoveResize(8,8,h-16,h-16);
 
 
-   //______________ First group fo the buttons____________________
+   //______________ First group of buttons____________________
    TGButtonGroup *fGroupFrame3 = new TGButtonGroup(fMainFrame,"View type:", kVerticalFrame);
    fGroupFrame3->SetLayoutBroken(kTRUE);
 
@@ -82,8 +82,7 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    fGroupFrame3->MoveResize(w-16-128-128, 100,128,100);
 
 
-
-   //______________ Second group fo the buttons____________________
+   //______________ Second group of buttons____________________
    // Here are ratio buttons for selecting MWDC 
    TGButtonGroup *fGroupFrame1 = new TGButtonGroup(fMainFrame,"Projections:", kVerticalFrame);
    fGroupFrame1->SetLayoutBroken(kTRUE);
@@ -107,7 +106,7 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    fMainFrame->AddFrame(fGroupFrame1, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fGroupFrame1->MoveResize(w-8-128, 100,128, 100);
 
-   //______________ Third group fo the buttons____________________
+   //______________ Third group of buttons____________________
    // Here are check buttons for options 
    TGButtonGroup *fGroupFrame2 = new TGButtonGroup(fMainFrame,"Options", kVerticalFrame);
    fGroupFrame2->SetLayoutBroken(kTRUE);
@@ -266,14 +265,6 @@ void EVe::CreateXprojection()
      c1->cd();
      c1->Clear();
 
-     // u1 = new WirePlane("U1",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1),cst->transLtoCL(L1),1.0,1.0,-1);
-   
-     // u1p = new WirePlane("U1p",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1+0.002),cst->transLtoCL(L1),1.0,1.0,1);
-
-     // u2 = new WirePlane("U2",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2),cst->transLtoCL(L2),1.0,1.0,-1);
-  
-     // u2p = new WirePlane("U2p",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2+0.002),cst->transLtoCL(L2),1.0,1.0,1);
-
 
      x1 = new WirePlane((char*)"X1",MWDC1_X,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
    
@@ -337,20 +328,22 @@ void EVe::CreateWires()
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
    
 
-   CStransform *dE_cst = new CStransform(canvas_length, canvas_dE_posx, canvas_dE_posy);
-   CStransform *E_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy);
+   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_s1x_posy);
+   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1y_posx, canvas_s1y_posy);
 
    if (NScintPlanes == 4) {
      s2x_cst = new CStransform(canvas_length, 0.57, 0.5);
      s2y_cst = new CStransform(canvas_length, 0.84, 0.2);
    }
 
-   // TODO: Wire number is different in different wire planes. For now we asume
+   // FIXME: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
    mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, MWDC_width, mwdc1_cst,0);
    mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC1_X, L2, MWDC_width, mwdc2_cst,0);
   
    /// Variables to generate scintillator planes
+
+   /// FIXME:: Shouldn't need this many pointers
 
    GetVariables *orientation1 = new GetVariables("HMS.txt");
 
@@ -368,14 +361,14 @@ void EVe::CreateWires()
    int nPaddles2 = pad2->GetInt("2nd Scint Array NPaddles =");
    
 
-   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, dE_length, dE_height, dE_cst, orient1);
+   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height, s1x_cst, orient1);
    
-   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, E_length, E_height, E_cst, orient2);
+   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height, s1y_cst, orient2);
    
    if (NScintPlanes == 4) {
-     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, dE_length, dE_height, s2x_cst, orient1);
+     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, s1x_length, s1x_height, s2x_cst, orient1);
      
-     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, E_length, E_height, s2y_cst, orient2);
+     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, s1y_length, s1y_height, s2y_cst, orient2);
    }
 
 
@@ -413,23 +406,9 @@ void EVe::initRun(char *filename)
    cout<<"Number of Entries is: "<<TotalNumberOfEvents<<endl;
 #endif
 
-  // Now we read all data
-  // t1->SetBranchAddress( "BB.mwdc.u1.nhits", &B_mwdc_u1_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.u1p.nhits", &B_mwdc_u1p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.u2.nhits", &B_mwdc_v2p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.u2p.nhits", &B_mwdc_v2_nhits);
+   /// Branch Addresses for all root Tree leaves that are needed 
 
-
-  // t1->SetBranchAddress( "BB.mwdc.v1.nhits", &B_mwdc_v1_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.v1p.nhits", &B_mwdc_v1p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.v2.nhits", &B_mwdc_u2p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.v2p.nhits", &B_mwdc_u2_nhits);
-
-  // t1->SetBranchAddress( "BB.mwdc.x1.nhits", &B_mwdc_x1_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.x1p.nhits", &B_mwdc_x1p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.x2.nhits", &B_mwdc_x2p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.x2p.nhits", &B_mwdc_x2_nhits);
-
+   /// Wire Chamber Nhits
    t1->SetBranchAddress( "Ndata.H.dc.1u1.tdchits", &Ndata_H_dc_1u1_tdchits);
    t1->SetBranchAddress( "Ndata.H.dc.1v1.tdchits", &Ndata_H_dc_1v1_tdchits);
    t1->SetBranchAddress( "Ndata.H.dc.2u1.tdchits", &Ndata_H_dc_2u1_tdchits);
@@ -445,7 +424,7 @@ void EVe::initRun(char *filename)
    t1->SetBranchAddress( "Ndata.H.dc.2y1.tdchits", &Ndata_H_dc_2y1_tdchits);
    t1->SetBranchAddress( "Ndata.H.dc.2y2.tdchits", &Ndata_H_dc_2y2_tdchits);
 
-   /// UV Wire plane
+   /// UV Wire plane hits and hit times
    t1->SetBranchAddress( "H.dc.1u1.tdchits", &H_dc_1u1_tdchits);
    t1->SetBranchAddress( "H.dc.1v1.tdchits", &H_dc_1v1_tdchits);
    t1->SetBranchAddress( "H.dc.2u1.tdchits", &H_dc_2u1_tdchits);
@@ -456,7 +435,7 @@ void EVe::initRun(char *filename)
    t1->SetBranchAddress( "H.dc.2u1.time", &H_dc_2u1_time);
    t1->SetBranchAddress( "H.dc.2v1.time", &H_dc_2v1_time);
 
-   /// X Wire plane
+   /// X Wire plane hits and hit times
    t1->SetBranchAddress( "H.dc.1x1.tdchits", &H_dc_1x1_tdchits);
    t1->SetBranchAddress( "H.dc.1x2.tdchits", &H_dc_1x2_tdchits);
    t1->SetBranchAddress( "H.dc.2x1.tdchits", &H_dc_2x1_tdchits);
@@ -467,7 +446,7 @@ void EVe::initRun(char *filename)
    t1->SetBranchAddress( "H.dc.2x1.time", &H_dc_2x1_time);
    t1->SetBranchAddress( "H.dc.2x2.time", &H_dc_2x2_time);
 
-   /// Y Wire plane
+   /// Y Wire plane hits and hit times
    t1->SetBranchAddress( "H.dc.1y1.tdchits", &H_dc_1y1_tdchits);
    t1->SetBranchAddress( "H.dc.1y2.tdchits", &H_dc_1y2_tdchits);
    t1->SetBranchAddress( "H.dc.2y1.tdchits", &H_dc_2y1_tdchits);
@@ -478,83 +457,6 @@ void EVe::initRun(char *filename)
    t1->SetBranchAddress( "H.dc.2y1.time", &H_dc_2y1_time);
    t1->SetBranchAddress( "H.dc.2y2.time", &H_dc_2y2_time);
 
-
-  // // U-wire plane
-  // t1->SetBranchAddress( "BB.mwdc.u1.hit.wire", &B_mwdc_u1_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.u1p.hit.wire", &B_mwdc_u1p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.u2.hit.wire", &B_mwdc_v2p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.u2p.hit.wire", &B_mwdc_v2_hit_wire);
-
-  // t1->SetBranchAddress( "BB.mwdc.u1.hit.time", &B_mwdc_u1_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.u1p.hit.time", &B_mwdc_u1p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.u2.hit.time", &B_mwdc_v2p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.u2p.hit.time", &B_mwdc_v2_hit_time);
-
-  // t1->SetBranchAddress( "BB.mwdc.u.nroads", &B_mwdc_u_nroads); 
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.zL", &B_mwdc_u_rd_zL);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.zU", &B_mwdc_u_rd_zU);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xLL", &B_mwdc_u_rd_xLL);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xLR", &B_mwdc_u_rd_xLR);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xUL", &B_mwdc_u_rd_xUL);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xUR", &B_mwdc_u_rd_xUR);
-  
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.good", &B_mwdc_u_rd_good);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.pos", &B_mwdc_u_rd_pos);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.slope", &B_mwdc_u_rd_slope);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.chi2", &B_mwdc_u_rd_chi2);
- 
-  // // V-wire plane
-  // t1->SetBranchAddress( "BB.mwdc.v1.hit.wire", &B_mwdc_v1_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.v1p.hit.wire", &B_mwdc_v1p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.v2.hit.wire", &B_mwdc_u2p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.v2p.hit.wire", &B_mwdc_u2_hit_wire);
-
-  // t1->SetBranchAddress( "BB.mwdc.v1.hit.time", &B_mwdc_v1_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.v1p.hit.time", &B_mwdc_v1p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.v2.hit.time", &B_mwdc_u2p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.v2p.hit.time", &B_mwdc_u2_hit_time);
-
-  // t1->SetBranchAddress( "BB.mwdc.v.nroads", &B_mwdc_v_nroads); 
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.zL", &B_mwdc_v_rd_zL);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.zU", &B_mwdc_v_rd_zU);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xLL", &B_mwdc_v_rd_xLL);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xLR", &B_mwdc_v_rd_xLR);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xUL", &B_mwdc_v_rd_xUL);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xUR", &B_mwdc_v_rd_xUR);
-  
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.good", &B_mwdc_v_rd_good);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.pos", &B_mwdc_v_rd_pos);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.slope", &B_mwdc_v_rd_slope);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.chi2", &B_mwdc_v_rd_chi2);
-
-  // // X-wire plane
-  // t1->SetBranchAddress( "BB.mwdc.x1.hit.wire", &B_mwdc_x1_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.x1p.hit.wire", &B_mwdc_x1p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.x2.hit.wire", &B_mwdc_x2p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.x2p.hit.wire", &B_mwdc_x2_hit_wire);
-
-  // t1->SetBranchAddress( "BB.mwdc.x1.hit.time", &B_mwdc_x1_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.x1p.hit.time", &B_mwdc_x1p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.x2.hit.time", &B_mwdc_x2p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.x2p.hit.time", &B_mwdc_x2_hit_time);
-
-  // t1->SetBranchAddress( "BB.mwdc.x.nroads", &B_mwdc_x_nroads); 
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.zL", &B_mwdc_x_rd_zL);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.zU", &B_mwdc_x_rd_zU);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xLL", &B_mwdc_x_rd_xLL);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xLR", &B_mwdc_x_rd_xLR);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xUL", &B_mwdc_x_rd_xUL);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xUR", &B_mwdc_x_rd_xUR);
-  
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.good", &B_mwdc_x_rd_good);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.pos", &B_mwdc_x_rd_pos);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.slope", &B_mwdc_x_rd_slope);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.chi2", &B_mwdc_x_rd_chi2);
-
-  // t1->SetBranchAddress( "BB.mwdc.u.ngood", &B_mwdc_u_ngood);
-  // t1->SetBranchAddress( "BB.mwdc.v.ngood", &B_mwdc_v_ngood);
-  // t1->SetBranchAddress( "BB.mwdc.x.ngood", &B_mwdc_x_ngood);
-
    /// TRACKS
    t1->SetBranchAddress( "Ndata.H.tr.x", &Ndata_H_tr_x);
    t1->SetBranchAddress( "H.tr.x", &H_tr_x);
@@ -563,34 +465,21 @@ void EVe::initRun(char *filename)
    t1->SetBranchAddress( "H.tr.th", &H_tr_th); 
   
 
-
-  // t1->SetBranchAddress( "BB.tp.e.nhit", &B_tp_e_nhit);
-  // t1->SetBranchAddress( "BB.tp.e.LT", &B_tp_e_LT);
-  // t1->SetBranchAddress( "BB.tp.e.RT", &B_tp_e_RT);
-  // t1->SetBranchAddress( "BB.tp.e.hit_ypos", &B_tp_e_hit_ypos);
-  // t1->SetBranchAddress( "BB.tp.e.hit_bar", &B_tp_e_hit_bar);
-  
-  // t1->SetBranchAddress( "BB.tp.de.nhit", &B_tp_de_nhit);
-  // t1->SetBranchAddress( "BB.tp.de.LT", &B_tp_de_LT);
-  // t1->SetBranchAddress( "BB.tp.de.RT", &B_tp_de_RT);
-  // t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
-  // t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
+   /// Scint Planes
+   /// TDC hits for all planes -- pos = left PMT, neg = right PMT
 
    /// S1X
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
    t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
    t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
-  // t1->SetBranchAddress( "BB.tp.e.hit_ypos", &B_tp_e_hit_ypos);
-  //t1->SetBranchAddress( "BB.tp.e.hit_bar", &B_tp_e_hit_bar);
   
    ///S1Y
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
    t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
    t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
-  //t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
-  //t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
+
 
    ///S2X
    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
@@ -604,12 +493,10 @@ void EVe::initRun(char *filename)
    t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
    t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
 
-  /* TRACKS
+   /// FIXME:: Can implement FULL TRACKS if momenta are known
+  /* TRACKS -- 
 #if FULL_TRACK > 0
-  t1->SetBranchAddress( "BB.tr.px", &B_tr_px);
-  t1->SetBranchAddress( "BB.tr.py", &B_tr_py);
-  t1->SetBranchAddress( "BB.tr.pz", &B_tr_pz);
-  t1->SetBranchAddress( "BB.tr.p", &B_tr_p);
+/// insert proper momenta
 #endif
   */
 
@@ -637,15 +524,6 @@ void EVe::DoDraw(int event)
 
   if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
   {
-
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
-//     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
-//     cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
-//     cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
-//     cout<<endl;
-//     cout<<endl;
-// #endif
 
     c1->cd();
     x1->clear();  
@@ -687,6 +565,9 @@ void EVe::DoDraw(int event)
         x2p->SetWire(H_dc_2x2_tdchits[i],H_dc_2x2_time[i]); 
       }
 
+
+    /// FIXME:: Old code to implement roads tracking
+    ///         Has not been looked at yet for this simple display
 
 //     umrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) utr[q]->Clear();
@@ -763,15 +644,6 @@ void EVe::DoDraw(int event)
   if (fTextButtonProj->IsOn() && fTextButtonUVPlane->IsOn())
     {
 
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
-//     cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
-//     cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
-//     cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
-//     cout<<endl;
-//     cout<<endl;
-// #endif
-
       c2->cd();
       u1->clear();  
       v1->clear();
@@ -810,7 +682,8 @@ void EVe::DoDraw(int event)
         v2->SetWire(H_dc_2v1_tdchits[i],H_dc_2v1_time[i]); 
       }
 
-
+    /// FIXME:: Old code to implement roads tracking
+    ///         Has not been looked at yet for this simple display
 
 //     vmrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) vtr[q]->Clear();
@@ -868,15 +741,6 @@ void EVe::DoDraw(int event)
 
   if (fTextButtonProj->IsOn() && fTextButtonYPlane->IsOn())
     {
-    
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
-//     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
-//     cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
-//     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
-//     cout<<endl;
-//     cout<<endl;
-// #endif
 
       c4->cd();
       y1->clear();  
@@ -916,6 +780,9 @@ void EVe::DoDraw(int event)
 	  
 	  y2p->SetWire(H_dc_2y2_tdchits[i],H_dc_2y2_time[i]); 
 	}
+
+    /// FIXME:: Old code to implement roads tracking
+    ///         Has not been looked at yet for this simple display
 
 //     xmrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) xtr[q]->Clear();
@@ -974,8 +841,6 @@ void EVe::DoDraw(int event)
 
 //_________________________ Lets handle Planar view  ______________________________
 
-//// UNCOMMENT ALL OF THIS
-
   if (fTextButtonWires->IsOn())
   {
     c3->cd();
@@ -986,17 +851,7 @@ void EVe::DoDraw(int event)
     title->SetTextSize(0.03);
     title->Draw();   
 
-    //***************** First Chamber
-
-
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
-//     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
-//     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
-//     cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
-//     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
-//     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
-// #endif
+    //***************** First Wire Chamber
 
     mwdc1->clear();
 
@@ -1043,16 +898,7 @@ void EVe::DoDraw(int event)
       } 
 
 
-//     //***************** Second Chamber
-
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
-//     cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
-//     cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
-//     cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
-//     cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
-//     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
-// #endif
+   //***************** Second Wire Chamber
 
     mwdc2->clear();
 
@@ -1101,29 +947,31 @@ void EVe::DoDraw(int event)
 
     /////  ******** Now scintillation planes
 
-// #if DEBUG_LEVEL >= 3
-//    cout<<"*!* E - nhit: "<<B_tp_e_nhit<<", dE - nhit: "<<B_tp_de_nhit<<endl;
-// #endif
+
+    /// NOTE:: Old hodoscope 'hit' method has been commented out in
+    ///        favour of new tdchit method looking at left and right
+    ///        PMT hits. The old method is still there for reference.
+    ///        The current data does not have individual scintillator
+    ///        paddle position information as the old BigBite data
+    ///        did (ypos arrays).
 
 
-   ///// ADD IN Multi-plane particle detection
-
-   double Ebar_ypos[E_PN];
-   double dEbar_ypos[dE_PN];
+    //   double Ebar_ypos[s1y_PN];
+    //  double dEbar_ypos[s1x_PN];
    double matchR[16];
    double matchL[16];
-   // double Ebar_yposfake[E_PN];
-   //double dEbar_yposfake[dE_PN];
-   //int Ebar[E_PN];
-   //int dEbar[dE_PN];
+
    s1Y->clear();
    s1X->clear();
    s2X->clear();
    s2Y->clear();
-   for (int q = 0; q<E_PN; q++) Ebar_ypos[q] = 0.0;
-   for (int q = 0; q<dE_PN; q++) dEbar_ypos[q] = 0.0;
+   //   for (int q = 0; q<s1y_PN; q++) Ebar_ypos[q] = 0.0;
+   //  for (int q = 0; q<s1x_PN; q++) dEbar_ypos[q] = 0.0;
+
+
 	
    ///S1X
+
    //   for (Int_t q = 0; q<B_tp_e_nhit; q++)
    for (Int_t q = 0; q<Ndata_H_hod_1x_negtdchits; q++)
      {
@@ -1133,10 +981,7 @@ void EVe::DoDraw(int event)
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
        matchR[q] = H_hod_1x_negtdchits[q];
        s1X->paddleRightHit(H_hod_1x_negtdchits[q]);
-       // dEbar_ypos[q] = 0.01;
-       // #if DEBUG_LEVEL >= 3
-       // 	cout<<"--> Bar E: "<<bar<<" Y pos: "<<ypos<<endl;
-       // #endif
+
      }
 
    for (Int_t q=0;q<Ndata_H_hod_1x_postdchits;q++)
@@ -1171,10 +1016,6 @@ void EVe::DoDraw(int event)
        matchR[q] = H_hod_1y_negtdchits[q];
        s1Y->paddleRightHit(H_hod_1y_negtdchits[q]);
 
-       //  Ebar_ypos[q]=0.01;
-       // #if DEBUG_LEVEL >= 3
-       // 	cout<<"--> Bar dE: "<<bar<<" Y pos: "<<ypos<<endl;
-       // #endif
      }
    for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
      {
@@ -1254,30 +1095,20 @@ void EVe::DoDraw(int event)
      matchL[i]=0;
    }
 
-   // sE->clear();
-   // sdE->clear();
-  //  for (int i = 0; i<dE_PN; i++)
+  //  for (int i = 0; i<s1x_PN; i++)
 //      {
-// // #if DEBUG_LEVEL >= 3
-// // 	cout<<"| dE -L: "<<B_tp_de_LT[i]<<" dE - R: "<<B_tp_de_RT[i]<<".....YPOS: "<<dEbar_ypos[i]<<" |"<<endl;
-// // #endif
 
 // //	sdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i] , -dEbar_ypos[i]);
 
 //        //   sE->paddleHit(i,H_hod_1x_negtdchits[i] ,H_hod_1x_postdchits[i] , -dEbar_ypos[i]);
 //      }  
 
-//    for (int i = 0; i<E_PN; i++)
+//    for (int i = 0; i<s1y_PN; i++)
 //      {
-// // #if DEBUG_LEVEL >= 3
-// // 	cout<<"| E -L: "<<B_tp_e_LT[i]<<" E - R: "<<B_tp_e_RT[i]<<".....YPOS:"<<Ebar_ypos[i]<<"|"<<endl;
-// // #endif
 
 // //	sE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i] , -Ebar_ypos[i]);
 //        sdE->paddleHit(i,H_hod_1y_negtdchits[i] ,H_hod_1y_postdchits[i] , -Ebar_ypos[i]);
 //      }  
-
-
 
 
 
@@ -1287,67 +1118,57 @@ void EVe::DoDraw(int event)
      {		
        for(int q =0; q<Ndata_H_tr_x; q++)
 	 {
+	   /// Real track information
 	   // double x0 = H_tr_x[q]/100; /// [cm] to [m]
 	   // double y0 = H_tr_y[q]/100;
 	   // double th = H_tr_th[q];
 	   // double ph = H_tr_ph[q];
 	   
+	   /// Fake track testing data
 	   double x0 = 0.0;
 	   double y0 = 0.0;
 	   double th = 0.0;
 	   double ph = 0.0;
 
-	   double z1 = MWDC2_z; ///!!! This value depends of the exp. setting
+	   double z1 = MWDC2_z; 
 		//double x1 = x0 + tan(th)*z1;
 		//double y1 = y0 + tan(ph)*z1;
 	   double x1 = x0 + th*z1;
 	   double y1 = y0 + ph*z1;    
-  
-//#if DEBUG_LEVEL >= 3
-	   //	cout<<"Q: "<<q<<endl;
-	   //	cout<<"~~~~~>th0: "<<th<<", ph0: "<<ph<<endl;
-	   //	cout<<"~~~~~>x0: "<<x0<<", y0: "<<y0<<endl;
-	   //	cout<<"~~~~~>x1: "<<x1<<", y1: "<<y1<<endl;
-//#endif
+
 
 	   mwdc1->Track(x0,y0,q);
 	   mwdc2->Track(x1,y1,q);
 
 
-	   double z3 = dE_z;
+	   double z3 = s1x_z;
 		//double x3 = x0 + tan(th)*z3;
 		//double y3 = y0 + tan(ph)*z3;
 	   double x3 = x0 + th*z3;
 	   double y3 = y0 + ph*z3;
-
-// #if DEBUG_LEVEL >= 3	
-// 		cout<<"~~~~~>x3: "<<x3<<", y3: "<<y3<<endl;
-// #endif
+	   
 	   s1X->Track(x3,y3,q);
-
-	   double z4 = E_z;
-		//double x4 = x0 + tan(th)*z4;
-		//double y4 = y0 + tan(ph)*z4;
+	   
+	   double z4 = s1y_z;
+	   //double x4 = x0 + tan(th)*z4;
+	   //double y4 = y0 + tan(ph)*z4;
 	   double x4 = x0 + th*z4;
 	   double y4 = y0 + ph*z4;
 
-
-// #if DEBUG_LEVEL >= 3	
-// 		cout<<"~~~~~>x4: "<<x4<<", y4: "<<y4<<endl;
-// #endif
-	     s1Y->Track(x4,y4,q);
-
-	     double z5 = s2x_z;
-	     double x5 = x0 + th*z5;
-	     double y5 = y0 + ph*z5;
-
-	     s2X->Track(x5,y5,q);
-
-	     double z6 = s2y_z;
-	     double x6 = x0 + th*z6;
-	     double y6 = y0 + ph*z6;
-
-	     s2Y->Track(x6,y6,q);
+	   
+	   s1Y->Track(x4,y4,q);
+	   
+	   double z5 = s2x_z;
+	   double x5 = x0 + th*z5;
+	   double y5 = y0 + ph*z5;
+	   
+	   s2X->Track(x5,y5,q);
+	   
+	   double z6 = s2y_z;
+	   double x6 = x0 + th*z6;
+	   double y6 = y0 + ph*z6;
+	   
+	   s2Y->Track(x6,y6,q);
 	 }
        
      }  
@@ -1355,11 +1176,8 @@ void EVe::DoDraw(int event)
 
    c3->Draw();
    c3->Update();
-
+   
   }
-
-
-
 
 //_________________________ Lets handle 3D view  ______________________________________
 
@@ -1373,6 +1191,10 @@ void EVe::DoDraw(int event)
     title = new TLatex(-0.96,-0.96, graph_title);
     title->SetTextSize(0.03);
     title->Draw();   
+
+    /// FIXME:: 3D view tracking not yet implemented. 
+    ///         Below is old 3D tracking code that must be updated.
+
 
     //***************** First chamber
 
@@ -1487,8 +1309,8 @@ void EVe::DoDraw(int event)
     detector->s1yplane->clear();
     detector->s2xplane->clear();
     detector->s2yplane->clear();
-//     for (int i = 0; i<dE_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
-//     for (int i = 0; i<E_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
+//     for (int i = 0; i<s1x_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
+//     for (int i = 0; i<s1y_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
 
 //     // Clear tracks
 //     detector->ClearTracks();
@@ -1652,8 +1474,3 @@ void EVe::PrintToFile()
   new TGFileDialog(gClient->GetRoot(), fMainFrame, kFDSave, &fi);
   if(fi.fFilename!=NULL) fCanvas->Print(fi.fFilename);
 }
-
-
-
-
-

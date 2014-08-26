@@ -1,4 +1,6 @@
 {
+  /// Macro for running files of the type %s/e04007_det_%d.root ///
+
   #include <TGClient.h>
   gSystem->Load("libGeom");
   gSystem->Load("libEVe.so");

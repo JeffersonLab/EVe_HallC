@@ -1,4 +1,3 @@
-
 //************************************************************************* 
 //  MWDChamber.cxx  - 4/14/2008
 // 
@@ -6,6 +5,9 @@
 // 
 //  This class is used to create planar view of the MWDC.
 //
+//  Updated by Ben Davis-Purcell - 8/26/2014
+//
+//  FIXME:: This is one of a few classes that create many similar objects which //          could be optimized with another class or method
 //
 //*************************************************************************   
 
@@ -33,9 +35,6 @@ MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransfo
    /// Height = 113 cm
    /// Ratio H/w = 2.017857
 
-   // double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Height)/8; 
-   // double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
-   // What are these??
 
    double x =  cst->transXtoCX(0.0) - cst->transLtoCL(width)/2; 
    double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
@@ -207,8 +206,6 @@ MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransfo
 	}
      }
 
-     // sedaj naredimo se semaforcek ?????
-
      x1_circ = new TEllipse(a*(LL+0.02+0.05+0.02)+x,b*0.8+y, a*0.03, b*0.03 );
      x1_circ->SetFillColor(kGray);
      x1_circ->Draw();
@@ -258,7 +255,7 @@ MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransfo
      yp_title->Draw(); 
 
    }
-   else if (type==1) /// SECON TYPE
+   else if (type==1) /// SECOND TYPE
    {
 
      // X1 plane
@@ -382,12 +379,7 @@ void MWDChamber::x1WireHit(int i)
     x1_wires[quotient]->SetLineWidth(3);
     x1_circ->SetFillColor(kGreen);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3	
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 void MWDChamber::xpWireHit(int i)
@@ -402,12 +394,7 @@ void MWDChamber::xpWireHit(int i)
     xp_wires[quotient]->SetLineWidth(3);
     xp_circ->SetFillColor(kGreen+3);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3	
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 void MWDChamber::uWireHit(int i)
@@ -422,12 +409,7 @@ void MWDChamber::uWireHit(int i)
     u_wires[quotient]->SetLineWidth(3);
     u_circ->SetFillColor(kAzure+8);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3	
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
 }
 
 
@@ -443,12 +425,7 @@ void MWDChamber::vWireHit(int i)
     v_wires[quotient]->SetLineWidth(3);
     v_circ->SetFillColor(kBlue);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3	
-    cout<<"No wire with this number"<<endl;
-#endif
-  } 
+
 }
 
 
@@ -464,12 +441,7 @@ void MWDChamber::y1WireHit(int i)
     y1_wires[quotient]->SetLineWidth(3);
     y1_circ->SetFillColor(kRed);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3	
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+
   
 }
 
@@ -486,12 +458,7 @@ void MWDChamber::ypWireHit(int i)
     yp_wires[quotient]->SetLineWidth(3);
     yp_circ->SetFillColor(kRed+2);
   }
-  else
-  {
-#if DEBUG_LEVEL >= 3	
-    cout<<"No wire with this number"<<endl;
-#endif
-  }
+ 
 }
 
 void MWDChamber::clear()
@@ -532,13 +499,9 @@ void MWDChamber::clear()
 
 void MWDChamber::Track(double x, double y, int i)
 {
-//#if DEBUG_LEVEL >= 3	
-//	cout<<"HURA: TRACK: (x,y): "<<x<<", "<<y<<endl;
-//#endif
-
-	// First we need to transform meters to pixels
-  double CX =  cst->transXtoCX(x);   /// -y ??
-  double CY =  cst->transYtoCY(y);   /// -x ??
+  // First we need to transform meters to pixels
+  double CX =  cst->transXtoCX(x); 
+  double CY =  cst->transYtoCY(y); 
 
   track_circ[i]->SetX1(CX);
   track_circ[i]->SetY1(CY);

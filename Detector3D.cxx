@@ -16,7 +16,7 @@
 #include <iostream>
 #include <sstream>
 #include "TGeoSphere.h"
-#include "TPremica3D.h"
+#include "TWire3D.h"
 
 #include "EVe_DB.h"
 
@@ -38,16 +38,9 @@ Detector3D::Detector3D()
       TGeoTranslation t1(100.0, 0.0, 60.0);
       TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1); 
 
-      // TGeoVolume *ogrodje_volume = mgr->MakeBox("ogrodje_volume",medium,50,50,200);
-      // BigBiteOgrodje3D *ogrodje = new BigBiteOgrodje3D( 0.0, 0.0, 0.0, ogrodje_volume);
-      // r1.SetAngles(90,0,90,90,0,0);
-      // t1.SetTranslation(magnet_xpos, magnet_ypos, magnet_zpos);
-      // comb = new TGeoCombiTrans(t1, r1);
-      // top->AddNodeOverlap(ogrodje_volume,1, comb);
-
       // First MWDC      
-      // TODO: Wire number is different in different wire planes. For now we asume
-      // in 3D view, that the number of wires is in all three w.p. the same. 
+  // FIXME: Wire number is different in different wire planes. For now we assume
+  // in 3D view, that the number of wires is in all three w.p. the same. 
       TGeoVolume *mwdc_volume = mgr->MakeBox("mwdc_volume1",medium,50,5,100);
       mwdc1 = new MWDChamber3D((char*)"MWDC1",0, MWDC1_X1_WN, 0.0, 0.0, 0.0, MWDC1_length, MWDC1_height, mwdc_volume);
       r1.SetAngles(90,90,90+MWDC1_tilt,180,MWDC1_tilt,180);
@@ -56,8 +49,8 @@ Detector3D::Detector3D()
       top->AddNodeOverlap(mwdc_volume,1, comb);
 
       // Second MWDC
-      // TODO: Wire number is different in different wire planes. For now we asume
-      // in 3D view, that the number of wires is in all three w.p. the same. 
+  // FIXME: Wire number is different in different wire planes. For now we assume
+  // in 3D view, that the number of wires is in all three w.p. the same. 
       TGeoVolume *mwdc_volume2 = mgr->MakeBox("mwdc_volume2",medium,50,5,105);
       mwdc2 = new MWDChamber3D((char*)"MWDC2",0, MWDC2_X2_WN, 0.0, 0.0, 0.0, MWDC2_length, MWDC2_height, mwdc_volume2);
       r1.SetAngles(90,90,90+MWDC2_tilt,180,MWDC2_tilt,180);
@@ -66,52 +59,47 @@ Detector3D::Detector3D()
       top->AddNodeOverlap(mwdc_volume2,1, comb);
 
       // s1x - Scintillation Plane
+
+      /// FIXME:: Shouldn't need so many pointers
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
-   GetVariables *orientation1 = new GetVariables("HMS.txt");
+      GetVariables *orientation1 = new GetVariables("HMS.txt");
 
-   int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
-  
-   GetVariables *orientation2 = new GetVariables("HMS.txt");
+      int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
+      
+      GetVariables *orientation2 = new GetVariables("HMS.txt");
 
-   int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
-   s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume2, orient1);
-      r1.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,90,90);
-      //r2.SetAngles(180 - dE_tilt,0,90 - dE_tilt,0,0,90);
-      t1.SetTranslation(dE_xpos, dE_ypos, dE_zpos);
+      int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
+      s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",s1x_PN,0,0,0,s1x_paddle_length, s1x_paddle_height, s1x_paddle_thickness, scint_volume2, orient1);
+      r1.SetAngles(180 - s1x_tilt,0,90 - s1x_tilt,0,90,90);
+      //r2.SetAngles(180 - s1x_tilt,0,90 - s1x_tilt,0,0,90);
+      t1.SetTranslation(s1x_xpos, s1x_ypos, s1x_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume2,1,comb);
 
       // s1y - Scintillation Plane  
       TGeoVolume *scint_volume1 = mgr->MakeBox("scint_volume1",medium,111,5,100);
-      s1yplane = new ScintPlane3D((char*)"s1y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume1, orient2);
-      r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
-      t1.SetTranslation(E_xpos, E_ypos, E_zpos);
+      s1yplane = new ScintPlane3D((char*)"s1y-ScintPlane",s1y_PN,0,0,0,s1y_paddle_length, s1y_paddle_height, s1y_paddle_thickness, scint_volume1, orient2);
+      r1.SetAngles(180 - s1y_tilt, 0, 90 - s1y_tilt, 0, 90, 90);
+      t1.SetTranslation(s1y_xpos, s1y_ypos, s1y_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume1,1,comb);
 
       //s2x Scint Plane
       TGeoVolume *scint_volume3 = mgr->MakeBox("scint_volume3",medium,111,5,100);
-      s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",dE_PN,0,0,0,dE_paddle_length, dE_paddle_height, dE_paddle_thickness, scint_volume3, orient1);
-      r1.SetAngles(180 - dE_tilt, 0, 90 - dE_tilt, 0, 90, 90);
-      t1.SetTranslation(dE_xpos+100.0, dE_ypos, dE_zpos);
+      s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",s1x_PN,0,0,0,s1x_paddle_length, s1x_paddle_height, s1x_paddle_thickness, scint_volume3, orient1);
+      r1.SetAngles(180 - s1x_tilt, 0, 90 - s1x_tilt, 0, 90, 90);
+      t1.SetTranslation(s1x_xpos+100.0, s1x_ypos, s1x_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume3,1,comb);
 
       //s2y Scint Plane
       TGeoVolume *scint_volume4 = mgr->MakeBox("scint_volume4",medium,111,5,100);
       // changed volume size to 60
-      s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",E_PN,0,0,0,E_paddle_length, E_paddle_height, E_paddle_thickness, scint_volume4, orient2);
-      r1.SetAngles(180 - E_tilt, 0, 90 - E_tilt, 0, 90, 90);
-      t1.SetTranslation(E_xpos+100.0, E_ypos, E_zpos);
+      s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",s1y_PN,0,0,0,s1y_paddle_length, s1y_paddle_height, s1y_paddle_thickness, scint_volume4, orient2);
+      r1.SetAngles(180 - s1y_tilt, 0, 90 - s1y_tilt, 0, 90, 90);
+      t1.SetTranslation(s1y_xpos+100.0, s1y_ypos, s1y_zpos);
       comb = new TGeoCombiTrans(t1, r1); 
       top->AddNodeOverlap(scint_volume4,1,comb);
-
-
-      // Target
-      // TGeoTube *cev = new TGeoTube("cev",0.0, 10, 15);
-      // TGeoVolume *target = new TGeoVolume("target",cev);
-      // target->SetLineColor(kBlack);
-      // top->AddNodeOverlap(target,1);
 
 
        // In the end we create potential tracks
