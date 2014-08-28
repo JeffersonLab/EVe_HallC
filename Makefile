@@ -5,11 +5,11 @@
 # that can be loaded from a script.
 # List only the implementation files (*.cxx). For every implementation file
 # there must be a corresponding header file (*.h).
-SRC  =   Scintilator.cxx ScintilationPlane.cxx \
-	 Scintilator3D.cxx ScintilationPlane3D.cxx\
+SRC  =   ScintillatorPaddle.cxx ScintPlane.cxx GetVariables.cxx \
+	 ScintillatorPaddle3D.cxx ScintPlane3D.cxx\
          MWDChamber.cxx MWDChamber3D.cxx \
-         BigBiteOgrodje3D.cxx BigBiteDetector3D.cxx WirePlane.cxx \
-	 CStransform.cxx Road.cxx MultiRoads.cxx Track.cxx TPremica3D.cxx Trajectory3D.cxx \
+         Detector3D.cxx WirePlane.cxx \
+	 CStransform.cxx Road.cxx MultiRoads.cxx Track.cxx TWire3D.cxx Trajectory3D.cxx \
 	 FullTrajectory3D.cxx EVe.cxx
 
 # Name of your package. 

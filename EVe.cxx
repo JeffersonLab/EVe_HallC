@@ -1,4 +1,3 @@
-
 //************************************************************************* 
 //  EVe.cxx  - 4/14/2008
 // 
@@ -6,12 +5,13 @@
 // 
 //  This is the main class of the event display. 
 // 
+//  Updated by Ben Davis-Purcell - 8/26/14
 //
 //*************************************************************************
- 
 
-// TODO: FULL tracks are not working yet poperly, because, I dont know
-// precise positions of the target, chambers etc. 
+
+// FIXME: FULL tracks are not working yet properly because
+// precise positions of the target, chambers etc. are unknown 
 
 #include "EVe.h"
 #include "TMath.h"
@@ -26,7 +26,7 @@
 
 #define DEBUG_LEVEL  0
 
-// If you want full tracks set FULL_TRACK = 1, but for this you will also need some //additional variables.
+// If you want full tracks set FULL_TRACK = 1, but for this you will also need  // some additional variables.
 #define FULL_TRACK 0
 
 
@@ -55,7 +55,7 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    fRootEmbeddedCanvas->MoveResize(8,8,h-16,h-16);
 
 
-   //______________ First group fo the buttons____________________
+   //______________ First group of buttons____________________
    TGButtonGroup *fGroupFrame3 = new TGButtonGroup(fMainFrame,"View type:", kVerticalFrame);
    fGroupFrame3->SetLayoutBroken(kTRUE);
 
@@ -82,32 +82,31 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    fGroupFrame3->MoveResize(w-16-128-128, 100,128,100);
 
 
-
-   //______________ Second group fo the buttons____________________
+   //______________ Second group of buttons____________________
    // Here are ratio buttons for selecting MWDC 
    TGButtonGroup *fGroupFrame1 = new TGButtonGroup(fMainFrame,"Projections:", kVerticalFrame);
    fGroupFrame1->SetLayoutBroken(kTRUE);
-   fTextButtonUPlane = new TGRadioButton(fGroupFrame1,"U-Projection");
-   fGroupFrame1->AddFrame(fTextButtonUPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonUPlane->MoveResize(8,24,106,20);
-   
    fTextButtonXPlane = new TGRadioButton(fGroupFrame1,"X-Projection");
    fGroupFrame1->AddFrame(fTextButtonXPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonXPlane->MoveResize(8,40,106,20);
+   fTextButtonXPlane->MoveResize(8,24,106,20);
+   
+   fTextButtonUVPlane = new TGRadioButton(fGroupFrame1,"UV-Projection");
+   fGroupFrame1->AddFrame(fTextButtonUVPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButtonUVPlane->MoveResize(8,40,106,20);
 
-   fTextButtonVPlane = new TGRadioButton(fGroupFrame1,"V-Projection");
-   fGroupFrame1->AddFrame(fTextButtonVPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonVPlane->MoveResize(8,56,106,20);
+   fTextButtonYPlane = new TGRadioButton(fGroupFrame1,"Y-Projection");
+   fGroupFrame1->AddFrame(fTextButtonYPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButtonYPlane->MoveResize(8,56,106,20);
 
    // In the beginning the first button is down
-   fTextButtonUPlane->SetState(kButtonDown);
+   fTextButtonXPlane->SetState(kButtonDown);
 
    fGroupFrame1->SetLayoutManager(new TGVerticalLayout(fGroupFrame1));
    fGroupFrame1->Resize(128,120);
    fMainFrame->AddFrame(fGroupFrame1, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fGroupFrame1->MoveResize(w-8-128, 100,128, 100);
 
-   //______________ Third group fo the buttons____________________
+   //______________ Third group of buttons____________________
    // Here are check buttons for options 
    TGButtonGroup *fGroupFrame2 = new TGButtonGroup(fMainFrame,"Options", kVerticalFrame);
    fGroupFrame2->SetLayoutBroken(kTRUE);
@@ -204,9 +203,9 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
   
    if (fTextButtonProj->IsOn())
    {
-     if (fTextButtonUPlane->IsOn()) CreateUprojection(); 
-     if (fTextButtonVPlane->IsOn()) CreateVprojection();
-     if (fTextButtonXPlane->IsOn()) CreateXprojection();
+     if (fTextButtonXPlane->IsOn()) CreateXprojection(); 
+     if (fTextButtonUVPlane->IsOn()) CreateUVprojection();
+     if (fTextButtonYPlane->IsOn()) CreateYprojection();
      if (fTextButton3dView->IsOn()) Create3DView();
    }
    
@@ -214,9 +213,9 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
   
    if (fTextButton3dView->IsOn()) Create3DView();
 
-   fTextButtonUPlane->Connect("Clicked()", "EVe", this, "CreateUprojection()");
-   fTextButtonVPlane->Connect("Clicked()", "EVe", this, "CreateVprojection()");
    fTextButtonXPlane->Connect("Clicked()", "EVe", this, "CreateXprojection()");
+   fTextButtonUVPlane->Connect("Clicked()", "EVe", this, "CreateUVprojection()");
+   fTextButtonYPlane->Connect("Clicked()", "EVe", this, "CreateYprojection()");
    fTextButtonWires->Connect("Clicked()", "EVe", this, "CreateWires()");
    fTextButton3dView->Connect("Clicked()", "EVe", this, "Create3DView()");
    fTextButtonProj->Connect("Clicked()", "EVe", this, "SelectProj()");
@@ -244,20 +243,20 @@ void EVe::Create3DView()
    c5->cd();
    c5->Clear();
 
-   bigbite = new BigBiteDetector3D();
+   detector = new Detector3D();
    c5->Update();
 }
 
 
 void EVe::SelectProj()
 {
-     if (fTextButtonUPlane->IsOn()) CreateUprojection(); 
-     if (fTextButtonVPlane->IsOn()) CreateVprojection();
-     if (fTextButtonXPlane->IsOn()) CreateXprojection();
+     if (fTextButtonXPlane->IsOn()) CreateXprojection(); 
+     if (fTextButtonUVPlane->IsOn()) CreateUVprojection();
+     if (fTextButtonYPlane->IsOn()) CreateYprojection();
      if (fTextButton3dView->IsOn()) Create3DView();
 }
 
-void EVe::CreateUprojection()
+void EVe::CreateXprojection()
 {
 
  if (fTextButtonProj->IsOn())
@@ -265,29 +264,21 @@ void EVe::CreateUprojection()
      fRootEmbeddedCanvas->AdoptCanvas(c1);
      c1->cd();
      c1->Clear();
-/*
-     u1 = new WirePlane("U1",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1),cst->transLtoCL(L1),1.0,1.0,-1);
+
+
+     x1 = new WirePlane((char*)"X1",MWDC1_X,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
    
-     u1p = new WirePlane("U1p",142,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z1+0.002),cst->transLtoCL(L1),1.0,1.0,1);
+     x1p = new WirePlane((char*)"X1p",MWDC1_Xp,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,+1);
 
-     u2 = new WirePlane("U2",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2),cst->transLtoCL(L2),1.0,1.0,-1);
+     x2 = new WirePlane((char*)"X2",MWDC1_X,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,-1);
   
-     u2p = new WirePlane("U2p",201,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(uplane_z2+0.002),cst->transLtoCL(L2),1.0,1.0,1);
-*/
-
-     // u1 = new WirePlane((char*)"U1",MWDC1_U1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-   
-     // u1p = new WirePlane((char*)"U1p",MWDC1_U1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
-
-     // u2 = new WirePlane((char*)"U2",MWDC2_U2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-  
-     // u2p = new WirePlane((char*)"U2p",MWDC2_U2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     x2p = new WirePlane((char*)"X2p",MWDC1_Xp,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,+1);
 
      c1->Update();
   }
 }
 
-void EVe::CreateVprojection()
+void EVe::CreateUVprojection()
 {
   if (fTextButtonProj->IsOn())
   {
@@ -296,17 +287,17 @@ void EVe::CreateVprojection()
      c2->cd();
      c2->Clear();
 
-    // v1 = new WirePlane((char*)"V1",MWDC1_V1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-    // v1p = new WirePlane((char*)"V1p",MWDC1_V1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1p_dist+0.002),cst->transLtoCL(L1),1.0,1.0,1);
+     u1 = new WirePlane((char*)"U1",MWDC1_U,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(u1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     v1 = new WirePlane((char*)"V1",MWDC1_V,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(v1_dist+0.002),cst->transLtoCL(L1),1.0,1.0,+1);
 
-    // v2 = new WirePlane((char*)"V2",MWDC2_V2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-    // v2p = new WirePlane((char*)"V2p",MWDC2_V2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2p_dist+0.002),cst->transLtoCL(L2),1.0,1.0,-1);
+     u2 = new WirePlane((char*)"U2",MWDC1_U,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(u2_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     v2 = new WirePlane((char*)"V2",MWDC1_V,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(v2_dist+0.002),cst->transLtoCL(L2),1.0,1.0,+1);
 
      c2->Update();
   }
 }
 
-void EVe::CreateXprojection()
+void EVe::CreateYprojection()
 {
   if (fTextButtonProj->IsOn())
   {
@@ -314,11 +305,11 @@ void EVe::CreateXprojection()
      c4->cd();
      c4->Clear();
 
-    // x1 = new WirePlane((char*)"X1",MWDC1_X1_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
-    // x1p = new WirePlane((char*)"X1p",MWDC1_X1p_WN,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(x1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
+     y1 = new WirePlane((char*)"Y1",MWDC1_Y,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(y1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
+     y1p = new WirePlane((char*)"Y1p",MWDC1_Yp,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(y1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
-    // x2 = new WirePlane((char*)"X2",MWDC2_X2_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2_dist),cst->transLtoCL(L2),1.0,1.0,+1);
-    // x2p = new WirePlane((char*)"X2p",MWDC2_X2p_WN,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(x2p_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     y2 = new WirePlane((char*)"Y2",MWDC1_Y,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(y2_dist),cst->transLtoCL(L2),1.0,1.0,-1);
+     y2p = new WirePlane((char*)"Y2p",MWDC1_Yp,-0.5*cst->transLtoCL(L2)+cst->transXtoCX(0.0), cst->transYtoCY(y2p_dist),cst->transLtoCL(L2),1.0,1.0,+1);
 
      c4->Update();
   }
@@ -330,27 +321,68 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-   // CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
-   // CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
-   CStransform *dE_cst = new CStransform(canvas_length, canvas_dE_posx, canvas_dE_posy);
-   CStransform *E_cst = new CStransform(canvas_length, canvas_E_posx, canvas_E_posy);
+   CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
+   CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
 
-   // TODO: Wire number is different in different wire planes. For now we asume
+   GetVariables *vars = new GetVariables("HMS.txt");
+   int NScintPlanes = vars->GetInt("Number of Scint Planes =");
+   
+   // FIXME: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
-   // mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X1_WN, L1, mwdc1_cst,0);
-   // mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC2_X2_WN, L2, mwdc2_cst,0);
+   mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, MWDC_width, mwdc1_cst,0);
+   mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC1_X, L2, MWDC_width, mwdc2_cst,0);
   
-   sdE = new ScintilationPlane((char*)"dE-plane", dE_PN, dE_length, dE_height, dE_cst);
-   sE = new ScintilationPlane((char*)"E-plane", E_PN, E_length, E_height, E_cst);
+   /// Variables to generate scintillator planes
+
+   /// FIXME:: Shouldn't need this many pointers
+
+   GetVariables *orientation1 = new GetVariables("HMS.txt");
+
+   int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
+  
+   GetVariables *orientation2 = new GetVariables("HMS.txt");
+
+   int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
+   
+   GetVariables *pad1 = new GetVariables("HMS.txt");
+
+   int nPaddles1 = pad1->GetInt("1st Scint Array NPaddles =");
+   GetVariables *pad2 = new GetVariables("HMS.txt");
+   
+   int nPaddles2 = pad2->GetInt("2nd Scint Array NPaddles =");
+   
+
+   /// FIXME:: Need to get rotated ScintPlanes (s1y, s2y) canvas positions 
+   /// consistent with Track (in ScintPlane::Track() )
+   /// Swapping x and y coords in CStransform doesn't quite work
+   /// -- just reflects both label and ScintPlane in xy line
+   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_s1x_posy);
+   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1y_posx, canvas_s1y_posy);
+   
+   if (NScintPlanes == 4) {
+     s2x_cst = new CStransform(canvas_length, 0.57, 0.5);
+     s2y_cst = new CStransform(canvas_length, 0.84, 0.2);
+   }
+
+   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height, s1x_cst, orient1);
+   
+   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height, s1y_cst, orient1);
+   
+   if (NScintPlanes == 4) {
+     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, s1x_length, s1x_height, s2x_cst, orient1);
+     
+     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, s1y_length, s1y_height, s2y_cst, orient2);
+   }
+
 
    // In the end we plot a coordinate system
 
-   TArrow *xaxis = new TArrow(0.95, 0.15, 0.95, 0.02, 0.02, "|>");
+   TArrow *xaxis = new TArrow(0.82, 0.02, 0.95, 0.02, 0.02, "|>");
    xaxis->Draw();
-   TArrow *yaxis = new TArrow(0.95, 0.15, 0.82, 0.15, 0.02, "|>");
+   TArrow *yaxis = new TArrow(0.82, 0.02, 0.82, 0.15, 0.02, "|>");
    yaxis->Draw();
 
-   TLatex *xtext = new TLatex(0.965,0.03, "x");
+   TLatex *xtext = new TLatex(0.94,0.03, "x");
    xtext->SetTextSize(0.03);
    xtext->Draw();  
 
@@ -363,139 +395,113 @@ void EVe::CreateWires()
 
 void EVe::initRun(char *filename)
 {
-   cout << "Reading file " << endl;
-   TFile *f1 = new TFile(filename, "r");
-   t1 = (TTree*) f1->Get("T");
-   TotalNumberOfEvents =  t1->GetEntries();
-
-   THaRun* runinfo = (THaRun*)gROOT->FindObject("Run_Data");
-   if(runinfo==NULL) run_number = 0;
-   else run_number = runinfo->GetNumber(); 
-   cout<<"RUN #: "<<run_number<<endl;
-
+  cout << "Reading file " << endl;
+  TFile *f1 = new TFile(filename, "r");
+  t1 = (TTree*) f1->Get("T");
+  TotalNumberOfEvents =  t1->GetEntries();
+  
+  THaRun* runinfo = (THaRun*)gROOT->FindObject("Run_Data");
+  if(runinfo==NULL) run_number = 0;
+  else run_number = runinfo->GetNumber(); 
+  cout<<"RUN #: "<<run_number<<endl;
+  
 #if DEBUG_LEVEL >= 3
    cout<<"Number of Entries is: "<<TotalNumberOfEvents<<endl;
 #endif
 
-  // Now we read all data
-  // t1->SetBranchAddress( "BB.mwdc.u1.nhits", &B_mwdc_u1_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.u1p.nhits", &B_mwdc_u1p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.u2.nhits", &B_mwdc_v2p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.u2p.nhits", &B_mwdc_v2_nhits);
+   /// Branch Addresses for all root Tree leaves that are needed 
 
-  // t1->SetBranchAddress( "BB.mwdc.v1.nhits", &B_mwdc_v1_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.v1p.nhits", &B_mwdc_v1p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.v2.nhits", &B_mwdc_u2p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.v2p.nhits", &B_mwdc_u2_nhits);
+   /// Wire Chamber Nhits
+   t1->SetBranchAddress( "Ndata.H.dc.1u1.tdchits", &Ndata_H_dc_1u1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.1v1.tdchits", &Ndata_H_dc_1v1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2u1.tdchits", &Ndata_H_dc_2u1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2v1.tdchits", &Ndata_H_dc_2v1_tdchits);
 
-  // t1->SetBranchAddress( "BB.mwdc.x1.nhits", &B_mwdc_x1_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.x1p.nhits", &B_mwdc_x1p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.x2.nhits", &B_mwdc_x2p_nhits);
-  // t1->SetBranchAddress( "BB.mwdc.x2p.nhits", &B_mwdc_x2_nhits);
+   t1->SetBranchAddress( "Ndata.H.dc.1x1.tdchits", &Ndata_H_dc_1x1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.1x2.tdchits", &Ndata_H_dc_1x2_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2x1.tdchits", &Ndata_H_dc_2x1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2x2.tdchits", &Ndata_H_dc_2x2_tdchits);
 
+   t1->SetBranchAddress( "Ndata.H.dc.1y1.tdchits", &Ndata_H_dc_1y1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.1y2.tdchits", &Ndata_H_dc_1y2_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2y1.tdchits", &Ndata_H_dc_2y1_tdchits);
+   t1->SetBranchAddress( "Ndata.H.dc.2y2.tdchits", &Ndata_H_dc_2y2_tdchits);
 
-  // // U-wire plane
-  // t1->SetBranchAddress( "BB.mwdc.u1.hit.wire", &B_mwdc_u1_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.u1p.hit.wire", &B_mwdc_u1p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.u2.hit.wire", &B_mwdc_v2p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.u2p.hit.wire", &B_mwdc_v2_hit_wire);
+   /// UV Wire plane hits and hit times
+   t1->SetBranchAddress( "H.dc.1u1.tdchits", &H_dc_1u1_tdchits);
+   t1->SetBranchAddress( "H.dc.1v1.tdchits", &H_dc_1v1_tdchits);
+   t1->SetBranchAddress( "H.dc.2u1.tdchits", &H_dc_2u1_tdchits);
+   t1->SetBranchAddress( "H.dc.2v1.tdchits", &H_dc_2v1_tdchits);
 
-  // t1->SetBranchAddress( "BB.mwdc.u1.hit.time", &B_mwdc_u1_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.u1p.hit.time", &B_mwdc_u1p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.u2.hit.time", &B_mwdc_v2p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.u2p.hit.time", &B_mwdc_v2_hit_time);
+   t1->SetBranchAddress( "H.dc.1u1.time", &H_dc_1u1_time);
+   t1->SetBranchAddress( "H.dc.1v1.time", &H_dc_1v1_time);
+   t1->SetBranchAddress( "H.dc.2u1.time", &H_dc_2u1_time);
+   t1->SetBranchAddress( "H.dc.2v1.time", &H_dc_2v1_time);
 
-  // t1->SetBranchAddress( "BB.mwdc.u.nroads", &B_mwdc_u_nroads); 
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.zL", &B_mwdc_u_rd_zL);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.zU", &B_mwdc_u_rd_zU);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xLL", &B_mwdc_u_rd_xLL);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xLR", &B_mwdc_u_rd_xLR);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xUL", &B_mwdc_u_rd_xUL);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.xUR", &B_mwdc_u_rd_xUR);
-  
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.good", &B_mwdc_u_rd_good);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.pos", &B_mwdc_u_rd_pos);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.slope", &B_mwdc_u_rd_slope);
-  // t1->SetBranchAddress( "BB.mwdc.u.rd.chi2", &B_mwdc_u_rd_chi2);
- 
-  // // V-wire plane
-  // t1->SetBranchAddress( "BB.mwdc.v1.hit.wire", &B_mwdc_v1_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.v1p.hit.wire", &B_mwdc_v1p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.v2.hit.wire", &B_mwdc_u2p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.v2p.hit.wire", &B_mwdc_u2_hit_wire);
+   /// X Wire plane hits and hit times
+   t1->SetBranchAddress( "H.dc.1x1.tdchits", &H_dc_1x1_tdchits);
+   t1->SetBranchAddress( "H.dc.1x2.tdchits", &H_dc_1x2_tdchits);
+   t1->SetBranchAddress( "H.dc.2x1.tdchits", &H_dc_2x1_tdchits);
+   t1->SetBranchAddress( "H.dc.2x2.tdchits", &H_dc_2x2_tdchits);
 
-  // t1->SetBranchAddress( "BB.mwdc.v1.hit.time", &B_mwdc_v1_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.v1p.hit.time", &B_mwdc_v1p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.v2.hit.time", &B_mwdc_u2p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.v2p.hit.time", &B_mwdc_u2_hit_time);
+   t1->SetBranchAddress( "H.dc.1x1.time", &H_dc_1x1_time);
+   t1->SetBranchAddress( "H.dc.1x2.time", &H_dc_1x2_time);
+   t1->SetBranchAddress( "H.dc.2x1.time", &H_dc_2x1_time);
+   t1->SetBranchAddress( "H.dc.2x2.time", &H_dc_2x2_time);
 
-  // t1->SetBranchAddress( "BB.mwdc.v.nroads", &B_mwdc_v_nroads); 
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.zL", &B_mwdc_v_rd_zL);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.zU", &B_mwdc_v_rd_zU);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xLL", &B_mwdc_v_rd_xLL);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xLR", &B_mwdc_v_rd_xLR);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xUL", &B_mwdc_v_rd_xUL);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.xUR", &B_mwdc_v_rd_xUR);
-  
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.good", &B_mwdc_v_rd_good);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.pos", &B_mwdc_v_rd_pos);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.slope", &B_mwdc_v_rd_slope);
-  // t1->SetBranchAddress( "BB.mwdc.v.rd.chi2", &B_mwdc_v_rd_chi2);
+   /// Y Wire plane hits and hit times
+   t1->SetBranchAddress( "H.dc.1y1.tdchits", &H_dc_1y1_tdchits);
+   t1->SetBranchAddress( "H.dc.1y2.tdchits", &H_dc_1y2_tdchits);
+   t1->SetBranchAddress( "H.dc.2y1.tdchits", &H_dc_2y1_tdchits);
+   t1->SetBranchAddress( "H.dc.2y2.tdchits", &H_dc_2y2_tdchits);
 
-  // // X-wire plane
-  // t1->SetBranchAddress( "BB.mwdc.x1.hit.wire", &B_mwdc_x1_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.x1p.hit.wire", &B_mwdc_x1p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.x2.hit.wire", &B_mwdc_x2p_hit_wire);
-  // t1->SetBranchAddress( "BB.mwdc.x2p.hit.wire", &B_mwdc_x2_hit_wire);
+   t1->SetBranchAddress( "H.dc.1y1.time", &H_dc_1y1_time);
+   t1->SetBranchAddress( "H.dc.1y2.time", &H_dc_1y2_time);
+   t1->SetBranchAddress( "H.dc.2y1.time", &H_dc_2y1_time);
+   t1->SetBranchAddress( "H.dc.2y2.time", &H_dc_2y2_time);
 
-  // t1->SetBranchAddress( "BB.mwdc.x1.hit.time", &B_mwdc_x1_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.x1p.hit.time", &B_mwdc_x1p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.x2.hit.time", &B_mwdc_x2p_hit_time);
-  // t1->SetBranchAddress( "BB.mwdc.x2p.hit.time", &B_mwdc_x2_hit_time);
-
-  // t1->SetBranchAddress( "BB.mwdc.x.nroads", &B_mwdc_x_nroads); 
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.zL", &B_mwdc_x_rd_zL);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.zU", &B_mwdc_x_rd_zU);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xLL", &B_mwdc_x_rd_xLL);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xLR", &B_mwdc_x_rd_xLR);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xUL", &B_mwdc_x_rd_xUL);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.xUR", &B_mwdc_x_rd_xUR);
-  
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.good", &B_mwdc_x_rd_good);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.pos", &B_mwdc_x_rd_pos);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.slope", &B_mwdc_x_rd_slope);
-  // t1->SetBranchAddress( "BB.mwdc.x.rd.chi2", &B_mwdc_x_rd_chi2);
-
-  // t1->SetBranchAddress( "BB.mwdc.u.ngood", &B_mwdc_u_ngood);
-  // t1->SetBranchAddress( "BB.mwdc.v.ngood", &B_mwdc_v_ngood);
-  // t1->SetBranchAddress( "BB.mwdc.x.ngood", &B_mwdc_x_ngood);
-
-
-  t1->SetBranchAddress( "BB.tr.n", &B_tr_n);
-  t1->SetBranchAddress( "BB.tr.x", &B_tr_x);
-  t1->SetBranchAddress( "BB.tr.y", &B_tr_y);
-  t1->SetBranchAddress( "BB.tr.ph", &B_tr_ph);
-  t1->SetBranchAddress( "BB.tr.th", &B_tr_th);
-  
-  t1->SetBranchAddress( "BB.tp.e.nhit", &B_tp_e_nhit);
-  t1->SetBranchAddress( "BB.tp.e.LT", &B_tp_e_LT);
-  t1->SetBranchAddress( "BB.tp.e.RT", &B_tp_e_RT);
-  t1->SetBranchAddress( "BB.tp.e.hit_ypos", &B_tp_e_hit_ypos);
-  t1->SetBranchAddress( "BB.tp.e.hit_bar", &B_tp_e_hit_bar);
-  
-  t1->SetBranchAddress( "BB.tp.de.nhit", &B_tp_de_nhit);
-  t1->SetBranchAddress( "BB.tp.de.LT", &B_tp_de_LT);
-  t1->SetBranchAddress( "BB.tp.de.RT", &B_tp_de_RT);
-  t1->SetBranchAddress( "BB.tp.de.hit_ypos", &B_tp_de_hit_ypos);
-  t1->SetBranchAddress( "BB.tp.de.hit_bar", &B_tp_de_hit_bar);
+   /// TRACKS
+   t1->SetBranchAddress( "Ndata.H.tr.x", &Ndata_H_tr_x);
+   t1->SetBranchAddress( "H.tr.x", &H_tr_x);
+   t1->SetBranchAddress( "H.tr.y", &H_tr_y);
+   t1->SetBranchAddress( "H.tr.ph", &H_tr_ph);
+   t1->SetBranchAddress( "H.tr.th", &H_tr_th); 
   
 
+   /// Scint Planes
+   /// TDC hits for all planes -- pos = left PMT, neg = right PMT
+
+   /// S1X
+   t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
+   t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
+   t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+  
+   ///S1Y
+   t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
+   t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
+   t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+
+
+   ///S2X
+   t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
+   t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
+   t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);
+
+   ///S2Y
+   t1->SetBranchAddress( "Ndata.H.hod.2y.negtdchits", &Ndata_H_hod_2y_negtdchits);
+   t1->SetBranchAddress( "Ndata.H.hod.2y.postdchits", &Ndata_H_hod_2y_postdchits);
+   t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
+   t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
+
+   /// FIXME:: Can implement FULL TRACKS if momenta are known
+  /* TRACKS -- 
 #if FULL_TRACK > 0
-  t1->SetBranchAddress( "BB.tr.px", &B_tr_px);
-  t1->SetBranchAddress( "BB.tr.py", &B_tr_py);
-  t1->SetBranchAddress( "BB.tr.pz", &B_tr_pz);
-  t1->SetBranchAddress( "BB.tr.p", &B_tr_p);
+/// insert proper momenta
 #endif
+  */
 
 } 
 
@@ -517,25 +523,16 @@ void EVe::DoDraw(int event)
    //cout<<"Char #: "<<graph_title<<endl;
   
 
-//_______________________ Lets handle u-projection view _______________________________________
+//_______________________ Lets handle X-projection view _______________________________________
 
-  if (fTextButtonProj->IsOn() && fTextButtonUPlane->IsOn())
+  if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
   {
 
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
-//     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
-//     cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
-//     cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
-//     cout<<endl;
-//     cout<<endl;
-// #endif
-
     c1->cd();
-    u1->clear();  
-    u1p->clear(); 
-    u2->clear();  
-    u2p->clear();
+    x1->clear();  
+    x1p->clear(); 
+    x2->clear();  
+    x2p->clear();
 
     c1->Update();
 
@@ -545,37 +542,35 @@ void EVe::DoDraw(int event)
     title->SetTextSize(0.03);
     title->Draw();   
 
- //    for (int i = 0; i<B_mwdc_u1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U1 Wire No.: "<<B_mwdc_u1_hit_wire[i]<<" is: "<<B_mwdc_u1_hit_time[i]<<endl;
-// #endif
-//         u1->SetWire(B_mwdc_u1_hit_wire[i],1.0E9*B_mwdc_u1_hit_time[i]); 
-//     }
-    
-//     for (int i = 0; i<B_mwdc_u1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U1p Wire No.: "<<B_mwdc_u1p_hit_wire[i]<<" is: "<<B_mwdc_u1p_hit_time[i]<<endl;
-// #endif
-//         u1p->SetWire(B_mwdc_u1p_hit_wire[i],1.0E9*B_mwdc_u1p_hit_time[i]); 
-//     }
 
-//     for (int i = 0; i<B_mwdc_u2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U2 Wire No.: "<<B_mwdc_u2_hit_wire[i]<<" is: "<<B_mwdc_u2_hit_time[i]<<endl;
-// #endif
-//         u2->SetWire(B_mwdc_u2_hit_wire[i],1.0E9*B_mwdc_u2_hit_time[i]); 
-//     }
+
+   for (int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
+      {
+
+        x1->SetWire(H_dc_1x1_tdchits[i],H_dc_1x1_time[i]); 
+      }
     
-//     for (int i = 0; i<B_mwdc_u2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** U2p Wire No.: "<<B_mwdc_u2p_hit_wire[i]<<" is: "<<B_mwdc_u2p_hit_time[i]<<endl;
-// #endif
-//         u2p->SetWire(B_mwdc_u2p_hit_wire[i],1.0E9*B_mwdc_u2p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
+      {
+
+        x1p->SetWire(H_dc_1x2_tdchits[i],H_dc_1x2_time[i]); 
+      }
+
+    for (int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
+      {
+
+        x2->SetWire(H_dc_2x1_tdchits[i],H_dc_2x1_time[i]); 
+      }
+    
+    for (int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
+      {
+
+        x2p->SetWire(H_dc_2x2_tdchits[i],H_dc_2x2_time[i]); 
+      }
+
+
+    /// FIXME:: Old code to implement roads tracking
+    ///         Has not been looked at yet for this simple display
 
 //     umrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) utr[q]->Clear();
@@ -642,67 +637,56 @@ void EVe::DoDraw(int event)
 //     c1->Update(); 
 
 // cout<<"Sem tlele 5"<<endl;
-//   }
 
-// //_________________________ Lets handle v-projection view ______________________________
+    c1->Draw();
+    c1->Update();
+  }
 
-//   if (fTextButtonProj->IsOn() && fTextButtonVPlane->IsOn())
-//   {
+// //_________________________ Lets handle UV-projection view ______________________________
 
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
-//     cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
-//     cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
-//     cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
-//     cout<<endl;
-//     cout<<endl;
-// #endif
+  if (fTextButtonProj->IsOn() && fTextButtonUVPlane->IsOn())
+    {
 
-//     c2->cd();
-//     v1->clear();  
-//     v1p->clear();
-//     v2->clear();  
-//     v2p->clear();
+      c2->cd();
+      u1->clear();  
+      v1->clear();
+      u2->clear();  
+      v2->clear();
+      
+      c2->Update();
+      
+      
+      if (title != NULL) delete title;
+      title = new TLatex(0.02,0.96, graph_title);
+      title->SetTextSize(0.03);
+      title->Draw();   
 
-//     c2->Update();
+  for (int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
+      {
 
-
-//     if (title != NULL) delete title;
-//     title = new TLatex(0.02,0.96, graph_title);
-//     title->SetTextSize(0.03);
-//     title->Draw();   
-
-//     for (int i = 0; i<B_mwdc_v1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V1 Wire No.: "<<B_mwdc_v1_hit_wire[i]<<" is: "<<B_mwdc_v1_hit_time[i]<<endl;
-// #endif
-//         v1->SetWire(B_mwdc_v1_hit_wire[i],1.0E9*B_mwdc_v1_hit_time[i]); 
-//     }
+        u1->SetWire(H_dc_1u1_tdchits[i],H_dc_1u1_time[i]); 
+      }
     
-//     for (int i = 0; i<B_mwdc_v1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V1p Wire No.: "<<B_mwdc_v1p_hit_wire[i]<<" is: "<<B_mwdc_v1p_hit_time[i]<<endl;
-// #endif
-//         v1p->SetWire(B_mwdc_v1p_hit_wire[i],1.0E9*B_mwdc_v1p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
+      {
 
-//     for (int i = 0; i<B_mwdc_v2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V2 Wire No.: "<<B_mwdc_v2_hit_wire[i]<<" is: "<<B_mwdc_v2_hit_time[i]<<endl;
-// #endif
-//         v2->SetWire(B_mwdc_v2_hit_wire[i],1.0E9*B_mwdc_v2_hit_time[i]); 
-//     }
+        v1->SetWire(H_dc_1v1_tdchits[i],H_dc_1v1_time[i]); 
+      }
+
+    for (int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
+      {
+
+        u2->SetWire(H_dc_2u1_tdchits[i],H_dc_2u1_time[i]); 
+      }
     
-//     for (int i = 0; i<B_mwdc_v2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** V2p Wire No.: "<<B_mwdc_v2p_hit_wire[i]<<" is: "<<B_mwdc_v2p_hit_time[i]<<endl;
-// #endif
-//         v2p->SetWire(B_mwdc_v2p_hit_wire[i],1.0E9*B_mwdc_v2p_hit_time[i]); 
-//     }
+    for (int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
+      {
+
+        v2->SetWire(H_dc_2v1_tdchits[i],H_dc_2v1_time[i]); 
+      }
+
+    /// FIXME:: Old code to implement roads tracking
+    ///         Has not been looked at yet for this simple display
 
 //     vmrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) vtr[q]->Clear();
@@ -752,69 +736,56 @@ void EVe::DoDraw(int event)
 // 		vtr[j]->DrawMe(tx1,tz1,tx2,tz2);
 // 	}
 //     }
-//     c2->Draw();
-//     c2->Update(); 
-//   }
+      c2->Draw();
+      c2->Update(); 
+    }
 
-// //_________________________ Lets handle x-projection view ______________________________
+// //_________________________ Lets handle Y-projection view ______________________________
 
-//   if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn())
-//   {
+  if (fTextButtonProj->IsOn() && fTextButtonYPlane->IsOn())
+    {
+
+      c4->cd();
+      y1->clear();  
+      y1p->clear();
+      y2->clear();  
+      y2p->clear();
+
+      c4->Update();
+
+
+      if (title != NULL) delete title;
+      title = new TLatex(0.02,0.96, graph_title);
+      title->SetTextSize(0.03);
+      title->Draw();   
+
+
+      for (int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
+	{
+
+	  y1->SetWire(H_dc_1y1_tdchits[i],H_dc_1y1_time[i]); 
+	}
     
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
-//     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
-//     cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
-//     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
-//     cout<<endl;
-//     cout<<endl;
-// #endif
+      for (int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
+	{
 
-//     c4->cd();
-//     x1->clear();  
-//     x1p->clear();
-//     x2->clear();  
-//     x2p->clear();
+	  y1p->SetWire(H_dc_1y2_tdchits[i],H_dc_1y2_time[i]); 
+	}
 
-//     c4->Update();
+      for (int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
+	{
+	  
+	  y2->SetWire(H_dc_2y1_tdchits[i],H_dc_2y1_time[i]); 
+	}
+      
+      for (int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
+	{
+	  
+	  y2p->SetWire(H_dc_2y2_tdchits[i],H_dc_2y2_time[i]); 
+	}
 
-
-//     if (title != NULL) delete title;
-//     title = new TLatex(0.02,0.96, graph_title);
-//     title->SetTextSize(0.03);
-//     title->Draw();   
-
-//     for (int i = 0; i<B_mwdc_x1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X1 Wire No.: "<<B_mwdc_x1_hit_wire[i]<<" is: "<<B_mwdc_x1_hit_time[i]<<endl;
-// #endif
-//         x1->SetWire(B_mwdc_x1_hit_wire[i],1.0E9*B_mwdc_x1_hit_time[i]); 
-//     }
-    
-//     for (int i = 0; i<B_mwdc_x1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X1p Wire No.: "<<B_mwdc_x1p_hit_wire[i]<<" is: "<<B_mwdc_x1p_hit_time[i]<<endl;
-// #endif
-//         x1p->SetWire(B_mwdc_x1p_hit_wire[i],1.0E9*B_mwdc_x1p_hit_time[i]); 
-//     }
-
-//     for (int i = 0; i<B_mwdc_x2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X2 Wire No.: "<<B_mwdc_x2_hit_wire[i]<<" is: "<<B_mwdc_x2_hit_time[i]<<endl;
-// #endif
-//         x2->SetWire(B_mwdc_x2_hit_wire[i],1.0E9*B_mwdc_x2_hit_time[i]); 
-//     }
-    
-//     for (int i = 0; i<B_mwdc_x2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-//         cout<<"***** X2p Wire No.: "<<B_mwdc_x2p_hit_wire[i]<<" is: "<<B_mwdc_x2p_hit_time[i]<<endl;
-// #endif
-//         x2p->SetWire(B_mwdc_x2p_hit_wire[i],1.0E9*B_mwdc_x2p_hit_time[i]); 
-//     }
+    /// FIXME:: Old code to implement roads tracking
+    ///         Has not been looked at yet for this simple display
 
 //     xmrd->Clear();
 //     for (int q=0; q< MAX_ROADS_NUM; q++) xtr[q]->Clear();
@@ -865,11 +836,11 @@ void EVe::DoDraw(int event)
 // 	}
 //     }
   
-//     c4->Draw();
-//     c4->Update(); 
+      c4->Draw();
+      c4->Update(); 
 //   }
 
-  }
+    }
 
 //_________________________ Lets handle Planar view  ______________________________
 
@@ -883,245 +854,333 @@ void EVe::DoDraw(int event)
     title->SetTextSize(0.03);
     title->Draw();   
 
-    //***************** First Chamber
+    //***************** First Wire Chamber
 
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane U1 has been hit ... times: "<<B_mwdc_u1_nhits<<endl;
-//     cout<<"Plane U1p has been hit ... times: "<<B_mwdc_u1p_nhits<<endl;
-//     cout<<"Plane V1 has been hit ... times: "<<B_mwdc_v1_nhits<<endl;
-//     cout<<"Plane V1p has been hit ... times: "<<B_mwdc_v1p_nhits<<endl;
-//     cout<<"Plane X1 has been hit ... times: "<<B_mwdc_x1_nhits<<endl;
-//     cout<<"Plane X1p has been hit ... times: "<<B_mwdc_x1p_nhits<<endl;
-// #endif
+    mwdc1->clear();
 
-//     mwdc1->clear();
-//     for(int i = 0; i<B_mwdc_u1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
-//     } 
+    /// X plane
 
-//     for(int i = 0; i<B_mwdc_u1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
+      {
+	
+        mwdc1->x1WireHit(H_dc_1x1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
+      {
+	
+        mwdc1->xpWireHit(H_dc_1x2_tdchits[i]);
+      } 
 
+    /// UV plane
 
-//     for(int i = 0; i<B_mwdc_v1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
+      {
+	
+        mwdc1->uWireHit(H_dc_1u1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
+      {
+	
+        mwdc1->vWireHit(H_dc_1v1_tdchits[i]);
+      } 
 
-//     for(int i = 0; i<B_mwdc_v1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
-//     } 
+    /// Y plane
 
-
-//     for(int i = 0; i<B_mwdc_x1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
+      {
+	
+        mwdc1->y1WireHit(H_dc_1y1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
+      {
+	
+        mwdc1->ypWireHit(H_dc_1y2_tdchits[i]);
+      } 
 
 
-//     for(int i = 0; i<B_mwdc_x1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
-// #endif
-//         mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
-//     } 
+   //***************** Second Wire Chamber
 
+    mwdc2->clear();
 
-//     //***************** Second Chamber
+    /// X plane
 
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Plane U2 has been hit ... times: "<<B_mwdc_u2_nhits<<endl;
-//     cout<<"Plane U2p has been hit ... times: "<<B_mwdc_u2p_nhits<<endl;
-//     cout<<"Plane V2 has been hit ... times: "<<B_mwdc_v2_nhits<<endl;
-//     cout<<"Plane V2p has been hit ... times: "<<B_mwdc_v2p_nhits<<endl;
-//     cout<<"Plane X2 has been hit ... times: "<<B_mwdc_x2_nhits<<endl;
-//     cout<<"Plane X2p has been hit ... times: "<<B_mwdc_x2p_nhits<<endl;
-// #endif
+    for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
+      {
+	
+        mwdc2->x1WireHit(H_dc_2x1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
+      {
+	
+        mwdc2->xpWireHit(H_dc_2x2_tdchits[i]);
+      } 
 
-//     mwdc2->clear();
-//     for(int i = 0; i<B_mwdc_u2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
-//     } 
+    /// UV plane
 
-//     for(int i = 0; i<B_mwdc_u2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
+      {
+	
+        mwdc2->uWireHit(H_dc_2u1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
+      {
+	
+        mwdc2->vWireHit(H_dc_2v1_tdchits[i]);
+      } 
 
+    /// Y plane
 
-//     for(int i = 0; i<B_mwdc_v2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
-//     } 
-
-//     for(int i = 0; i<B_mwdc_v2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3
-// 	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
-// #endif
-//         mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
-//     } 
+    for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
+      {
+	
+        mwdc2->y1WireHit(H_dc_2y1_tdchits[i]);
+      } 
+    
+    for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
+      {
+	
+        mwdc2->ypWireHit(H_dc_2y2_tdchits[i]);
+      } 
  
 
-    //******** Now scintillaion planes
+    /////  ******** Now scintillation planes
 
-#if DEBUG_LEVEL >= 3
-   cout<<"*!* E - nhit: "<<B_tp_e_nhit<<", dE - nhit: "<<B_tp_de_nhit<<endl;
-#endif
 
-   double Ebar_ypos[E_PN];
-   double dEbar_ypos[dE_PN];
+    /// NOTE:: Old hodoscope 'hit' method has been commented out in
+    ///        favour of new tdchit method looking at left and right
+    ///        PMT hits. The old method is still there for reference.
+    ///        The current data does not have individual scintillator
+    ///        paddle position information as the old BigBite data
+    ///        did (ypos arrays).
 
-   for (int q = 0; q<E_PN; q++) Ebar_ypos[q] = 0.0;
-   for (int q = 0; q<dE_PN; q++) dEbar_ypos[q] = 0.0;
+
+    //   double Ebar_ypos[s1y_PN];
+    //  double dEbar_ypos[s1x_PN];
+   double matchR[16];
+   double matchL[16];
+
+   s1Y->clear();
+   s1X->clear();
+   s2X->clear();
+   s2Y->clear();
+   //   for (int q = 0; q<s1y_PN; q++) Ebar_ypos[q] = 0.0;
+   //  for (int q = 0; q<s1x_PN; q++) dEbar_ypos[q] = 0.0;
+
+
 	
-   for (Int_t q = 0; q<B_tp_e_nhit; q++)
-   {
-	int bar = (int)(B_tp_e_hit_bar[q]);
-        double ypos = B_tp_e_hit_ypos[q];
-	Ebar_ypos[bar] = ypos;
-#if DEBUG_LEVEL >= 3
-	cout<<"--> Bar E: "<<bar<<" Y pos: "<<ypos<<endl;
-#endif
+   ///S1X
+
+   //   for (Int_t q = 0; q<B_tp_e_nhit; q++)
+   for (Int_t q = 0; q<Ndata_H_hod_1x_negtdchits; q++)
+     {
+     //	int bar = (int)(B_tp_e_hit_bar[q]);
+     //  double ypos = B_tp_e_hit_ypos[q];
+       //	Ebar_ypos[bar] = ypos;
+       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
+       matchR[q] = H_hod_1x_negtdchits[q];
+       s1X->paddleRightHit(H_hod_1x_negtdchits[q]);
+
+     }
+
+   for (Int_t q=0;q<Ndata_H_hod_1x_postdchits;q++)
+     {
+     
+       matchL[q]= H_hod_1x_postdchits[q];
+       s1X->paddleLeftHit(H_hod_1x_postdchits[q]);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 
+	 s1X->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s1X->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
    }
+
+   ///S1Y
+
+   //   for (int q = 0; q<B_tp_de_nhit; q++)
+   for (int q = 0; q<Ndata_H_hod_1y_negtdchits; q++)
+     {
+       //	int bar = (int)(B_tp_de_hit_bar[q]);
+       // double ypos = B_tp_de_hit_ypos[q];
+       //	dEbar_ypos[bar] = ypos;
+       cout << Ndata_H_hod_1y_negtdchits <<"  " <<  H_hod_1y_negtdchits[q]  << endl;
+       matchR[q] = H_hod_1y_negtdchits[q];
+       s1Y->paddleRightHit(H_hod_1y_negtdchits[q]);
+
+     }
+   for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
+     {
+  
+       matchL[q]= H_hod_1y_postdchits[q];
+       s1Y->paddleLeftHit(H_hod_1y_postdchits[q]);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 s1Y->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s1Y->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+   /// S2X PLANE
+   for (Int_t q = 0; q<Ndata_H_hod_2x_negtdchits; q++)
+     {
+       
+       matchR[q] = H_hod_2x_negtdchits[q];
+       s2X->paddleRightHit(H_hod_2x_negtdchits[q]);
+       
+     }
    
-   for (int q = 0; q<B_tp_de_nhit; q++)
-   {
-	int bar = (int)(B_tp_de_hit_bar[q]);
-        double ypos = B_tp_de_hit_ypos[q];
-	dEbar_ypos[bar] = ypos;
-#if DEBUG_LEVEL >= 3
-	cout<<"--> Bar dE: "<<bar<<" Y pos: "<<ypos<<endl;
-#endif
+   for (Int_t q=0;q<Ndata_H_hod_2x_postdchits;q++)
+     {
+     
+       matchL[q]= H_hod_2x_postdchits[q];
+       s2X->paddleLeftHit(H_hod_2x_postdchits[q]);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 
+	 s2X->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s2X->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
    }
 
-    sE->clear();
-    sdE->clear();
-    for (int i = 0; i<dE_PN; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"| dE -L: "<<B_tp_de_LT[i]<<" dE - R: "<<B_tp_de_RT[i]<<".....YPOS: "<<dEbar_ypos[i]<<" |"<<endl;
-#endif
+   /// S2Y PLANE
+   for (Int_t q = 0; q<Ndata_H_hod_2y_negtdchits; q++)
+     {
+       
+       matchR[q] = H_hod_2y_negtdchits[q];
+       s2Y->paddleRightHit(H_hod_2y_negtdchits[q]);
+       
+     }
+   
+   for (Int_t q=0;q<Ndata_H_hod_2y_postdchits;q++)
+     {
+     
+       matchL[q]= H_hod_2y_postdchits[q];
+       s2Y->paddleLeftHit(H_hod_2y_postdchits[q]);
+     }
 
-	sdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i] , -dEbar_ypos[i]);
-    }  
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+	 
+	 s2Y->paddleBothHit(matchR[i]);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 s2Y->paddleBothHit(matchL[i]);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
 
-for (int i = 0; i<E_PN; i++)
-    {
-#if DEBUG_LEVEL >= 3
-	cout<<"| E -L: "<<B_tp_e_LT[i]<<" E - R: "<<B_tp_e_RT[i]<<".....YPOS:"<<Ebar_ypos[i]<<"|"<<endl;
-#endif
+  //  for (int i = 0; i<s1x_PN; i++)
+//      {
 
-	sE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i] , -Ebar_ypos[i]);	
-    }  
+// //	sdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i] , -dEbar_ypos[i]);
+
+//        //   sE->paddleHit(i,H_hod_1x_negtdchits[i] ,H_hod_1x_postdchits[i] , -dEbar_ypos[i]);
+//      }  
+
+//    for (int i = 0; i<s1y_PN; i++)
+//      {
+
+// //	sE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i] , -Ebar_ypos[i]);
+//        sdE->paddleHit(i,H_hod_1y_negtdchits[i] ,H_hod_1y_postdchits[i] , -Ebar_ypos[i]);
+//      }  
+
 
 
     //****** Now we draw Trajectories through detectors
     	 
-    if (B_tr_n>0  && fTextButtonTrack->IsOn())
-    {		
-	for(int q =0; q<B_tr_n; q++)
-	{
-		double x0 = B_tr_x[q];
-		double y0 = B_tr_y[q];
- 		double th = B_tr_th[q];
-		double ph = B_tr_ph[q];
+   if (Ndata_H_tr_x > 0 && fTextButtonTrack->IsOn())
+     {		
+       for(int q =0; q<Ndata_H_tr_x; q++)
+	 {
+	   /// Real track information
+	   // double x0 = H_tr_x[q]/100; /// [cm] to [m]
+	   // double y0 = H_tr_y[q]/100;
+	   // double th = H_tr_th[q];
+	   // double ph = H_tr_ph[q];
+	   
+	   /// Fake track testing data
+	   double x0 = 0.0;
+	   double y0 = 0.0;
+	   double th = 0.0;
+	   double ph = 0.0;
 
-		double z1 = MWDC2_z; ///!!! This value depends of the exp. setting
+	   double z1 = MWDC2_z; 
 		//double x1 = x0 + tan(th)*z1;
 		//double y1 = y0 + tan(ph)*z1;
-		double x1 = x0 + th*z1;
-		double y1 = y0 + ph*z1;    
-  
-//#if DEBUG_LEVEL >= 3
-		cout<<"Q: "<<q<<endl;
-		cout<<"~~~~~>th0: "<<th<<", ph0: "<<ph<<endl;
-		cout<<"~~~~~>x0: "<<x0<<", y0: "<<y0<<endl;
-		cout<<"~~~~~>x1: "<<x1<<", y1: "<<y1<<endl;
-//#endif
-		mwdc1->Track(x0,y0,q);
-		mwdc2->Track(x1,y1,q);
+	   double x1 = x0 + th*z1;
+	   double y1 = y0 + ph*z1;    
 
 
-		double z3 = dE_z;
+	   mwdc1->Track(x0,y0,q);
+	   mwdc2->Track(x1,y1,q);
+
+
+	   double z3 = s1x_z;
 		//double x3 = x0 + tan(th)*z3;
 		//double y3 = y0 + tan(ph)*z3;
-		double x3 = x0 + th*z3;
-		double y3 = y0 + ph*z3;
+	   double x3 = x0 + th*z3;
+	   double y3 = y0 + ph*z3;
+	   
+	   s1X->Track(x3,y3,q);
+	   
+	   double z4 = s1y_z;
+	   //double x4 = x0 + tan(th)*z4;
+	   //double y4 = y0 + tan(ph)*z4;
+	   double x4 = x0 + th*z4;
+	   double y4 = y0 + ph*z4;
 
-#if DEBUG_LEVEL >= 3	
-		cout<<"~~~~~>x3: "<<x3<<", y3: "<<y3<<endl;
-#endif
-		sdE->Track(x3,y3,q);
-
-		double z4 = E_z;
-		//double x4 = x0 + tan(th)*z4;
-		//double y4 = y0 + tan(ph)*z4;
-		double x4 = x0 + th*z4;
-		double y4 = y0 + ph*z4;
-
-
-#if DEBUG_LEVEL >= 3	
-		cout<<"~~~~~>x4: "<<x4<<", y4: "<<y4<<endl;
-#endif
-		sE->Track(x4,y4,q);
-	}
-  
-    }  
+	   
+	   s1Y->Track(x4,y4,q);
+	   
+	   double z5 = s2x_z;
+	   double x5 = x0 + th*z5;
+	   double y5 = y0 + ph*z5;
+	   
+	   s2X->Track(x5,y5,q);
+	   
+	   double z6 = s2y_z;
+	   double x6 = x0 + th*z6;
+	   double y6 = y0 + ph*z6;
+	   
+	   s2Y->Track(x6,y6,q);
+	 }
+       
+     }  
 
 
-    c3->Draw();
-    c3->Update();
-
-  } 
+   c3->Draw();
+   c3->Update();
+   
+  }
 
 //_________________________ Lets handle 3D view  ______________________________________
 
@@ -1136,15 +1195,19 @@ for (int i = 0; i<E_PN; i++)
     title->SetTextSize(0.03);
     title->Draw();   
 
+    /// FIXME:: 3D view tracking not yet implemented. 
+    ///         Below is old 3D tracking code that must be updated.
+
+
     //***************** First chamber
 
-//     bigbite->mwdc1->clear();
+//     detector->mwdc1->clear();
 //     for(int i = 0; i<B_mwdc_u1_nhits; i++)
 //     {
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
+//         detector->mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
 //     } 
 
 //     for(int i = 0; i<B_mwdc_u1p_nhits; i++)
@@ -1152,7 +1215,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
+//         detector->mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
 //     } 
 
 //     for(int i = 0; i<B_mwdc_v1_nhits; i++)
@@ -1160,7 +1223,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
+//         detector->mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
 //     } 
 
 //     for(int i = 0; i<B_mwdc_v1p_nhits; i++)
@@ -1168,7 +1231,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
+//         detector->mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
 //     } 
 
 
@@ -1177,7 +1240,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
+//         detector->mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
 //     } 
 
 
@@ -1186,19 +1249,19 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
+//         detector->mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
 //     } 
 
 //     //***************** Second chamber
 
    
-//     bigbite->mwdc2->clear();
+//     detector->mwdc2->clear();
 //     for(int i = 0; i<B_mwdc_u2_nhits; i++)
 //     {
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
+//         detector->mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
 //     } 
 
 //     for(int i = 0; i<B_mwdc_u2p_nhits; i++)
@@ -1206,7 +1269,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
+//         detector->mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
 //     } 
 
 
@@ -1215,7 +1278,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
+//         detector->mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
 //     } 
 
 //     for(int i = 0; i<B_mwdc_v2p_nhits; i++)
@@ -1223,7 +1286,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
+//         detector->mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
 //     } 
 
 
@@ -1232,7 +1295,7 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
+//         detector->mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
 //     } 
 
 
@@ -1241,93 +1304,95 @@ for (int i = 0; i<E_PN; i++)
 // #if DEBUG_LEVEL >= 3	
 // 	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
 // #endif
-//         bigbite->mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
+//         detector->mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
 //     } 
 
     // Now scintillaion plane
-    bigbite->scintdE->clear();
-    bigbite->scintE->clear();
-    for (int i = 0; i<dE_PN; i++) bigbite->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
-    for (int i = 0; i<E_PN; i++) bigbite->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
+    detector->s1xplane->clear();
+    detector->s1yplane->clear();
+    detector->s2xplane->clear();
+    detector->s2yplane->clear();
+//     for (int i = 0; i<s1x_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
+//     for (int i = 0; i<s1y_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
 
-    // Clear tracks
-    bigbite->ClearTracks();
+//     // Clear tracks
+//     detector->ClearTracks();
 
-    // Now let's draw partial tracks through wire chambers
-#if DEBUG_LEVEL >= 3	
-    cout<<"Number of Partial Tracks: "<<B_tr_n<<endl;
-#endif
+//     // Now let's draw partial tracks through wire chambers
+// #if DEBUG_LEVEL >= 3	
+//     cout<<"Number of Partial Tracks: "<<B_tr_n<<endl;
+// #endif
 
-    if (B_tr_n>0 && fTextButtonTrack->IsOn())
-    {		
-	for(int q =0; q<B_tr_n; q++)
-	{
-	    if (q < 10)
-	    {
-		double x0 = B_tr_x[q];
-		double y0 = B_tr_y[q];
- 		double th = B_tr_th[q];
-		double ph = B_tr_ph[q];
+//     if (B_tr_n>0 && fTextButtonTrack->IsOn())
+//     {		
+// 	for(int q =0; q<B_tr_n; q++)
+// 	{
+// 	    if (q < 10)
+// 	    {
+// 		double x0 = B_tr_x[q];
+// 		double y0 = B_tr_y[q];
+//  		double th = B_tr_th[q];
+// 		double ph = B_tr_ph[q];
 
-		bigbite->partialTrack[q]->Track(100.0*x0, 100.0*y0, 0.0, th, ph);
-	    }
-	}
+// 		detector->partialTrack[q]->Track(100.0*x0, 100.0*y0, 0.0, th, ph);
+// 	    }
+// 	}
   
-    }
+//     }
 
-#if FULL_TRACK > 0
-    if (B_tr_n>0 && fTextButtonTrack->IsOn()) // check if we should proceed at all
-    { 	 
-      for(int q = 0; q<B_tr_n; q++)
-      {
-	if (q<10)  // for now we support only 10 tracks
-	{
+// #if FULL_TRACK > 0
+//     if (B_tr_n>0 && fTextButtonTrack->IsOn()) // check if we should proceed at all
+//     { 	 
+//       for(int q = 0; q<B_tr_n; q++)
+//       {
+// 	if (q<10)  // for now we support only 10 tracks
+// 	{
 
-	  double BB_px  = cos(BB_angle)*B_tr_px[q] - sin(BB_angle)*B_tr_pz[q];
-	  double BB_pz  = sin(BB_angle)*B_tr_px[q] + cos(BB_angle)*B_tr_pz[q];
-	  double BB_py  = B_tr_py[q];
+// 	  double BB_px  = cos(BB_angle)*B_tr_px[q] - sin(BB_angle)*B_tr_pz[q];
+// 	  double BB_pz  = sin(BB_angle)*B_tr_px[q] + cos(BB_angle)*B_tr_pz[q];
+// 	  double BB_py  = B_tr_py[q];
  
-#if DEBUG_LEVEL >= 3	
-          cout<<"----->"<<q<<endl;
-          cout<<"BB.tr.x: "<<B_tr_x[q]<<endl;
-	  cout<<"BB.tr.x: "<<B_tr_y[q]<<endl;
-	  cout<<"BB.tr.th: "<<B_tr_th[q]<<endl;
-	  cout<<"BB.tr.ph: "<<B_tr_ph[q]<<endl;
+// #if DEBUG_LEVEL >= 3	
+//           cout<<"----->"<<q<<endl;
+//           cout<<"BB.tr.x: "<<B_tr_x[q]<<endl;
+// 	  cout<<"BB.tr.x: "<<B_tr_y[q]<<endl;
+// 	  cout<<"BB.tr.th: "<<B_tr_th[q]<<endl;
+// 	  cout<<"BB.tr.ph: "<<B_tr_ph[q]<<endl;
 
-	  cout<<"LAB. Momentum px: "<<B_tr_px[q]<<endl;
-	  cout<<"LAB. Momentum py: "<<B_tr_py[q]<<endl;
-	  cout<<"LAB. Momentum pz: "<<B_tr_pz[q]<<endl;
-	  cout<<"------------------"<<endl;
+// 	  cout<<"LAB. Momentum px: "<<B_tr_px[q]<<endl;
+// 	  cout<<"LAB. Momentum py: "<<B_tr_py[q]<<endl;
+// 	  cout<<"LAB. Momentum pz: "<<B_tr_pz[q]<<endl;
+// 	  cout<<"------------------"<<endl;
 
 
-	  cout<<"BB. Momentum px: "<<BB_px<<endl;
-	  cout<<"BB. Momentum py: "<<BB_py<<endl;
-	  cout<<"BB. Momentum pz: "<<BB_pz<<endl;
-	  cout<<"BB. Momentum p: "<<B_tr_p[q]<<endl;
+// 	  cout<<"BB. Momentum px: "<<BB_px<<endl;
+// 	  cout<<"BB. Momentum py: "<<BB_py<<endl;
+// 	  cout<<"BB. Momentum pz: "<<BB_pz<<endl;
+// 	  cout<<"BB. Momentum p: "<<B_tr_p[q]<<endl;
 
-#endif
-	  bigbite->fullTrack[q]->Track(BB_px, BB_py, BB_pz, 100.0*B_tr_x[q], 100.0*B_tr_y[q], 0.0, B_tr_th[q], B_tr_ph[q]);
-	}
-#if DEBUG_LEVEL >= 3	
-	else cout<<"Track is not valid!"<<endl;
-#endif
-      }
-    }
-#endif
+// #endif
+// 	  detector->fullTrack[q]->Track(BB_px, BB_py, BB_pz, 100.0*B_tr_x[q], 100.0*B_tr_y[q], 0.0, B_tr_th[q], B_tr_ph[q]);
+// 	}
+// #if DEBUG_LEVEL >= 3	
+// 	else cout<<"Track is not valid!"<<endl;
+// #endif
+//       }
+//     }
+// #endif
     
 
-    bigbite->mgr->GetMasterVolume()->Raytrace();	
-    c5->Update();
-    cout<<"Thanks! I am done!"<<endl;
+//     detector->mgr->GetMasterVolume()->Raytrace();	
+//     c5->Update();
+//     cout<<"Thanks! I am done!"<<endl;
   
-  } 
+//   } 
  
-#if DEBUG_LEVEL >= 3	
-  cout<<"Event number is: "<<EventNumber<<endl;
-#endif
+// #if DEBUG_LEVEL >= 3	
+//   cout<<"Event number is: "<<EventNumber<<endl;
+// #endif
 
+      }
 }
-
 
 void EVe::doThis()
 {
@@ -1368,7 +1433,7 @@ void EVe::doNextGood()
     EventNumber++; // rise the number for one;
     t1->GetEntry(EventNumber);
     fNumberEntry1->SetNumber(EventNumber); // write that to the display 
-    if (B_tr_n > 0.0) // check if event is good (if there is at least 1 good track).
+    if (Ndata_H_tr_x > 0) // check if event is good (if there is at least 1 good track).
     { 
 	DoDraw(EventNumber);
 	break;
@@ -1384,7 +1449,7 @@ void EVe::doPreviousGood()
     EventNumber--; // lower the number for one;
     t1->GetEntry(EventNumber);
     fNumberEntry1->SetNumber(EventNumber); // write that to the display 
-    if (B_tr_n > 0.0) // check if event is good (if there is at least 1 good track).
+    if (Ndata_H_tr_x > 0) // check if event is good (if there is at least 1 good track).
     { 
 	DoDraw(EventNumber);
 	break;
@@ -1412,8 +1477,3 @@ void EVe::PrintToFile()
   new TGFileDialog(gClient->GetRoot(), fMainFrame, kFDSave, &fi);
   if(fi.fFilename!=NULL) fCanvas->Print(fi.fFilename);
 }
-
-
-
-
-

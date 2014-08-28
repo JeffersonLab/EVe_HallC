@@ -4,7 +4,7 @@
 //  by miham
 // 
 //  We use this class to transform real coordinate values from MWDC and 
-//  Scint. (that we get from data) to pixels inside a canvas, where we
+//  Scintillators (that we get from data) to pixels inside a canvas, where we
 //  want to draw out data. 
 // 
 //
@@ -16,6 +16,7 @@ class CStransform {
   
 public:
   CStransform (double A, double cX0, double cY0);
+  CStransform (double A, double cX0, double cY0, int rotation);
   virtual ~CStransform();
   double transXtoCX(double x);
   double transYtoCY(double y);

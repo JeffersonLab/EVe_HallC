@@ -22,9 +22,9 @@
 using namespace std;
 
 
-WirePlane::WirePlane(char *ime, int n, double x, double y, double l, double a, double b, int f)
+WirePlane::WirePlane(char *name, int n, double x, double y, double l, double a, double b, int f)
 {
-   planename = ime;
+   planename = name;
    WireNum = n;
    rescale_me = 1.0/1000.0*b;
    x0 = x;
@@ -38,9 +38,6 @@ WirePlane::WirePlane(char *ime, int n, double x, double y, double l, double a, d
    for (int i = 0; i<WireNum; i++)
    {
 
-#if DEBUG_LEVEL >= 3
-     cout<<"x koordinata: "<<x0+a*fac*(i)<<endl;
-#endif
 
      wire[i] = new TEllipse(x0+a*fac*(i), y0, a*0.001, b*0.001);
      wire[i]->SetFillColor(kBlack);
@@ -51,20 +48,20 @@ WirePlane::WirePlane(char *ime, int n, double x, double y, double l, double a, d
      time[i] -> Draw();
    }
  
-   if (type==1)
+   if (type==1)  // Back Planes - X' , V , Y'
    {
-     TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*(0.008-0.01), ime);
+     TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*(0.008-0.01), name);
      title->SetTextSize(b*0.02);
      title->Draw();   
    }
-   else if (type==-1)
+   else if (type==-1)   // Front Planes - X, U, Y
    {
-     TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*(0.008+0.01), ime);
+     TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*(0.008+0.01), name);
      title->SetTextSize(b*0.02);
      title->Draw();   
    }
    else{
-     TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*0.008, ime);
+     TLatex *title = new TLatex(x0+a*fac*(WireNum),y - b*0.008, name);
      title->SetTextSize(b*0.02);
      title->Draw();   
    }
@@ -81,12 +78,12 @@ void WirePlane::SetWire(int i, double t)
   cout<<planename<<"Index is: "<<i<<", T is: "<<t<<endl;
   if (i < WireNum)
   {
-     if (type==1)
+    if (type==1)  // Back Planes - X' , V , Y'
      {
        time[i]->SetY1(rescale_me*t+y0);
        time[i]->SetLineColor(kGreen+1);
      }
-     else if (type==-1)
+     else if (type==-1) // Front Planes - X, U, Y
      {
        time[i]->SetY2(-1.0*rescale_me*t+y0);
        time[i]->SetLineColor(kRed);
@@ -98,7 +95,7 @@ void WirePlane::SetWire(int i, double t)
        time[i]->SetLineColor(kBlue);
      }
   }
-  cout<<"Tlele sem!"<<endl;
+
 }
 
 void WirePlane::clear()

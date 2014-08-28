@@ -1,5 +1,5 @@
 //************************************************************************* 
-//  TPremica3D.cxx  - 4/14/2008
+//  TWire3D.cxx  - 4/14/2008
 // 
 //  by miham
 // 
@@ -8,8 +8,8 @@
 //
 //
 //************************************************************************* 
-#ifndef ROOT_TPremica3D
-#define ROOT_TPremica3D
+#ifndef ROOT_TWire3D
+#define ROOT_TWire3D
 
 #include "TGeoTube.h"
 #include "TGeoVolume.h"
@@ -19,18 +19,16 @@
 #include "TGeoTrd2.h"
 #include "TColor.h"
 
-class TPremica3D {
+class TWire3D {
   
 public:
-  TPremica3D(double x1, double y1, double z1, double x2,  double y2, double z2,double radij, TGeoVolume *volume);
-  virtual ~TPremica3D();
-  void SetColor(Style_t barva);
+  TWire3D(double x1, double y1, double z1, double x2,  double y2, double z2,double radius, TGeoVolume *volume);
+  virtual ~TWire3D();
+  void SetColor(Style_t colour);
 
 protected:
 
- TGeoVolume *premica;
-  
-
+ TGeoVolume *wire;
 
 };
 

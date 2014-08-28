@@ -28,8 +28,8 @@
 #include "CStransform.h"
 #include "MultiRoads.h"
 #include "Track.h"
-#include "ScintilationPlane.h"
-#include "BigBiteDetector3D.h"
+#include "ScintPlane.h"
+#include "Detector3D.h"
 #include "THaRun.h"
 #include <TString.h>
 #include <TGFileDialog.h>
@@ -42,9 +42,9 @@ class EVe{
 public:
   EVe(const TGWindow *p, UInt_t w, UInt_t h);
   ~EVe();
-  void CreateUprojection();
-  void CreateVprojection();
   void CreateXprojection();
+  void CreateUVprojection();
+  void CreateYprojection();
   void CreateWires();
   void Create3DView();
   void initRun(char *filename);
@@ -66,9 +66,9 @@ private:
   TCanvas *c3;
   TCanvas *c4;
   TCanvas *c5;
-  TGRadioButton *fTextButtonUPlane;
-  TGRadioButton *fTextButtonVPlane;
   TGRadioButton *fTextButtonXPlane;
+  TGRadioButton *fTextButtonUVPlane;
+  TGRadioButton *fTextButtonYPlane;
   TGRadioButton *fTextButton3dView;
   TGRadioButton *fTextButtonProj;	
 
@@ -81,29 +81,32 @@ private:
   MWDChamber *mwdc1;
   MWDChamber *mwdc2;
 
-  ScintilationPlane *sdE;
-  ScintilationPlane *sE;
+  ScintPlane *s1X;
+  ScintPlane *s1Y;
+  ScintPlane *s2X;
+  ScintPlane *s2Y;
 
   int EventNumber;
   int TotalNumberOfEvents;
-
-
-  WirePlane *u1;
-  WirePlane *u1p;
-  WirePlane *u2;
-  WirePlane *u2p;
-
-  WirePlane *v1;
-  WirePlane *v1p;
-  WirePlane *v2;
-  WirePlane *v2p;
 
   WirePlane *x1;
   WirePlane *x1p;
   WirePlane *x2;
   WirePlane *x2p;
+
+  WirePlane *u1;
+  WirePlane *v1;
+  WirePlane *u2;
+  WirePlane *v2;
+
+  WirePlane *y1;
+  WirePlane *y1p;
+  WirePlane *y2;
+  WirePlane *y2p;
  
   CStransform *cst;
+  CStransform *s2x_cst;
+  CStransform *s2y_cst;
   MultiRoads *umrd;
   Track *utr[MAX_ROADS_NUM];
   MultiRoads *vmrd;
@@ -113,135 +116,84 @@ private:
 
   TTree *t1;
 
-    // First MWDC chamber
-  Double_t B_mwdc_u1_nhits;
-  Double_t B_mwdc_u1p_nhits;
-  Double_t B_mwdc_v1_nhits;
-  Double_t B_mwdc_v1p_nhits;
-  Double_t B_mwdc_x1_nhits;
-  Double_t B_mwdc_x1p_nhits;
+  /// MWDC1 nhits
+  Int_t Ndata_H_dc_1u1_tdchits;
+  Int_t Ndata_H_dc_1v1_tdchits;
+  Int_t Ndata_H_dc_1x1_tdchits;
+  Int_t Ndata_H_dc_1x2_tdchits;
+  Int_t Ndata_H_dc_1y1_tdchits;
+  Int_t Ndata_H_dc_1y2_tdchits;
 
-  Double_t B_mwdc_u1_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_u1p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v1_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v1p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x1_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x1p_hit_wire[MAX_HITS_NUM];
+  /// MWDC1 tdc hits
+  Double_t H_dc_1u1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1v1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1x1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1x2_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1y1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_1y2_tdchits[MAX_HITS_NUM];
 
-  Double_t B_mwdc_u1_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_u1p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v1_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v1p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x1_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x1p_hit_time[MAX_HITS_NUM];
-  
-    
-  // Other MWDC chamber
-  
-  Double_t B_mwdc_u2_nhits;
-  Double_t B_mwdc_u2p_nhits;
-  Double_t B_mwdc_v2_nhits;
-  Double_t B_mwdc_v2p_nhits;
-  Double_t B_mwdc_x2_nhits;
-  Double_t B_mwdc_x2p_nhits;
+  /// MWDC1 hit times
+  Double_t H_dc_1u1_time[MAX_HITS_NUM];
+  Double_t H_dc_1v1_time[MAX_HITS_NUM];
+  Double_t H_dc_1x1_time[MAX_HITS_NUM];
+  Double_t H_dc_1x2_time[MAX_HITS_NUM];
+  Double_t H_dc_1y1_time[MAX_HITS_NUM];
+  Double_t H_dc_1y2_time[MAX_HITS_NUM];
 
-  Double_t B_mwdc_u2_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_u2p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v2_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_v2p_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x2_hit_wire[MAX_HITS_NUM];
-  Double_t B_mwdc_x2p_hit_wire[MAX_HITS_NUM];
-  
-  Double_t B_mwdc_u2_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_u2p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v2_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_v2p_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x2_hit_time[MAX_HITS_NUM];
-  Double_t B_mwdc_x2p_hit_time[MAX_HITS_NUM];
+  /// MWDC2 nhits
+  Int_t Ndata_H_dc_2u1_tdchits;
+  Int_t Ndata_H_dc_2v1_tdchits;
+  Int_t Ndata_H_dc_2x1_tdchits;
+  Int_t Ndata_H_dc_2x2_tdchits;
+  Int_t Ndata_H_dc_2y1_tdchits;
+  Int_t Ndata_H_dc_2y2_tdchits;
+
+  /// MWDC2 hit tdc hits
+  Double_t H_dc_2u1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2v1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2x1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2x2_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2y1_tdchits[MAX_HITS_NUM];
+  Double_t H_dc_2y2_tdchits[MAX_HITS_NUM];
+
+  /// MWDC2 hit times
+  Double_t H_dc_2u1_time[MAX_HITS_NUM];
+  Double_t H_dc_2v1_time[MAX_HITS_NUM];
+  Double_t H_dc_2x1_time[MAX_HITS_NUM];
+  Double_t H_dc_2x2_time[MAX_HITS_NUM];
+  Double_t H_dc_2y1_time[MAX_HITS_NUM];
+  Double_t H_dc_2y2_time[MAX_HITS_NUM];
 
 
-  // U projekcija
-  
-  Double_t B_mwdc_u_nroads;
-
-  Double_t B_mwdc_u_rd_zL[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_zU[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_xUL[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_xUR[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_xLL[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_xLR[MAX_ROADS_NUM];
-
-  Double_t B_mwdc_u_rd_good[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_pos[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_slope[MAX_ROADS_NUM];
-  Double_t B_mwdc_u_rd_chi2[MAX_ROADS_NUM];
-
-  // V projekcija
-  
-  Double_t B_mwdc_v_nroads;
-
-  Double_t B_mwdc_v_rd_zL[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_zU[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_xUL[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_xUR[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_xLL[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_xLR[MAX_ROADS_NUM];
-
-  Double_t B_mwdc_v_rd_good[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_pos[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_slope[MAX_ROADS_NUM];
-  Double_t B_mwdc_v_rd_chi2[MAX_ROADS_NUM];
-
-  // X projekcija
-  
-  Double_t B_mwdc_x_nroads;
-
-  Double_t B_mwdc_x_rd_zL[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_zU[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_xUL[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_xUR[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_xLL[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_xLR[MAX_ROADS_NUM];
-
-  Double_t B_mwdc_x_rd_good[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_pos[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_slope[MAX_ROADS_NUM];
-  Double_t B_mwdc_x_rd_chi2[MAX_ROADS_NUM];
-
-  Double_t B_mwdc_u_ngood;
-  Double_t B_mwdc_v_ngood; 
-  Double_t B_mwdc_x_ngood;
- 
-  Double_t B_tr_n;
-  Double_t B_tr_x[MAX_TRACK_NUM];
-  Double_t B_tr_y[MAX_TRACK_NUM];
-  Double_t B_tr_ph[MAX_TRACK_NUM];
-  Double_t B_tr_th[MAX_TRACK_NUM];
-
-  Double_t B_tr_px[MAX_TRACK_NUM];
-  Double_t B_tr_py[MAX_TRACK_NUM];
-  Double_t B_tr_pz[MAX_TRACK_NUM];
-  Double_t B_tr_p[MAX_TRACK_NUM];
+  /// TRACKING
+  Int_t Ndata_H_tr_x;
+  Double_t H_tr_x[MAX_TRACK_NUM];
+  Double_t H_tr_y[MAX_TRACK_NUM];
+  Double_t H_tr_ph[MAX_TRACK_NUM];
+  Double_t H_tr_th[MAX_TRACK_NUM];
 
 
 
+  // variables for scintillation planes
 
-  // variables for scintilation plane
-  Double_t B_tp_e_nhit;
-  Double_t B_tp_e_LT[25];
-  Double_t B_tp_e_RT[25];
-  Double_t B_tp_e_hit_ypos[25];
-  Double_t B_tp_e_hit_bar[25];
- 
+  Int_t Ndata_H_hod_1x_negtdchits;
+  Int_t Ndata_H_hod_1x_postdchits;
+  Double_t H_hod_1x_negtdchits[16];
+  Double_t H_hod_1x_postdchits[16];
+  Int_t Ndata_H_hod_1y_negtdchits;
+  Int_t Ndata_H_hod_1y_postdchits;
+  Double_t H_hod_1y_negtdchits[16];
+  Double_t H_hod_1y_postdchits[16];
+  Int_t Ndata_H_hod_2x_negtdchits;
+  Int_t Ndata_H_hod_2x_postdchits;
+  Double_t H_hod_2x_negtdchits[16];
+  Double_t H_hod_2x_postdchits[16];
+  Int_t Ndata_H_hod_2y_negtdchits;
+  Int_t Ndata_H_hod_2y_postdchits;
+  Double_t H_hod_2y_negtdchits[16];
+  Double_t H_hod_2y_postdchits[16];
 
-  Double_t B_tp_de_nhit;
-  Double_t B_tp_de_LT[25];
-  Double_t B_tp_de_RT[25];
-  Double_t B_tp_de_hit_ypos[25];
-  Double_t B_tp_de_hit_bar[25];
-
-
-  BigBiteDetector3D *bigbite;
+  Detector3D *detector;
 
   int run_number;
   const char *crun_number;
@@ -249,9 +201,6 @@ private:
   const char *graph_title;
 
   TLatex *title;
-
-
-
 
 
 

@@ -34,9 +34,6 @@ MultiRoads::MultiRoads(CStransform *cst)
 
 void MultiRoads::Show(int i,double x[], double z[])
 {
-#if DEBUG_LEVEL >= 3
-       cout<<"Narisi cesto!!"<<endl;
-#endif
        roads[i]->DrawMe(x,z); 
 }
 

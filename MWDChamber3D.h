@@ -5,7 +5,7 @@
 // 
 //  This class is used to create 3D simulation of MWDC and to show hit wires
 //
-//
+//  Updated by Ben Davis-Purcell - 8/26/2014
 //************************************************************************* 
  
 #ifndef ROOT_MWDChamber3D
@@ -18,12 +18,12 @@
 #include "TGeoBBox.h"
 #include "TGeoTrd2.h"
 #include "TGeoTube.h"
-#include "TPremica3D.h"
+#include "TWire3D.h"
 
 class MWDChamber3D {
   
 public:
-  MWDChamber3D(char *ime, int t, int n, double x, double y, double z, double width, double height, TGeoVolume *paddle);
+  MWDChamber3D(char *name, int t, int n, double x, double y, double z, double width, double height, TGeoVolume *paddle);
   virtual ~MWDChamber3D();
   void u1WireHit(int i);
   void u2WireHit(int i);
@@ -34,18 +34,18 @@ public:
   void clear();
 
 protected:
-  int Num; // stevilo linij !!! not true
-  TGeoTube *cev1;
+  int Num; 
+  TGeoTube *tube1;
   int type;
 
-  TPremica3D *x1_wires[300];
-  TPremica3D *x2_wires[300];
+  TWire3D *x1_wires[300];
+  TWire3D *x2_wires[300];
 
-  TPremica3D *v1_wires[300];
-  TPremica3D *v2_wires[300];
+  TWire3D *v1_wires[300];
+  TWire3D *v2_wires[300];
 
-  TPremica3D *u1_wires[300];
-  TPremica3D *u2_wires[300];
+  TWire3D *u1_wires[300];
+  TWire3D *u2_wires[300];
 
 };
 

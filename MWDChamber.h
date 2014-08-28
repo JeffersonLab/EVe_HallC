@@ -1,12 +1,10 @@
-
-
 //************************************************************************* 
 //  MWDChamber.h  - 4/14/2008
 // 
 //  by miham
 // 
 //  This class is used to create planar view of the MWDC.
-//
+//  Updated by Ben Davis-Purcell - 8/26/2014
 //
 //*************************************************************************   
 #ifndef ROOT_MWDChamber
@@ -25,28 +23,27 @@
 class MWDChamber {
   
 public:
-  //MWDChamber(char *ime, int n, double x, double y, double a, double b, int t);
-  MWDChamber(char *ime, int n, double Hight, CStransform *cst, int t);
+  MWDChamber(char *name, int n, double Height, double width, CStransform *cst, int t);
   virtual ~MWDChamber();
-  void u1WireHit(int i);
-  void u2WireHit(int i);
-  void v1WireHit(int i);
-  void v2WireHit(int i);
+  void uWireHit(int i);
+  void vWireHit(int i);
+  void y1WireHit(int i);
+  void ypWireHit(int i);
   void x1WireHit(int i);
-  void x2WireHit(int i);
+  void xpWireHit(int i);
   void clear();
   void Track(double x, double y, int i);
 
 protected:
-  int Num; // stevilo linij !!! not true
-  TPolyLine *okvir;
-  TPolyLine *okvir2;
-  TLine *u1_wires[1000];
-  TLine *u2_wires[1000];
-  TLine *v1_wires[1000];
-  TLine *v2_wires[1000];
+  int Num; 
+  TPolyLine *box;
+  TPolyLine *box2;
+  TLine *u_wires[1000];
+  TLine *v_wires[1000];
+  TLine *y1_wires[1000];
+  TLine *yp_wires[1000];
   TLine *x1_wires[1000];
-  TLine *x2_wires[1000];
+  TLine *xp_wires[1000];
   TLatex *title;
   CStransform *cst;
   double fa,fb;
@@ -54,12 +51,12 @@ protected:
   int type;
 
 
-  TEllipse *u1_circ;
-  TEllipse *u2_circ;
-  TEllipse *v1_circ;
-  TEllipse *v2_circ;
+  TEllipse *u_circ;
+  TEllipse *v_circ;
+  TEllipse *y1_circ;
+  TEllipse *yp_circ;
   TEllipse *x1_circ;
-  TEllipse *x2_circ;
+  TEllipse *xp_circ;
 
   TEllipse *track_circ[MAX_TRACK_NUM];
 

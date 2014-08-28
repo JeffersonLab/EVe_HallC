@@ -1,5 +1,5 @@
 {
-  /// Macro for running files of the type %s/e04007_det_%d.root ///
+  /// Macro for running EVe with hodtest.root . Can easily be updated to work with any compatible .root file, or dynamically input as in simEVe.C    ///
 
   #include <TGClient.h>
   gSystem->Load("libGeom");
@@ -17,14 +17,14 @@
     0
   };
   while( found==0 ) {
-    cout << "Run number?\n";
-    cin >> nrun;
-    if( nrun<0 ) break;
+    //   cout << "Run number?\n";
+    // cin >> nrun;
+    //if( nrun<0 ) break;
    
     path=paths;
     
     while ( path && *path ) {
-      sprintf(filename,"%s/e04007_det_%d.root",*path,nrun);
+      sprintf(filename,"hodtest.root");
       fd = fopen(filename,"r");
       if (fd != NULL) {
 	found = 1;
@@ -37,7 +37,7 @@
       cout << "File not found.  Try again, or -1 to quit.\n";
     }
   }
-  if(nrun<0) return;
+  //  if(nrun<0) return;
   cout << "Opening file "<<filename<<endl;
 
 
