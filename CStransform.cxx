@@ -31,7 +31,23 @@ CStransform::CStransform (double A, double cX0, double cY0)
   // A is length in meters
   alpha = 1.0/A;
   CX0 = cX0; 
-  CY0 = cY0;
+  CY0 = cY0; 
+}
+
+/// FIXME:: Attempt to fix Tracking for rotated ScintPlanes.
+/// This does not work, just reflects ScintPlane and ScintPlane 
+/// labelling on xy plane
+CStransform::CStransform (double A, double cX0, double cY0, int rotation)
+{
+  alpha = 1.0/A;  // A is length in meters
+  if (rotation == 1) {
+    CX0 = cX0; 
+    CY0 = cY0;
+  }
+  else {
+    CX0 = cY0; 
+    CY0 = cX0; 
+  }
 }
 
 double CStransform::transXtoCX(double x)

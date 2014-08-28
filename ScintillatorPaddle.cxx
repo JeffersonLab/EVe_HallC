@@ -22,8 +22,8 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
 {
 
   // x and y are the coords of the lower left edge of the object
-  // a is the vertical size of the PMT
-  // b is the horizontal size of the PMT
+  // a is the horizontal size of the PMT
+  // b is the vertical size of the PMT
   // length is the length (horizontal) of the scintillator
   // PMTn is the number of PMTs on the scintillator paddle (1 or 2)
   // rotation is currently a T/F for a vertical or horizontal paddle. 
@@ -36,6 +36,10 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   paddle_length = length;
   n = PMTn;
   rot = rotation;
+
+  /// Scaling of a/sa, b/sb needs to be fixed, written in terms of 
+  /// transformed paddle height as in corresponding comment in ScintPlane
+
 
   if (rot == 1){    //// horizontal paddle
   // Left PMT
@@ -74,6 +78,8 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     scint->Draw("f");
     scint->Draw();
     
+    /// This draws an arrow for the hit position along the paddle
+    /// Only used if y hit position is known
     yindicator = new TArrow(sa*0.5+sx0+sa*0.5625*y/paddle_length, sb*0.0+sy0, sa*0.5+sx0+sa*0.5625*y/paddle_length, sb*0.25+sy0, 0.01, "<|>");
     
     TString Buff;
@@ -127,6 +133,8 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     scint->Draw("f");
     scint->Draw();
     
+    /// This draws an arrow for the hit position along the paddle
+    /// Only used if y hit position is known
     yindicator = new TArrow( sb*0.0+sy0, sa*0.5+sx0+sa*0.5625*y/paddle_length, sb*0.25+sy0, sa*0.5+sx0+sa*0.5625*y/paddle_length, 0.01, "<|>");
 
     TString Buff;

@@ -31,7 +31,7 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   
 
   //// FIXME:: convert to HMS units
-  double fpaddleH = 0.25;  ///  0.25 /// Alpha (1/canvas_length)
+  double fpaddleH = 0.25;  ///  0.25 ????
   double fpaddleL = 0.5625;  /// 0.5625 before -- why these values??
   int numPMT = pmt->GetInt("Number of paddle PMTs =");
 
@@ -53,15 +53,17 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
 
   sa = CL/fpaddleL;
   sb = CH/fpaddleH; 
+  /// sa and sb should be removed and left as CL and CH to be read into 
+  /// ScintillatorPaddle -- scaling needs to be fixed in both classes
 
   if (horiz == 1) {
     for(int i=0;i<n;i++) {
-      paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*fpaddleH*sb, sa, sb, paddle_length, numPMT, rot);
+      paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*CH, sa, sb, paddle_length, numPMT, rot);
     }
   }
   else {
     for(int i=0;i<n;i++) {
-      paddle[i] = new ScintillatorPaddle(i, sx0, sy0+i*fpaddleH*sb, sa, sb, paddle_length, numPMT, rot);
+      paddle[i] = new ScintillatorPaddle(i, sx0, sy0+i*CH, sa, sb, paddle_length, numPMT, rot);
     }
   }
 

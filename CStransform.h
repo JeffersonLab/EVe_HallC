@@ -16,6 +16,7 @@ class CStransform {
   
 public:
   CStransform (double A, double cX0, double cY0);
+  CStransform (double A, double cX0, double cY0, int rotation);
   virtual ~CStransform();
   double transXtoCX(double x);
   double transYtoCY(double y);

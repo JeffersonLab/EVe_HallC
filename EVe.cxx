@@ -327,15 +327,6 @@ void EVe::CreateWires()
    GetVariables *vars = new GetVariables("HMS.txt");
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
    
-
-   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_s1x_posy);
-   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1y_posx, canvas_s1y_posy);
-
-   if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvas_length, 0.57, 0.5);
-     s2y_cst = new CStransform(canvas_length, 0.84, 0.2);
-   }
-
    // FIXME: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
    mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, MWDC_width, mwdc1_cst,0);
@@ -361,9 +352,21 @@ void EVe::CreateWires()
    int nPaddles2 = pad2->GetInt("2nd Scint Array NPaddles =");
    
 
+   /// FIXME:: Need to get rotated ScintPlanes (s1y, s2y) canvas positions 
+   /// consistent with Track (in ScintPlane::Track() )
+   /// Swapping x and y coords in CStransform doesn't quite work
+   /// -- just reflects both label and ScintPlane in xy line
+   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_s1x_posy);
+   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1y_posx, canvas_s1y_posy);
+   
+   if (NScintPlanes == 4) {
+     s2x_cst = new CStransform(canvas_length, 0.57, 0.5);
+     s2y_cst = new CStransform(canvas_length, 0.84, 0.2);
+   }
+
    s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height, s1x_cst, orient1);
    
-   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height, s1y_cst, orient2);
+   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height, s1y_cst, orient1);
    
    if (NScintPlanes == 4) {
      s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, s1x_length, s1x_height, s2x_cst, orient1);
