@@ -7,3 +7,8 @@ EVeDict.*
 .root_hist
 *.eps
 4ScintPlanes*
+EVeManual.aux
+EVeManual.log
+EVeManual.out
+EVeManual.toc
+EVeManual.synctex.gz

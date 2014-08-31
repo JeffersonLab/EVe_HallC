@@ -29,8 +29,6 @@ MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransfo
 
    cst = trans;
 
-   /// FIXME -- Add in new width variable for class that reads in actual width (and change corresponding width variables that are currently based on the height as well
-
    /// Width (left to right) = 56.0 cm
    /// Height = 113 cm
    /// Ratio H/w = 2.017857
