@@ -44,17 +44,17 @@ The goal of the event display is to show various views of the detector, displayi
 \section{Installation and Usage}
 As was previously stated, the new version of EVe can be downloaded from github at \url{https://github.com/JeffersonLab/EVe\_HallC}. On this page, on the right-hand side where \textit{\textbf{HTTPS} clone URL} can be seen, copy the link underneath into the terminal. The command should look like this:
 \\
-\texttt{>> git clone https://github.com/JeffersonLab/EVe\_HallC.git }
+\hspace*{1cm}\texttt{git clone https://github.com/JeffersonLab/EVe\_HallC.git}
 \\
 This will place the code in your current directory. Next, type \texttt{make} to compile the code. This creates a shared library \textit{libEVe.so} that is regenerated each compile. 
 \\
 \\
 EVe must be run in the ROOT environment, either normal ROOT or the JLab/HallC analyzer. The version of ROOT should not matter, although the Hall C analyzer is currently based on ROOT 5.34/02, September 21, 2012, with CINT/ROOT C/C++ Interpreter version 5.18.00, July 2, 2010. It does not require any JLab-specific geometries at this point, although this could be added in later if one chooses. In order to run, EVe does require that \textit{TGClient.h} is included (\texttt{\#include <TGClient.h>}), and that the geometry file \textit{libGeom.so} gets loaded into root before usage. Once EVe has been \textit{made}, the self-generating EVe library \textit{libEVe.so} must also be loaded. The commands are as follows:
 \\
-\texttt{gSystem->Load("libGeom");} \\
-\texttt{gSystem->Load("libEVe.so");}
+\hspace*{1cm}\texttt{gSystem->Load("libGeom");} \\
+\hspace*{1cm}\texttt{gSystem->Load("libEVe.so");}
 \\
-EVe can be run using a root macro, or opened directly from the root command line. The simplest way to open EVe is using the macro simEVe\_new.C, contained in the directory. This macro is used to analyze the \textit{hodtest.root} file that can be obtained from the Hall C 12GeV software Wiki, found \url{https://hallcweb.jlab.org/wiki/index.php/Analyzer/Running}. (The page will most likely need to be followed from \url{https://hallcweb.jlab.org/wiki/index.php/ROOT_Analyzer} though, which explains how to download the Hall C analyzer using git). Once the \textit{hodtest.root} file is located in the same directory as that which you have downloaded EVe into, you will be able to run \texttt{root} or \texttt{hcana}, followed by \texttt{.x simEVe\char`_new.C} in the root environment. This will start up EVe, analyzing the data in the hodtest root tree. The Event Display can easily be modified to read any incoming root file, though the branch addresses must match (or be modified within the code) in order to run correctly.
+EVe can be run using a root macro, or opened directly from the root command line. The simplest way to open EVe is using the macro simEVe\_new.C, contained in the directory. This macro is used to analyze the \textit{hodtest.root} file that can be obtained from the Hall C 12\,GeV software Wiki, found \url{https://hallcweb.jlab.org/wiki/index.php/Analyzer/Running}. (The page will most likely need to be followed from \url{https://hallcweb.jlab.org/wiki/index.php/ROOT_Analyzer} though, which explains how to download the Hall C analyzer using git). Once the \textit{hodtest.root} file is located in the same directory as that which you have downloaded EVe into, you will be able to run \texttt{root} or \texttt{hcana}, followed by \texttt{.x simEVe\_new.C} in the root environment. This will start up EVe, analyzing the data in the hodtest root tree. The Event Display can easily be modified to read any incoming root file, though the branch addresses must match (or be modified within the code) in order to run correctly.
 \\
 If you are using EVe and updating code, thereby improving/changing the functionality of the display, please update this Manual as well; the \textit{.tex} file can be found in the EVe folder downloaded from github.
 
@@ -235,9 +235,6 @@ This is the main class for the Event Display. It loads in all other classes, per
 \subsection{.gitignore}
 This file lists all of the file types that will not be included in a commit to git, and includes files that get re-built during each \texttt{make}, large .root files, bad files that are created, and images.
 
-\subsection{EVe.tgz}
-This file is the tarball that contains the original 2008 BigBite Event Display code.
-
 \subsection{EVeDict.cxx,.h}
 The EVeDict files are regenerated each time EVe is compiled, and should not be modified.
 
@@ -261,6 +258,9 @@ This is the old root macro that loads in a BigBite .root file to start EVe. It o
 
 \subsection{simEVe\_new.C}
 This is the new root macro that loads in the previously mentioned \textit{hodtest.root} file to start EVe. Events can then be cycled through for this run.   
+
+\subsection{Docs/EVe-BigBite/}
+This directory contains the original 2008 BigBite Event Display code (EVe.tgz), and an associated README.pdf document.
 
 \section{Unspecified Issues and Areas for Improvement}
 This Event Display is still a work in progress, and has some key underlying issues that must be mentioned. The code itself contains many comments, with lots of key issues outlined in comments that begin with \textit{FIXME}, so a \texttt{grep} for \textit{FIXME}s would be a good place to start in order to improve the code.
