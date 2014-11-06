@@ -29,7 +29,7 @@ CStransform::~CStransform()
 CStransform::CStransform (double A, double cX0, double cY0)
 {
   // A is length in meters
-  alpha = 2.0/A;
+  alpha = 1.0/A;
   CX0 = cX0; 
   CY0 = cY0; 
 }
@@ -45,7 +45,7 @@ CStransform::CStransform (double A, double cX0, double cY0, int rotation)
     CY0 = cY0;
   }
   else {
-    CX0 = cY0; 
+    CX0 = -cY0; 
     CY0 = cX0; 
   }
 }

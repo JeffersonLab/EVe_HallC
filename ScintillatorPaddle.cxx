@@ -97,7 +97,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   else {
     // x and y coordinates reversed for vertical paddle
     // Left PMT
-    Double_t xL[7] = {b*0.175 + y, b*0.175 + y, b*0.25 + y, b*0.0 + y, b*0.075 + y, b*0.075 + y, b*0.175 + y};
+    Double_t xL[7] = {-b*0.175 + y, -b*0.175 + y, -b*0.25 + y, -b*0.0 + y, -b*0.075 + y, -b*0.075 + y, -b*0.175 + y};
     Double_t yL[7] = {a*0.0 + sx0 ,a*0.09375 + sx0 ,a*0.21875 + sx0 , a*0.21875 +sx0 , a*0.09375 + sx0 , a*0.0 + sx0 , a*0.0 + sx0 };
     plineL = new TPolyLine(7,xL,yL);
     plineL->SetFillColor(38);
@@ -109,7 +109,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     // Right PMT
     
     if (n == 2) {
-      Double_t xR[7] = {b*0.25 + y , b*0.175 + y, b*0.175 + y, b*0.075 + y, b*0.075 + y, b*0.0 + y, b*0.25 + y};
+      Double_t xR[7] = {-b*0.25 + y , -b*0.175 + y, -b*0.175 + y, -b*0.075 + y, -b*0.075 + y, -b*0.0 + y, -b*0.25 + y};
       Double_t yR[7] = {a*0.78125 + sx0 ,a*0.90625 + sx0 ,a*1.0 + sx0 ,a*1.0 + sx0 ,a*0.90625 + sx0 , a*0.78125 + sx0 , a*0.78125 + sx0 }; 
       
       plineR = new TPolyLine(7,xR,yR);
@@ -122,7 +122,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
 
   // Scintillation Material
  
-    Double_t xscint[5] = {b*0.0 + y, b*0.0 + y, b*0.25 + y,b*0.25 + y, b*0.0 + y};
+    Double_t xscint[5] = {-b*0.0 + y, -b*0.0 + y, -b*0.25 + y,-b*0.25 + y, -b*0.0 + y};
     
     Double_t yscint[5] = {a*0.21875 + sx0, a*0.78125 + sx0, a*0.78125 + sx0, a*0.21875 + sx0, a*0.21875 + sx0};
     
@@ -142,7 +142,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     Buff+=(index+1);
     const char *name = Buff.Data();
     
-    index_text = new TLatex(b*0.02+sy0,a*1.02+sx0, name);
+    index_text = new TLatex(-b*0.23+sy0,a*1.02+sx0, name);
     index_text->SetTextSize(0.03);
     index_text->Draw();   
   }

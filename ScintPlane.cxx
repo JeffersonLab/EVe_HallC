@@ -55,23 +55,27 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   sb = CH/fpaddleH; 
   /// sa and sb should be removed and left as CL and CH to be read into 
   /// ScintillatorPaddle -- scaling needs to be fixed in both classes
-
+  
   if (horiz == 1) {
     for(int i=0;i<n;i++) {
-      paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*CH, sa, sb, paddle_length, numPMT, rot);
-    }
+      paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*CH, sa, sb, paddle_length, numPMT, rot);} 
+          title = new TLatex(sx0+sa*0.35-sa*0.3,sy0+sb*0.35, name);
+          title->SetTextSize(0.03);
+          title->Draw();  
+    
   }
   else {
     for(int i=0;i<n;i++) {
       paddle[i] = new ScintillatorPaddle(i, sx0, sy0+i*CH, sa, sb, paddle_length, numPMT, rot);
     }
+    title = new TLatex(sy0-sb-N*sb/2, sx0-0.55sb, name);
+          title->SetTextSize(0.03);
+          title->Draw();  
   }
-
-
-  title = new TLatex(sx0+sa*0.35-sa*0.3,sy0+sb*0.35, name);
-  title->SetTextSize(0.03);
-  title->Draw();      
-
+  
+  
+       
+  
   for(int i = 0; i<MAX_TRACK_NUM; i++)track_circ[i] = new TEllipse(0,0,0);
    
   cout<<"Scintillation Plane is created!"<<endl;
