@@ -24,7 +24,7 @@
 
 class ScintPlane {
  public: 
-  ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, int horizontal);
+  ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, double ang);
   virtual ~ScintPlane();
   void paddleHit(int num, double left, double right, double y);
   void paddleLeftHit(int padn);
@@ -36,8 +36,9 @@ class ScintPlane {
 
 protected:
   int N; // number of paddles
-  int horiz; // 1 if scint plane has horizontally stacked paddles, 0 if vertical
-  int rot; // defines horiz for individual scint paddles
+  //int horiz; // 1 if scint plane has horizontally stacked paddles, 0 if vertical
+  //int rot; // defines horiz for individual scint paddles
+  double angle;
   double sx0, sy0,sa,sb;
   double paddle_length;
   double paddle_height;

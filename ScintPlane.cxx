@@ -16,7 +16,7 @@
 
 using namespace std;
 
-ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, int horizontal)
+ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, double ang)
 {
  
   // Converting plenth & pheight [m] into pixels
@@ -25,7 +25,8 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   N = n;
   paddle_length = plength;
   paddle_height = pheight;
-  horiz = horizontal;
+  //horiz = horizontal;
+  angle=ang;
   std::string geometry = "HMS.txt";
   GetVariables *pmt = new GetVariables(geometry);
   
@@ -36,17 +37,19 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   int numPMT = pmt->GetInt("Number of paddle PMTs =");
 
   // cout << horiz << " horiiz" << endl;
-  if (horiz == 1) {
+  /*if (horiz == 1) {
     rot = 1;
   }
   else {
     rot =0;
-  }
+    }*/
 
   /// FIXME:: Conversion between canvas units and actual units goes back and forth. Rotation hard-coded into ScintillatorPaddle class but does not match up with this class - scaling factors need to be fixed
 
-  sx0 = cst->transXtoCX(0.0) - cst->transLtoCL(paddle_length/2.0); 
-  sy0 = cst->transYtoCY(0.0) + cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
+  sx0 = cst->transXtoCX(0.0);                                    ; 
+  sy0 = cst->transYtoCY(0.0);                                                        ;
+    double cx0= - cst->transLtoCL(paddle_length/2.0);
+    double cy0=  cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
   
   double CL = cst->transLtoCL(paddle_length);
   double CH = cst->transLtoCL(paddle_height);   
@@ -55,23 +58,26 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   sb = CH/fpaddleH; 
   /// sa and sb should be removed and left as CL and CH to be read into 
   /// ScintillatorPaddle -- scaling needs to be fixed in both classes
+
+  for (int i=0; i<n ;i++){
+    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT,angle);} 
   
-  if (horiz == 1) {
+  /*if (horiz == 1) {
     for(int i=0;i<n;i++) {
       paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*CH, sa, sb, paddle_length, numPMT, rot);} 
           title = new TLatex(sx0+sa*0.35-sa*0.3,sy0+sb*0.35, name);
           title->SetTextSize(0.03);
-          title->Draw();  
+          title->Draw();
     
   }
   else {
     for(int i=0;i<n;i++) {
       paddle[i] = new ScintillatorPaddle(i, sx0, sy0+i*CH, sa, sb, paddle_length, numPMT, rot);
     }
-    title = new TLatex(sy0-sb-N*sb/2, sx0-0.55sb, name);
+          title = new TLatex(sy0, sx0-1.5*sb, name);
           title->SetTextSize(0.03);
           title->Draw();  
-  }
+	  }*/
   
   
        

@@ -338,11 +338,11 @@ void EVe::CreateWires()
 
    GetVariables *orientation1 = new GetVariables("HMS.txt");
 
-   int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
+   int orient1 = orientation1->GetDouble("1st Scint Array Rotation =");
   
    GetVariables *orientation2 = new GetVariables("HMS.txt");
 
-   int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
+   int orient2 = orientation2->GetDouble("2nd Scint Array Rotation =");
    
    GetVariables *pad1 = new GetVariables("HMS.txt");
 
