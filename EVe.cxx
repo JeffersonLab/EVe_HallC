@@ -357,11 +357,11 @@ void EVe::CreateWires()
    /// Swapping x and y coords in CStransform doesn't quite work
    /// -- just reflects both label and ScintPlane in xy line
    CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_s1x_posy);
-   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1y_posx, canvas_s1y_posy);
+   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.8);
    
    if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvas_length, 0.57, 0.5);
-     s2y_cst = new CStransform(canvas_length, 0.84, 0.2);
+     s2x_cst = new CStransform(canvas_length, 0.75, 0.5);
+     s2y_cst = new CStransform(canvas_length, 0.75, 0.8);
    }
 
    s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height, s1x_cst, orient1);

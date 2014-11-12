@@ -167,8 +167,14 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     double* yr=yR;
     double* xs=xscint;
     double* ys=yscint;
+     
+    double xT=a*1.0+cx0;
+    double yT=b*0.125+cy0;
+    double* tx=& xT;
+    double* ty=& yT;
     
     rotranspaddle (angle, xl, yl, xr, yr, xs, ys, sx0,sy0);
+    rotransline(angle, tx, ty,sx0,sy0,1);
  
     plineL = new TPolyLine(7,xL,yL);
     plineL->SetFillColor(38);
@@ -190,6 +196,15 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     scint->SetLineWidth(1);
     scint->Draw("f");
     scint->Draw();
+    
+    TString Buff;
+    Buff="";
+    Buff+=(index+1);
+    const char *name = Buff.Data();
+    
+    index_text = new TLatex((Double_t)xT,(Double_t)yT, name);
+    index_text->SetTextSize(0.02);
+    index_text->Draw();
 }
 
 

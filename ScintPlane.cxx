@@ -61,7 +61,9 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
 
   for (int i=0; i<n ;i++){
     paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT,angle);} 
-  
+          title = new TLatex(sx0-0.2*sa, sy0-2.70*sb, name);
+          title->SetTextSize(0.03);
+          title->Draw(); 
   /*if (horiz == 1) {
     for(int i=0;i<n;i++) {
       paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*CH, sa, sb, paddle_length, numPMT, rot);} 
