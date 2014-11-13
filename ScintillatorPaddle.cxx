@@ -43,6 +43,10 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   cx0=cx0-a*0.21875;
   cy0=cy0;
   /// Scaling of a/sa, b/sb needs to be fixed, written in terms of 
+
+
+
+
   /// transformed paddle height as in corresponding comment in ScintPlane
 
 

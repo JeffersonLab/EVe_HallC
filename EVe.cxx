@@ -1122,22 +1122,22 @@ void EVe::DoDraw(int event)
        for(int q =0; q<Ndata_H_tr_x; q++)
 	 {
 	   /// Real track information
-	   // double x0 = H_tr_x[q]/100; /// [cm] to [m]
-	   // double y0 = H_tr_y[q]/100;
-	   // double th = H_tr_th[q];
-	   // double ph = H_tr_ph[q];
+	   double x0 = H_tr_x[q]/100; /// [cm] to [m]
+	   double y0 = H_tr_y[q]/100;
+	   double th = H_tr_th[q];
+	   double ph = H_tr_ph[q];
 	   
 	   /// Fake track testing data
-	   double x0 = 0.0;
-	   double y0 = 0.0;
-	   double th = 0.0;
-	   double ph = 0.0;
+	   //double x0 = 0.0;
+	   //double y0 = 0.0;
+	   //double th = 0.0;
+	   //double ph = 0.0;
 
 	   double z1 = MWDC2_z; 
-		//double x1 = x0 + tan(th)*z1;
-		//double y1 = y0 + tan(ph)*z1;
-	   double x1 = x0 + th*z1;
-	   double y1 = y0 + ph*z1;    
+	   double x1 = x0 + tan(th)*cos(ph)*z1;
+	   double y1 = y0 + tan(th)*sin(ph)*z1;
+	   //double x1 = x0 + th*z1;
+	   //double y1 = y0 + ph*z1;    
 
 
 	   mwdc1->Track(x0,y0,q);
@@ -1145,31 +1145,31 @@ void EVe::DoDraw(int event)
 
 
 	   double z3 = s1x_z;
-		//double x3 = x0 + tan(th)*z3;
-		//double y3 = y0 + tan(ph)*z3;
-	   double x3 = x0 + th*z3;
-	   double y3 = y0 + ph*z3;
+	   //double x3 = x0 + tan(th)*z3;
+	   //double y3 = y0 + tan(ph)*z3;
+	   double x3 = x0 + tan(th)*cos(ph)*z3;
+	   double y3 = y0 + tan(th)*sin(ph)*z3;
 	   
 	   s1X->Track(x3,y3,q);
 	   
 	   double z4 = s1y_z;
-	   //double x4 = x0 + tan(th)*z4;
-	   //double y4 = y0 + tan(ph)*z4;
-	   double x4 = x0 + th*z4;
-	   double y4 = y0 + ph*z4;
+	   double x4 = x0 + tan(th)*cos(ph)*z4;
+	   double y4 = y0 + tan(th)*sin(ph)*z4;
+	   //double x4 = x0 + th*z4;
+	   //double y4 = y0 + ph*z4;
 
 	   
 	   s1Y->Track(x4,y4,q);
 	   
 	   double z5 = s2x_z;
-	   double x5 = x0 + th*z5;
-	   double y5 = y0 + ph*z5;
+	   double x5 = x0 + tan(th)*cos(ph)*z5;
+	   double y5 = y0 + tan(th)*sin(ph)*z5;
 	   
 	   s2X->Track(x5,y5,q);
 	   
 	   double z6 = s2y_z;
-	   double x6 = x0 + th*z6;
-	   double y6 = y0 + ph*z6;
+	   double x6 = x0 + tan(th)*cos(ph)*z6;
+	   double y6 = y0 + tan(th)*sin(ph)*z6;
 	   
 	   s2Y->Track(x6,y6,q);
 	 }
