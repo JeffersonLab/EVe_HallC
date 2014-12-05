@@ -24,7 +24,7 @@
 
 class ScintPlane {
  public: 
-  ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, double ang);
+  ScintPlane(char *name, int n, double plength, double pheight,double PMTlength,  CStransform *trans, double ang);
   virtual ~ScintPlane();
   void paddleHit(int num, double left, double right, double y);
   void paddleLeftHit(int padn);
@@ -42,6 +42,7 @@ protected:
   double sx0, sy0,sa,sb;
   double paddle_length;
   double paddle_height;
+  double PMTl;
   ScintillatorPaddle *paddle[MAX_PADDLE_NUM];
   //GetVariables myvars;
   TLatex *title;

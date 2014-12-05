@@ -321,8 +321,8 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-   CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_MWDC1_posx, canvas_MWDC1_posy);
-   CStransform *mwdc2_cst = new CStransform(canvas_length, canvas_MWDC2_posx, canvas_MWDC2_posy);
+   CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_MWDC1_posy);
+   CStransform *mwdc2_cst = new CStransform(canvas_length, 0.7, canvas_MWDC2_posy);
 
    GetVariables *vars = new GetVariables("HMS.txt");
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
@@ -338,11 +338,11 @@ void EVe::CreateWires()
 
    GetVariables *orientation1 = new GetVariables("HMS.txt");
 
-   int orient1 = orientation1->GetDouble("1st Scint Array Rotation =");
+   double orient1 = orientation1->GetDouble("1st Scint Array Rotation =");
   
    GetVariables *orientation2 = new GetVariables("HMS.txt");
 
-   int orient2 = orientation2->GetDouble("2nd Scint Array Rotation =");
+   double orient2 = orientation2->GetDouble("2nd Scint Array Rotation =");
    
    GetVariables *pad1 = new GetVariables("HMS.txt");
 
@@ -356,22 +356,22 @@ void EVe::CreateWires()
    /// consistent with Track (in ScintPlane::Track() )
    /// Swapping x and y coords in CStransform doesn't quite work
    /// -- just reflects both label and ScintPlane in xy line
-   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_s1x_posy);
+   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.475);
    CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.8);
    
    if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvas_length, 0.75, 0.5);
-     s2y_cst = new CStransform(canvas_length, 0.75, 0.8);
+     s2x_cst = new CStransform(canvas_length, 0.7, 0.475);
+     s2y_cst = new CStransform(canvas_length, 0.7, 0.8);
    }
 
-   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height, s1x_cst, orient1);
+   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height,PMTlength, s1x_cst, orient1);
    
-   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height, s1y_cst, orient2);
+   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height,PMTlength, s1y_cst, orient2);
    
    if (NScintPlanes == 4) {
-     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, s1x_length, s1x_height, s2x_cst, orient1);
+     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, s1x_length, s1x_height,PMTlength, s2x_cst, orient1);
      
-     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, s1y_length, s1y_height, s2y_cst, orient2);
+     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, s1y_length, s1y_height,PMTlength, s2y_cst, orient2);
    }
 
 
@@ -991,16 +991,16 @@ void EVe::DoDraw(int event)
      {
      
        matchL[q]= H_hod_1x_postdchits[q];
-       s1X->paddleLeftHit(H_hod_1x_postdchits[q]);
+       s1X->paddleLeftHit(H_hod_1x_postdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
      for (Int_t j=0;j<16;j++) {
        if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
 	 
-	 s1X->paddleBothHit(matchR[i]);
+	 s1X->paddleBothHit(matchR[i]-1);
        } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s1X->paddleBothHit(matchL[i]);
+	 s1X->paddleBothHit(matchL[i]-1);
        }
      }
      matchR[i]=0;
@@ -1017,23 +1017,23 @@ void EVe::DoDraw(int event)
        //	dEbar_ypos[bar] = ypos;
        cout << Ndata_H_hod_1y_negtdchits <<"  " <<  H_hod_1y_negtdchits[q]  << endl;
        matchR[q] = H_hod_1y_negtdchits[q];
-       s1Y->paddleRightHit(H_hod_1y_negtdchits[q]);
+       s1Y->paddleRightHit(H_hod_1y_negtdchits[q]-1);
 
      }
    for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
      {
   
        matchL[q]= H_hod_1y_postdchits[q];
-       s1Y->paddleLeftHit(H_hod_1y_postdchits[q]);
+       s1Y->paddleLeftHit(H_hod_1y_postdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
      for (Int_t j=0;j<16;j++) {
        
        if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 s1Y->paddleBothHit(matchR[i]);
+	 s1Y->paddleBothHit(matchR[i]-1);
        } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s1Y->paddleBothHit(matchL[i]);
+	 s1Y->paddleBothHit(matchL[i]-1);
        }
      }
      matchR[i]=0;
@@ -1045,7 +1045,7 @@ void EVe::DoDraw(int event)
      {
        
        matchR[q] = H_hod_2x_negtdchits[q];
-       s2X->paddleRightHit(H_hod_2x_negtdchits[q]);
+       s2X->paddleRightHit(H_hod_2x_negtdchits[q]-1);
        
      }
    
@@ -1053,16 +1053,16 @@ void EVe::DoDraw(int event)
      {
      
        matchL[q]= H_hod_2x_postdchits[q];
-       s2X->paddleLeftHit(H_hod_2x_postdchits[q]);
+       s2X->paddleLeftHit(H_hod_2x_postdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
      for (Int_t j=0;j<16;j++) {
        if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
 	 
-	 s2X->paddleBothHit(matchR[i]);
+	 s2X->paddleBothHit(matchR[i]-1);
        } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s2X->paddleBothHit(matchL[i]);
+	 s2X->paddleBothHit(matchL[i]-1);
        }
      }
      matchR[i]=0;
@@ -1074,7 +1074,7 @@ void EVe::DoDraw(int event)
      {
        
        matchR[q] = H_hod_2y_negtdchits[q];
-       s2Y->paddleRightHit(H_hod_2y_negtdchits[q]);
+       s2Y->paddleRightHit(H_hod_2y_negtdchits[q]-1);
        
      }
    
@@ -1082,16 +1082,16 @@ void EVe::DoDraw(int event)
      {
      
        matchL[q]= H_hod_2y_postdchits[q];
-       s2Y->paddleLeftHit(H_hod_2y_postdchits[q]);
+       s2Y->paddleLeftHit(H_hod_2y_postdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
      for (Int_t j=0;j<16;j++) {
        if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
 	 
-	 s2Y->paddleBothHit(matchR[i]);
+	 s2Y->paddleBothHit(matchR[i]-1);
        } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s2Y->paddleBothHit(matchL[i]);
+	 s2Y->paddleBothHit(matchL[i]-1);
        }
      }
      matchR[i]=0;
@@ -1122,10 +1122,10 @@ void EVe::DoDraw(int event)
        for(int q =0; q<Ndata_H_tr_x; q++)
 	 {
 	   /// Real track information
-	   double x0 = H_tr_x[q]/100; /// [cm] to [m]
-	   double y0 = H_tr_y[q]/100;
-	   double th = H_tr_th[q];
-	   double ph = H_tr_ph[q];
+	   double x0 = -H_tr_y[q]/100; /// [cm] to [m]
+	   double y0 = -H_tr_x[q]/100;
+	   double th = -H_tr_ph[q];
+	   double ph = -H_tr_th[q];
 	   
 	   /// Fake track testing data
 	   //double x0 = 0.0;
@@ -1134,10 +1134,10 @@ void EVe::DoDraw(int event)
 	   //double ph = 0.0;
 
 	   double z1 = MWDC2_z; 
-	   double x1 = x0 + tan(th)*cos(ph)*z1;
-	   double y1 = y0 + tan(th)*sin(ph)*z1;
-	   //double x1 = x0 + th*z1;
-	   //double y1 = y0 + ph*z1;    
+	   //double x1 = x0 + tan(th)*cos(ph)*z1;
+	   //double y1 = y0 + tan(th)*sin(ph)*z1;
+	   double x1 = x0 + th*z1;
+	   double y1 = y0 + ph*z1;    
 
 
 	   mwdc1->Track(x0,y0,q);
@@ -1145,16 +1145,16 @@ void EVe::DoDraw(int event)
 
 
 	   double z3 = s1x_z;
-	   //double x3 = x0 + tan(th)*z3;
-	   //double y3 = y0 + tan(ph)*z3;
-	   double x3 = x0 + tan(th)*cos(ph)*z3;
-	   double y3 = y0 + tan(th)*sin(ph)*z3;
+	   double x3 = x0 + th*z3;
+	   double y3 = y0 + ph*z3;
+	   //double x3 = x0 + tan(th)*cos(ph)*z3;
+	   //double y3 = y0 + tan(th)*sin(ph)*z3;
 	   
 	   s1X->Track(x3,y3,q);
 	   
 	   double z4 = s1y_z;
-	   double x4 = x0 + tan(th)*cos(ph)*z4;
-	   double y4 = y0 + tan(th)*sin(ph)*z4;
+	   double x4 = x0 + th*z4;
+	   double y4 = y0 + ph*z4;
 	   //double x4 = x0 + th*z4;
 	   //double y4 = y0 + ph*z4;
 
@@ -1162,14 +1162,14 @@ void EVe::DoDraw(int event)
 	   s1Y->Track(x4,y4,q);
 	   
 	   double z5 = s2x_z;
-	   double x5 = x0 + tan(th)*cos(ph)*z5;
-	   double y5 = y0 + tan(th)*sin(ph)*z5;
+	   double x5 = x0 + th*z5;
+	   double y5 = y0 + ph*z5;
 	   
 	   s2X->Track(x5,y5,q);
 	   
 	   double z6 = s2y_z;
-	   double x6 = x0 + tan(th)*cos(ph)*z6;
-	   double y6 = y0 + tan(th)*sin(ph)*z6;
+	   double x6 = x0 + th*z6;
+	   double y6 = y0 + ph*z6;
 	   
 	   s2Y->Track(x6,y6,q);
 	 }

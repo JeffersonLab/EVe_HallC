@@ -69,6 +69,8 @@ const int MWDC2_V2p_WN = 52;//200;
 
 
 // s1x-plane variables
+        ///PMTlength
+        const double PMTlength=0.2936;
 
 	/// number of paddles
 	const int s1x_PN  = 16;
@@ -91,7 +93,7 @@ const int MWDC2_V2p_WN = 52;//200;
 	const int s1y_PN  = 10;
 
 	/// Paddle length
-	const double s1y_length = 0.755;
+	const double s1y_length = 1.2;
 
 	/// Paddle height
 	const double s1y_height = 0.0753;

@@ -21,7 +21,7 @@ using namespace std;
 void rotranspaddle (double angle, double* xL, double* yL, double* xR, double* yR, double* xscint, double* yscint,double sx0,double sy0);
 void rotransline(double ang, double* x, double* y, double sx0, double sy0,int size);
 
-ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, double b, double cx0,double cy0, int PMTn, double ang) 
+ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, double b, double cx0,double cy0, int PMTn, double PMTlength, double ang) 
 {
 
   // x and y are the coords of the lower left edge of the object
@@ -40,8 +40,9 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   n = PMTn;
   angle=ang;
   
-  cx0=cx0-a*0.21875;
+  cx0=cx0-PMTlength;
   cy0=cy0;
+  pl=PMTlength;
   /// Scaling of a/sa, b/sb needs to be fixed, written in terms of 
 
 
@@ -157,14 +158,26 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     */
    
 
-    double xL[7] = {a*0.0 + cx0 ,a*0.09375 + cx0 ,a*0.21875 + cx0 , a*0.21875 +cx0 , a*0.09375 + cx0 , a*0.0 + cx0 , a*0.0 + cx0 };
+  //double xL[7] = {a*0.0 + cx0 ,a*0.09375 + cx0 ,a*0.21875 + cx0 , a*0.21875 +cx0 , a*0.09375 + cx0 , a*0.0 + cx0 , a*0.0 + cx0 };
+  //double yL[7] = {b*0.175 + cy0, b*0.175 + cy0, b*0.25 + cy0, b*0.0 + cy0, b*0.075 + cy0, b*0.075 + cy0, b*0.175 + cy0};
+
+  //double xR[7] = {a*0.78125 + cx0 ,a*0.90625 + cx0 ,a*1.0 + cx0 ,a*1.0 + cx0 ,a*0.90625 + cx0 , a*0.78125 + cx0 , a*0.78125 + cx0 };
+  //double yR[7] = {b*0.25 + cy0 , b*0.175 + cy0, b*0.175 + cy0, b*0.075 + cy0, b*0.075 + cy0, b*0.0 + cy0, b*0.25 + cy0};
+
+  //double xscint[5] = {a*0.21875 + cx0, a*0.78125 + cx0, a*0.78125 + cx0, a*0.21875 + cx0, a*0.21875 + cx0};
+  //double yscint[5] = {b*0.0 + cy0, b*0.0 + cy0, b*0.25 + cy0,b*0.25 + cy0, b*0.0 + cy0};
+    
+  //consider sypaddle length is different from sxpaddle length
+    double xL[7] = {pl*0.0 + cx0 ,pl*0.42857 + cx0 ,pl + cx0 , pl +cx0 , pl*0.42857 + cx0 , pl*0.0 + cx0 , pl*0.0 + cx0 };
     double yL[7] = {b*0.175 + cy0, b*0.175 + cy0, b*0.25 + cy0, b*0.0 + cy0, b*0.075 + cy0, b*0.075 + cy0, b*0.175 + cy0};
 
-    double xR[7] = {a*0.78125 + cx0 ,a*0.90625 + cx0 ,a*1.0 + cx0 ,a*1.0 + cx0 ,a*0.90625 + cx0 , a*0.78125 + cx0 , a*0.78125 + cx0 };
+    double xR[7] = {a+pl + cx0 ,a+pl*(2-0.42857) + cx0 ,a+2*pl + cx0 ,a+2*pl + cx0 ,a+pl*(2-0.42857) + cx0 , a+pl + cx0 , a+pl + cx0 };
     double yR[7] = {b*0.25 + cy0 , b*0.175 + cy0, b*0.175 + cy0, b*0.075 + cy0, b*0.075 + cy0, b*0.0 + cy0, b*0.25 + cy0};
 
-    double xscint[5] = {a*0.21875 + cx0, a*0.78125 + cx0, a*0.78125 + cx0, a*0.21875 + cx0, a*0.21875 + cx0};
+    double xscint[5] = {pl + cx0, a+pl + cx0, a+pl + cx0, pl + cx0, pl + cx0};
     double yscint[5] = {b*0.0 + cy0, b*0.0 + cy0, b*0.25 + cy0,b*0.25 + cy0, b*0.0 + cy0};
+
+
     double* xl=xL;
     double* yl=yL;
     double* xr=xR;
@@ -172,7 +185,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     double* xs=xscint;
     double* ys=yscint;
      
-    double xT=a*1.0+cx0;
+    double xT=a*1.0+2*pl+cx0;
     double yT=b*0.125+cy0;
     double* tx=& xT;
     double* ty=& yT;

@@ -20,7 +20,7 @@
 class ScintillatorPaddle {
 
  public:
-  ScintillatorPaddle(int index, double x, double y, double a, double b, double cx0,double cy0, int PMTn, double ang);
+  ScintillatorPaddle(int index, double x, double y, double a, double b, double cx0,double cy0, int PMTn, double PMTlength, double ang);
   virtual ~ScintillatorPaddle();
   void hit(double left, double right, double y);
   void HitLeft();
@@ -29,7 +29,7 @@ class ScintillatorPaddle {
   void clear();
 
  protected:
-  double sx0, sy0, sa, sb;
+  double sx0, sy0, sa, sb, pl;
   double paddle_length;
   int n;
   double angle;

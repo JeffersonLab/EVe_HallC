@@ -16,7 +16,7 @@
 
 using namespace std;
 
-ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStransform *trans, double ang)
+ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, double PMTlength, CStransform *trans, double ang)
 {
  
   // Converting plenth & pheight [m] into pixels
@@ -25,6 +25,7 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
   N = n;
   paddle_length = plength;
   paddle_height = pheight;
+  PMTl=cst->transLtoCL(PMTlength);
   //horiz = horizontal;
   angle=ang;
   std::string geometry = "HMS.txt";
@@ -33,7 +34,7 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
 
   //// FIXME:: convert to HMS units
   double fpaddleH = 0.25;  ///  0.25 ????
-  double fpaddleL = 0.5625;  /// 0.5625 before -- why these values??
+  //double fpaddleL = 0.5625;  /// 0.5625 before -- why these values??
   int numPMT = pmt->GetInt("Number of paddle PMTs =");
 
   // cout << horiz << " horiiz" << endl;
@@ -52,16 +53,20 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, CStran
     double cy0=  cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
   
   double CL = cst->transLtoCL(paddle_length);
-  double CH = cst->transLtoCL(paddle_height);   
+  double CH = cst->transLtoCL(paddle_height);  
+   
 
-  sa = CL/fpaddleL;
+  //sa = CL/fpaddleL;
+  
+  //Consider sxpaddle length is different from sypaddle length
+  sa=CL;
   sb = CH/fpaddleH; 
   /// sa and sb should be removed and left as CL and CH to be read into 
   /// ScintillatorPaddle -- scaling needs to be fixed in both classes
 
   for (int i=0; i<n ;i++){
-    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT,angle);} 
-          title = new TLatex(sx0-0.2*sa, sy0-2.70*sb, name);
+    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl,angle);} 
+          title = new TLatex(sx0-0.2*sa, sy0-2.40*sb, name);
           title->SetTextSize(0.03);
           title->Draw(); 
   /*if (horiz == 1) {
@@ -109,20 +114,24 @@ void ScintPlane::paddleHit(int num, double left, double right, double y)
 
 /// NEW hit method used for tdchits. Needs to be implemented in ScintPlane3D
 void ScintPlane::paddleLeftHit(int padn)
-{
+{ 
+  if(padn<0) cerr << "Negative paddle index" << padn <<" \n";
+  else
   paddle[padn]->HitLeft();
 
 }
 
 
 void ScintPlane::paddleRightHit(int pad)
-{
+{ if(pad<0) cerr << "Negative paddle index" << pad <<" \n";
+  else
   paddle[pad]->HitRight();
   
 }
 
 void ScintPlane::paddleBothHit(int padnum)
-{
+{if(padnum<0) cerr << "Negative paddle index" << padnum <<" \n";
+  else
   paddle[padnum]->HitBoth();
 }
 
