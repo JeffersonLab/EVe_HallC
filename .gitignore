@@ -2,10 +2,12 @@
 *~
 \#*
 *.o
+*.so
 *.d
 EVeDict.*
 .root_hist
 *.eps
+*.swp
 4ScintPlanes*
 EVeManual.aux
 EVeManual.log
