@@ -10,7 +10,7 @@ SRC  =   ScintillatorPaddle.cxx ScintPlane.cxx GetVariables.cxx \
          MWDChamber.cxx MWDChamber3D.cxx \
          Detector3D.cxx WirePlane.cxx \
 	 CStransform.cxx Road.cxx MultiRoads.cxx Track.cxx TWire3D.cxx Trajectory3D.cxx \
-	 FullTrajectory3D.cxx EVe.cxx
+	 FullTrajectory3D.cxx EVe.cxx WireChamber.cxx WirePlane2D.cxx
 
 # Name of your package. 
 # The shared library that will be built will get the name lib$(PACKAGE).so
