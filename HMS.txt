@@ -14,3 +14,52 @@ Number of Scint Planes = 4
 HodXpos =
 HodYpos = 
 HodPaddleN = 
+
+MWDC-1.x.wireAngle = 0.0
+MWDC-1.x.numWires = 113
+MWDC-1.x.offset = 0.0
+
+MWDC-1.y.wireAngle = 90.0
+MWDC-1.y.numWires = 52
+MWDC-1.y.offset = 0.0
+
+MWDC-1.u.wireAngle = -15.0
+MWDC-1.u.numWires = 107
+MWDC-1.u.offset = 0.0
+
+MWDC-1.v.wireAngle = 15.0
+MWDC-1.v.numWires = 107
+MWDC-1.v.offset = 0.0
+
+MWDC-1.yp.wireAngle = 90.0
+MWDC-1.yp.numWires = 52
+MWDC-1.yp.offset = 0.005
+
+MWDC-1.xp.wireAngle = 0.0
+MWDC-1.xp.numWires = 113
+MWDC-1.xp.offset = 0.005
+
+
+MWDC-2.x.wireAngle = 0.0
+MWDC-2.x.numWires = 113
+MWDC-2.x.offset = 0.0
+
+MWDC-2.y.wireAngle = 90.0
+MWDC-2.y.numWires = 52
+MWDC-2.y.offset = 0.0
+
+MWDC-2.u.wireAngle = -15.0
+MWDC-2.u.numWires = 107
+MWDC-2.u.offset = 0.0
+
+MWDC-2.v.wireAngle = 15.0
+MWDC-2.v.numWires = 107
+MWDC-2.v.offset = 0.0
+
+MWDC-2.yp.wireAngle = 90.0
+MWDC-2.yp.numWires = 52
+MWDC-2.yp.offset = 0.005
+
+MWDC-2.xp.wireAngle = 0.0
+MWDC-2.xp.numWires = 113
+MWDC-2.xp.offset = 0.005
