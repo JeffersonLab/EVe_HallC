@@ -22,6 +22,10 @@
 #include <TApplication.h>
 #include <TROOT.h>
 
+#include <map>
+#include <string>
+#include <vector>
+
 #include "EVe_DB.h"
 
 #define DEBUG_LEVEL  0
@@ -305,6 +309,7 @@ void EVe::CreateYprojection()
      c4->cd();
      c4->Clear();
 
+
      y1 = new WirePlane((char*)"Y1",MWDC1_Y,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(y1_dist),cst->transLtoCL(L1),1.0,1.0,-1);
      y1p = new WirePlane((char*)"Y1p",MWDC1_Yp,-0.5*cst->transLtoCL(L1)+cst->transXtoCX(0.0), cst->transYtoCY(y1p_dist),cst->transLtoCL(L1),1.0,1.0,1);
 
@@ -321,16 +326,27 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
+
+
+   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
+   vector<string> planeNames(&PN[0],&PN[0]+6);
+
    CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_MWDC1_posy);
    CStransform *mwdc2_cst = new CStransform(canvas_length, 0.7, canvas_MWDC2_posy);
+   
+   mwdc1 = new WireChamber((char*)"MWDC-1",planeNames,
+	       L1, MWDC_width,mwdc1_cst);
 
+   mwdc2 = new WireChamber((char*)"MWDC-2",planeNames,
+	       L2, MWDC_width,mwdc2_cst);
+   
    GetVariables *vars = new GetVariables("HMS.txt");
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
    
    // FIXME: Wire number is different in different wire planes. For now we asume
    // in planar view, that the number of wires is in all three w.p. the same. 
-   mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, MWDC_width, mwdc1_cst,0);
-   mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC1_X, L2, MWDC_width, mwdc2_cst,0);
+   //mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, MWDC_width, mwdc1_cst,0);
+   //mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC1_X, L2, MWDC_width, mwdc2_cst,0);
   
    /// Variables to generate scintillator planes
 
@@ -863,13 +879,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
       {
 	
-        mwdc1->x1WireHit(H_dc_1x1_tdchits[i]);
+        mwdc1->WireHit("x",H_dc_1x1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
       {
 	
-        mwdc1->xpWireHit(H_dc_1x2_tdchits[i]);
+        mwdc1->WireHit("xp",H_dc_1x2_tdchits[i]);
       } 
 
     /// UV plane
@@ -877,27 +893,27 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
       {
 	
-        mwdc1->uWireHit(H_dc_1u1_tdchits[i]);
+        mwdc1->WireHit("u",H_dc_1u1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
       {
 	
-        mwdc1->vWireHit(H_dc_1v1_tdchits[i]);
+        mwdc1->WireHit("v",H_dc_1v1_tdchits[i]);
       } 
 
-    /// Y plane
+    /// YP,XP plane
 
     for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
       {
 	
-        mwdc1->y1WireHit(H_dc_1y1_tdchits[i]);
+        mwdc1->WireHit("y",H_dc_1y1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
       {
 	
-        mwdc1->ypWireHit(H_dc_1y2_tdchits[i]);
+        mwdc1->WireHit("yp",H_dc_1y2_tdchits[i]);
       } 
 
 
@@ -910,13 +926,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
       {
 	
-        mwdc2->x1WireHit(H_dc_2x1_tdchits[i]);
+        mwdc2->WireHit("x",H_dc_2x1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
       {
 	
-        mwdc2->xpWireHit(H_dc_2x2_tdchits[i]);
+        mwdc2->WireHit("xp",H_dc_2x2_tdchits[i]);
       } 
 
     /// UV plane
@@ -924,13 +940,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
       {
 	
-        mwdc2->uWireHit(H_dc_2u1_tdchits[i]);
+        mwdc2->WireHit("u",H_dc_2u1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
       {
 	
-        mwdc2->vWireHit(H_dc_2v1_tdchits[i]);
+        mwdc2->WireHit("v",H_dc_2v1_tdchits[i]);
       } 
 
     /// Y plane
@@ -938,13 +954,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
       {
 	
-        mwdc2->y1WireHit(H_dc_2y1_tdchits[i]);
+        mwdc2->WireHit("y",H_dc_2y1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
       {
 	
-        mwdc2->ypWireHit(H_dc_2y2_tdchits[i]);
+        mwdc2->WireHit("yp",H_dc_2y2_tdchits[i]);
       } 
  
 
