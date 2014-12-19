@@ -19,52 +19,30 @@
 ///         to do this but has not been completely integrated into the code.
 
 
-// 1. MWDC variables
+// 1. MWDC variables (Now all moved into HMS.txt) 
 
 /// Chamber width
-const double MWDC_width = 0.56;  /// [m]
+//const double MWDC_width = 0.56;  /// [m]
 
 	/// Height of the first chamber  
-const double L1 = 1.13;  /// [m]
+//const double L1 = 1.13;  /// [m]
 
-	/// Wire number per plane 
-const int MWDC1_U1_WN =113;
-const int MWDC1_U1p_WN = 113;
+//const int MWDC1_X1_WN = 113;
 
-const int MWDC1_X1_WN = 107;
-const int MWDC1_X1p_WN = 107;
-
-const int MWDC1_V1_WN = 52;
-const int MWDC1_V1p_WN = 52;
-
-const int MWDC1_X = 113;
-const int MWDC1_Xp = 113;
-const int MWDC1_U = 107;
-const int MWDC1_V = 107;
-const int MWDC1_Y = 52;
-const int MWDC1_Yp = 52;
 
 // 2. MWDC variables
 
+/// Chamber width
+//const double MWDC_width = 0.56;  /// [m]
+
 	/// Height of the second chamber 
-const double L2 = 1.13;  // [m] 
+//const double L2 = 1.13;  // [m] 
+
+//const int MWDC2_X2_WN = 113;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the second
 const double MWDC2_z = 0.81222; // [m]
-
-
-	/// Wire number per plane 
-const int MWDC2_U2_WN = 113;//200;
-const int MWDC2_U2p_WN = 113;//200;
-
-const int MWDC2_X2_WN = 107;//202;
-const int MWDC2_X2p_WN = 107;//202;
-
-const int MWDC2_V2_WN = 52;//200;
-const int MWDC2_V2p_WN = 52;//200;
-
-
 
 
 

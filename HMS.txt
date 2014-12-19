@@ -15,6 +15,10 @@ HodXpos =
 HodYpos = 
 HodPaddleN = 
 
+//MWDC-1 stats
+MWDC-1.height = 1.13
+MWDC-1.width = 0.56
+
 MWDC-1.x.wireAngle = 0.0
 MWDC-1.x.numWires = 113
 MWDC-1.x.offset = 0.0
@@ -39,6 +43,9 @@ MWDC-1.xp.wireAngle = 0.0
 MWDC-1.xp.numWires = 113
 MWDC-1.xp.offset = 0.005
 
+//MWDC-2 stats
+MWDC-2.height = 1.13
+MWDC-2.width = 0.56
 
 MWDC-2.x.wireAngle = 0.0
 MWDC-2.x.numWires = 113
