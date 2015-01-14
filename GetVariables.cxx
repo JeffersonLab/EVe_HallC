@@ -31,6 +31,9 @@ GetVariables::~GetVariables()
 int GetVariables::GetInt(std::string variable_int)
 {
   intvar = variable_int;
+
+  infile.seekg(0);  
+
   while(!infile.eof()) {
     
     getline(infile,tempstr); /// reads in from infile and puts in tempstr
@@ -41,23 +44,30 @@ int GetVariables::GetInt(std::string variable_int)
       tempstr.erase(x, x+variable_int.length());
       
       outint = atoi(tempstr.c_str());
+      return outint;
     }
   }
-  return outint;
+  cerr<< "Cant find : " << variable_int << "\n";
+  return -1;
 }
 
 
 double GetVariables::GetDouble(std::string variable_dbl)
 {
   dblvar = variable_dbl;
+
+  infile.seekg(0); 
+  
   while(!infile.eof()) {
     getline(infile,tempstr);   /// reads in from infile and puts in tempstr
     x = tempstr.find(dblvar);   /// gets position of front of var string
     if (x!= -1) {          /// -1 means string was not found in that line
       tempstr.erase(x, x+dblvar.length());
       outvar = atof(tempstr.c_str());
+      return outvar;
     }
     
   }
-  return outvar;
+  cerr<< "Cant find : " << variable_dbl << "\n";
+  return -1;
 }

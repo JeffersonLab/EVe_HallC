@@ -17,7 +17,7 @@
 #include <sstream>
 #include "TGeoSphere.h"
 #include "TWire3D.h"
-
+#include "GetVariables.h"
 #include "EVe_DB.h"
 
 
@@ -36,13 +36,15 @@ Detector3D::Detector3D()
       TGeoRotation r1;
       //TGeoRotation r2;
       TGeoTranslation t1(100.0, 0.0, 60.0);
-      TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1); 
+      TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1);
+      
+      GetVariables* HMSvars=new GetVariables("HMS.txt"); 
 
       // First MWDC      
   // FIXME: Wire number is different in different wire planes. For now we assume
   // in 3D view, that the number of wires is in all three w.p. the same. 
       TGeoVolume *mwdc_volume = mgr->MakeBox("mwdc_volume1",medium,50,5,100);
-      mwdc1 = new MWDChamber3D((char*)"MWDC1",0, MWDC1_X1_WN, 0.0, 0.0, 0.0, MWDC1_length, MWDC1_height, mwdc_volume);
+      mwdc1 = new MWDChamber3D((char*)"MWDC1",0, HMSvars->GetDouble("MWDC-1.x.numWires ="), 0.0, 0.0, 0.0, MWDC1_length, MWDC1_height, mwdc_volume);
       r1.SetAngles(90,90,90+MWDC1_tilt,180,MWDC1_tilt,180);
       t1.SetTranslation(MWDC1_xpos-50.0, MWDC1_ypos, MWDC1_zpos);
       comb = new TGeoCombiTrans(t1, r1);
@@ -52,7 +54,7 @@ Detector3D::Detector3D()
   // FIXME: Wire number is different in different wire planes. For now we assume
   // in 3D view, that the number of wires is in all three w.p. the same. 
       TGeoVolume *mwdc_volume2 = mgr->MakeBox("mwdc_volume2",medium,50,5,105);
-      mwdc2 = new MWDChamber3D((char*)"MWDC2",0, MWDC2_X2_WN, 0.0, 0.0, 0.0, MWDC2_length, MWDC2_height, mwdc_volume2);
+      mwdc2 = new MWDChamber3D((char*)"MWDC2",0,HMSvars->GetDouble("MWDC-2.x.numWires ="), 0.0, 0.0, 0.0, MWDC2_length, MWDC2_height, mwdc_volume2);
       r1.SetAngles(90,90,90+MWDC2_tilt,180,MWDC2_tilt,180);
       t1.SetTranslation(MWDC2_xpos-30.0, MWDC2_ypos, MWDC2_zpos);
       comb = new TGeoCombiTrans(t1, r1);
@@ -62,13 +64,11 @@ Detector3D::Detector3D()
 
       /// FIXME:: Shouldn't need so many pointers
       TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
-      GetVariables *orientation1 = new GetVariables("HMS.txt");
+      GetVariables *orientations = new GetVariables("HMS.txt");
 
-      int orient1 = orientation1->GetInt("1st Scint Array Rotation =");
+      int orient1 = orientations->GetInt("1st Scint Array Rotation =");
       
-      GetVariables *orientation2 = new GetVariables("HMS.txt");
-
-      int orient2 = orientation2->GetInt("2nd Scint Array Rotation =");
+      int orient2 = orientations->GetInt("2nd Scint Array Rotation =");
       s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",s1x_PN,0,0,0,s1x_paddle_length, s1x_paddle_height, s1x_paddle_thickness, scint_volume2, orient1);
       r1.SetAngles(180 - s1x_tilt,0,90 - s1x_tilt,0,90,90);
       //r2.SetAngles(180 - s1x_tilt,0,90 - s1x_tilt,0,0,90);
