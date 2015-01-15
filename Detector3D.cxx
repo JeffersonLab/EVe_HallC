@@ -19,6 +19,7 @@
 #include "TWire3D.h"
 #include "GetVariables.h"
 #include "EVe_DB.h"
+#include "TGeoMatrix.h"
 
 
 
@@ -60,47 +61,20 @@ Detector3D::Detector3D()
       comb = new TGeoCombiTrans(t1, r1);
       top->AddNodeOverlap(mwdc_volume2,1, comb);
 
-      // s1x - Scintillation Plane
-
-      /// FIXME:: Shouldn't need so many pointers
-      TGeoVolume *scint_volume2 = mgr->MakeBox("scint_volume2",medium,111,5,100);
-      GetVariables *orientations = new GetVariables("HMS.txt");
-
-      int orient1 = orientations->GetInt("1st Scint Array Rotation =");
       
-      int orient2 = orientations->GetInt("2nd Scint Array Rotation =");
-      s1xplane = new ScintPlane3D((char*)"s1x-ScintPlane",s1x_PN,0,0,0,s1x_paddle_length, s1x_paddle_height, s1x_paddle_thickness, scint_volume2, orient1);
-      r1.SetAngles(180 - s1x_tilt,0,90 - s1x_tilt,0,90,90);
-      //r2.SetAngles(180 - s1x_tilt,0,90 - s1x_tilt,0,0,90);
-      t1.SetTranslation(s1x_xpos, s1x_ypos, s1x_zpos);
-      comb = new TGeoCombiTrans(t1, r1); 
-      top->AddNodeOverlap(scint_volume2,1,comb);
+
+      // s1x - Scintillation Plane     
+      s1xplane = new ScintPlane3D((char*)"s1x",top);
 
       // s1y - Scintillation Plane  
-      TGeoVolume *scint_volume1 = mgr->MakeBox("scint_volume1",medium,111,5,100);
-      s1yplane = new ScintPlane3D((char*)"s1y-ScintPlane",s1y_PN,0,0,0,s1y_paddle_length, s1y_paddle_height, s1y_paddle_thickness, scint_volume1, orient2);
-      r1.SetAngles(180 - s1y_tilt, 0, 90 - s1y_tilt, 0, 90, 90);
-      t1.SetTranslation(s1y_xpos, s1y_ypos, s1y_zpos);
-      comb = new TGeoCombiTrans(t1, r1); 
-      top->AddNodeOverlap(scint_volume1,1,comb);
-
+      s1yplane = new ScintPlane3D((char*)"s1y",top);
+      
       //s2x Scint Plane
-      TGeoVolume *scint_volume3 = mgr->MakeBox("scint_volume3",medium,111,5,100);
-      s2xplane = new ScintPlane3D((char*)"s2x-ScintPlane",s1x_PN,0,0,0,s1x_paddle_length, s1x_paddle_height, s1x_paddle_thickness, scint_volume3, orient1);
-      r1.SetAngles(180 - s1x_tilt, 0, 90 - s1x_tilt, 0, 90, 90);
-      t1.SetTranslation(s1x_xpos+100.0, s1x_ypos, s1x_zpos);
-      comb = new TGeoCombiTrans(t1, r1); 
-      top->AddNodeOverlap(scint_volume3,1,comb);
+      s2xplane = new ScintPlane3D((char*)"s2x",top);
 
       //s2y Scint Plane
-      TGeoVolume *scint_volume4 = mgr->MakeBox("scint_volume4",medium,111,5,100);
       // changed volume size to 60
-      s2yplane = new ScintPlane3D((char*)"s2y-ScintPlane",s1y_PN,0,0,0,s1y_paddle_length, s1y_paddle_height, s1y_paddle_thickness, scint_volume4, orient2);
-      r1.SetAngles(180 - s1y_tilt, 0, 90 - s1y_tilt, 0, 90, 90);
-      t1.SetTranslation(s1y_xpos+100.0, s1y_ypos, s1y_zpos);
-      comb = new TGeoCombiTrans(t1, r1); 
-      top->AddNodeOverlap(scint_volume4,1,comb);
-
+      s2yplane = new ScintPlane3D((char*)"s2y",top);
 
        // In the end we create potential tracks
        // Important: Track order is important :Full tracks must be created 

@@ -70,3 +70,74 @@ MWDC-2.yp.offset = 0.005
 MWDC-2.xp.wireAngle = 0.0
 MWDC-2.xp.numWires = 113
 MWDC-2.xp.offset = 0.005
+
+///PMTlength
+        const double PMTlength=0.2936
+
+// s1x-plane variables
+        //s2s paddles' angle
+        s1x.angle = 0.0;        
+
+	/// number of paddles
+	s1x.PN  = 16;
+
+/// Position and tilt of the center of the dE-plane
+	s1x.xpos = 225.0 + 100.0*0.9848; // [cm] 
+	s1x.ypos = 0.0; // [cm]
+	s1x.zpos = 77.83; // [cm]
+        s1x.PaddleLength = 75.5; // [cm]
+	s1x.PaddleHeight = 7.53; //[cm]
+	s1x.PaddleThickness = 1.067; //[cm]
+	s1x.tilt  = 10.0; // [deg]
+
+
+// s2x-plane variables
+        //s2x paddles' angle
+        s2x.angle = 0.0;        
+
+	/// number of paddles
+	s2x.PN  = 16;
+
+/// Position and tilt of the center of the dE-plane
+	s2x.xpos = 225.0 + 100.0*0.9848 + 100.0; // [cm] 
+	s2x.ypos = 0.0; // [cm]
+	s2x.zpos = 77.83; // [cm]
+	s2x.PaddleLength = 75.5; // [cm]
+	s2x.PaddleHeight = 7.53; //[cm]
+	s2x.PaddleThickness = 1.067; //[cm]
+	s2x.tilt  = 10.0; // [deg]
+
+
+// s1y-plane variables
+        //s1y paddles' angle
+        s1y.angle = 90.0
+
+	/// number of paddles
+	s1y.PN  = 10;
+
+/// Position and tilt of the center of the E-plane
+	s1y.xpos = 225.0 + 110.0*0.9848; // [cm] 
+	s1y.ypos = 0.0; // [cm]
+	s1y.zpos = 97.520; // [cm]
+	s1y.PaddleLength = 120.0; // [cm]
+	s1y.PaddleHeight = 7.53; //[cm]
+	s1y.PaddleThickness = 1.067; //[cm]
+	s1y.tilt  = 10.0; // [deg]
+
+// s2y-plane variables
+        //s1y paddles' angle
+        s2y.angle = 90.0
+
+	/// number of paddles
+	s2y.PN  = 10;
+
+/// Position and tilt of the center of the E-plane
+	s2y.xpos = 225.0 + 110.0*0.9848; // [cm] 
+	s2y.ypos = 0.0; // [cm]
+	s2y.zpos = 97.520; // [cm]
+	s2y.PaddleLength = 120.0; // [cm]
+	s2y.PaddleHeight = 7.53; //[cm]
+	s2y.PaddleThickness = 1.067; //[cm]
+	s2y.tilt  = 10.0; // [deg]
+
+

@@ -8,6 +8,7 @@
 */
 ///////////////////////////////////////
 
+/*
 #include "ScintillatorPaddle3D.h"
 #include "EVe_DB.h"
 #include "TMath.h"
@@ -33,10 +34,10 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, double x, double y, double
   TGeoRotation *rot1 = new TGeoRotation("rot1", 0.0,0.0,90.0,90.0,90.0,0.0);
   TGeoCombiTrans *combo = new TGeoCombiTrans(plength/2.0, 0.0, -plength/1.0, rot1); /// add on for rotated paddles
 
-  /* This rotates 90 deg about paddle axis
+   This rotates 90 deg about paddle axis
   TGeoRotation *rot1 = new TGeoRotation("rot1",90.0, 90.0, 90.0,180.0,0.0,0.0);
-  */
-  if (rotation == 1) {
+  
+ if (rotation == 1) {
     paddle->AddNode(scint,1);
   }
   else {
@@ -158,3 +159,104 @@ void ScintillatorPaddle3D::clear()
     pmt1->SetLineColor(kBlack);
     pmt2->SetLineColor(kBlack);
 }
+*/
+
+#include "ScintillatorPaddle3D.h"
+#include "EVe_DB.h"
+#include "TMath.h"
+#include <cstring>
+#include <cstdio>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+ScintillatorPaddle3D::ScintillatorPaddle3D(int index, int n,
+                                           double length, double height, double thickness,
+                                           TGeoVolume *paddle, int numPMT /*int rotation */)
+{
+    plength=s1x_paddle_length; //Change to use HMS.txt
+
+    double r_PMT = 2.0;// Change to use HMS.txt
+    double L=length;
+    double H=height;
+    double T=thickness;
+    
+    double x= - height*(((double)n-1)/2.0+(double)index);
+    double y= 0;
+    double z= 0;
+    
+    //Drawing a single Scintillator Paddle in y direction till the end of this constructor
+    //Draw scintillator Paddle and side skirt paddle first
+
+    TGeoBBox *scintb = new TGeoBBox("scint",H/2.0, T/2.0, L/2.0);
+    TGeoTranslation *transcint = new TGeoTranslation(x,y,z);
+    scint = new TGeoVolume ("scint", scintb);
+    scint ->SetLineColor(5);
+    paddle -> AddNode(scint,1,transcint);
+
+    //Draw PMT on each side
+    TGeoTrd2 *pmtedge= new TGeoTrd2("Edge",H/2.0,T/4.0,T/2.0,T/4.0,L/10.0);
+    TGeoTube *pmttube = new TGeoTube("Tube",0.0, r_PMT , 0.3*length/2.0);
+
+    TGeoTranslation *t1 = new TGeoTranslation("t1",0,0,-0.15*L);
+    t1->RegisterYourself();
+    TGeoTranslation *t2 = new TGeoTranslation("t2",0,0,0.1*L);
+    t2->RegisterYourself();
+
+    TGeoCompositeShape *pmt = new TGeoCompositeShape("pmt","(Edge:t1)+(Tube:t2)");
+    TGeoVolume *pmt1= new TGeoVolume("PMT",pmt);
+    pmt1->SetLineColor(5);
+
+    TGeoTranslation *pmttrans= new TGeoTranslation("pmttrans",x,y,z+0.75*L);
+
+    paddle->AddNode(pmt1,1,pmttrans);
+
+     //Draw lower PMT if n_PMT=2
+     if(numPMT==2)
+     {
+         TGeoTranslation pmt2t(x,y,z-0.75*L);
+         TGeoRotation pmt2r;
+         pmt2r.SetAngles(90,180,90,90,180,0);
+         TGeoCombiTrans *pmt2CT= new TGeoCombiTrans(pmt2t,pmt2r);
+         TGeoVolume *pmt2= new TGeoVolume("PMT2",pmt);
+         paddle ->AddNode(pmt2,1,pmt2CT);
+     }
+}
+
+/// FIXME:: This hit method needs to be re-written or a new one must be added to            create hits analogous to tdchits as in the ScintillatorPaddle planar            class. This will be propagated through to the ScintPlane3D class and            the Detector3D class.
+
+void ScintillatorPaddle3D::hit(double left, double right, int nPMT)
+{
+  double min = -10000.0;
+  // If scint. plane is not hit, then left or right
+  // is set to 1E-35. However, if paddle was hit, then
+  // left or right is set to a value < 0.
+
+   // Only right PMT got signal
+  if (left<min && right>min)
+  {
+    pmt1->SetLineColor(2);
+  }
+  if (nPMT==2) {     ///// R and L may need to be swapped to match planar L/R
+    // Only left PMT got signal
+    if (left>min  && right<min )
+      {
+	pmt2->SetLineColor(2);
+      }
+
+    // Both PMTs received a pulse.
+    if (left>min && right>min)
+      {
+	pmt1->SetLineColor(3);
+	pmt2->SetLineColor(3);
+      }
+  }
+}
+
+void ScintillatorPaddle3D::clear()
+{
+    pmt1->SetLineColor(kBlack);
+    pmt2->SetLineColor(kBlack);
+}
+

@@ -7,7 +7,6 @@
 
 */
 ///////////////////////////////////////
-
 #ifndef ROOT_ScintillatorPaddle3D
 #define ROOT_ScintillatorPaddle3D
 
@@ -19,25 +18,30 @@
 #include "TGeoTrd2.h"
 #include "TGeoTube.h"
 #include "TGeoPhysicalNode.h"
+#include "TGeoCompositeShape.h"
+
 
 class ScintillatorPaddle3D {
-  
+
  public:
-  ScintillatorPaddle3D(int index, double x, double y, double z, double length, double height ,double thickness ,TGeoVolume *paddle, int numPMT, int rotation);
+  ScintillatorPaddle3D(int index,int n,
+                       double length, double height ,double thickness ,
+                       TGeoVolume *paddle, int numPMT /*, int rotation*/);
   virtual ~ScintillatorPaddle3D();
   void hit(double left, double right, int nPMT);
   void clear();
-  
+
  protected:
-  
+
   TGeoVolume *scint;
   TGeoVolume *pmt1;
   TGeoVolume *pmt2;
   double plength;
   //  int n;
-  
+
 };
 
 #endif
+
 
 
