@@ -57,7 +57,10 @@ class ScintPlane3D {
 public:
   ScintPlane3D(char* splaneName, TGeoVolume* top);
   virtual ~ScintPlane3D();
-  void paddleHit(int num, double left, double right);
+  //void paddleHit(int num, double left, double right);
+  void LHit(int numL);
+  void RHit(int numR);
+  void BHit(int numB);
   void clear();
   TGeoVolume *ScintPlane;
   TGeoRotation scintrot;

@@ -98,7 +98,6 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
    
 
    // Draw the Scintillator Plane in sy configuration
-   TGeoMedium * medium= 0;
    TGeoBBox* SP = new TGeoBBox(splaneName,111 ,5 ,100 );
    ScintPlane = new TGeoVolume((Form("%s.plane",splaneName)),SP);
    // Draw n paddles for a single sy plane
@@ -141,16 +140,24 @@ ScintPlane3D::~ScintPlane3D()
 
 }
 
-// FIXME:: Need to implement new tdchit method as in ScintPlane.cxx
-void ScintPlane3D::paddleHit(int num, double left, double right)
-{
-  GetVariables *ptr = new GetVariables("HMS.txt");
-  int numb = ptr->GetInt("Number of Paddle PMTs =");
-  if (num<N)
-    {
+//Using new hit method same as planar view
 
-      paddle[num]->hit(left,right,numb);
-    }
+void ScintPlane3D::LHit(int numL)
+{
+  if(numL<0) cerr<< "negative hit index for scintplane";
+  else paddle[numL]->HitL();
+}
+
+void ScintPlane3D::RHit(int numR)
+{
+  if(numR<0) cerr<< "negative hit index for scintplane";
+  else paddle[numR]->HitR();
+}
+
+void ScintPlane3D::BHit(int numB)
+{
+  if(numB<0) cerr<< "negative hit index for scintplane";
+  else paddle[numB]->HitB();
 }
 
 void ScintPlane3D::clear()

@@ -28,7 +28,10 @@ class ScintillatorPaddle3D {
                        double length, double height ,double thickness ,
                        TGeoVolume *paddle, int numPMT /*, int rotation*/);
   virtual ~ScintillatorPaddle3D();
-  void hit(double left, double right, int nPMT);
+  //void hit(double left, double right, int nPMT);
+  void HitL();
+  void HitR();
+  void HitB();
   void clear();
 
  protected:

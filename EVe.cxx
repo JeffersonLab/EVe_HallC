@@ -1371,10 +1371,154 @@ void EVe::DoDraw(int event)
 //     } 
 
     // Now scintillaion plane
+
+double matchR[16];
+double matchL[16];
+
     detector->s1xplane->clear();
     detector->s1yplane->clear();
     detector->s2xplane->clear();
     detector->s2yplane->clear();
+
+   ///S1X
+
+   //   for (Int_t q = 0; q<B_tp_e_nhit; q++)
+   GetVariables *hms3D = new GetVariables("HMS.txt");
+   double sxPN= hms3D->GetInt("s1x.PN =");
+   double syPN= hms3D->GetInt("s1y.PN =");
+
+   for (Int_t q = 0; q<sxPN; q++)
+     {
+     //	int bar = (int)(B_tp_e_hit_bar[q]);
+     //  double ypos = B_tp_e_hit_ypos[q];
+       //	Ebar_ypos[bar] = ypos;
+       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
+       matchR[q] = H_hod_1x_negtdchits[q];
+       detector->s1xplane->RHit(H_hod_1x_negtdchits[q]-1);
+
+     }
+
+   for (Int_t q=0;q<sxPN;q++)
+     {
+
+       matchL[q]= H_hod_1x_postdchits[q];
+       detector->s1xplane->LHit(H_hod_1x_postdchits[q]-1);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+
+	 detector->s1xplane->BHit(matchR[i]-1);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 detector->s1xplane->BHit(matchL[i]-1);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+
+
+
+   for (Int_t q = 0; q<syPN; q++)
+     {
+     //	int bar = (int)(B_tp_e_hit_bar[q]);
+     //  double ypos = B_tp_e_hit_ypos[q];
+       //	Ebar_ypos[bar] = ypos;
+       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
+       matchR[q] = H_hod_1y_negtdchits[q];
+       detector->s1yplane->RHit(H_hod_1y_negtdchits[q]-1);
+
+     }
+
+   for (Int_t q=0;q<syPN;q++)
+     {
+
+       matchL[q]= H_hod_1y_postdchits[q];
+       detector->s1yplane->LHit(H_hod_1y_postdchits[q]-1);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+
+	 detector->s1yplane->BHit(matchR[i]-1);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 detector->s1yplane->BHit(matchL[i]-1);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+
+
+
+   for (Int_t q = 0; q<sxPN; q++)
+     {
+     //	int bar = (int)(B_tp_e_hit_bar[q]);
+     //  double ypos = B_tp_e_hit_ypos[q];
+       //	Ebar_ypos[bar] = ypos;
+       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
+       matchR[q] = H_hod_2x_negtdchits[q];
+       detector->s2xplane->RHit(H_hod_2x_negtdchits[q]-1);
+
+     }
+
+   for (Int_t q=0;q<sxPN;q++)
+     {
+
+       matchL[q]= H_hod_2x_postdchits[q];
+       detector->s2xplane->LHit(H_hod_2x_postdchits[q]-1);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+
+	 detector->s2xplane->BHit(matchR[i]-1);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 detector->s2xplane->BHit(matchL[i]-1);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+
+   for (Int_t q = 0; q<syPN; q++)
+     {
+     //	int bar = (int)(B_tp_e_hit_bar[q]);
+     //  double ypos = B_tp_e_hit_ypos[q];
+       //	Ebar_ypos[bar] = ypos;
+       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
+       matchR[q] = H_hod_2y_negtdchits[q];
+       detector->s2yplane->RHit(H_hod_2y_negtdchits[q]-1);
+
+     }
+
+   for (Int_t q=0;q<syPN;q++)
+     {
+
+       matchL[q]= H_hod_2y_postdchits[q];
+       detector->s2yplane->LHit(H_hod_2y_postdchits[q]-1);
+     }
+
+   for (Int_t i=0;i<16;i++) {
+     for (Int_t j=0;j<16;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+
+	 detector->s2yplane->BHit(matchR[i]-1);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 detector->s2yplane->BHit(matchL[i]-1);
+       }
+     }
+     matchR[i]=0;
+     matchL[i]=0;
+   }
+
+
 //     for (int i = 0; i<s1x_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
 //     for (int i = 0; i<s1y_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
 
