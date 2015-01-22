@@ -1393,16 +1393,16 @@ double matchL[16];
      //  double ypos = B_tp_e_hit_ypos[q];
        //	Ebar_ypos[bar] = ypos;
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
-       matchR[q] = H_hod_1x_negtdchits[q];
-       detector->s1xplane->RHit(H_hod_1x_negtdchits[q]-1);
+       matchR[q] = H_hod_1x_postdchits[q];
+       detector->s1xplane->RHit(H_hod_1x_postdchits[q]-1);
 
      }
 
    for (Int_t q=0;q<sxPN;q++)
      {
 
-       matchL[q]= H_hod_1x_postdchits[q];
-       detector->s1xplane->LHit(H_hod_1x_postdchits[q]-1);
+       matchL[q]= H_hod_1x_negtdchits[q];
+       detector->s1xplane->LHit(H_hod_1x_negtdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
@@ -1427,16 +1427,16 @@ double matchL[16];
      //  double ypos = B_tp_e_hit_ypos[q];
        //	Ebar_ypos[bar] = ypos;
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
-       matchR[q] = H_hod_1y_negtdchits[q];
-       detector->s1yplane->RHit(H_hod_1y_negtdchits[q]-1);
+       matchR[q] = H_hod_1y_postdchits[q];
+       detector->s1yplane->RHit(H_hod_1y_postdchits[q]-1);
 
      }
 
    for (Int_t q=0;q<syPN;q++)
      {
 
-       matchL[q]= H_hod_1y_postdchits[q];
-       detector->s1yplane->LHit(H_hod_1y_postdchits[q]-1);
+       matchL[q]= H_hod_1y_negtdchits[q];
+       detector->s1yplane->LHit(H_hod_1y_negtdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
@@ -1461,16 +1461,16 @@ double matchL[16];
      //  double ypos = B_tp_e_hit_ypos[q];
        //	Ebar_ypos[bar] = ypos;
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
-       matchR[q] = H_hod_2x_negtdchits[q];
-       detector->s2xplane->RHit(H_hod_2x_negtdchits[q]-1);
+       matchR[q] = H_hod_2x_postdchits[q];
+       detector->s2xplane->RHit(H_hod_2x_postdchits[q]-1);
 
      }
 
    for (Int_t q=0;q<sxPN;q++)
      {
 
-       matchL[q]= H_hod_2x_postdchits[q];
-       detector->s2xplane->LHit(H_hod_2x_postdchits[q]-1);
+       matchL[q]= H_hod_2x_negtdchits[q];
+       detector->s2xplane->LHit(H_hod_2x_negtdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {
@@ -1493,16 +1493,16 @@ double matchL[16];
      //  double ypos = B_tp_e_hit_ypos[q];
        //	Ebar_ypos[bar] = ypos;
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
-       matchR[q] = H_hod_2y_negtdchits[q];
-       detector->s2yplane->RHit(H_hod_2y_negtdchits[q]-1);
+       matchR[q] = H_hod_2y_postdchits[q];
+       detector->s2yplane->RHit(H_hod_2y_postdchits[q]-1);
 
      }
 
    for (Int_t q=0;q<syPN;q++)
      {
 
-       matchL[q]= H_hod_2y_postdchits[q];
-       detector->s2yplane->LHit(H_hod_2y_postdchits[q]-1);
+       matchL[q]= H_hod_2y_negtdchits[q];
+       detector->s2yplane->LHit(H_hod_2y_negtdchits[q]-1);
      }
 
    for (Int_t i=0;i<16;i++) {

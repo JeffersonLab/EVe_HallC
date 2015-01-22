@@ -61,7 +61,18 @@ Detector3D::Detector3D()
       comb = new TGeoCombiTrans(t1, r1);
       top->AddNodeOverlap(mwdc_volume2,1, comb);
 
-      
+      //test code: check what transformation : translation and rotation did to a box in top volume
+      /*
+      TGeoBBox *box = new TGeoBBox("Box",200, 50, 100); 
+      TGeoTranslation boxt(0,0,0);
+      TGeoRotation boxr;
+      double ang = 0;
+      boxr.SetAngles(90,0,90-ang,90,ang,-90);
+      TGeoCombiTrans *boxCT= new TGeoCombiTrans(boxt,boxr); 
+      TGeoVolume *Box = new TGeoVolume ("Box", box);
+      Box ->SetLineColor(kBlack);
+      top -> AddNode(Box,1,boxCT);
+      */
 
       // s1x - Scintillation Plane     
       s1xplane = new ScintPlane3D((char*)"s1x",top);
@@ -70,7 +81,7 @@ Detector3D::Detector3D()
       s1yplane = new ScintPlane3D((char*)"s1y",top);
       
       //s2x Scint Plane
-      s2xplane = new ScintPlane3D((char*)"s2x",top);
+       s2xplane = new ScintPlane3D((char*)"s2x",top);
 
       //s2y Scint Plane
       // changed volume size to 60
