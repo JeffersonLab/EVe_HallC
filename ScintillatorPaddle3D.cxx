@@ -20,7 +20,7 @@
 
 using namespace std;
 
-ScintillatorPaddle3D::ScintillatorPaddle3D(int index, int n,
+ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
                                            double length, double height, double thickness,
                                            TGeoVolume *paddle, int numPMT /*int rotation */)
 {
@@ -39,9 +39,9 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, int n,
     //Drawing a single Scintillator Paddle in z direction till the end of this constructor
     //Draw scintillator Paddle and side skirt paddle first
 
-    TGeoBBox *scintb = new TGeoBBox("scint",T/2.0, H/2.0, L/2.0);
+    TGeoBBox *scintb = new TGeoBBox(Form("%s.%d.ScintPaddle",PlaneName,index),T/2.0, H/2.0, L/2.0);
     TGeoTranslation *transcint = new TGeoTranslation(x,y,z);
-    scint = new TGeoVolume ("scint", scintb);
+    scint = new TGeoVolume (Form("%s.%d.Paddle",PlaneName,index), scintb);
     scint ->SetLineColor(kBlack);
     paddle -> AddNode(scint,1,transcint);
 
@@ -55,7 +55,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, int n,
     t2->RegisterYourself();
 
     TGeoCompositeShape *pmt = new TGeoCompositeShape("pmt","(Edge:t1)+(Tube:t2)");
-    pmt1= new TGeoVolume("PMT",pmt);
+    pmt1= new TGeoVolume(Form("%s.%d.PMT1",PlaneName,index),pmt);
     pmt1->SetLineColor(kBlack);
 
     TGeoTranslation *pmttrans= new TGeoTranslation("pmttrans",x,y,z+0.65*L);
@@ -69,7 +69,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(int index, int n,
          TGeoRotation pmt2r;
          pmt2r.SetAngles(90,180,90,90,180,0);
          TGeoCombiTrans *pmt2CT= new TGeoCombiTrans(pmt2t,pmt2r);
-         pmt2= new TGeoVolume("PMT2",pmt);
+         pmt2= new TGeoVolume(Form("%s.%d.PMT2",PlaneName,index),pmt);
          pmt2->SetLineColor(kBlack);
          paddle ->AddNode(pmt2,1,pmt2CT);
      }

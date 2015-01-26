@@ -8,35 +8,6 @@
 */
 ///////////////////////////////////////
 
-/*#
-ifndef ROOT_ScintPlane3D
-#define ROOT_ScintPlane3D
-
-#include "TCanvas.h"
-#include "TPolyLine.h"
-#include "TBox.h"
-#include "TArrow.h"
-#include "ScintillatorPaddle3D.h"
-#include "GetVariables.h"
-#include "TLatex.h"
-
-class ScintPlane3D {
-
-public:
-  ScintPlane3D(char *name, int n, double x, double y, double z, double length, double height, double thickness, TGeoVolume *paddles, int horizontal);
-  virtual ~ScintPlane3D();
-  void paddleHit(int num, double left, double right);
-  void clear();
-
-protected:
-  int N; // number of paddles
-
-  ScintillatorPaddle3D *paddle[30];
-
-};
-
-#endif  */
-
 #ifndef ROOT_ScintPlane3D
 #define ROOT_ScintPlane3D
 
@@ -61,9 +32,10 @@ public:
   void LHit(int numL);
   void RHit(int numR);
   void BHit(int numB);
+  void SPHit(char* name, double poshit[], double neghit[]);
   void clear();
   TGeoVolume *ScintPlane;
-  TGeoRotation scintrot;
+  //TGeoRotation* scintrot;
 protected:
   int N; // number of paddles
 

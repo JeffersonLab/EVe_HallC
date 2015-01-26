@@ -24,7 +24,7 @@
 class ScintillatorPaddle3D {
 
  public:
-  ScintillatorPaddle3D(int index,int n,
+  ScintillatorPaddle3D(char* PlaneName,int index,int n,
                        double length, double height ,double thickness ,
                        TGeoVolume *paddle, int numPMT /*, int rotation*/);
   virtual ~ScintillatorPaddle3D();

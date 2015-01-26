@@ -62,8 +62,8 @@ Detector3D::Detector3D()
       top->AddNodeOverlap(mwdc_volume2,1, comb);
 
       //test code: check what transformation : translation and rotation did to a box in top volume
-      /*
-      TGeoBBox *box = new TGeoBBox("Box",200, 50, 100); 
+      
+      TGeoBBox *box = new TGeoBBox("Box",10, 10, 10); 
       TGeoTranslation boxt(0,0,0);
       TGeoRotation boxr;
       double ang = 0;
@@ -72,7 +72,7 @@ Detector3D::Detector3D()
       TGeoVolume *Box = new TGeoVolume ("Box", box);
       Box ->SetLineColor(kBlack);
       top -> AddNode(Box,1,boxCT);
-      */
+      
 
       // s1x - Scintillation Plane     
       s1xplane = new ScintPlane3D((char*)"s1x",top);
