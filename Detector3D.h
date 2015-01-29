@@ -19,7 +19,10 @@
 #include "TGeoTrd2.h"
 #include "TGeoTube.h"
 #include "ScintPlane3D.h"
-#include "MWDChamber3D.h"
+//#include "MWDChamber3D.h"
+#include "TWire3D.h"
+#include "WirePlane3D.h"
+#include "WireChamber3D.h"
 #include "TGeoPhysicalNode.h"
 #include "Trajectory3D.h"
 #include "FullTrajectory3D.h"
@@ -35,8 +38,8 @@ public:
   void ClearTrack();
   void ClearTracks();
   TGeoManager *mgr;
-  MWDChamber3D *mwdc1;
-  MWDChamber3D *mwdc2;
+  WireChamber3D *MWDC1;
+  WireChamber3D *MWDC2;
   ScintPlane3D *s1xplane;
   ScintPlane3D *s1yplane;
   ScintPlane3D *s2xplane;

@@ -21,7 +21,9 @@
 #include "EVe_DB.h"
 #include "TGeoMatrix.h"
 
-
+#include <map>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -33,7 +35,7 @@ Detector3D::Detector3D()
       top = mgr->MakeBox("TOP",medium,450,300,300);
       mgr->SetTopVolume(top); 
 
-
+      /*
       TGeoRotation r1;
       //TGeoRotation r2;
       TGeoTranslation t1(100.0, 0.0, 60.0);
@@ -60,6 +62,16 @@ Detector3D::Detector3D()
       t1.SetTranslation(MWDC2_xpos-30.0, MWDC2_ypos, MWDC2_zpos);
       comb = new TGeoCombiTrans(t1, r1);
       top->AddNodeOverlap(mwdc_volume2,1, comb);
+      */
+
+    string PN[6]={"x", "y", "u", "v", "yp", "xp"};
+    vector<string> PlaneNames(&PN[0],&PN[0]+6);
+    // First MWDC
+    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top);
+
+    // Second MWDC
+    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top);
+
 
       //test code: check what transformation : translation and rotation did to a box in top volume
       

@@ -52,12 +52,12 @@ WireChamber:: WireChamber(char* chamberName,vector<string> planeNames,
        std::pair<string, WirePlane2D>(planeNames[i], WirePlane2D(
           planeNames[i],
           Height, Width,
-          hmsVars->GetDouble(Form("%s.%s.wireAngle =", chamberName, planeNames[i].c_str())),
-          hmsVars->GetInt(Form("%s.%s.numWires =",  chamberName, planeNames[i].c_str())),
+          hmsVars->GetDouble(Form("%s.%s.WireAngle =", chamberName, planeNames[i].c_str())),
+          hmsVars->GetInt(Form("%s.%s.NumWires =",  chamberName, planeNames[i].c_str())),
           i+1 ,/* I'm using 'i' to set the wire color (last arg) so each
              * plane is assigned a different color */
           cst ,
-          hmsVars->GetDouble(Form("%s.%s.offset =",  chamberName, planeNames[i].c_str())),
+          hmsVars->GetDouble(Form("%s.%s.Offset =",  chamberName, planeNames[i].c_str())),
           i
           )));
 }

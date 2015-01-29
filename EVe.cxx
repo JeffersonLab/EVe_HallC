@@ -271,25 +271,25 @@ void EVe::CreateXprojection()
 
      GetVariables *HMSvar = new GetVariables("HMS.txt");
 
-     x1 = new WirePlane((char*)"X1",HMSvar->GetDouble("MWDC-1.x.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height ="))+cst->transXtoCX(0.0), 
+     x1 = new WirePlane((char*)"X1",HMSvar->GetDouble("MWDC1.x.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(x1_dist),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height =")),1.0,1.0,-1);
+			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
    
-     x1p = new WirePlane((char*)"X1p",HMSvar->GetDouble("MWDC-1.xp.numWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height ="))+cst->transXtoCX(0.0), 
+     x1p = new WirePlane((char*)"X1p",HMSvar->GetDouble("MWDC1.xp.NumWires ="),
+			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
 			 cst->transYtoCY(x1p_dist),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height =")),1.0,1.0,+1);
+			 cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
 
-     x2 = new WirePlane((char*)"X2",HMSvar->GetDouble("MWDC-2.x.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height ="))+cst->transXtoCX(0.0), 
+     x2 = new WirePlane((char*)"X2",HMSvar->GetDouble("MWDC2.x.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(x2_dist),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height =")),1.0,1.0,-1);
+			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
   
-     x2p = new WirePlane((char*)"X2p",HMSvar->GetDouble("MWDC-2.xp.numWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height ="))+cst->transXtoCX(0.0), 
+     x2p = new WirePlane((char*)"X2p",HMSvar->GetDouble("MWDC2.xp.NumWires ="),
+			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
 			 cst->transYtoCY(x2p_dist),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height =")),1.0,1.0,+1);
+			 cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
 
      c1->Update();
   }
@@ -306,23 +306,23 @@ void EVe::CreateUVprojection()
      
      GetVariables *HMSvar = new GetVariables("HMS.txt");
 
-     u1 = new WirePlane((char*)"U1",HMSvar->GetDouble("MWDC-1.u.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height ="))+cst->transXtoCX(0.0), 
+     u1 = new WirePlane((char*)"U1",HMSvar->GetDouble("MWDC1.u.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(u1_dist),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height =")),1.0,1.0,-1);
-     v1 = new WirePlane((char*)"V1",HMSvar->GetDouble("MWDC-1.v.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height ="))+cst->transXtoCX(0.0),
+			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
+     v1 = new WirePlane((char*)"V1",HMSvar->GetDouble("MWDC1.v.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
 			cst->transYtoCY(v1_dist+0.002),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height =")),1.0,1.0,+1);
+			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
 
-     u2 = new WirePlane((char*)"U2",HMSvar->GetDouble("MWDC-2.u.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height ="))+cst->transXtoCX(0.0), 
+     u2 = new WirePlane((char*)"U2",HMSvar->GetDouble("MWDC2.u.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(u2_dist),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height =")),1.0,1.0,-1);
-     v2 = new WirePlane((char*)"V2",HMSvar->GetDouble("MWDC-2.v.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height ="))+cst->transXtoCX(0.0), 
+			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
+     v2 = new WirePlane((char*)"V2",HMSvar->GetDouble("MWDC2.v.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(v2_dist+0.002),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height =")),1.0,1.0,+1);
+			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
 
      c2->Update();
   }
@@ -338,23 +338,23 @@ void EVe::CreateYprojection()
      
      GetVariables *HMSvar = new GetVariables("HMS.txt");
 
-     y1 = new WirePlane((char*)"Y1",HMSvar->GetDouble("MWDC-1.y.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height ="))+cst->transXtoCX(0.0), 
+     y1 = new WirePlane((char*)"Y1",HMSvar->GetDouble("MWDC1.y.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(y1_dist),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height =")),1.0,1.0,-1);
-     y1p = new WirePlane((char*)"Y1p",HMSvar->GetDouble("MWDC-1.yp.numWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height ="))+cst->transXtoCX(0.0), 
+			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
+     y1p = new WirePlane((char*)"Y1p",HMSvar->GetDouble("MWDC1.yp.NumWires ="),
+			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
 			 cst->transYtoCY(y1p_dist),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC-1.height =")),1.0,1.0,1);
+			 cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,1);
 
-     y2 = new WirePlane((char*)"Y2",HMSvar->GetDouble("MWDC-2.y.numWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height ="))+cst->transXtoCX(0.0), 
+     y2 = new WirePlane((char*)"Y2",HMSvar->GetDouble("MWDC2.y.NumWires ="),
+			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
 			cst->transYtoCY(y2_dist),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height =")),1.0,1.0,-1);
-     y2p = new WirePlane((char*)"Y2p",HMSvar->GetDouble("MWDC-2.yp.numWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height ="))+cst->transXtoCX(0.0),
+			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
+     y2p = new WirePlane((char*)"Y2p",HMSvar->GetDouble("MWDC2.yp.NumWires ="),
+			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
 			 cst->transYtoCY(y2p_dist),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC-2.height =")),1.0,1.0,+1);
+			 cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
 
      c4->Update();
   }
@@ -376,13 +376,13 @@ void EVe::CreateWires()
 
    GetVariables *HMSvars = new GetVariables("HMS.txt");
    
-   mwdc1 = new WireChamber((char*)"MWDC-1",planeNames,
-	      HMSvars->GetDouble("MWDC-1.height ="),
-              HMSvars->GetDouble("MWDC-1.width ="),mwdc1_cst);
+   mwdc1 = new WireChamber((char*)"MWDC1",planeNames,
+	      HMSvars->GetDouble("MWDC1.Height ="),
+              HMSvars->GetDouble("MWDC1.Width ="),mwdc1_cst);
 
-   mwdc2 = new WireChamber((char*)"MWDC-2",planeNames,
-	      HMSvars->GetDouble("MWDC-2.height ="),
-              HMSvars->GetDouble("MWDC-2.width ="),mwdc2_cst);
+   mwdc2 = new WireChamber((char*)"MWDC2",planeNames,
+	      HMSvars->GetDouble("MWDC2.Height ="),
+              HMSvars->GetDouble("MWDC2.Width ="),mwdc2_cst);
    
    GetVariables *vars = new GetVariables("HMS.txt");
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
@@ -912,9 +912,9 @@ void EVe::DoDraw(int event)
     
     GetVariables* HMSvars= new GetVariables("HMS.txt");
     
-    int x1NW= HMSvars->GetInt("MWDC-1.x.numWires =");
-    int v1NW= HMSvars->GetInt("MWDC-1.v.numWires =");
-    int yp1NW= HMSvars->GetInt("MWDC-1.yp.numWires =");
+    int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
+    int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
+    int yp1NW= HMSvars->GetInt("MWDC1.yp.NumWires =");
 
     /// X plane
 
@@ -964,9 +964,9 @@ void EVe::DoDraw(int event)
     mwdc2->clear();
 
     
-    int x2NW= HMSvars->GetInt("MWDC-2.x.numWires =");
-    int v2NW= HMSvars->GetInt("MWDC-2.v.numWires =");
-    int yp2NW= HMSvars->GetInt("MWDC-2.yp.numWires =");
+    int x2NW= HMSvars->GetInt("MWDC2.x.NumWires =");
+    int v2NW= HMSvars->GetInt("MWDC2.v.NumWires =");
+    int yp2NW= HMSvars->GetInt("MWDC2.yp.NumWires =");
 
     /// X plane
 

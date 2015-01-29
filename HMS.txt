@@ -15,61 +15,87 @@ HodXpos =
 HodYpos = 
 HodPaddleN = 
 
-//MWDC-1 stats
-MWDC-1.height = 1.13
-MWDC-1.width = 0.56
+//MWDC1 stats
+MWDC1.Height = 1.13
+MWDC1.Width = 0.56
+MWDC1.Thickness = 4.0
+MWDC1.WallThickness = 2.0
+MWDC1.xPos = 175.0
+MWDC1.yPos = 0.0
+MWDC1.zPos = -51.923
+MWDC1.Tilt = 10.0
 
-MWDC-1.x.wireAngle = 0.0
-MWDC-1.x.numWires = 113
-MWDC-1.x.offset = 0.0
+MWDC1.x.WireAngle = 0.0
+MWDC1.x.NumWires = 113
+MWDC1.x.Offset = 0.0
+MWDC1.x.Dist = 0.0
 
-MWDC-1.y.wireAngle = 90.0
-MWDC-1.y.numWires = 52
-MWDC-1.y.offset = 0.0
+MWDC1.y.WireAngle = 90.0
+MWDC1.y.NumWires = 52
+MWDC1.y.Offset = 0.0
+MWDC1.y.Dist = 0.64
 
-MWDC-1.u.wireAngle = -15.0
-MWDC-1.u.numWires = 107
-MWDC-1.u.offset = 0.0
+MWDC1.u.WireAngle = -15.0
+MWDC1.u.NumWires = 107
+MWDC1.u.Offset = 0.0
+MWDC1.u.Dist = 1.28
 
-MWDC-1.v.wireAngle = 15.0
-MWDC-1.v.numWires = 107
-MWDC-1.v.offset = 0.0
+MWDC1.v.WireAngle = 15.0
+MWDC1.v.NumWires = 107
+MWDC1.v.Offset = 0.0
+MWDC1.v.Dist = 1.92
 
-MWDC-1.yp.wireAngle = 90.0
-MWDC-1.yp.numWires = 52
-MWDC-1.yp.offset = 0.005
+MWDC1.yp.WireAngle = 90.0
+MWDC1.yp.NumWires = 52
+MWDC1.yp.Offset = 0.005
+MWDC1.yp.Dist = 2.8775
 
-MWDC-1.xp.wireAngle = 0.0
-MWDC-1.xp.numWires = 113
-MWDC-1.xp.offset = 0.005
+MWDC1.xp.WireAngle = 0.0
+MWDC1.xp.NumWires = 113
+MWDC1.xp.Offset = 0.005
+MWDC1.xp.Dist = 3.5175
+
+
 
 //MWDC-2 stats
-MWDC-2.height = 1.13
-MWDC-2.width = 0.56
+MWDC2.Height = 1.13
+MWDC2.Width = 0.56
+MWDC2.Thickness = 4.0
+MWDC2.WallThickness = 2.0
+MWDC2.xPos = 274.7688
+MWDC2.yPos = 0.0
+MWDC2.zPos = 29.299
+MWDC2.Tilt = 10.0
 
-MWDC-2.x.wireAngle = 0.0
-MWDC-2.x.numWires = 113
-MWDC-2.x.offset = 0.0
+MWDC2.x.WireAngle = 0.0
+MWDC2.x.NumWires = 113
+MWDC2.x.Offset = 0.0
+MWDC2.x.Dist = 0.0
 
-MWDC-2.y.wireAngle = 90.0
-MWDC-2.y.numWires = 52
-MWDC-2.y.offset = 0.0
+MWDC2.y.WireAngle = 90.0
+MWDC2.y.NumWires = 52
+MWDC2.y.Offset = 0.0
+MWDC2.y.Dist = 0.64
 
-MWDC-2.u.wireAngle = -15.0
-MWDC-2.u.numWires = 107
-MWDC-2.u.offset = 0.0
+MWDC2.u.WireAngle = -15.0
+MWDC2.u.NumWires = 107
+MWDC2.u.Offset = 0.0
+MWDC2.u.Dist = 1.28
 
-MWDC-2.v.wireAngle = 15.0
-MWDC-2.v.numWires = 107
-MWDC-2.v.offset = 0.0
+MWDC2.v.WireAngle = 15.0
+MWDC2.v.NumWires = 107
+MWDC2.v.offset = 0.0
+MWDC2.v.Dist = 1.92
 
-MWDC-2.yp.wireAngle = 90.0
-MWDC-2.yp.numWires = 52
-MWDC-2.yp.offset = 0.005
+MWDC2.yp.WireAngle = 90.0
+MWDC2.yp.NumWires = 52
+MWDC2.yp.Offset = 0.005
+MWDC2.yp.Dist = 2.8775
 
-MWDC-2.xp.wireAngle = 0.0
-MWDC-2.xp.numWires = 113
-MWDC-2.xp.offset = 0.005
+MWDC2.xp.WireAngle = 0.0
+MWDC2.xp.NumWires = 113
+MWDC2.xp.Offset = 0.005
+MWDC2.xp.Dist = 3.5175
 
 ///PMTlength
         const double PMTlength=0.2936
