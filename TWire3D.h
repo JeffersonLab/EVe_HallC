@@ -48,7 +48,7 @@ protected:
 class TWire3D {
 
 public:
-  TWire3D(double angle, double y1, double z1, double y2, double z2,double radius, TGeoVolume *WirePlane);
+  TWire3D(double angle, double y1, double z1, double y2, double z2,double radius, TGeoVolume *WirePlane, int wirenum);
   virtual ~TWire3D();
 
   TGeoVolume *wire;

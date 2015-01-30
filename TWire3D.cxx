@@ -65,7 +65,7 @@ using namespace std;
 
 
 TWire3D::TWire3D(double angle, double y1, double z1, double y2, double z2,
-                 double radius, TGeoVolume *WirePlane)
+                 double radius, TGeoVolume *WirePlane, int wirenum)
 {
 	//Draw a single wire for WirePlane3D class in a fixed x plane
 	double x0 = 0.0;
@@ -76,7 +76,7 @@ TWire3D::TWire3D(double angle, double y1, double z1, double y2, double z2,
 
 
       	TGeoTube *tube = new TGeoTube("tube",0.0, radius, length/2.0);
-      	wire = new TGeoVolume("wires",tube);
+      	wire = new TGeoVolume(Form("wire_%d", wirenum),tube);
       	wire->SetLineColor(kBlack);
 
       	TGeoRotation r1;

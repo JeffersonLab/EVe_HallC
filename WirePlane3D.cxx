@@ -51,7 +51,7 @@ using namespace std;
 	 z1=-H/2+H*(1-fac);
 	 y2=-W/2;
 	 z2=-H/2+H*(1-fac);
-	 Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R, WirePlane));
+	 Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R, WirePlane, n));
 	 // cerr << "fac th 0.0 = " << fac << "\n";
        }
    }
@@ -65,7 +65,7 @@ using namespace std;
          z1=-H/2;
          y2=W/2-W*fac;
          z2=H/2;
-         Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane));
+         Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane, n));
 	 // cerr << "fac th 90.0 = " << fac << "\n";
          //cerr << "x1 = " << x1 << "\n";
        }
@@ -102,7 +102,7 @@ using namespace std;
                y2=-W/2;
                z2=H/2-d*fac+W*tan(Ang);
            }
-           Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane));
+           Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane, n));
        }
    }
 
@@ -139,7 +139,7 @@ using namespace std;
                y2=-W/2;
                z2=-H/2+d*(1-fac)-W*tan(Ang);
            }
-        Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane));
+        Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane,n));
             //cerr << "Draw Wire.\n";
        }
    }
