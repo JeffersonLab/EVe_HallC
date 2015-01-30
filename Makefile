@@ -117,7 +117,7 @@ $(USERLIB):	$(HDR) $(OBJS)
 
 $(USERDICT).cxx: $(HDR) $(LINKDEF)
 	@echo "Generating dictionary $(USERDICT)..."
-	$(ROOTSYS)/bin/rootcint -f $@ -c $(INCLUDES) $^
+	rootcint -f $@ -c $(INCLUDES) $^
 
 install:	all
 	cp -p $(USERLIB) $(HOME)/cue/SRC/ana
