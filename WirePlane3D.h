@@ -17,6 +17,7 @@
 #include <string>
 
 #define WIRE3DRADIUS 0.2
+#define SPARSIFY     5            /* Scale drawn wires down by SPARSIFY */
 
 using namespace std;
 

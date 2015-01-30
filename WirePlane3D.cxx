@@ -37,8 +37,11 @@ using namespace std;
    // nWires = actual number of wires
    // WireNum = number of wires that we draw
 
-   if ((nWires/5.0 - int(nWires/5.0))>0) WireNum =  (int) (nWires/5.0) + 1; // must be rounded up
-   else WireNum = (int) (nWires/5.0);
+   if ((double(nWires)/SPARSIFY - nWires/SPARSIFY)>0) {
+     WireNum = nWires/SPARSIFY + 1; // must be rounded up
+   } else {
+     WireNum = nWires/SPARSIFY;
+   }
 
    //Draw Wires, assign them with index
    double d;
@@ -155,14 +158,14 @@ WirePlane3D::~WirePlane3D()
 
 void WirePlane3D::Wire3DHit(int Num)
 {
-    int Fac = Num/5;
+    int Fac = Num/SPARSIFY;
     if(Fac<=WireNum)
     {
        Wires[Fac]->wire->SetLineColor(wirecolor);
        TGeoTube* tube= (TGeoTube*) Wires[Fac]->wire->GetShape();
        tube->SetTubeDimensions(0, 10*WIRE3DRADIUS, tube->GetDz());
     } else {
-      cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/5", Num, Fac, WireNum) << endl;
+      cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/SPARSIFY", Num, Fac, WireNum) << endl;
     }
 }
 
