@@ -22,14 +22,14 @@ using namespace std;
 
 class WirePlane3D{
 public:
-    WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D);
+    WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D, int color);
     virtual ~WirePlane3D();
     void Wire3DHit(int Num);
     void clear();
 
 protected:
     int WireNum;
-    int Color;
+    int wirecolor;
     vector<TWire3D*> Wires;
     TGeoVolume* WirePlane;
 };

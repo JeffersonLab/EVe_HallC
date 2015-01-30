@@ -9,8 +9,10 @@
 
 using namespace std;
 
- WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D)
+ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D, int color )
 {
+   wirecolor = color;
+
    //Get all data from HMS.txt
    GetVariables *hms = new GetVariables("HMS.txt");
 
@@ -156,13 +158,11 @@ void WirePlane3D::Wire3DHit(int Num)
     int Fac = Num/5;
     if(Fac<=WireNum/5)
     {
-        
-       Wires[Num/5]->wire->SetLineColor(3);
        //Wires[Num/5]->wire->SetTubeDimensions(0,5*WIRE3DRADIUS,Wires[Num/5]->wire->GetDz()); 
        // Wires[Num/5]->wire->GetNode("tube")->GetVolume()->GetShape()->SetTubeDimensions(0,5*WIRE3DRADIUS,Wires[Num/5]->wire->GetNode("tube")->GetDz());	
         TGeoTube* tube= (TGeoTube*) Wires[Num/5]->wire->GetNode("tube")->GetVolume()->GetShape();
         tube->SetTubeDimensions(0,WIRE3DRADIUS,tube->GetDz());
-       // Wires[Num]->SetLineColor(Color);
+       Wires[Fac]->wire->SetLineColor(wirecolor);
     }
 }
 
