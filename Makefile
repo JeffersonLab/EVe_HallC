@@ -7,7 +7,7 @@
 # there must be a corresponding header file (*.h).
 SRC  =   ScintillatorPaddle.cxx ScintPlane.cxx GetVariables.cxx \
 	 ScintillatorPaddle3D.cxx ScintPlane3D.cxx\
-         MWDChamber.cxx MWDChamber3D.cxx \
+         MWDChamber.cxx WirePlane3D.cxx WireChamber3D.cxx \
          Detector3D.cxx WirePlane.cxx \
 	 CStransform.cxx Road.cxx MultiRoads.cxx Track.cxx TWire3D.cxx Trajectory3D.cxx \
 	 FullTrajectory3D.cxx EVe.cxx WireChamber.cxx WirePlane2D.cxx
@@ -18,7 +18,8 @@ PACKAGE = EVe
 # Name of the LinkDef file
 LINKDEF = $(PACKAGE)_LinkDef.h
 #------------------------------------------------------------------------------
-# This part defines overall options and directory locations.
+# This part defines overall options and directory locationsbg
+
 # Change as necessary,
 # Compile debug version
 export DEBUG = 1

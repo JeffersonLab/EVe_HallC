@@ -8,6 +8,8 @@
 //
 //
 //************************************************************************* 
+
+/*
 #ifndef ROOT_TWire3D
 #define ROOT_TWire3D
 
@@ -29,6 +31,27 @@ public:
 protected:
 
  TGeoVolume *wire;
+
+};
+
+#endif
+*/
+#ifndef ROOT_TWire3D
+#define ROOT_TWire3D
+
+#include "TGeoTube.h"
+#include "TGeoVolume.h"
+#include "TGeoManager.h"
+#include "TGeoMatrix.h"
+#include "TColor.h"
+
+class TWire3D {
+
+public:
+  TWire3D(double angle, double y1, double z1, double y2, double z2,double radius, TGeoVolume *WirePlane, int wirenum);
+  virtual ~TWire3D();
+
+  TGeoVolume *wire;
 
 };
 
