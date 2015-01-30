@@ -1,6 +1,8 @@
 *.root
 *~
 \#*
+.#*
+*.so
 *.o
 *.d
 EVeDict.*
@@ -12,3 +14,4 @@ EVeManual.log
 EVeManual.out
 EVeManual.toc
 EVeManual.synctex.gz
+*.swp
