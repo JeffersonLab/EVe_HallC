@@ -156,13 +156,13 @@ WirePlane3D::~WirePlane3D()
 void WirePlane3D::Wire3DHit(int Num)
 {
     int Fac = Num/5;
-    if(Fac<=WireNum/5)
+    if(Fac<=WireNum)
     {
-       //Wires[Num/5]->wire->SetTubeDimensions(0,5*WIRE3DRADIUS,Wires[Num/5]->wire->GetDz()); 
-       // Wires[Num/5]->wire->GetNode("tube")->GetVolume()->GetShape()->SetTubeDimensions(0,5*WIRE3DRADIUS,Wires[Num/5]->wire->GetNode("tube")->GetDz());	
-        TGeoTube* tube= (TGeoTube*) Wires[Num/5]->wire->GetNode("tube")->GetVolume()->GetShape();
-        tube->SetTubeDimensions(0,WIRE3DRADIUS,tube->GetDz());
        Wires[Fac]->wire->SetLineColor(wirecolor);
+       TGeoTube* tube= (TGeoTube*) Wires[Fac]->wire->GetShape();
+       tube->SetTubeDimensions(0, 10*WIRE3DRADIUS, tube->GetDz());
+    } else {
+      cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/5", Num, Fac, WireNum) << endl;
     }
 }
 
@@ -170,8 +170,8 @@ void WirePlane3D::clear()
 {
     for (int i=0; i<WireNum; i++)
     {
-        Wires[i]->wire->SetLineColor(kBlack);
-	TGeoTube* tube= (TGeoTube*) Wires[i]->wire->GetNode("tube")->GetVolume()->GetShape();
-        tube->SetTubeDimensions(0,WIRE3DRADIUS,tube->GetDz());
+       Wires[i]->wire->SetLineColor(kBlack);
+       TGeoTube* tube= (TGeoTube*) Wires[i]->wire->GetShape();
+       tube->SetTubeDimensions(0, WIRE3DRADIUS, tube->GetDz());
     }
 }
