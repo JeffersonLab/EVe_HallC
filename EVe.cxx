@@ -1263,7 +1263,30 @@ void EVe::DoDraw(int event)
 
 
     //***************** First chamber
+    GetVariables* HMSvars= new GetVariables("HMS.txt");
+    int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
+    int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
+    int y1NW= HMSvars->GetInt("MWDC1.y.NumWires =");
 
+    detector->MWDC1->clear();
+    //X,Xp,Plane
+    for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
+        detector->MWDC1->WireHit3D("x",x1NW+1-H_dc_1x1_tdchits[i]);
+    for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
+        detector->MWDC1->WireHit3D("xp",H_dc_1x2_tdchits[i]);
+    /// UV plane
+    for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
+        detector->MWDC1->WireHit3D("u",H_dc_1u1_tdchits[i]);
+    for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
+        detector->MWDC1->WireHit3D("v",v1NW+1-H_dc_1v1_tdchits[i]);
+    /// Y,XP plane
+    for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
+        detector->MWDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
+    for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
+        detector->MWDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
+
+    detector->MWDC2->clear();
+ 
 //     detector->mwdc1->clear();
 //     for(int i = 0; i<B_mwdc_u1_nhits; i++)
 //     {

@@ -22,7 +22,7 @@ class WireChamber3D
 public:
     WireChamber3D(char* Name, vector<string> PlaneNames, TGeoVolume* top);
     virtual ~WireChamber3D();
-    void WireHit3D(string PlaneName, int WireNum);
+    void WireHit3D(string PlaneName,int  WireNum);
     void clear();
 
 protected:

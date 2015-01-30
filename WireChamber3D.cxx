@@ -66,7 +66,7 @@ WireChamber3D::~WireChamber3D(){}
 
 void WireChamber3D::WireHit3D(string PlaneName, int WireNum)
 {
-    WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
+      WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
 }
 
 void WireChamber3D::clear()
