@@ -24,7 +24,7 @@ using namespace std;
 
    //Number of Wires,radius of wires, and Angle of Wires
    int nWires = hms->GetInt(Form("%s.%s.NumWires =",ChamberName,PlaneName.c_str()));
-   double R=0.2;
+   double R=WIRE3DRADIUS;
    double Angle = hms->GetDouble(Form("%s.%s.WireAngle =",ChamberName,PlaneName.c_str()));
 
    double Ang= Angle*3.14159/180.0;
@@ -154,9 +154,14 @@ WirePlane3D::~WirePlane3D()
 void WirePlane3D::Wire3DHit(int Num)
 {
     int Fac = Num/5;
-    if(Fac<=WireNum)
+    if(Fac<=WireNum/5)
     {
-        Wires[Num]->wire->SetLineColor(3);
+        
+       Wires[Num/5]->wire->SetLineColor(3);
+       //Wires[Num/5]->wire->SetTubeDimensions(0,5*WIRE3DRADIUS,Wires[Num/5]->wire->GetDz()); 
+       // Wires[Num/5]->wire->GetNode("tube")->GetVolume()->GetShape()->SetTubeDimensions(0,5*WIRE3DRADIUS,Wires[Num/5]->wire->GetNode("tube")->GetDz());	
+        TGeoTube* tube= (TGeoTube*) Wires[Num/5]->wire->GetNode("tube")->GetVolume()->GetShape();
+        tube->SetTubeDimensions(0,WIRE3DRADIUS,tube->GetDz());
        // Wires[Num]->SetLineColor(Color);
     }
 }
@@ -166,5 +171,7 @@ void WirePlane3D::clear()
     for (int i=0; i<WireNum; i++)
     {
         Wires[i]->wire->SetLineColor(kBlack);
+	TGeoTube* tube= (TGeoTube*) Wires[i]->wire->GetNode("tube")->GetVolume()->GetShape();
+        tube->SetTubeDimensions(0,WIRE3DRADIUS,tube->GetDz());
     }
 }

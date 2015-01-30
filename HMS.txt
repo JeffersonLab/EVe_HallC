@@ -84,7 +84,7 @@ MWDC2.u.Dist = 1.28
 
 MWDC2.v.WireAngle = 15.0
 MWDC2.v.NumWires = 107
-MWDC2.v.offset = 0.0
+MWDC2.v.Offset = 0.0
 MWDC2.v.Dist = 1.92
 
 MWDC2.yp.WireAngle = 90.0

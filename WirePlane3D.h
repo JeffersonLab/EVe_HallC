@@ -16,6 +16,8 @@
 #include <vector>
 #include <string>
 
+#define WIRE3DRADIUS 0.2
+
 using namespace std;
 
 class WirePlane3D{
