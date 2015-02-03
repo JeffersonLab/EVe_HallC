@@ -32,7 +32,7 @@ Detector3D::Detector3D()
    
       mgr = new TGeoManager("Geom", "Composite shape example");
       TGeoMedium *medium = 0;
-      top = mgr->MakeBox("TOP",medium,450,300,300);
+      top = mgr->MakeBox("TOP",medium,600,300,300);
       mgr->SetTopVolume(top); 
 
       /*

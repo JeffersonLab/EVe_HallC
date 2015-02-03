@@ -1047,6 +1047,7 @@ void EVe::DoDraw(int event)
        //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
        matchR[q] = H_hod_1x_negtdchits[q];
        s1X->paddleRightHit(H_hod_1x_negtdchits[q]-1);
+       
 
      }
 
@@ -1073,14 +1074,17 @@ void EVe::DoDraw(int event)
    ///S1Y
 
    //   for (int q = 0; q<B_tp_de_nhit; q++)
+   cerr << "new event" << endl;
+   cerr << Form("Number is %d",Ndata_H_hod_1y_negtdchits) << endl;
    for (int q = 0; q<Ndata_H_hod_1y_negtdchits; q++)
      {
        //	int bar = (int)(B_tp_de_hit_bar[q]);
        // double ypos = B_tp_de_hit_ypos[q];
        //	dEbar_ypos[bar] = ypos;
-       cout << Ndata_H_hod_1y_negtdchits <<"  " <<  H_hod_1y_negtdchits[q]  << endl;
+       //cout << Ndata_H_hod_1y_negtdchits <<"  " <<  H_hod_1y_negtdchits[q]  << endl;
        matchR[q] = H_hod_1y_negtdchits[q];
        s1Y->paddleRightHit(H_hod_1y_negtdchits[q]-1);
+       cerr << Form("%f th paddle of s1y Rhit",H_hod_1y_negtdchits[q]) << endl;
 
      }
    for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
@@ -1088,6 +1092,7 @@ void EVe::DoDraw(int event)
   
        matchL[q]= H_hod_1y_postdchits[q];
        s1Y->paddleLeftHit(H_hod_1y_postdchits[q]-1);
+       cerr << Form("%f th paddle of s1y Lhit",H_hod_1y_postdchits[q]) << endl;
      }
 
    for (Int_t i=0;i<16;i++) {
@@ -1099,6 +1104,7 @@ void EVe::DoDraw(int event)
 	 s1Y->paddleBothHit(matchL[i]-1);
        }
      }
+     //if (matchR[i] !=0 )cerr << Form("%f th paddle of s1y Bothhit",matchR[i]) << endl;
      matchR[i]=0;
      matchL[i]=0;
    }
@@ -1286,6 +1292,22 @@ void EVe::DoDraw(int event)
         detector->MWDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
 
     detector->MWDC2->clear();
+    //X,Xp,Plane
+    for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
+        detector->MWDC2->WireHit3D("x",x1NW+1-H_dc_2x1_tdchits[i]);
+    for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
+        detector->MWDC2->WireHit3D("xp",H_dc_2x2_tdchits[i]);
+    /// UV plane
+    for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
+        detector->MWDC2->WireHit3D("u",H_dc_2u1_tdchits[i]);
+    for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
+        detector->MWDC2->WireHit3D("v",v1NW+1-H_dc_2v1_tdchits[i]);
+    /// Y,XP plane
+    for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
+        detector->MWDC2->WireHit3D("y",H_dc_2y1_tdchits[i]);
+    for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
+        detector->MWDC2->WireHit3D("yp",y1NW+1-H_dc_2y2_tdchits[i]);
+
  
 //     detector->mwdc1->clear();
 //     for(int i = 0; i<B_mwdc_u1_nhits; i++)
@@ -1392,12 +1414,16 @@ void EVe::DoDraw(int event)
 // #endif
 //         detector->mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
 //     } 
-
-    // Now scintillaion plane  
-    detector->s1xplane->SPHit((char*)"s1x",H_hod_1x_postdchits,H_hod_1x_negtdchits);
-    detector->s1yplane->SPHit((char*)"s1x",H_hod_1y_postdchits,H_hod_1y_negtdchits);
-    detector->s2xplane->SPHit((char*)"s1x",H_hod_2x_postdchits,H_hod_2x_negtdchits);
-    detector->s2yplane->SPHit((char*)"s1x",H_hod_2y_postdchits,H_hod_2y_negtdchits);
+    detector->s1xplane->clear();
+    detector->s1yplane->clear();
+    detector->s2xplane->clear();
+    detector->s2yplane->clear();
+    // Now scintillaion plane 
+    //Ndata_H_hod_1x_negtdchits 
+    detector->s1xplane->SPHit(Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
+    detector->s1yplane->SPHit(Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+    detector->s2xplane->SPHit(Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
+    detector->s2yplane->SPHit(Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
 //     for (int i = 0; i<s1x_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
 //     for (int i = 0; i<s1y_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);

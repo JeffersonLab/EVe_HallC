@@ -113,20 +113,18 @@ void ScintPlane3D::clear()
   }
 }
 
-void ScintPlane3D :: SPHit(char* name, double poshit[], double neghit[])
+void ScintPlane3D :: SPHit(int Num, double poshit[], double neghit[])
 {
    double matchR[16];
-   double matchL[16];    
-   GetVariables *hms3D = new GetVariables("HMS.txt");
-   double PN= hms3D->GetInt(Form("%s.PN =",name));
+   double matchL[16];
 
-   for (Int_t q = 0; q<PN; q++)
+   for (Int_t q = 0; q<Num; q++)
      {
        matchR[q] = poshit[q];
        RHit(poshit[q]-1);
      }
 
-   for (Int_t q=0;q<PN;q++)
+   for (Int_t q=0;q<Num;q++)
      {
        matchL[q]= neghit[q];
        LHit(neghit[q]-1);

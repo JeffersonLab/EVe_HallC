@@ -9,7 +9,7 @@
 
 using namespace std;
 
- WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D, int color )
+ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D, int color)
 {
    wirecolor = color;
 

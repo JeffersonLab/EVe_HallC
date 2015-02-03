@@ -114,7 +114,7 @@ s1x.zpos = 77.83
 s1x.PaddleLength = 75.5
 s1x.PaddleHeight = 7.53
 s1x.PaddleThickness = 1.067
-s1x.tilt = 0.0
+s1x.tilt = 20.0
 
 
 // s2x-plane variables
@@ -131,7 +131,7 @@ s2x.zpos = 77.83
 s2x.PaddleLength = 75.5
 s2x.PaddleHeight = 7.53
 s2x.PaddleThickness = 1.067
-s2x.tilt = 0.0
+s2x.tilt = 20.0
 
 
 // s1y-plane variables
@@ -148,7 +148,7 @@ s1y.zpos = 77.83
 s1y.PaddleLength = 120.0
 s1y.PaddleHeight = 7.53
 s1y.PaddleThickness = 1.067
-s1y.tilt = 0.0
+s1y.tilt = 20.0
 
 // s2y-plane variables
         //s2y paddles' angle
@@ -164,6 +164,6 @@ s2y.zpos = 77.83
 s2y.PaddleLength = 120.0
 s2y.PaddleHeight = 7.53
 s2y.PaddleThickness = 1.067
-s2y.tilt = 0.0
+s2y.tilt = 20.0
 
 
