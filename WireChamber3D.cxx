@@ -53,6 +53,8 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     double x0 = hms-> GetDouble(Form("%s.xPos =",ChamberName));
     double y0 = hms-> GetDouble(Form("%s.yPos =",ChamberName));
     double z0 = hms-> GetDouble(Form("%s.zPos =",ChamberName));
+    
+    cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
     t1.SetTranslation(x0+CT/2.0, y0, z0);

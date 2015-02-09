@@ -8,7 +8,7 @@
 // 
 //
 //*************************************************************************  
-
+/*
 #ifndef ROOT_Trajectory3D
 #define ROOT_Trajectory3D
 
@@ -35,6 +35,30 @@ protected:
 	char path[100];
 	TGeoManager *manager;		
 
+};
+
+#endif
+*/
+#ifndef ROOT_Trajectory3D
+#define ROOT_Trajectory3D
+
+#include "TCanvas.h"
+#include "TGeoVolume.h"
+#include "TGeoMatrix.h"
+#include "TGeoTube.h"
+#include "GetVariables.h"
+
+
+class Trajectory3D {
+
+public:
+  Trajectory3D(TGeoVolume* Top, int n,
+               double x, double y, double theta, double phi);
+  virtual ~Trajectory3D();
+  //void clear();
+
+protected:
+  TGeoVolume* Ray;
 };
 
 #endif

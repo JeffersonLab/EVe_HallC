@@ -35,35 +35,6 @@ Detector3D::Detector3D()
       top = mgr->MakeBox("TOP",medium,600,300,300);
       mgr->SetTopVolume(top); 
 
-      /*
-      TGeoRotation r1;
-      //TGeoRotation r2;
-      TGeoTranslation t1(100.0, 0.0, 60.0);
-      TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1);
-      
-      GetVariables* HMSvars=new GetVariables("HMS.txt"); 
-
-      // First MWDC      
-  // FIXME: Wire number is different in different wire planes. For now we assume
-  // in 3D view, that the number of wires is in all three w.p. the same. 
-      TGeoVolume *mwdc_volume = mgr->MakeBox("mwdc_volume1",medium,50,5,100);
-      mwdc1 = new MWDChamber3D((char*)"MWDC1",0, HMSvars->GetDouble("MWDC-1.x.numWires ="), 0.0, 0.0, 0.0, MWDC1_length, MWDC1_height, mwdc_volume);
-      r1.SetAngles(90,90,90+MWDC1_tilt,180,MWDC1_tilt,180);
-      t1.SetTranslation(MWDC1_xpos-50.0, MWDC1_ypos, MWDC1_zpos);
-      comb = new TGeoCombiTrans(t1, r1);
-      top->AddNodeOverlap(mwdc_volume,1, comb);
-
-      // Second MWDC
-  // FIXME: Wire number is different in different wire planes. For now we assume
-  // in 3D view, that the number of wires is in all three w.p. the same. 
-      TGeoVolume *mwdc_volume2 = mgr->MakeBox("mwdc_volume2",medium,50,5,105);
-      mwdc2 = new MWDChamber3D((char*)"MWDC2",0,HMSvars->GetDouble("MWDC-2.x.numWires ="), 0.0, 0.0, 0.0, MWDC2_length, MWDC2_height, mwdc_volume2);
-      r1.SetAngles(90,90,90+MWDC2_tilt,180,MWDC2_tilt,180);
-      t1.SetTranslation(MWDC2_xpos-30.0, MWDC2_ypos, MWDC2_zpos);
-      comb = new TGeoCombiTrans(t1, r1);
-      top->AddNodeOverlap(mwdc_volume2,1, comb);
-      */
-
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
@@ -75,7 +46,7 @@ Detector3D::Detector3D()
 
       //test code: check what transformation : translation and rotation did to a box in top volume
       
-      TGeoBBox *box = new TGeoBBox("Box",10, 10, 10); 
+      TGeoBBox *box = new TGeoBBox("Box",5, 5, 5); 
       TGeoTranslation boxt(0,0,0);
       TGeoRotation boxr;
       double ang = 0;
@@ -99,6 +70,7 @@ Detector3D::Detector3D()
       // changed volume size to 60
       s2yplane = new ScintPlane3D((char*)"s2y",top);
 
+      /*
        // In the end we create potential tracks
        // Important: Track order is important :Full tracks must be created 
        // before partial tracks.
@@ -127,6 +99,7 @@ Detector3D::Detector3D()
        partialTrack[7] = new Trajectory3D((char*)"PT8", top, mgr, (char*)"/TOP_1/");	
        partialTrack[8] = new Trajectory3D((char*)"PT9", top, mgr, (char*)"/TOP_1/");	
        partialTrack[9] = new Trajectory3D((char*)"PT10", top, mgr, (char*)"/TOP_1/");		
+      */
 
        mgr->CloseGeometry();
        top->Raytrace();
@@ -144,13 +117,11 @@ Detector3D::~Detector3D()
 
 void Detector3D::ClearTracks()
 {	
-	
-       for (int i = 0; i<10; i++)
-       {
-	  partialTrack[i]->ClearTrack();
-	  fullTrack[i]->ClearTrack();	
-       }	
-	
-	
+  //std::vector<Trajectory3D* >:: iterator itr;
 
+  //  for (itr=Trajectory.begin(); itr!= Trajectory.end(); itr++)
+  //  Trajectory.clear();
+  Trajectory.erase(Trajectory.begin(),Trajectory.end());
+  //for (int i=0; i<Trajectory.size();i++)
+  //  delete[] Trajectory[i];
 }

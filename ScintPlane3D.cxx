@@ -65,6 +65,8 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
     double ypos = hms-> GetDouble(Form("%s.ypos =",splaneName));
     double zpos = hms-> GetDouble(Form("%s.zpos =",splaneName));
 
+    cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
+
     TGeoBBox* Box = new TGeoBBox(splaneName,1.5*thickness ,4.5*((double)numPaddles)*height ,4.0*length);
     TGeoVolume *SBox = new TGeoVolume(Form("%s.Box",splaneName),Box);
     SBox->AddNode(ScintPlane,1,scintrot);
