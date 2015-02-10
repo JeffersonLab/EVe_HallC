@@ -1461,18 +1461,40 @@ void EVe::DoDraw(int event)
 
      if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn())
      {
-        for(int q =0; q<Ndata_H_tr_x; q++)
+       if((unsigned int)Ndata_H_tr_x > 10)
         {
-            double x0 = H_tr_x[q];
-            double y0 = H_tr_y[q];
-            double th = H_tr_th[q];
-            double ph = H_tr_ph[q];
-            
-            cerr << "Trajectory x0 is " << x0 << " y0 is " << y0;
-	    cerr << " th is " << th << " ph is " << ph << endl;
-	    cerr << "Ndata_H_tr_x is " << Ndata_H_tr_x << endl;
+	  //detector->TrackList.size set to 10
+            for(int q =0; q<Ndata_H_tr_x; q++)
+            {
+                double x0 = H_tr_x[q];
+                double y0 = H_tr_y[q];
+                double th = H_tr_th[q];
+                double ph = H_tr_ph[q];
 
-            detector->Trajectory.push_back(new Trajectory3D(detector->top, q,x0, y0, th, ph));
+                // if((unsigned int)q<detector->TrackList.size())
+                //    detector->TrackList[q]->Enable(q,x0,y0,th,ph);
+		// else
+                //  detector->TrackList.push_back(new Trajectory3D(detector->top,detector->mgr,q,x0,y0,th,ph));
+		detector->TrackList[q]->Enable(q,x0,y0,th,ph);
+            }
+        }
+
+       else if(10>(unsigned int)Ndata_H_tr_x)
+        {
+	  for(unsigned int q =0; q<10; q++)
+            {
+
+	      if(q<(unsigned int)Ndata_H_tr_x)
+                {
+                    double x0 = H_tr_x[q];
+                    double y0 = H_tr_y[q];
+                    double th = H_tr_th[q];
+                    double ph = H_tr_ph[q];
+                    detector->TrackList[q]->Enable(q,x0,y0,th,ph);
+                }
+                else
+                    detector->TrackList[q]->Disable();
+            }
         }
 
      }

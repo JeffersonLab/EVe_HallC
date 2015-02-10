@@ -1,64 +1,29 @@
-//************************************************************************* 
-//  Trajectory3D.h  - 4/14/2008
-// 
-//  by miham
-// 
-//  This class is used to create, show and modify partial tracks in 3D view.
-//
-// 
-//
-//*************************************************************************  
-/*
 #ifndef ROOT_Trajectory3D
 #define ROOT_Trajectory3D
 
 #include "TCanvas.h"
 #include "TGeoVolume.h"
+#include "TGeoMatrix.h"
+#include "TGeoTube.h"
 #include "TGeoManager.h"
-#include "TGeoMatrix.h"
-#include "TGeoBBox.h"
-#include "TGeoTrd2.h"
-#include "TGeoTube.h"
-#include "TGeoArb8.h"
-#include "TGeoPhysicalNode.h"
 
-class Trajectory3D {
-  
+
+class Trajectory3D{
 public:
-  Trajectory3D(char *objectname,TGeoVolume *tvolume, TGeoManager *mgr,  char *pot);
-  void Track(double xf, double yf, double zf, double thetaf, double phif);
-  virtual ~Trajectory3D();
-  void ClearTrack();
-  
-protected:
-	char name[100];
-	char path[100];
-	TGeoManager *manager;		
+  Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n);
 
-};
-
-#endif
-*/
-#ifndef ROOT_Trajectory3D
-#define ROOT_Trajectory3D
-
-#include "TCanvas.h"
-#include "TGeoVolume.h"
-#include "TGeoMatrix.h"
-#include "TGeoTube.h"
-#include "GetVariables.h"
-
-
-class Trajectory3D {
-
-public:
-  Trajectory3D(TGeoVolume* Top, int n,
+  Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n,
                double x, double y, double theta, double phi);
+
   virtual ~Trajectory3D();
-  //void clear();
+  void Enable(int n, double x, double y, double theta, double phi);
+  void Disable();
 
 protected:
+  char* path;
   TGeoVolume* Ray;
+  TGeoManager* Manager;
 };
 
 #endif
+

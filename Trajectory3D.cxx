@@ -124,24 +124,56 @@ void Trajectory3D::ClearTrack()
 }
 
 */
-
+#include "TGeoPhysicalNode.h"
 #include "Trajectory3D.h"
 #include "TMath.h"
+#include "GetVariables.h"
 #include <cstring>
 #include <cstdio>
 #include <iostream>
 
-
 using namespace std;
 
-Trajectory3D::Trajectory3D(TGeoVolume* Top, int n,
+Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n)
+{
+    Manager=Mgr;
+    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
+    Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
+    Ray ->SetLineColor(n+2);
+    Top->AddNodeOverlap(Ray,1);
+    path = Form("/TOP_1/TrackRayNum%d_1",n);
+}
+
+
+Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n,
                double x, double y, double theta, double phi)
+{
+    Manager=Mgr;
+    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
+    Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
+    Ray ->SetLineColor(n+2);
+    Top->AddNodeOverlap(Ray,1);
+    path = Form("/TOP_1/TrackRayNum%d_1",n);
+
+    Enable(n,x,y,theta,phi);
+
+    cerr << "Track Num "<< n << " is created." << endl;
+}
+
+Trajectory3D::~Trajectory3D()
+{
+
+}
+
+void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 {
     GetVariables* HMS= new GetVariables("HMS.txt");
 
     double C1x = x;
-    double C1y = -y;
+    double C1y = y;
     double C1z = 0.0;
+
+    cerr<< "x = " << x << " ,y = " << y << endl;
 
     double xdiff = HMS-> GetDouble("MWDC2.xPos =")- HMS-> GetDouble("MWDC1.xPos =");
     double ydiff = HMS-> GetDouble("MWDC2.yPos =")- HMS-> GetDouble("MWDC1.yPos =");
@@ -149,7 +181,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, int n,
     double Dist = sqrt(xdiff*xdiff+ydiff*ydiff+zdiff*zdiff);
 
     double C2z = 0.0;
-    double C2x = C1x + theta*Dist;
+    double C2x = C1x + (-theta)*Dist;
     double C2y = C1y + (-phi)*Dist;
 
     //Change to Canvas Coordinates: (x,y,z)->(z,x,y)
@@ -160,7 +192,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, int n,
     tempx=C2x;tempy=C2y;tempz=C2z;
     C2x=tempz; C2y=tempx; C2z=tempy;
 
-    //Now apply transform to these 2 hit signal in 3D canvas
+     //Now apply transform to these 2 hit signal in 3D canvas
     // 1st rotate them according to tilt , then translate with their center position in canvas
 
     //Chamber1
@@ -191,12 +223,12 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, int n,
 
     //We want draw the tracking ray till the boundary of the canvas
     // so compute the ray position on the boundaries
-    double xmin =20;
+    double xmin =0.0;
     double B1x = xmin;
     double B1y = C1y + (C2y-C1y)/(C2x-C1x)*(xmin-C1x);
     double B1z = C1z + (C2z-C1z)/(C2x-C1x)*(xmin-C1x);
 
-    double xmax =580;
+    double xmax =370.0;
     double B2x = xmax;
     double B2y = C2y + (C2y-C1y)/(C2x-C1x)*(xmax-C2x);
     double B2z = C2z + (C2z-C1z)/(C2x-C1x)*(xmax-C2x);
@@ -215,21 +247,14 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, int n,
     r1.SetAngles(Theta-90,Phi, 90,Phi+90,Theta,Phi);
     TGeoTranslation t1(x0, y0,  z0);
     TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1);
-    TGeoTube* TrackRay = new TGeoTube (Form("Trackray Num %d",n), 0.0 ,4.0, Length/10.0);
-    Ray = new TGeoVolume(Form("TrackRay Num %d",n),TrackRay);
-    Ray ->SetLineColor(kBlack);
 
-    Top -> AddNodeOverlap(Ray,1,comb);
+    TGeoPhysicalNode* pn = Manager->MakePhysicalNode(path);
+    pn ->Align(comb, new TGeoTube("Tube",0.0,1.0,Length/2.0));
 }
 
-Trajectory3D::~Trajectory3D()
-{}
-
-/*
-void Trajectory3D::clear()
+void Trajectory3D::Disable()
 {
-  //TrackRay -> SetTubeDimensions(0, 0, TrackRay->GetDz());
-
-  delete[] Ray;
+    TGeoPhysicalNode* pn = Manager->MakePhysicalNode(path);
+    // Or we can use SetTubeDimensions
+    pn -> Align(new TGeoTranslation(0,0,0), new TGeoTube("Tube",0.0,0.0,0.0));
 }
-*/

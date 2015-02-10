@@ -75,19 +75,6 @@ Detector3D::Detector3D()
        // Important: Track order is important :Full tracks must be created 
        // before partial tracks.
 	
-       // First we create full tracks
-       fullTrack[0] = new FullTrajectory3D((char*)"FT1", top, mgr, (char*)"/TOP_1/");
-       fullTrack[1] = new FullTrajectory3D((char*)"FT2", top, mgr, (char*)"/TOP_1/");
-       fullTrack[2] = new FullTrajectory3D((char*)"FT3", top, mgr, (char*)"/TOP_1/");
-       fullTrack[3] = new FullTrajectory3D((char*)"FT4", top, mgr, (char*)"/TOP_1/");
-       fullTrack[4] = new FullTrajectory3D((char*)"FT5", top, mgr, (char*)"/TOP_1/");
-       fullTrack[5] = new FullTrajectory3D((char*)"FT6", top, mgr, (char*)"/TOP_1/");
-       fullTrack[6] = new FullTrajectory3D((char*)"FT7", top, mgr, (char*)"/TOP_1/");
-       fullTrack[7] = new FullTrajectory3D((char*)"FT8", top, mgr, (char*)"/TOP_1/");
-       fullTrack[8] = new FullTrajectory3D((char*)"FT9", top, mgr, (char*)"/TOP_1/");
-       fullTrack[9] = new FullTrajectory3D((char*)"FT10", top, mgr, (char*)"/TOP_1/");
-
-
        // Now we create partial tracks
        partialTrack[0] = new Trajectory3D((char*)"PT1", top, mgr, (char*)"/TOP_1/");
        partialTrack[1] = new Trajectory3D((char*)"PT2", top, mgr, (char*)"/TOP_1/");
@@ -100,11 +87,12 @@ Detector3D::Detector3D()
        partialTrack[8] = new Trajectory3D((char*)"PT9", top, mgr, (char*)"/TOP_1/");	
        partialTrack[9] = new Trajectory3D((char*)"PT10", top, mgr, (char*)"/TOP_1/");		
       */
+      
+      for(int i=0; i<10; i++){
+	TrackList.push_back(new Trajectory3D(top,mgr,i));}
 
        mgr->CloseGeometry();
        top->Raytrace();
-
-
        cout<<"Detector Created!"<<endl;
 }
 
@@ -121,7 +109,7 @@ void Detector3D::ClearTracks()
 
   //  for (itr=Trajectory.begin(); itr!= Trajectory.end(); itr++)
   //  Trajectory.clear();
-  Trajectory.erase(Trajectory.begin(),Trajectory.end());
+  //Trajectory.erase(Trajectory.begin(),Trajectory.end());
   //for (int i=0; i<Trajectory.size();i++)
   //  delete[] Trajectory[i];
 }
