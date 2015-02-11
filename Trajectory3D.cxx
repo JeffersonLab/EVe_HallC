@@ -169,11 +169,12 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 {
     GetVariables* HMS= new GetVariables("HMS.txt");
 
-    double C1x = x;
-    double C1y = y;
+    double C1x = -y;
+    double C1y = -x;
     double C1z = 0.0;
 
     cerr<< "x = " << x << " ,y = " << y << endl;
+    cerr<< "C1x = " << C1x << " ,C1y= " << C1y <<endl;
 
     double xdiff = HMS-> GetDouble("MWDC2.xPos =")- HMS-> GetDouble("MWDC1.xPos =");
     double ydiff = HMS-> GetDouble("MWDC2.yPos =")- HMS-> GetDouble("MWDC1.yPos =");
@@ -181,16 +182,17 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double Dist = sqrt(xdiff*xdiff+ydiff*ydiff+zdiff*zdiff);
 
     double C2z = 0.0;
-    double C2x = C1x + (-theta)*Dist;
-    double C2y = C1y + (-phi)*Dist;
+    double C2x = C1x + (-phi)*Dist;
+    double C2y = C1y + (-theta)*Dist;
 
     //Change to Canvas Coordinates: (x,y,z)->(z,x,y)
     double tempx,tempy,tempz;
     tempx=C1x;tempy=C1y;tempz=C1z;
-    C1x=tempz; C1y=tempx; C1z=tempy;
+    C1x=tempz; C1y=-tempx; C1z=tempy;
+    cerr << "In canvas 1y = " << C1y << " , 1z= " << C1z << endl;
 
     tempx=C2x;tempy=C2y;tempz=C2z;
-    C2x=tempz; C2y=tempx; C2z=tempy;
+    C2x=tempz; C2y=-tempx; C2z=tempy;
 
      //Now apply transform to these 2 hit signal in 3D canvas
     // 1st rotate them according to tilt , then translate with their center position in canvas
@@ -201,11 +203,13 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double C1ypos= HMS-> GetDouble("MWDC1.yPos =");
     double C1zpos= HMS-> GetDouble("MWDC1.zPos =");
 
+    cerr << " Tilt of chamber 1 is : " << C1tilt << endl;
+
     tempx= C1x*cos(C1tilt)-C1z*sin(C1tilt);
     tempz= C1x*sin(C1tilt)+C1z*cos(C1tilt);
 
     C1x= tempx + C1xpos;
-    C1y= tempy + C1ypos;
+    C1y+= C1ypos;
     C1z= tempz + C1zpos;
 
     //Chamber2
@@ -218,7 +222,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     tempz= C2x*sin(C2tilt)+C2z*cos(C2tilt);
 
     C2x= tempx + C2xpos;
-    C2y= tempy + C2ypos;
+    C2y+=  C2ypos;
     C2z= tempz + C2zpos;
 
     //We want draw the tracking ray till the boundary of the canvas
