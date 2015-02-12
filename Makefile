@@ -123,7 +123,7 @@ install:	all
 	cp -p $(USERLIB) $(HOME)/cue/SRC/ana
 
 clean:
-		rm -f *.o *~ $(USERLIB) $(USERDICT).*
+		rm -f *.so *.o *~ $(USERLIB) $(USERDICT).*
 
 realclean:	clean
 		rm -f *.d
