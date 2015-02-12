@@ -46,8 +46,8 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
     paddle -> AddNode(scint,1,transcint);
 
     //Draw PMT on each side
-    TGeoTrd2 *pmtedge = new TGeoTrd2("Edge",T/2.0,T/4.0,H/2.0,T/4.0,L/10.0);
-    TGeoTube *pmttube = new TGeoTube("Tube",0.0, r_PMT , 0.3*length/2.0);
+    TGeoTrd2 *pmtedge __attribute__((unused)) = new TGeoTrd2("Edge",T/2.0,T/4.0,H/2.0,T/4.0,L/10.0);
+    TGeoTube *pmttube __attribute__((unused)) = new TGeoTube("Tube",0.0, r_PMT , 0.3*length/2.0);
 
     TGeoTranslation *t1 = new TGeoTranslation("t1",0,0,-0.15*L);
     t1->RegisterYourself();
