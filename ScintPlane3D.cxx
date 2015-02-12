@@ -115,25 +115,25 @@ void ScintPlane3D::clear()
   }
 }
 
-void ScintPlane3D :: SPHit(int Num, double poshit[], double neghit[])
+void ScintPlane3D :: SPHit(int NumL, int NumR, double poshit[], double neghit[])
 {
    double matchR[16];
    double matchL[16];
 
-   for (Int_t q = 0; q<Num; q++)
+   for (int q = 0; q<NumL; q++)
      {
        matchR[q] = poshit[q];
        RHit(poshit[q]-1);
      }
 
-   for (Int_t q=0;q<Num;q++)
+   for (int q=0;q<NumR;q++)
      {
        matchL[q]= neghit[q];
        LHit(neghit[q]-1);
      }
 
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
+   for (int i=0;i<16;i++) {
+     for (int j=0;j<16;j++) {
        if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
 
 	 BHit(matchR[i]-1);
