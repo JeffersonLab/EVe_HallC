@@ -32,7 +32,7 @@ public:
   void LHit(int numL);
   void RHit(int numR);
   void BHit(int numB);
-  void SPHit(int Num, double poshit[], double neghit[]);
+  void SPHit(int NumL,int NumR, double poshit[], double neghit[]);
   void clear();
   TGeoVolume *ScintPlane;
   //TGeoRotation* scintrot;
