@@ -22,7 +22,7 @@ using namespace std;
 
 ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
                                            double length, double height, double thickness,
-                                           TGeoVolume *paddle, int numPMT /*int rotation */)
+                                           TGeoVolume *paddle, int numPMT)
 {
 
     double r_PMT = 2.0;// Change to use HMS.txt
