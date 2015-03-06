@@ -155,7 +155,6 @@ MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransfo
      for (int i = 0; i<Num; i++)
      {
 	double cn = -(HH*2.0/sqrt(3.))/(Num)*(i) + HH+(LL*sqrt(3.)/3.0);
-	//double cn = -(HH*2.0/sqrt(3.))/(Num)*7.0/2.0 + (HH*2.0/sqrt(3.))/(Num)*(i);
 	if (cn < HH && cn >LL*sqrt(3.)/3.0)
 	{
 	  y1_wires[i] = new TLine(a*0.0+x, b*cn+y, a*LL+x, b*(-LL*sqrt(3.)/3.0+ cn)+y);
@@ -297,7 +296,6 @@ MWDChamber::MWDChamber(char *name, int n, double Height, double width, CStransfo
      for (int i = 0; i<Num; i++)
      {
 	double cn = -(HH*2.0/sqrt(3.))/(Num)*(i) + HH+(LL*sqrt(3.)/3.0);
-	//double cn = -(HH*2.0/sqrt(3.))/(Num)*7.0/2.0 + (HH*2.0/sqrt(3.))/(Num)*(i);
 	if (cn < HH && cn >LL*sqrt(3.)/3.0)
 	{
 	  y1_wires[i] = new TLine(a*0.0+x, b*cn+y, a*LL+x, b*(-LL*sqrt(3.)/3.0+ cn)+y);
@@ -505,11 +503,8 @@ void MWDChamber::Track(double x, double y, int i)
   track_circ[i]->SetY1(CY);
   track_circ[i]->SetR1(0.008);
   track_circ[i]->SetR2(0.008);
-  //track_circ[i]->SetLineColor(kOrange+8);
   track_circ[i]->SetLineColor(1+i);
   track_circ[i]->SetLineWidth(2);
-  //track_circ[i]->SetFillColor(kYellow);
-  //track_circ[i]->SetFillColor(kOrange+0-i);
   track_circ[i]->Draw();
 	
   
