@@ -32,4 +32,4 @@ protected:
 
 };
 
-#endif // ROOT_MWDChamber3D
+#endif
