@@ -160,8 +160,11 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
     TGeoTube* Hittube = new TGeoTube(Form("Hittube %s %s",ChamberName,PlaneName.c_str()),0.0,0.0,0.0);
     HitTube = new TGeoVolume(Form("Hittube.%s.%s",ChamberName,PlaneName.c_str()),Hittube);
     HitTube->SetLineColor(wirecolor+1);
-    WirePlane->AddNodeOverlap(HitTube,1);
-    path = Form("/TOP_1/%s.Chamber_1/%s.%s.WP_1/Hittube.%s.%s_1",ChamberName,ChamberName,PlaneName.c_str(),ChamberName,PlaneName.c_str());
+    //WirePlane->AddNodeOverlap(HitTube,1);
+    Top->AddNodeOverlap(HitTube,1);
+    //path = Form("/TOP_1/%s.Chamber_1/%s.%s.WP_1/Hittube.%s.%s_1",ChamberName,ChamberName,PlaneName.c_str(),ChamberName,PlaneName.c_str());
+    //PN= mgr -> MakePhysicalNode(path);
+    path = Form("/TOP_1/Hittube.%s.%s_1",ChamberName,PlaneName.c_str());
     PN= mgr -> MakePhysicalNode(path);
     //path = Form("Hittube.%s.%s_1",ChamberName,PlaneName.c_str());
     //TGeoPNEntry * pne = new TGeoPNEntry(Form("Hittube.%s.%s_1",ChamberName,PlaneName.c_str()),Form("path_to_Hittube.%s.%s_1",ChamberName,PlaneName.c_str()));

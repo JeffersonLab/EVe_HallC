@@ -68,15 +68,10 @@ Detector3D::Detector3D()
 
       //s2y Scint Plane
       // changed volume size to 60
-      s2yplane = new ScintPlane3D((char*)"s2y",top);
-
-       // In the end we create potential tracks
-       // Important: Track order is important :Full tracks must be created 
-       // before partial tracks.
-      
+      s2yplane = new ScintPlane3D((char*)"s2y",top);    
 
       // There will be 10 tracks for any fixed number of tracks in this code,
-      // The reason for it is after you call CloseGeometry() function, you cannot dynamically change number of TGeoVolume in root.(Although C++ is promitted.)
+      // The reason for it is after you call CloseGeometry() function, you cannot dynamically change number of TGeoVolume in root.
       for(int i=0; i<10; i++){
 	TrackList.push_back(new Trajectory3D(top,mgr,i));}
 
@@ -94,11 +89,4 @@ Detector3D::~Detector3D()
 
 void Detector3D::ClearTracks()
 {	
-  //std::vector<Trajectory3D* >:: iterator itr;
-
-  //  for (itr=Trajectory.begin(); itr!= Trajectory.end(); itr++)
-  //  Trajectory.clear();
-  //Trajectory.erase(Trajectory.begin(),Trajectory.end());
-  //for (int i=0; i<Trajectory.size();i++)
-  //  delete[] Trajectory[i];
 }
