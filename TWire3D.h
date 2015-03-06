@@ -52,6 +52,8 @@ public:
   virtual ~TWire3D();
 
   TGeoVolume *wire;
+  TGeoTube* Wiretube;
+  TGeoCombiTrans* Wirecomb;
 
 };
 

@@ -38,10 +38,10 @@ Detector3D::Detector3D()
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
-    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top);
+    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top, mgr);
 
     // Second MWDC
-    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top);
+    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top, mgr);
 
 
       //test code: check what transformation : translation and rotation did to a box in top volume
@@ -64,7 +64,7 @@ Detector3D::Detector3D()
       s1yplane = new ScintPlane3D((char*)"s1y",top);
       
       //s2x Scint Plane
-       s2xplane = new ScintPlane3D((char*)"s2x",top);
+      s2xplane = new ScintPlane3D((char*)"s2x",top);
 
       //s2y Scint Plane
       // changed volume size to 60

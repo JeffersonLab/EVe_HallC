@@ -142,6 +142,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n)
     Ray ->SetLineColor(n+2);
     Top->AddNodeOverlap(Ray,1);
     path = Form("/TOP_1/TrackRayNum%d_1",n);
+    cerr << "Path for " << n << " th track is "<< path << endl;
 }
 
 
@@ -154,7 +155,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n,
     Ray ->SetLineColor(n+2);
     Top->AddNodeOverlap(Ray,1);
     path = Form("/TOP_1/TrackRayNum%d_1",n);
-
+    cerr << "Path for " << n << " th track is "<< path << endl;
     Enable(n,x,y,theta,phi);
 
     cerr << "Track Num "<< n << " is created." << endl;
