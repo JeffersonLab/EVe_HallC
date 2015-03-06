@@ -28,14 +28,12 @@ class ScintPlane3D {
 public:
   ScintPlane3D(char* splaneName, TGeoVolume* top);
   virtual ~ScintPlane3D();
-  //void paddleHit(int num, double left, double right);
   void LHit(int numL);
   void RHit(int numR);
   void BHit(int numB);
   void SPHit(int NumL,int NumR, double poshit[], double neghit[]);
   void clear();
   TGeoVolume *ScintPlane;
-  //TGeoRotation* scintrot;
 protected:
   int N; // number of paddles
 

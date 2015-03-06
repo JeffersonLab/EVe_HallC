@@ -42,9 +42,6 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
    { /// FIXME: Better use vector to draw the whole plane, may use Volume Assenblies, also fix in ScintPlane3D.h
      paddle[i] = new ScintillatorPaddle3D(splaneName,i,numPaddles,
 					  length, height, thickness,ScintPlane, numPMT);}
-     ///So All Paddles are AddNoded to ScintVolume by calling SinctillatorPaddle3D}
-
-    
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
     double angle= hms->GetDouble(Form("%s.angle =",splaneName));
@@ -57,7 +54,6 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
     // transformation used for AddNode a single ScintPlane3D to top Volume
     TGeoRotation r1;
     TGeoTranslation t1;
-    // TGeoHMatrix TotRot;
     TGeoCombiTrans *comb;
     
     double tilt = hms-> GetDouble(Form("%s.tilt =",splaneName));
@@ -71,7 +67,6 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
     TGeoVolume *SBox = new TGeoVolume(Form("%s.Box",splaneName),Box);
     SBox->AddNode(ScintPlane,1,scintrot);
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
-    //TotRot = scintrot*r1;
     t1.SetTranslation(xpos, ypos, zpos);
     comb = new TGeoCombiTrans(t1, r1); 
     top->AddNodeOverlap(SBox,1,comb);
