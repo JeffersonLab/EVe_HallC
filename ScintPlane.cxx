@@ -32,20 +32,9 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, double
   GetVariables *pmt = new GetVariables(geometry);
   
 
-  //// FIXME:: convert to HMS units
-  double fpaddleH = 0.25;  ///  0.25 ????
-  //double fpaddleL = 0.5625;  /// 0.5625 before -- why these values??
+  
+  double fpaddleH = 0.25;
   int numPMT = pmt->GetInt("Number of paddle PMTs =");
-
-  // cout << horiz << " horiiz" << endl;
-  /*if (horiz == 1) {
-    rot = 1;
-  }
-  else {
-    rot =0;
-    }*/
-
-  /// FIXME:: Conversion between canvas units and actual units goes back and forth. Rotation hard-coded into ScintillatorPaddle class but does not match up with this class - scaling factors need to be fixed
 
   sx0 = cst->transXtoCX(0.0);                                    ; 
   sy0 = cst->transYtoCY(0.0);                                                        ;
@@ -54,40 +43,16 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, double
   
   double CL = cst->transLtoCL(paddle_length);
   double CH = cst->transLtoCL(paddle_height);  
-   
-
-  //sa = CL/fpaddleL;
-  
+ 
   //Consider sxpaddle length is different from sypaddle length
   sa=CL;
   sb = CH/fpaddleH; 
-  /// sa and sb should be removed and left as CL and CH to be read into 
-  /// ScintillatorPaddle -- scaling needs to be fixed in both classes
 
   for (int i=0; i<n ;i++){
     paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl,angle);} 
           title = new TLatex(sx0-0.2*sa, sy0-2.40*sb, name);
           title->SetTextSize(0.03);
-          title->Draw(); 
-  /*if (horiz == 1) {
-    for(int i=0;i<n;i++) {
-      paddle[i] = new ScintillatorPaddle(i, sx0, sy0-i*CH, sa, sb, paddle_length, numPMT, rot);} 
-          title = new TLatex(sx0+sa*0.35-sa*0.3,sy0+sb*0.35, name);
-          title->SetTextSize(0.03);
-          title->Draw();
-    
-  }
-  else {
-    for(int i=0;i<n;i++) {
-      paddle[i] = new ScintillatorPaddle(i, sx0, sy0+i*CH, sa, sb, paddle_length, numPMT, rot);
-    }
-          title = new TLatex(sy0, sx0-1.5*sb, name);
-          title->SetTextSize(0.03);
-          title->Draw();  
-	  }*/
-  
-  
-       
+          title->Draw();        
   
   for(int i = 0; i<MAX_TRACK_NUM; i++)track_circ[i] = new TEllipse(0,0,0);
    
@@ -99,18 +64,6 @@ ScintPlane::~ScintPlane()
 {
   // Destructor
 }
-
-/* paddleHit() will turn on PMTs for paddle <num> if the TDC data in <left> and <right> correspond to a good hit.
- */ // -- OLD hit method
-void ScintPlane::paddleHit(int num, double left, double right, double y)
-{
-  if (num<N)
-    {
-      paddle[num]->hit(left,right,y);
-    }
-  
-}
-
 
 /// NEW hit method used for tdchits. Needs to be implemented in ScintPlane3D
 void ScintPlane::paddleLeftHit(int padn)

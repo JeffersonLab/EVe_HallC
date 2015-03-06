@@ -26,7 +26,6 @@ class ScintPlane {
  public: 
   ScintPlane(char *name, int n, double plength, double pheight,double PMTlength,  CStransform *trans, double ang);
   virtual ~ScintPlane();
-  void paddleHit(int num, double left, double right, double y);
   void paddleLeftHit(int padn);
   void paddleRightHit(int pad);
   void paddleBothHit(int padnum);
