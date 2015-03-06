@@ -77,8 +77,7 @@ WireChamber::~WireChamber(){}
 void WireChamber::WireHit(string planeName, int wireNum)
 {
       
-      wirePlanes.find(planeName)->second.WireHit(wireNum);  
-      //wirePlanes[planeName].WireHit(wireNum);
+      wirePlanes.find(planeName)->second.WireHit(wireNum);
 }
 
 void WireChamber::clear()
@@ -109,10 +108,7 @@ void WireChamber::Track(double x, double y, int i){
   track_circ[i]->SetY1(CY);
   track_circ[i]->SetR1(0.008);
   track_circ[i]->SetR2(0.008);
-  //track_circ[i]->SetLineColor(kOrange+8);
   track_circ[i]->SetLineColor(1+i);
   track_circ[i]->SetLineWidth(2);
-  //track_circ[i]->SetFillColor(kYellow);
-  //track_circ[i]->SetFillColor(kOrange+0-i);
   track_circ[i]->Draw();
   }

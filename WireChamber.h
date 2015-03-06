@@ -10,7 +10,6 @@
 #include "TEllipse.h"
 #include "CStransform.h"
 #include "EVe_DB.h"
-//#include "HMS.txt"
 #include "WirePlane2D.h"
 
 #include <map>
