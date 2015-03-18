@@ -9,7 +9,8 @@ SRC  =   ScintillatorPaddle.cxx ScintPlane.cxx GetVariables.cxx \
 	 ScintillatorPaddle3D.cxx ScintPlane3D.cxx\
          WirePlane3D.cxx WireChamber3D.cxx \
          Detector3D.cxx WirePlane.cxx \
-	 CStransform.cxx Road.cxx MultiRoads.cxx Track.cxx TWire3D.cxx Trajectory3D.cxx \
+	 CStransform.cxx Track.cxx\
+         TWire3D.cxx Trajectory3D.cxx \
 	 EVe.cxx WireChamber.cxx WirePlane2D.cxx
 
 # Name of your package. 

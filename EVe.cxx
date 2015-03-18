@@ -107,11 +107,11 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    // Here are check buttons for options 
    TGButtonGroup *fGroupFrame2 = new TGButtonGroup(fMainFrame,"Options", kVerticalFrame);
    fGroupFrame2->SetLayoutBroken(kTRUE);
-   fTextButtonRoads = new TGCheckButton(fGroupFrame2,"Show Roads");
-   fGroupFrame2->AddFrame(fTextButtonRoads, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonRoads->MoveResize(8,24,106,20);
+   //  fTextButtonRoads = new TGCheckButton(fGroupFrame2,"Show Roads");
+   //fGroupFrame2->AddFrame(fTextButtonRoads, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   //fTextButtonRoads->MoveResize(8,24,106,20);
 
-   fTextButtonRoads->SetState(kButtonDown);
+   //fTextButtonRoads->SetState(kButtonDown);
 
    fTextButtonTrackProj = new TGCheckButton(fGroupFrame2,"Tr. Projections");
    fGroupFrame2->AddFrame(fTextButtonTrackProj, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
@@ -182,13 +182,13 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
 
    EventNumber = 0;
    cst = new CStransform(2.2, 0.5, 0.3);
-   umrd = new MultiRoads(cst);
+   //umrd = new MultiRoads(cst);
    for (int q = 0; q<MAX_ROADS_NUM; q++) utr[q] = new Track(cst);
    
-   vmrd = new MultiRoads(cst);
+   //vmrd = new MultiRoads(cst);
    for (int q = 0; q<MAX_ROADS_NUM; q++) vtr[q] = new Track(cst);
 
-   xmrd = new MultiRoads(cst);
+   //xmrd = new MultiRoads(cst);
    for (int q = 0; q<MAX_ROADS_NUM; q++) xtr[q] = new Track(cst);
 
    fTextButtonNext->Connect("Clicked()", "EVe", this, "doNext()");

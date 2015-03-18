@@ -12,8 +12,6 @@
 #pragma link C++ class Detector3D;
 #pragma link C++ class WirePlane;
 #pragma link C++ class CStransform;
-#pragma link C++ class Road;
-#pragma link C++ class MultiRoads;
 #pragma link C++ class Track;
 #pragma link C++ class TWire3D;
 #pragma link C++ class Trajectory3D;

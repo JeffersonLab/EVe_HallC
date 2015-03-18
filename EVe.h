@@ -27,7 +27,6 @@
 #include "WirePlane2D.h"
 #include "WireChamber.h"
 #include "CStransform.h"
-#include "MultiRoads.h"
 #include "Track.h"
 #include "ScintPlane.h"
 #include "Detector3D.h"
@@ -77,7 +76,6 @@ private:
   TGRadioButton *fTextButtonWires;
   TGCheckButton *fTextButtonTrackProj;
   TGCheckButton *fTextButtonTrack;
-  TGCheckButton *fTextButtonRoads;
   TGNumberEntry *fNumberEntry1;
 
   WireChamber *mwdc1;
@@ -109,13 +107,11 @@ private:
   CStransform *cst;
   CStransform *s2x_cst;
   CStransform *s2y_cst;
-  MultiRoads *umrd;
-  Track *utr[MAX_ROADS_NUM];
-  MultiRoads *vmrd;
-  Track *vtr[MAX_ROADS_NUM];
-  MultiRoads *xmrd;
-  Track *xtr[MAX_ROADS_NUM];
 
+  Track *vtr[MAX_ROADS_NUM];
+  Track *utr[MAX_ROADS_NUM];
+  Track *xtr[MAX_ROADS_NUM];
+  
   TTree *t1;
 
   /// MWDC1 nhits
