@@ -359,11 +359,7 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-
-
-   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
-   vector<string> planeNames(&PN[0],&PN[0]+6);
-   
+  
    GetVariables *vars = new GetVariables("HMS.txt");
    double canvasL = vars ->GetDouble("canvasL =");
    double CMWDC1X = vars ->GetDouble("canvas.MWDC1.x =");
@@ -373,16 +369,10 @@ void EVe::CreateWires()
 
    CStransform *mwdc1_cst = new CStransform(canvasL, CMWDC1X, CMWDC1Y);
    CStransform *mwdc2_cst = new CStransform(canvasL, CMWDC2X, CMWDC2Y);
-
-   GetVariables *HMSvars = new GetVariables("HMS.txt");
    
-   mwdc1 = new WireChamber((char*)"MWDC1",planeNames,
-	      HMSvars->GetDouble("MWDC1.Height ="),
-              HMSvars->GetDouble("MWDC1.Width ="),mwdc1_cst);
+   mwdc1 = new WireChamber((char*)"MWDC1",mwdc1_cst);
 
-   mwdc2 = new WireChamber((char*)"MWDC2",planeNames,
-	      HMSvars->GetDouble("MWDC2.Height ="),
-              HMSvars->GetDouble("MWDC2.Width ="),mwdc2_cst);
+   mwdc2 = new WireChamber((char*)"MWDC2",mwdc2_cst);
  
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
    

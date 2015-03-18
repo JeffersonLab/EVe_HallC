@@ -14,9 +14,15 @@
 
 using namespace std;
 
-WireChamber:: WireChamber(char* chamberName,vector<string> planeNames,
-                 double Height,double Width,CStransform *trans){
+WireChamber:: WireChamber(char* chamberName,CStransform *trans){
    cst=trans;
+
+   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
+   vector<string> planeNames(&PN[0],&PN[0]+6);
+  
+   GetVariables *HMSvars = new GetVariables("HMS.txt");
+   double Height = HMSvars->GetDouble(Form("%s.Height =",chamberName));
+   double Width = HMSvars->GetDouble(Form("%s.Width =",chamberName));
 
    double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Width)/2;
    double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;

@@ -22,8 +22,7 @@ using namespace std;
 
 class WireChamber{
 public:
-    WireChamber (char* chamberName, vector<string> planeNames,
-                 double Height, double Width, CStransform *trans);
+    WireChamber (char* chamberName, CStransform *trans);
 
     virtual ~WireChamber();
     void ChamberHit();
