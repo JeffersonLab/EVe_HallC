@@ -182,13 +182,11 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
 
    EventNumber = 0;
    cst = new CStransform(2.2, 0.5, 0.3);
-   //umrd = new MultiRoads(cst);
+  
    for (int q = 0; q<MAX_ROADS_NUM; q++) utr[q] = new Track(cst);
-   
-   //vmrd = new MultiRoads(cst);
+      
    for (int q = 0; q<MAX_ROADS_NUM; q++) vtr[q] = new Track(cst);
 
-   //xmrd = new MultiRoads(cst);
    for (int q = 0; q<MAX_ROADS_NUM; q++) xtr[q] = new Track(cst);
 
    fTextButtonNext->Connect("Clicked()", "EVe", this, "doNext()");
@@ -425,6 +423,54 @@ void EVe::CreateWires()
    c3->Update();
 }
 
+/*
+void EVe::SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int size)
+      {
+        //Double_t *tmp = (Double_t*) malloc(size*sizeof(Double_t));  (unsigned int)
+        Double_t *tmp = (Double_t*) malloc(size*sizeof(Double_t));          
+               
+        if( tmp == NULL ) {
+           cerr << Form("-!-> (%s:%d) Can't allocate memory for bname '%s'",
+                          __FILE__, __LINE__, bname) << endl;
+           exit(1);
+        } else {
+	  //ver 1 , uninitialized numbers	   
+	  T->SetBranchAddress( bname, &tmp);
+           *addr = tmp;
+          
+	  //ver2 , after hit still get 0 for all numbers, negtive index, no red or green shown
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //T->SetBranchAddress( bname, &tmp);
+          //*addr = tmp;
+          
+          //ver3 ,same as ver2
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //*addr = tmp;
+          //T->SetBranchAddress( bname, &tmp);
+          
+           //ver4 ,same as ver2 before call hitfunc, show event seg fault
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //T->SetBranchAddress( bname, &tmp);
+          //addr = &tmp;
+
+          //ver5, unsigned int to int, other use ver2, same as ver2
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //T->SetBranchAddress( bname, &tmp);
+          //*addr = tmp;
+          
+        }
+        //cerr << " Size of the scintarray is " << size << " , and size of *tmp is " << sizeof(*tmp) << " , and size of *addr is " << sizeof(*addr) << endl;
+        for (int i=0; i<size ; i++)
+	  cerr << "Value for "<< bname << "  " << i << "th number of addr is " << (*addr)[i] << endl;
+        // cerr << "Now the " << bname << " has " << (double) (*addr) << " hitted." << endl ;
+      }
+
+*/
+
 void EVe::initRun(char *filename)
 {
   cout << "Reading file " << endl;
@@ -503,37 +549,64 @@ void EVe::initRun(char *filename)
    /// Scint Planes
    /// TDC hits for all planes -- pos = left PMT, neg = right PMT
 
+   GetVariables* HMS = new GetVariables("HMS.txt");
+
    /// S1X
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
-   t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
-   t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+   //t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
+   //t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+   
+   
+   SetBranchAddress(t1, (const char*)"H.hod.1x.negtdchits",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
+   SetBranchAddress(t1, (const char*)"H.hod.1x.postdchits",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
+   
+   for(int i=0;i<Ndata_H_hod_1x_negtdchits; i++)
+     cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
+   for(int i=0;i<Ndata_H_hod_1x_postdchits; i++)
+     cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
   
+   /*
    ///S1Y
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
-   t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
-   t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+   //t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
+   //t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+   SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
+   SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
+    
+   
+   /* for(int i=0;i<16; i++)
+     cerr << "After Call the number of " << i << "th of 1ynegtdchits is " << H_hod_1y_negtdchits[i] << endl;
+    for(int i=0;i<16; i++)
+    cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;*/ 
 
-
+   /*
    ///S2X
    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
-   t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
-   t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);
-
+   //t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
+   //t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);  
+   SetBranchAddress(t1, (const char*)"H.hod.2x.negtdchits",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
+   SetBranchAddress(t1, (const char*)"H.hod.2x.postdchits",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
+   /*
+    for(int i=0;i<16; i++)
+     cerr << "After Call the number of " << i << "th of 2xnegtdchits is " << H_hod_2x_negtdchits[i] << endl;
+    for(int i=0;i<16; i++)
+    cerr << "After Call the number of " << i << "th of 2xpostdchits is " << H_hod_2x_postdchits[i] << endl; */
+   /*
    ///S2Y
    t1->SetBranchAddress( "Ndata.H.hod.2y.negtdchits", &Ndata_H_hod_2y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2y.postdchits", &Ndata_H_hod_2y_postdchits);
-   t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
-   t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
-
-   /// FIXME:: Can implement FULL TRACKS if momenta are known
-  /* TRACKS -- 
-#if FULL_TRACK > 0
-/// insert proper momenta
-#endif
-  */
+   //t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
+   //t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
+   SetBranchAddress(t1, (const char*)"H.hod.2y.negtdchits",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
+   SetBranchAddress(t1, (const char*)"H.hod.2y.postdchits",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
+   /*
+   for(int i=0;i<16; i++)
+     cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
+   for(int i=0;i<16; i++)
+   cerr << "After Call the number of " << i << "th of 2ypostdchits is " << H_hod_2y_postdchits[i] << endl;*/
 
 } 
 
@@ -821,9 +894,16 @@ void EVe::DoDraw(int event)
    s2Y->clear();
 
     s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
+
+    for(int i=0;i<16; i++)
+      cerr << "After hit the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
+    for(int i=0;i<16; i++)
+      cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
+    
+    /*
     s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
     s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
-    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");
+    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");*/
 
     //****** Now we draw Trajectories through detectors
     	 
@@ -949,6 +1029,7 @@ void EVe::DoDraw(int event)
     detector->s2yplane->clear();
  
     detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
+   
     detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
     detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
     detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");
