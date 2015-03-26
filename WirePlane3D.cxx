@@ -259,8 +259,7 @@ WirePlane3D::~WirePlane3D()
 }
 
 void WirePlane3D::Wire3DHit(int Num)
-{
-     
+{   
     int Fac = Num/SPARSIFY;
     /*
     if(Fac<=WireNum)

@@ -69,7 +69,7 @@ WireChamber3D::~WireChamber3D(){}
 void WireChamber3D::WireHit3D(string PlaneName, int WireNum)
 {
       
-       TGeoTube *tube= (TGeoTube *) WirePlanes.find(PlaneName) ->second.Wires[(int) (WireNum/SPARSIFY)]->wire->GetShape();
+  //TGeoTube *tube= (TGeoTube *) WirePlanes.find(PlaneName) ->second.Wires[(int) (WireNum/SPARSIFY)]->wire->GetShape();
        WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
 }
 
