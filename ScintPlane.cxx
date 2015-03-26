@@ -16,9 +16,10 @@
 
 using namespace std;
 
-ScintPlane::ScintPlane(char* splaneName, CStransform *trans)
+ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
 {
- 
+   
+  splaneName = SplaneName;
   // Setup size and number of paddles, converting plenth & pheight [m] into pixels
    cst = trans;
    GetVariables *hms = new GetVariables("HMS.txt");
@@ -125,7 +126,7 @@ void ScintPlane::Track(double x, double y, int i)
 
 }
 
-void ScintPlane :: SPHit2D(int NumL, int NumR, double poshit[], double neghit[], char* splaneName)
+void ScintPlane :: SPHit2D(int NumL, int NumR, double poshit[], double neghit[])
 {
    GetVariables *hms = new GetVariables("HMS.txt");
    // PN is number of paddles for a single scintplane

@@ -554,12 +554,12 @@ void EVe::initRun(char *filename)
    /// S1X
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
-   //t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
-   //t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+   t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
+   t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
    
    
-   SetBranchAddress(t1, (const char*)"H.hod.1x.negtdchits",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
-   SetBranchAddress(t1, (const char*)"H.hod.1x.postdchits",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.1x.negtdchits",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.1x.postdchits",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
    
    for(int i=0;i<Ndata_H_hod_1x_negtdchits; i++)
      cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
@@ -893,7 +893,7 @@ void EVe::DoDraw(int event)
    s2X->clear();
    s2Y->clear();
 
-    s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
+    s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
 
     for(int i=0;i<16; i++)
       cerr << "After hit the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
@@ -901,9 +901,9 @@ void EVe::DoDraw(int event)
       cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
     
     /*
-    s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
-    s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
-    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");*/
+    s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+    s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
+    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);*/
 
     //****** Now we draw Trajectories through detectors
     	 
