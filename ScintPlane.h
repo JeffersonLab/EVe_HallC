@@ -30,6 +30,7 @@ class ScintPlane {
   void paddleRightHit(int pad);
   void paddleBothHit(int padnum);
   void Track(double x, double y, int i);
+  void SPHit2D(int NumL, int NumR, double poshit[], double neghit[], char* splaneName);
   void clear();
   
 

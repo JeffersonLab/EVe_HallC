@@ -121,3 +121,37 @@ void ScintPlane::Track(double x, double y, int i)
   track_circ[i]->Draw();
 
 }
+
+void ScintPlane :: SPHit2D(int NumL, int NumR, double poshit[], double neghit[], char* splaneName)
+{
+   GetVariables *hms = new GetVariables("HMS.txt");
+   // PN is number of paddles for a single scintplane
+   int PN = hms->GetInt(Form("%s.PN =",splaneName));
+
+   double matchR[PN];
+   double matchL[PN];
+
+   for (int q = 0; q<NumR; q++)
+     {
+       matchR[q] = neghit[q];
+       paddleRightHit(neghit[q]-1);
+     }
+
+   for (int q=0;q<NumL;q++)
+     {
+       matchL[q]= poshit[q];
+       paddleLeftHit(poshit[q]-1);
+     }
+
+   for (int i=0;i<PN;i++) {
+     for (int j=0;j<PN;j++) {
+       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
+
+	 paddleBothHit(matchR[i]-1);
+       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
+	 paddleBothHit(matchL[i]-1);
+       }
+     }  
+     matchR[i]=0;
+     matchL[i]=0;}
+ }

@@ -816,135 +816,17 @@ void EVe::DoDraw(int event)
       {
 	
         mwdc2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
-      } 
- 
-   double matchR[16];
-   double matchL[16];
+      }  
 
    s1Y->clear();
    s1X->clear();
    s2X->clear();
    s2Y->clear();
-	
-   ///S1X
 
-   for (Int_t q = 0; q<Ndata_H_hod_1x_negtdchits; q++)
-     {
-       matchR[q] = H_hod_1x_negtdchits[q];
-       s1X->paddleRightHit(H_hod_1x_negtdchits[q]-1);
-       
-
-     }
-
-   for (Int_t q=0;q<Ndata_H_hod_1x_postdchits;q++)
-     {
-     
-       matchL[q]= H_hod_1x_postdchits[q];
-       s1X->paddleLeftHit(H_hod_1x_postdchits[q]-1);
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 
-	 s1X->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s1X->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-   ///S1Y
-
-   cerr << "new event" << endl;
-   cerr << Form("Number is %d",Ndata_H_hod_1y_negtdchits) << endl;
-   for (int q = 0; q<Ndata_H_hod_1y_negtdchits; q++)
-     {
-       matchR[q] = H_hod_1y_negtdchits[q];
-       s1Y->paddleRightHit(H_hod_1y_negtdchits[q]-1);
-       cerr << Form("%f th paddle of s1y Rhit",H_hod_1y_negtdchits[q]) << endl;
-
-     }
-   for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
-     {
-  
-       matchL[q]= H_hod_1y_postdchits[q];
-       s1Y->paddleLeftHit(H_hod_1y_postdchits[q]-1);
-       cerr << Form("%f th paddle of s1y Lhit",H_hod_1y_postdchits[q]) << endl;
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 s1Y->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s1Y->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-   /// S2X PLANE
-   for (Int_t q = 0; q<Ndata_H_hod_2x_negtdchits; q++)
-     {
-       
-       matchR[q] = H_hod_2x_negtdchits[q];
-       s2X->paddleRightHit(H_hod_2x_negtdchits[q]-1);
-       
-     }
-   
-   for (Int_t q=0;q<Ndata_H_hod_2x_postdchits;q++)
-     {
-     
-       matchL[q]= H_hod_2x_postdchits[q];
-       s2X->paddleLeftHit(H_hod_2x_postdchits[q]-1);
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 
-	 s2X->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s2X->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-   /// S2Y PLANE
-   for (Int_t q = 0; q<Ndata_H_hod_2y_negtdchits; q++)
-     {
-       
-       matchR[q] = H_hod_2y_negtdchits[q];
-       s2Y->paddleRightHit(H_hod_2y_negtdchits[q]-1);
-       
-     }
-   
-   for (Int_t q=0;q<Ndata_H_hod_2y_postdchits;q++)
-     {
-     
-       matchL[q]= H_hod_2y_postdchits[q];
-       s2Y->paddleLeftHit(H_hod_2y_postdchits[q]-1);
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 
-	 s2Y->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s2Y->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
+    s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
+    s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
+    s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
+    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");
 
     //****** Now we draw Trajectories through detectors
     	 
