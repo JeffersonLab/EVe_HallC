@@ -58,7 +58,6 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
 	 y2=-W/2;
 	 z2=-H/2+H*(1-fac);
 	 Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R, WirePlane, n));
-	 // cerr << "fac th 0.0 = " << fac << "\n";
        }
    }
 
@@ -72,12 +71,10 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
          y2=W/2-W*fac;
          z2=H/2;
          Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane, n));
-	 // cerr << "fac th 90.0 = " << fac << "\n";
-         //cerr << "x1 = " << x1 << "\n";
        }
    }
-
-    else if(Angle>0.0 && Angle<90.0)
+   else if(fabs(Ang)<atan(H/W)){
+   if(Angle>0.0 && Angle<90.0)
     {
        d=H+W*tan(Ang);
        // cerr << "d = " << d << " ,b+a*tan(th) =" << b+a*tan(th) << "\n";
@@ -149,6 +146,80 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
 	//cerr << "Draw Wire.\n";
        }
    }
+   }
+   
+   else {
+    
+    if(Angle>0.0)
+    {
+       d=W+H/tan(Ang);
+       for(int  n=0; n<WireNum; n++)
+       {
+	   fac=((double)n/(double)WireNum);
+
+           if((d*fac)<(H/tan(Ang)))
+           {
+               y1=W/2;
+               z1=H/2-d*fac*tan(Ang);
+               y2=W/2-d*fac;
+               z2=H/2;
+           }
+           else if((W-d*fac)<0)
+           {
+               y1=W/2-d*fac+H/tan(Ang);
+               z1=-H/2;
+               y2=-W/2;
+               z2=H/2-(d*fac-W)*tan(Ang);
+           }
+           else
+           {
+               y1=W/2-d*fac+H/tan(Ang);
+               z1=-H/2;
+               y2=-W/2-d*fac;
+               z2=H/2;
+           }
+           Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane, n));
+       }
+   }
+
+   else if (Angle<0.0)
+   {
+       Ang=-Ang;
+       d=W+H/tan(Ang);
+
+       for(int  n=0; n<WireNum; n++)
+       {
+	   fac=((double)n/(double)WireNum);
+
+           if((d*fac-H/tan(Ang))<0)
+           {
+	       y1=W/2;
+               z1=-H/2+(d*fac)*tan(Ang);
+               y2=W/2-d*fac;
+               z2=-H/2;
+           }
+           else if((d*fac-W)>0)
+           {
+	       y2=-W/2;
+               z2=-H/2+(d*fac-W)*tan(Ang);
+               y1= W/2-d*fac+H/tan(Ang);
+               z1=H/2;
+           }
+           else
+           {
+               y1=W/2-d*fac;
+               z1=-H/2;
+               y2=W/2-d*fac+H/tan(Ang);
+               z2=H/2;
+           }
+        Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane,n));
+	//cerr << "Draw Wire.\n";
+       }
+     }
+     } 
+
+     
+     
 
    cerr << "WirePlane " << PlaneName << " is created." << endl;
     
