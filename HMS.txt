@@ -63,7 +63,7 @@ MWDC1.yPos = 0.0
 MWDC1.zPos = 0.0
 MWDC1.Tilt = 0.0
 
-MWDC1.x.WireAngle = 89.5
+MWDC1.x.WireAngle = 80.0
 MWDC1.x.NumWires = 113
 MWDC1.x.Offset = 0.0
 MWDC1.x.Dist = 0.0

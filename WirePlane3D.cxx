@@ -175,7 +175,7 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
            {
                y1=W/2-d*fac+H/tan(Ang);
                z1=-H/2;
-               y2=-W/2-d*fac;
+               y2=W/2-d*fac;
                z2=H/2;
            }
            Wires.push_back(new TWire3D(Angle,y1,z1,y2,z2,R,WirePlane, n));
