@@ -54,7 +54,7 @@ WireChamber:: WireChamber(char* chamberName,vector<string> planeNames,
           Height, Width,
           hmsVars->GetDouble(Form("%s.%s.WireAngle =", chamberName, planeNames[i].c_str())),
           hmsVars->GetInt(Form("%s.%s.NumWires =",  chamberName, planeNames[i].c_str())),
-          i+1 ,/* I'm using 'i' to set the wire color (last arg) so each
+          i+2 ,/* I'm using 'i' to set the wire color (last arg) so each
              * plane is assigned a different color */
           cst ,
           hmsVars->GetDouble(Form("%s.%s.Offset =",  chamberName, planeNames[i].c_str())),

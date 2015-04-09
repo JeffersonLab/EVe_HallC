@@ -161,9 +161,11 @@ void WirePlane3D::Wire3DHit(int Num)
     int Fac = Num/SPARSIFY;
     if(Fac<=WireNum)
     {
-       Wires[Fac]->wire->SetLineColor(wirecolor);
+      //Wires[Fac]->wire->SetLineColor(wirecolor);
        TGeoTube* tube= (TGeoTube*) Wires[Fac]->wire->GetShape();
        tube->SetTubeDimensions(0, 10*WIRE3DRADIUS, tube->GetDz());
+       Wires[Fac]->wire->SetLineColor(wirecolor+1);
+       
     } else {
       cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/SPARSIFY", Num, Fac, WireNum) << endl;
     }
