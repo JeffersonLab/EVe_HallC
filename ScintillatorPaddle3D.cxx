@@ -11,7 +11,6 @@
  
 
 #include "ScintillatorPaddle3D.h"
-#include "EVe_DB.h"
 #include "TMath.h"
 #include <cstring>
 #include <cstdio>

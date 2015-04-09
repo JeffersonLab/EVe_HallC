@@ -18,7 +18,6 @@
 #include "TGeoSphere.h"
 #include "TWire3D.h"
 #include "GetVariables.h"
-#include "EVe_DB.h"
 #include "TGeoMatrix.h"
 
 #include <map>
