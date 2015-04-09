@@ -9,13 +9,14 @@
 #include "TLine.h"
 #include "TEllipse.h"
 #include "CStransform.h"
-#include "EVe_DB.h"
 #include "WirePlane2D.h"
 
 #include <map>
 #include <string>
 #include <cstring>
 #include <vector>
+
+#define MAX_TRACK_NUM 77
 
 using namespace std;
 

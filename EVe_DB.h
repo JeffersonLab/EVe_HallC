@@ -42,87 +42,64 @@
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the second
-const double MWDC2_z = 0.81222; // [m]
+//const double MWDC2_z = 0.81222; // [m]
 
 
 
 // s1x-plane variables
-        ///PMTlength
-        const double PMTlength=0.2936;
-
-	/// number of paddles
-	const int s1x_PN  = 16;
-	
-	/// Paddle length
-	const double s1x_length = 0.755;
-
-	/// Paddle height
-	const double s1x_height = 0.0753;
-
-	/// Distance between the begining of the first chamber and 
-	/// the beginning of the s1x scintillation plane;
-	const double s1x_z = 1.29753;
+//	const double s1x_z = 1.29753;
 	 
 	
 
 // s1y-plane variables
 
-	/// number of paddles
-	const int s1y_PN  = 10;
-
-	/// Paddle length
-	const double s1y_length = 1.2;
-
-	/// Paddle height
-	const double s1y_height = 0.0753;
-
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the s1y scintillation plane;
-	const double s1y_z = 1.49443;
+//	const double s1y_z = 1.49443;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the s2x scintillation plane;
-const double s2x_z = 3.50743;
+//const double s2x_z = 3.50743;
 
 	/// Distance between the begining of the first chamber and 
 	/// the beginning of the s2y scintillation plane;
-const double s2y_z = 3.70433;
+//const double s2y_z = 3.70433;
 
 // X-projection variables
 
 	/// Distance between the begining of the first chamber and 
 	/// the X1-plane
-	const double x1_dist = 0.0; 
+//	const double x1_dist = 0.0; 
 
 	/// Distance between the begining of the first chamber and 
 	/// the X1p-plane
-	const double x1p_dist = 0.0064;
+//	const double x1p_dist = 0.0064;
 
 	/// Distance between the begining of the first chamber and 
 	/// the X2-plane
-	const double x2_dist = 0.8122;//0.838675;
+//	const double x2_dist = 0.8122;//0.838675;
 
 	/// Distance between the begining of the first chamber and 
 	/// the X2p-plane
-	const double x2p_dist = 0.812284;//0.832775;
+//	const double x2p_dist = 0.812284;//0.832775;
 
 // UV-projection variables
 	
 	/// Distance between the begining of the first chamber and 
 	/// the U1-plane
-	const double u1_dist = 0.0128;
+//	const double u1_dist = 0.0128;
 
 	/// Distance between the begining of the first chamber and 
 	/// the V1-plane
-	const double v1_dist = 0.0192;
+//	const double v1_dist = 0.0192;
 
 	/// Distance between the begining of the first chamber and 
 	/// the U2-plane
-	const double u2_dist = 0.825; // 0.805225;
+//	const double u2_dist = 0.825; // 0.805225;
 
 	/// Distance between the begining of the first chamber and 
 	/// the V2-plane
-	const double v2_dist = 0.8314; //0.799325;
+//	const double v2_dist = 0.8314; //0.799325;
 
 
 
@@ -130,24 +107,24 @@ const double s2y_z = 3.70433;
 
 	/// Distance between the begining of the first chamber and 
 	/// the Y1-plane
-const double y1_dist = 0.028775;
+//const double y1_dist = 0.028775;
 
 	/// Distance between the begining of the first chamber and 
 	/// the Y1p-plane
-const double y1p_dist = 0.035175;
+//const double y1p_dist = 0.035175;
 
 	/// Distance between the begining of the first chamber and 
 	/// the Y2-plane
-	const double y2_dist = 0.840975;
+//	const double y2_dist = 0.840975;
 
 	/// Distance between the begining of the first chamber and 
 	/// the Y2p-plane
-	const double y2p_dist = 0.847375;
+//	const double y2p_dist = 0.847375;
 
 // Planar view variables
-
+/*
 	/// Canvas length equivalent in meters
-const double canvas_length = 5.0; // 4.35
+//const double canvas_length = 5.0; // 4.35
 
 	/// Position of the 1. MWDC inside a canvas in pixels
 	const double canvas_MWDC1_posx = 0.3; 
@@ -165,7 +142,9 @@ const double canvas_s1x_posy = 0.5;
 const double canvas_s1y_posx = 0.84; 
 const double canvas_s1y_posy = 0.5;
 
+*/
 
+/*
 // 3D view variables
 	
 ///  This variable is needed for FullTrajectory3D, and is left in to be used as ///  an example while still allowing the code to compile.
@@ -209,15 +188,17 @@ const double canvas_s1y_posy = 0.5;
 	const double s1y_paddle_thickness = 1.067; //[cm]
 	const double s1y_tilt  = 10.0; // [deg]
 
+
+*/
 // Technical Variables for internal puposes of ev. display
 /// FIXME:: Not quite sure why the following constants need to exist	
 
 	/// Maximum number of paddles in the scin. plane
-	const int MAX_PADDLE_NUM =  100; 
+//	const int MAX_PADDLE_NUM =  100; 
 
-	const int MAX_ROADS_NUM =  500;
-	const int MAX_TRACK_NUM =  77;
-	const int MAX_HITS_NUM = 100;
+//	const int MAX_ROADS_NUM =  500;
+//	const int MAX_TRACK_NUM =  77;
+//	const int MAX_HITS_NUM = 100;
 
 
 #endif

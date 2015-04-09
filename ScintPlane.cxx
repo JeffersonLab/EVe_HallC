@@ -16,26 +16,28 @@
 
 using namespace std;
 
-ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, double PMTlength, CStransform *trans, double ang)
+ScintPlane::ScintPlane(char* splaneName, CStransform *trans)
 {
  
-  // Converting plenth & pheight [m] into pixels
-
-  cst = trans;
-  N = n;
-  paddle_length = plength;
-  paddle_height = pheight;
-  PMTl=cst->transLtoCL(PMTlength);
-  //horiz = horizontal;
-  angle=ang;
-  std::string geometry = "HMS.txt";
-  GetVariables *pmt = new GetVariables(geometry);
+  // Setup size and number of paddles, converting plenth & pheight [m] into pixels
+   cst = trans;
+   GetVariables *hms = new GetVariables("HMS.txt");
+   
+   // Get Values used in construct n paddles for a single ScintPlane
+   int numPMT = hms->GetInt("Number of paddle PMTs =");
+   
+   N = hms-> GetInt(Form("%s.PN =",splaneName));
   
-
+   paddle_length = hms ->GetDouble(Form("%s.PaddleLength =",splaneName))/100.0;
+   paddle_height = hms ->GetDouble(Form("%s.PaddleHeight =",splaneName))/100.0;
   
-  double fpaddleH = 0.25;
-  int numPMT = pmt->GetInt("Number of paddle PMTs =");
+   double PMTlength = hms -> GetDouble ("PMTlength =");
+   PMTl = cst->transLtoCL(PMTlength);
 
+   angle = hms -> GetDouble(Form("%s.angle =",splaneName));
+   cerr << "Angle for " << splaneName << " is " << angle;
+  
+  //below calculate and draw all paddles for a single scintplane
   sx0 = cst->transXtoCX(0.0);                                    ; 
   sy0 = cst->transYtoCY(0.0);                                                        ;
     double cx0= - cst->transLtoCL(paddle_length/2.0);
@@ -46,11 +48,12 @@ ScintPlane::ScintPlane(char *name, int n, double plength, double pheight, double
  
   //Consider sxpaddle length is different from sypaddle length
   sa=CL;
+  double fpaddleH = 0.25;
   sb = CH/fpaddleH; 
 
-  for (int i=0; i<n ;i++){
-    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl,angle);} 
-          title = new TLatex(sx0-0.2*sa, sy0-2.40*sb, name);
+  for (int i=0; i<N ;i++){
+    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl, angle);} 
+          title = new TLatex(sx0-0.2*sa, sy0-2.40*sb, splaneName);
           title->SetTextSize(0.03);
           title->Draw();        
   

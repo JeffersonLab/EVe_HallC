@@ -36,7 +36,8 @@
 #include <TGFileDialog.h>
 #include <TStyle.h>
 
-
+#define MAX_ROADS_NUM 500
+#define MAX_HITS_NUM 100
 
 class EVe{
   RQ_OBJECT("EVe")

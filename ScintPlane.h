@@ -20,11 +20,13 @@
 #include "CStransform.h"
 #include "TEllipse.h"
 #include "GetVariables.h"
-#include "EVe_DB.h"
+
+#define MAX_PADDLE_NUM 100
+#define MAX_TRACK_NUM 77
 
 class ScintPlane {
  public: 
-  ScintPlane(char *name, int n, double plength, double pheight,double PMTlength,  CStransform *trans, double ang);
+  ScintPlane(char* splaneName, CStransform *trans);
   virtual ~ScintPlane();
   void paddleLeftHit(int padn);
   void paddleRightHit(int pad);
