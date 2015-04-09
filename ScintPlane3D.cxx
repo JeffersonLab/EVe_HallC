@@ -110,10 +110,14 @@ void ScintPlane3D::clear()
   }
 }
 
-void ScintPlane3D :: SPHit(int NumL, int NumR, double poshit[], double neghit[])
+void ScintPlane3D :: SPHit(int NumL, int NumR, double poshit[], double neghit[], char* splaneName)
 {
-   double matchR[16];
-   double matchL[16];
+   GetVariables *hms = new GetVariables("HMS.txt");
+   // PN is number of paddles for a single scintplane
+   int PN = hms->GetInt(Form("%s.PN =",splaneName));
+
+   double matchR[PN];
+   double matchL[PN];
 
    for (int q = 0; q<NumL; q++)
      {
@@ -127,8 +131,8 @@ void ScintPlane3D :: SPHit(int NumL, int NumR, double poshit[], double neghit[])
        LHit(neghit[q]-1);
      }
 
-   for (int i=0;i<16;i++) {
-     for (int j=0;j<16;j++) {
+   for (int i=0;i<PN;i++) {
+     for (int j=0;j<PN;j++) {
        if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
 
 	 BHit(matchR[i]-1);

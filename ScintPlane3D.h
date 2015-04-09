@@ -23,6 +23,7 @@
 #include <cstring>
 #include "TGeoManager.h"
 
+
 class ScintPlane3D {
 
 public:
@@ -31,7 +32,7 @@ public:
   void LHit(int numL);
   void RHit(int numR);
   void BHit(int numB);
-  void SPHit(int NumL,int NumR, double poshit[], double neghit[]);
+  void SPHit(int NumL,int NumR, double poshit[], double neghit[], char* planeName);
   void clear();
   TGeoVolume *ScintPlane;
 protected:
