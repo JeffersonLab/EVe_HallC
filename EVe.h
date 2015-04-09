@@ -24,7 +24,6 @@
 #include "TFile.h"
 
 #include "WirePlane.h"
-//#include "MWDChamber.h"
 #include "WirePlane2D.h"
 #include "WireChamber.h"
 #include "CStransform.h"

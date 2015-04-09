@@ -9,7 +9,6 @@
 #pragma link C++ class ScintillatorPaddle3D;
 #pragma link C++ class ScintPlane;
 #pragma link C++ class ScintPlane3D;
-#pragma link C++ class MWDChamber;
 #pragma link C++ class Detector3D;
 #pragma link C++ class WirePlane;
 #pragma link C++ class CStransform;
