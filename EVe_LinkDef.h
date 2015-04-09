@@ -17,6 +17,5 @@
 #pragma link C++ class Track;
 #pragma link C++ class TWire3D;
 #pragma link C++ class Trajectory3D;
-#pragma link C++ class FullTrajectory3D;
 #pragma link C++ class EVe;
 #endif
