@@ -70,24 +70,13 @@ Detector3D::Detector3D()
       // changed volume size to 60
       s2yplane = new ScintPlane3D((char*)"s2y",top);
 
-      /*
        // In the end we create potential tracks
        // Important: Track order is important :Full tracks must be created 
        // before partial tracks.
-	
-       // Now we create partial tracks
-       partialTrack[0] = new Trajectory3D((char*)"PT1", top, mgr, (char*)"/TOP_1/");
-       partialTrack[1] = new Trajectory3D((char*)"PT2", top, mgr, (char*)"/TOP_1/");
-       partialTrack[2] = new Trajectory3D((char*)"PT3", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[3] = new Trajectory3D((char*)"PT4", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[4] = new Trajectory3D((char*)"PT5", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[5] = new Trajectory3D((char*)"PT6", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[6] = new Trajectory3D((char*)"PT7", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[7] = new Trajectory3D((char*)"PT8", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[8] = new Trajectory3D((char*)"PT9", top, mgr, (char*)"/TOP_1/");	
-       partialTrack[9] = new Trajectory3D((char*)"PT10", top, mgr, (char*)"/TOP_1/");		
-      */
       
+
+      // There will be 10 tracks for any fixed number of tracks in this code,
+      // The reason for it is after you call CloseGeometry() function, you cannot dynamically change number of TGeoVolume in root.(Although C++ is promitted.)
       for(int i=0; i<10; i++){
 	TrackList.push_back(new Trajectory3D(top,mgr,i));}
 
