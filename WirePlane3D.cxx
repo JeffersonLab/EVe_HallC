@@ -30,7 +30,7 @@ using namespace std;
    double Angle = hms->GetDouble(Form("%s.%s.WireAngle =",ChamberName,PlaneName.c_str()));
 
    double Ang= Angle*3.14159/180.0;
-   TGeoBBox *WP= new TGeoBBox(Form("%s.%s.WirePlane",ChamberName,PlaneName.c_str()),R, W/2, H/2);
+   TGeoBBox *WP= new TGeoBBox(Form("%s.%s.WirePlane",ChamberName,PlaneName.c_str()),1.0*R, W/2, H/2);
    WirePlane = new TGeoVolume (Form("%s.%s.WP",ChamberName,PlaneName.c_str()),WP);
 
    // Below is similar to WirePlane2D classes
@@ -149,7 +149,7 @@ using namespace std;
        }
    }
     TGeoTranslation* WPtrans= new TGeoTranslation(-Thickness/2.0+PlaneDist,0,0);
-    WireChamber3D->AddNode(WirePlane,1,WPtrans);
+    WireChamber3D->AddNodeOverlap(WirePlane,1,WPtrans);
 }
 
 WirePlane3D::~WirePlane3D()
@@ -163,7 +163,7 @@ void WirePlane3D::Wire3DHit(int Num)
     {
       //Wires[Fac]->wire->SetLineColor(wirecolor);
        TGeoTube* tube= (TGeoTube*) Wires[Fac]->wire->GetShape();
-       tube->SetTubeDimensions(0, 10*WIRE3DRADIUS, tube->GetDz());
+       tube->SetTubeDimensions(0, 5.0*WIRE3DRADIUS, tube->GetDz());
        Wires[Fac]->wire->SetLineColor(wirecolor+1);
        
     } else {

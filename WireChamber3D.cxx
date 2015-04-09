@@ -54,7 +54,7 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     double y0 = hms-> GetDouble(Form("%s.yPos =",ChamberName));
     double z0 = hms-> GetDouble(Form("%s.zPos =",ChamberName));
     
-    cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
+    //cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
     t1.SetTranslation(x0+CT/2.0, y0, z0);
@@ -68,7 +68,12 @@ WireChamber3D::~WireChamber3D(){}
 
 void WireChamber3D::WireHit3D(string PlaneName, int WireNum)
 {
-      WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
+      
+       TGeoTube *tube= (TGeoTube *) WirePlanes.find(PlaneName) ->second.Wires[(int) (WireNum/SPARSIFY)]->wire->GetShape();
+       cerr << "The Plane " << PlaneName << "'s hit wire has radius(before hit): " << tube->GetRmax() << endl;
+     
+       WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
+       cerr << "The Plane " << PlaneName << "'s hit wire now has radius(after hit): " << tube->GetRmax() << endl; 
 }
 
 void WireChamber3D::clear()

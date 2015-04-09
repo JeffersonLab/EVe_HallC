@@ -27,11 +27,10 @@ public:
     virtual ~WirePlane3D();
     void Wire3DHit(int Num);
     void clear();
-
+    vector<TWire3D*> Wires;
 protected:
     int WireNum;
     int wirecolor;
-    vector<TWire3D*> Wires;
     TGeoVolume* WirePlane;
 };
 
