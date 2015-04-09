@@ -34,7 +34,7 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
    Chamber3D->AddNode(LeftWall,1,new TGeoTranslation(0,(W+WT)/2.0,0));
    Chamber3D->AddNode(LeftWall,2,new TGeoTranslation(0,-(W+WT)/2.0,0));
 
-   TGeoBBox *ULWall = new TGeoBBox("ULWall",CT/2.0,(W+WT)/2.0,WT/2.0);
+   TGeoBBox *ULWall = new TGeoBBox("ULWall",CT/2.0,W/2.0+WT,WT/2.0);
    TGeoVolume *UpperWall = new TGeoVolume("UpperWall",ULWall);
    UpperWall->SetLineColor(kBlack);
    Chamber3D->AddNode(UpperWall,1, new TGeoTranslation(0,0,(H+WT)/2.0));
