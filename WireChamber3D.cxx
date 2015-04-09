@@ -70,10 +70,7 @@ void WireChamber3D::WireHit3D(string PlaneName, int WireNum)
 {
       
        TGeoTube *tube= (TGeoTube *) WirePlanes.find(PlaneName) ->second.Wires[(int) (WireNum/SPARSIFY)]->wire->GetShape();
-       cerr << "The Plane " << PlaneName << "'s hit wire has radius(before hit): " << tube->GetRmax() << endl;
-     
        WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
-       cerr << "The Plane " << PlaneName << "'s hit wire now has radius(after hit): " << tube->GetRmax() << endl; 
 }
 
 void WireChamber3D::clear()

@@ -230,17 +230,27 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
     mgr = Mgr;
     TGeoTube* Hittube = new TGeoTube(Form("Hittube %s %s",ChamberName,PlaneName.c_str()),0.0,0.0,0.0);
     HitTube = new TGeoVolume(Form("Hittube.%s.%s",ChamberName,PlaneName.c_str()),Hittube);
-    HitTube->SetLineColor(wirecolor+1);
-    //WirePlane->AddNodeOverlap(HitTube,1);
-    Top->AddNodeOverlap(HitTube,1);
-    //path = Form("/TOP_1/%s.Chamber_1/%s.%s.WP_1/Hittube.%s.%s_1",ChamberName,ChamberName,PlaneName.c_str(),ChamberName,PlaneName.c_str());
-    //PN= mgr -> MakePhysicalNode(path);
+    HitTube->SetLineColor(wirecolor+1); //make hittube different color for different track
+       
+    // Add HitTube to top Volume, which makes all HitTube shown in x=0 plane, wrong
+    //printf("%s\n",HitTube->GetNode(Form("Hittube.%s.%s",ChamberName,PlaneName.c_str()))->GetPath());
+    Top->AddNodeOverlap(HitTube,1);    
     path = Form("/TOP_1/Hittube.%s.%s_1",ChamberName,PlaneName.c_str());
     PN= mgr -> MakePhysicalNode(path);
+    
+    
+
+    //use path through WirePlane, so HitTube stay in WirePlane it belongs, but segfault when run
+    //WirePlane->AddNodeOverlap(HitTube,1);
+    //path = Form("/TOP_1/%s.Chamber_1/%s.%s.WP_1/Hittube.%s.%s_1",ChamberName,ChamberName,PlaneName.c_str(),ChamberName,PlaneName.c_str());
+    //PN= mgr -> MakePhysicalNode(path);
     //path = Form("Hittube.%s.%s_1",ChamberName,PlaneName.c_str());
+    
+    //Below using PNEntry, setting path to WirePlane, segfault when change to 3D display
     //TGeoPNEntry * pne = new TGeoPNEntry(Form("Hittube.%s.%s_1",ChamberName,PlaneName.c_str()),Form("path_to_Hittube.%s.%s_1",ChamberName,PlaneName.c_str()));
     //pne -> SetPhysicalNode(PN);
-    cerr << "Path for hit wire is " << path << endl;
+    //cerr << "Path for hit wire is " << path << endl;
+    //WireChamber3D->AddNodeOverlap(WirePlane,1,WPtrans);
     
 }
 
