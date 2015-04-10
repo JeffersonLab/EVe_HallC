@@ -150,7 +150,7 @@ void ScintPlane::clear()
     track_circ[i]->SetFillColor(kWhite);
     track_circ[i]->Draw();
     
-    delete track_index[i];
+    //delete track_index[i];
   }
 }
 

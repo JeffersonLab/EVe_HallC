@@ -320,6 +320,6 @@ void ScintillatorPaddle::clear()
 {
   plineR->SetFillColor(38);
   plineL->SetFillColor(38);
-  delete yindicator;
-  yindicator = new TArrow(0.0,0.0,0.0,0.0, 0.01, "<|>");
+  //delete yindicator;
+  //yindicator = new TArrow(0.0,0.0,0.0,0.0, 0.01, "<|>");
 }
