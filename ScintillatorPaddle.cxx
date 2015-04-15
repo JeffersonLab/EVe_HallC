@@ -23,12 +23,15 @@ void rotransline(double ang, double* x, double* y, double sx0, double sy0,int si
 
 ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, double b, double cx0,double cy0, int PMTn, double PMTlength, double ang) 
 {
-
-  // x and y are the coords of the lower left edge of the object
+  // In parameter of ScintillatorPaddle:
+  // index is the index of the single Paddle in a ScintPlane
+  // x and y are the coords of the center of the ScintPlane in the canvas
   // a is the horizontal size of the PMT
   // b is the vertical size of the PMT
-  // length is the length (horizontal) of the scintillator
+  // cx0,cy0 is the coordinate of lower left corner of the paddle with this index
   // PMTn is the number of PMTs on the scintillator paddle (1 or 2)
+  // ang is the angle of the scintplane, ang = 0 got horizontal plane while ang = 90 vertical plane
+
   sx0 = x;
   sy0 = y;
   sa = a;
@@ -40,18 +43,22 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
   cx0=cx0-PMTlength;
   cy0=cy0;
   pl=PMTlength;
-
-  /// transformed paddle height as in corresponding comment in ScintPlane
-     
-  //consider sypaddle length is different from sxpaddle length
+    
+    //consider sypaddle length is different from sxpaddle length
+    // xL ,yL are the coordinates of endpoints of Left PMT
+  
     double xL[7] = {pl*0.0 + cx0 ,pl*0.42857 + cx0 ,pl + cx0 , pl +cx0 , pl*0.42857 + cx0 , pl*0.0 + cx0 , pl*0.0 + cx0 };
-    double yL[7] = {b*0.175 + cy0, b*0.175 + cy0, b*0.25 + cy0, b*0.0 + cy0, b*0.075 + cy0, b*0.075 + cy0, b*0.175 + cy0};
+    double yL[7] = {b*0.7 + cy0, b*0.7 + cy0, b + cy0, b*0.0 + cy0, b*0.3 + cy0, b*0.3 + cy0, b*0.7 + cy0};
+
+    // xR ,yR are the coordinates of endpoints of Right PMT
 
     double xR[7] = {a+pl + cx0 ,a+pl*(2-0.42857) + cx0 ,a+2*pl + cx0 ,a+2*pl + cx0 ,a+pl*(2-0.42857) + cx0 , a+pl + cx0 , a+pl + cx0 };
-    double yR[7] = {b*0.25 + cy0 , b*0.175 + cy0, b*0.175 + cy0, b*0.075 + cy0, b*0.075 + cy0, b*0.0 + cy0, b*0.25 + cy0};
+    double yR[7] = {b + cy0 , b*0.7 + cy0, b*0.7 + cy0, b*0.3 + cy0, b*0.3 + cy0, b*0.0 + cy0, b + cy0};
+    
+    // xscint, yscint are the coordinates of endpoints of scintillator paddle
 
     double xscint[5] = {pl + cx0, a+pl + cx0, a+pl + cx0, pl + cx0, pl + cx0};
-    double yscint[5] = {b*0.0 + cy0, b*0.0 + cy0, b*0.25 + cy0,b*0.25 + cy0, b*0.0 + cy0};
+    double yscint[5] = {b*0.0 + cy0, b*0.0 + cy0, b + cy0,b + cy0, b*0.0 + cy0};
 
 
     double* xl=xL;
@@ -65,6 +72,8 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     double yT=b*0.125+cy0;
     double* tx=& xT;
     double* ty=& yT;
+
+    // rotate angle (in unit degree) to setup horizontal or vertical scintplane
     
     rotranspaddle (angle, xl, yl, xr, yr, xs, ys, sx0,sy0);
     rotransline(angle, tx, ty,sx0,sy0,1);

@@ -37,26 +37,28 @@ ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
 
    angle = hms -> GetDouble(Form("%s.angle =",splaneName));
    cerr << "Angle for " << splaneName << " is " << angle;
-  
   //below calculate and draw all paddles for a single scintplane
+  // sx0,sy0 is the coordinate of the sicntplane in canvas
   sx0 = cst->transXtoCX(0.0);                                    ; 
   sy0 = cst->transYtoCY(0.0);                                                        ;
-    double cx0= - cst->transLtoCL(paddle_length/2.0);
-    double cy0=  cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
+   
+  // cx0,cy0 is the coordinate of the lower left corner of the 1st paddle 
+  double cx0= - cst->transLtoCL(paddle_length/2.0);
+  double cy0=  cst->transLtoCL(paddle_height*(N)/2.0 - paddle_height);
   
   double CL = cst->transLtoCL(paddle_length);
   double CH = cst->transLtoCL(paddle_height);  
- 
+
+     
   //Consider sxpaddle length is different from sypaddle length
-  sa=CL;
-  double fpaddleH = 0.25;
-  sb = CH/fpaddleH; 
+  sa = CL;
+  sb = CH; 
 
   for (int i=0; i<N ;i++){
-    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl, angle);} 
-          title = new TLatex(sx0-0.2*sa, sy0-2.40*sb, splaneName);
+    paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl,angle);} 
+          title = new TLatex(sx0-0.8*sa, sy0-11.5*sb, splaneName);
           title->SetTextSize(0.03);
-          title->Draw();        
+          title->Draw(); 
   
   for(int i = 0; i<MAX_TRACK_NUM; i++)track_circ[i] = new TEllipse(0,0,0);
    
@@ -111,6 +113,7 @@ void ScintPlane::clear()
   }
 }
 
+/// Track function draws track circle to indicate particle position at scintplane
 void ScintPlane::Track(double x, double y, int i)
 {
   double CX =  cst->transXtoCX(x); 
