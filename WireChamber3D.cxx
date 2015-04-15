@@ -57,8 +57,12 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     //cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
-    t1.SetTranslation(x0+CT/2.0, y0, z0);
-    comb = new TGeoCombiTrans(t1, r1);
+    
+    if(x0 > 0)
+      t1.SetTranslation(x0, y0, z0);
+    else
+      t1.SetTranslation(-300.0-x0, y0, z0);
+    comb = new TGeoCombiTrans(t1, r1);  
     top->AddNodeOverlap(Chamber3D,1,comb);
 
     cout<<"Chamber 3D is created!"<<endl;

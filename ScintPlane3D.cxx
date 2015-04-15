@@ -67,8 +67,14 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
     TGeoVolume *SBox = new TGeoVolume(Form("%s.Box",splaneName),Box);
     SBox->AddNode(ScintPlane,1,scintrot);
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
-    t1.SetTranslation(xpos, ypos, zpos);
-    comb = new TGeoCombiTrans(t1, r1); 
+
+    //TotRot = scintrot*r1;
+    if(xpos > 0)
+      t1.SetTranslation(xpos, ypos, zpos);
+    else
+      t1.SetTranslation(-300.0-xpos, ypos, zpos);
+    comb = new TGeoCombiTrans(t1, r1);
+
     top->AddNodeOverlap(SBox,1,comb);
 
     cout<<"Scintillation Plane 3D is created!"<<endl;

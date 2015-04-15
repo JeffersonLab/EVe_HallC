@@ -32,7 +32,10 @@ Detector3D::Detector3D()
       mgr = new TGeoManager("Geom", "Composite shape example");
       TGeoMedium *medium = 0;
       top = mgr->MakeBox("TOP",medium,600,300,300);
-      mgr->SetTopVolume(top); 
+      mgr->SetTopVolume(top);
+
+      TGeoBBox *top2box = new TGeoBBox("Top2box", 300, 300, 300);
+      top2 = new TGeoVolume ("TOP2",top2box);
 
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
@@ -45,7 +48,8 @@ Detector3D::Detector3D()
 
       //test code: check what transformation : translation and rotation did to a box in top volume
       
-      TGeoBBox *box = new TGeoBBox("Box",5, 5, 5); 
+      //TGeoBBox *box = new TGeoBBox("Box", 5, 5, 5); 
+      TGeoBBox *box = new TGeoBBox("Box", 28.9, 39.05, 22.23); 
       TGeoTranslation boxt(0,0,0);
       TGeoRotation boxr;
       double ang = 0;
@@ -53,11 +57,13 @@ Detector3D::Detector3D()
       TGeoCombiTrans *boxCT= new TGeoCombiTrans(boxt,boxr); 
       TGeoVolume *Box = new TGeoVolume ("Box", box);
       Box ->SetLineColor(kBlack);
+
       top -> AddNode(Box,1,boxCT);
       
 
       // s1x - Scintillation Plane     
       s1xplane = new ScintPlane3D((char*)"s1x",top);
+
 
       // s1y - Scintillation Plane  
       s1yplane = new ScintPlane3D((char*)"s1y",top);
@@ -69,6 +75,16 @@ Detector3D::Detector3D()
       // changed volume size to 60
       s2yplane = new ScintPlane3D((char*)"s2y",top);    
 
+      top -> AddNodeOverlap(Box,1,boxCT);
+
+      //test code: check top2 volume's origin
+      TGeoTranslation top2t(-300.0, 0.0, 0.0);
+      TGeoRotation top2r;
+      double top2ang= 180.0;
+      top2r.SetAngles(90.0, top2ang, 90.0, 90.0+ top2ang, 0.0, 0.0);
+      TGeoCombiTrans *top2CT = new TGeoCombiTrans(top2t, top2r);
+      top -> AddNodeOverlap(top2, 1, top2CT);
+      
       // There will be 10 tracks for any fixed number of tracks in this code,
       // The reason for it is after you call CloseGeometry() function, you cannot dynamically change number of TGeoVolume in root.
       for(int i=0; i<10; i++){

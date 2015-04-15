@@ -54,6 +54,7 @@ public:
   vector<Trajectory3D* > TrackList;
 
   TGeoVolume *top;
+  TGeoVolume *top2;
 
 };
 
