@@ -206,8 +206,14 @@ Rs.angle = 90.0
 Rs.PN = 29
 
 /// Position and tilt of the center of the E-plane
+Rs.xpos = 200.00
+Rs.ypos = 0.0
+Rs.zpos = 0.0
 Rs.PaddleLength = 32.5
 Rs.PaddleHeight = 4.00
+Rs.PaddleThickness = 1.00
+Rs.tilt = 0.0
+
 // Lsplane variables
 //s2y paddles' angle
 
@@ -217,5 +223,10 @@ Ls.angle = 90.0
 Ls.PN = 29
 
 /// Position and tilt of the center of the E-plane
+Ls.xpos = -200.0
+Ls.ypos = 0.0
+Ls.zpos = 0.0
 Ls.PaddleLength = 32.5
 Ls.PaddleHeight = 4.00
+Ls.PaddleThickness = 1.00
+Ls.tilt = 0.0

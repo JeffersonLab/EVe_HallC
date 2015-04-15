@@ -46,10 +46,8 @@ public:
   TGeoManager *mgr;
   WireChamber3D *MWDC1;
   WireChamber3D *MWDC2;
-  ScintPlane3D *s1xplane;
-  ScintPlane3D *s1yplane;
-  ScintPlane3D *s2xplane;
-  ScintPlane3D *s2yplane;
+  ScintPlane3D *Lsplane;
+  ScintPlane3D *Rsplane;
 
   vector<Trajectory3D* > TrackList;
 

@@ -58,24 +58,13 @@ Detector3D::Detector3D()
       TGeoVolume *Box = new TGeoVolume ("Box", box);
       Box ->SetLineColor(kBlack);
 
-      top -> AddNode(Box,1,boxCT);
-      
-
-      // s1x - Scintillation Plane     
-      s1xplane = new ScintPlane3D((char*)"s1x",top);
-
-
-      // s1y - Scintillation Plane  
-      s1yplane = new ScintPlane3D((char*)"s1y",top);
-      
-      //s2x Scint Plane
-      s2xplane = new ScintPlane3D((char*)"s2x",top);
-
-      //s2y Scint Plane
-      // changed volume size to 60
-      s2yplane = new ScintPlane3D((char*)"s2y",top);    
-
       top -> AddNodeOverlap(Box,1,boxCT);
+
+      //Right Scintillation Plane  
+      Rsplane = new ScintPlane3D((char*)"Rs",top);
+ 
+      //Left Scint Plane
+      Lsplane = new ScintPlane3D((char*)"Ls",top2);
 
       //test code: check top2 volume's origin
       TGeoTranslation top2t(-300.0, 0.0, 0.0);
