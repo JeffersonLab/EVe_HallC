@@ -78,8 +78,10 @@ private:
   TGCheckButton *fTextButtonTrack;
   TGNumberEntry *fNumberEntry1;
 
-  WireChamber *mwdc1;
-  WireChamber *mwdc2;
+  WireChamber *RDC1;
+  WireChamber *RDC2;
+  WireChamber *LDC1;
+  WireChamber *LDC2; 
 
   ScintPlane *Ls;
   ScintPlane *Rs;

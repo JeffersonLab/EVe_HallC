@@ -12,13 +12,18 @@ canvasL = 5.0
 canvas.Rs.x = 0.27
 canvas.Rs.y = 0.8
 
+canvas.RDC1.x = 0.27
+canvas.RDC1.y = 0.18
+canvas.RDC2.x = 0.7
+canvas.RDC2.y = 0.18
 
 canvas.Ls.x = 0.7
 canvas.Ls.y = 0.8
-canvas.MWDC1.x = 0.27
-canvas.MWDC1.y = 0.18
-canvas.MWDC2.x = 0.7
-canvas.MWDC2.y = 0.18
+
+canvas.LDC1.x = 0.27
+canvas.LDC1.y = 0.475
+canvas.LDC2.x = 0.7
+canvas.LDC2.y = 0.475
 
 //Planar view track Calculation data
 MWDC2.z = 0.81222
@@ -28,6 +33,7 @@ s2x.z = 3.50743
 s2y.z = 3.70433
 
 //Projection view variables
+
 //x projection view
 x1.dist = 0.0
 x1p.dist = 0.0064
@@ -45,6 +51,149 @@ y1.dist = 0.028775
 y1p.dist = 0.035175
 y2.dist = 0.840975
 y2p.dist = 0.847375
+
+//RDC1 stats
+RDC1.Height = 74.9
+RDC1.Width = 204.44
+RDC1.WallThickness = 19.7
+
+RDC1.x.WireAngle = 0.0
+RDC1.x.NumWires = 113
+RDC1.x.Offset = 0.0
+RDC1.x.Dist = 0.0
+
+RDC1.y.WireAngle = 90.0
+RDC1.y.NumWires = 52
+RDC1.y.Offset = 0.0
+RDC1.y.Dist = 0.64
+
+RDC1.u.WireAngle = -15.0
+RDC1.u.NumWires = 107
+RDC1.u.Offset = 0.0
+RDC1.u.Dist = 1.28
+
+RDC1.v.WireAngle = 15.0
+RDC1.v.NumWires = 107
+RDC1.v.Offset = 0.0
+RDC1.v.Dist = 1.92
+
+RDC1.yp.WireAngle = 90.0
+RDC1.yp.NumWires = 52
+RDC1.yp.Offset = 0.005
+RDC1.yp.Dist = 2.8775
+
+RDC1.xp.WireAngle = 0.0
+RDC1.xp.NumWires = 113
+RDC1.xp.Offset = 0.005
+RDC1.xp.Dist = 3.5175
+
+//RDC2 stats
+
+RDC2.Height = 74.9
+RDC2.Width = 204.44
+RDC2.WallThickness = 19.7
+
+RDC2.x.WireAngle = 0.0
+RDC2.x.NumWires = 113
+RDC2.x.Offset = 0.0
+RDC2.x.Dist = 0.0
+
+RDC2.y.WireAngle = 90.0
+RDC2.y.NumWires = 52
+RDC2.y.Offset = 0.0
+RDC2.y.Dist = 0.64
+
+RDC2.u.WireAngle = -15.0
+RDC2.u.NumWires = 107
+RDC2.u.Offset = 0.0
+RDC2.u.Dist = 1.28
+
+RDC2.v.WireAngle = 15.0
+RDC2.v.NumWires = 107
+RDC2.v.Offset = 0.0
+RDC2.v.Dist = 1.92
+
+RDC2.yp.WireAngle = 90.0
+RDC2.yp.NumWires = 52
+RDC2.yp.Offset = 0.005
+RDC2.yp.Dist = 2.8775
+
+RDC2.xp.WireAngle = 0.0
+RDC2.xp.NumWires = 113
+RDC2.xp.Offset = 0.005
+RDC2.xp.Dist = 3.5175
+
+//LDC1 stats
+LDC1.Height = 74.9
+LDC1.Width = 204.44
+LDC1.WallThickness = 19.7
+
+LDC1.x.WireAngle = 0.0
+LDC1.x.NumWires = 113
+LDC1.x.Offset = 0.0
+LDC1.x.Dist = 0.0
+
+LDC1.y.WireAngle = 90.0
+LDC1.y.NumWires = 52
+LDC1.y.Offset = 0.0
+LDC1.y.Dist = 0.64
+
+LDC1.u.WireAngle = -15.0
+LDC1.u.NumWires = 107
+LDC1.u.Offset = 0.0
+LDC1.u.Dist = 1.28
+
+LDC1.v.WireAngle = 15.0
+LDC1.v.NumWires = 107
+LDC1.v.Offset = 0.0
+LDC1.v.Dist = 1.92
+
+LDC1.yp.WireAngle = 90.0
+LDC1.yp.NumWires = 52
+LDC1.yp.Offset = 0.005
+LDC1.yp.Dist = 2.8775
+
+LDC1.xp.WireAngle = 0.0
+LDC1.xp.NumWires = 113
+LDC1.xp.Offset = 0.005
+LDC1.xp.Dist = 3.5175
+
+//LDC2 stats
+
+LDC2.Height = 74.9
+LDC2.Width = 204.44
+LDC2.WallThickness = 19.7
+
+LDC2.x.WireAngle = 0.0
+LDC2.x.NumWires = 113
+LDC2.x.Offset = 0.0
+LDC2.x.Dist = 0.0
+
+LDC2.y.WireAngle = 90.0
+LDC2.y.NumWires = 52
+LDC2.y.Offset = 0.0
+LDC2.y.Dist = 0.64
+
+LDC2.u.WireAngle = -15.0
+LDC2.u.NumWires = 107
+LDC2.u.Offset = 0.0
+LDC2.u.Dist = 1.28
+
+LDC2.v.WireAngle = 15.0
+LDC2.v.NumWires = 107
+LDC2.v.Offset = 0.0
+LDC2.v.Dist = 1.92
+
+LDC2.yp.WireAngle = 90.0
+LDC2.yp.NumWires = 52
+LDC2.yp.Offset = 0.005
+LDC2.yp.Dist = 2.8775
+
+LDC2.xp.WireAngle = 0.0
+LDC2.xp.NumWires = 113
+LDC2.xp.Offset = 0.005
+LDC2.xp.Dist = 3.5175
+
 ///PMTlength
 PMTlength = 0.1
 

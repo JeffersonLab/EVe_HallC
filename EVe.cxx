@@ -357,53 +357,39 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-  
-   GetVariables *vars = new GetVariables("HMS.txt");
-   double canvasL = vars ->GetDouble("canvasL =");
-   double CMWDC1X = vars ->GetDouble("canvas.MWDC1.x =");
-   double CMWDC1Y = vars ->GetDouble("canvas.MWDC1.y =");
-   double CMWDC2X = vars ->GetDouble("canvas.MWDC2.x =");
-   double CMWDC2Y = vars ->GetDouble("canvas.MWDC2.y =");
-
-   CStransform *mwdc1_cst = new CStransform(canvasL, CMWDC1X, CMWDC1Y);
-   CStransform *mwdc2_cst = new CStransform(canvasL, CMWDC2X, CMWDC2Y);
    
-   mwdc1 = new WireChamber((char*)"MWDC1",mwdc1_cst);
+   //below are data used for positioning Chambers2D view in canvas, can be changed in BH.txt
+   GetVariables *vars = new GetVariables("BH.txt");
+   double canvasL = vars ->GetDouble("canvasL =");
+   double RDC1X = vars ->GetDouble("canvas.RDC1.x =");
+   double RDC1Y = vars ->GetDouble("canvas.RDC1.y =");
+   double RDC2X = vars ->GetDouble("canvas.RDC2.x =");
+   double RDC2Y = vars ->GetDouble("canvas.RDC2.y =");
+   
+   double LDC1X = vars ->GetDouble("canvas.LDC1.x =");
+   double LDC1Y = vars ->GetDouble("canvas.LDC1.y =");
+   double LDC2X = vars ->GetDouble("canvas.LDC2.x =");
+   double LDC2Y = vars ->GetDouble("canvas.LDC2.y =");
 
-   mwdc2 = new WireChamber((char*)"MWDC2",mwdc2_cst);
  
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
 
-   /*
+   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
+   vector<string> planeNames(&PN[0],&PN[0]+6);
 
-   GetVariables *ScintVars = new GetVariables("HMS.txt");
+   CStransform *RDC1_cst = new CStransform(canvasL, RDC1X, RDC1Y);
+   CStransform *RDC2_cst = new CStransform(canvasL, RDC2X, RDC2Y);
 
-   double orient1 =ScintVars->GetDouble("1st Scint Array Rotation =");
-   double orient2 = ScintVars->GetDouble("2nd Scint Array Rotation =");
-   int nPaddles1 = ScintVars->GetInt("1st Scint Array NPaddles =");   
-   int nPaddles2 = ScintVars->GetInt("2nd Scint Array NPaddles =");
+   CStransform *LDC1_cst = new CStransform(canvasL, LDC1X, LDC1Y);
+   CStransform *LDC2_cst = new CStransform(canvasL, LDC2X, LDC2Y);
    
-   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.475);
-   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.8);
-   
-   if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvasL, Cs2xX, Cs2xY);
-     s2y_cst = new CStransform(canvasL, Cs2yX, Cs2yY);
-   }
+   RDC1 = new WireChamber((char*)"RDC1",RDC1_cst);
 
-   s1X = new ScintPlane((char*)"s1x", s1x_cst);
+   RDC2 = new WireChamber((char*)"RDC2",RDC2_cst);
    
-   s1Y = new ScintPlane((char*)"s1y", s1y_cst);
-   
-   if (NScintPlanes == 4) {
-     s2X = new ScintPlane((char*)"s2x",  s2x_cst);
-     
-     s2Y = new ScintPlane((char*)"s2y",  s2y_cst);
-   }
+   LDC1 = new WireChamber((char*)"LDC1",LDC1_cst);
 
-   */
-
-   GetVariables *ScintVars = new GetVariables("BH.txt");
+   LDC2 = new WireChamber((char*)"LDC2",LDC2_cst);
   
 /// Variables to generate scintillator planes planar view   
 
@@ -802,26 +788,26 @@ void EVe::DoDraw(int event)
 
     //***************** First Wire Chamber
 
-    mwdc1->clear();
+    RDC1->clear();
     
-    GetVariables* HMSvars= new GetVariables("HMS.txt");
+    GetVariables* BHvars= new GetVariables("BH.txt");
     
-    int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
-    int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
-    int yp1NW= HMSvars->GetInt("MWDC1.yp.NumWires =");
+    int x1NW= BHvars->GetInt("RDC1.x.NumWires =");
+    int v1NW= BHvars->GetInt("RDC1.v.NumWires =");
+    int yp1NW= BHvars->GetInt("RDC1.yp.NumWires =");
 
     /// X plane
 
     for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("x",x1NW+1-H_dc_1x1_tdchits[i]);
+        RDC1->WireHit("x",x1NW+1-H_dc_1x1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
       {
 	
-        mwdc1->WireHit("xp",H_dc_1x2_tdchits[i]);
+        RDC1->WireHit("xp",H_dc_1x2_tdchits[i]);
       } 
 
     /// UV plane
@@ -829,13 +815,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("u",H_dc_1u1_tdchits[i]);
+        RDC1->WireHit("u",H_dc_1u1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("v",v1NW+1-H_dc_1v1_tdchits[i]);
+        RDC1->WireHit("v",v1NW+1-H_dc_1v1_tdchits[i]);
       } 
 
     /// YP,XP plane
@@ -843,37 +829,37 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("y",H_dc_1y1_tdchits[i]);
+        RDC1->WireHit("y",H_dc_1y1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
       {
 	
-        mwdc1->WireHit("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
+        RDC1->WireHit("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
       } 
 
 
    //***************** Second Wire Chamber
 
-    mwdc2->clear();
+    RDC2->clear();
 
     
-    int x2NW= HMSvars->GetInt("MWDC2.x.NumWires =");
-    int v2NW= HMSvars->GetInt("MWDC2.v.NumWires =");
-    int yp2NW= HMSvars->GetInt("MWDC2.yp.NumWires =");
+    int x2NW= BHvars->GetInt("RDC2.x.NumWires =");
+    int v2NW= BHvars->GetInt("RDC2.v.NumWires =");
+    int yp2NW= BHvars->GetInt("RDC2.yp.NumWires =");
 
     /// X plane
 
     for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("x",x2NW+1-H_dc_2x1_tdchits[i]);
+        RDC2->WireHit("x",x2NW+1-H_dc_2x1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
       {
 	
-        mwdc2->WireHit("xp",H_dc_2x2_tdchits[i]);
+        RDC2->WireHit("xp",H_dc_2x2_tdchits[i]);
       } 
 
     /// UV plane
@@ -881,13 +867,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("u",H_dc_2u1_tdchits[i]);
+        RDC2->WireHit("u",H_dc_2u1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("v",v2NW+1-H_dc_2v1_tdchits[i]);
+        RDC2->WireHit("v",v2NW+1-H_dc_2v1_tdchits[i]);
       } 
 
     /// Y plane
@@ -895,14 +881,17 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("y",H_dc_2y1_tdchits[i]);
+        RDC2->WireHit("y",H_dc_2y1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
       {
 	
-        mwdc2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
-      }  
+        RDC2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
+      } 
+    
+    LDC1->clear();
+    LDC2->clear();
    
     /*
     s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
