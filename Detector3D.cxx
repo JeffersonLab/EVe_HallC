@@ -37,14 +37,21 @@ Detector3D::Detector3D()
       TGeoBBox *top2box = new TGeoBBox("Top2box", 300, 300, 300);
       top2 = new TGeoVolume ("TOP2",top2box);
 
-    string PN[6]={"x", "y", "u", "v", "yp", "xp"};
-    vector<string> PlaneNames(&PN[0],&PN[0]+6);
+
+     string PN[6]={"x", "y", "u", "v", "yp", "xp"};  
+     vector<string> PlaneNames(&PN[0],&PN[0]+6);
+     
     // First MWDC
-    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top, mgr);
+      RDC1 = new WireChamber3D((char*) "RDC1",  PlaneNames, top,mgr);
 
     // Second MWDC
-    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top, mgr);
+      RDC2 = new WireChamber3D((char*) "RDC2",  PlaneNames, top,mgr);
+    
+   // First MWDC
+      LDC1 = new WireChamber3D((char*) "LDC1",  PlaneNames, top2,mgr);
 
+    // Second MWDC
+      LDC2 = new WireChamber3D((char*) "LDC2",  PlaneNames, top2,mgr);  
 
       //test code: check what transformation : translation and rotation did to a box in top volume
       

@@ -44,8 +44,10 @@ public:
   void ClearTrack();
   void ClearTracks();
   TGeoManager *mgr;
-  WireChamber3D *MWDC1;
-  WireChamber3D *MWDC2;
+  WireChamber3D *RDC1;
+  WireChamber3D *RDC2;
+  WireChamber3D *LDC1;
+  WireChamber3D *LDC2;
   ScintPlane3D *Lsplane;
   ScintPlane3D *Rsplane;
 

@@ -55,7 +55,12 @@ y2p.dist = 0.847375
 //RDC1 stats
 RDC1.Height = 74.9
 RDC1.Width = 204.44
+RDC1.Thickness = 13.97
 RDC1.WallThickness = 19.7
+RDC1.xPos = 85.0
+RDC1.yPos = 0.0
+RDC1.zPos = 0.0
+RDC1.Tilt = 45.0
 
 RDC1.x.WireAngle = 0.0
 RDC1.x.NumWires = 113
@@ -91,7 +96,12 @@ RDC1.xp.Dist = 3.5175
 
 RDC2.Height = 74.9
 RDC2.Width = 204.44
+RDC2.Thickness = 13.97
 RDC2.WallThickness = 19.7
+RDC2.xPos = 140.68
+RDC2.yPos = 0.0
+RDC2.zPos = 0.0
+RDC2.Tilt = 45.0
 
 RDC2.x.WireAngle = 0.0
 RDC2.x.NumWires = 113
@@ -126,7 +136,12 @@ RDC2.xp.Dist = 3.5175
 //LDC1 stats
 LDC1.Height = 74.9
 LDC1.Width = 204.44
+LDC1.Thickness = 13.97
 LDC1.WallThickness = 19.7
+LDC1.xPos = -85.0
+LDC1.yPos = 0.0
+LDC1.zPos = 0.0
+LDC1.Tilt = 45.0
 
 LDC1.x.WireAngle = 0.0
 LDC1.x.NumWires = 113
@@ -162,7 +177,12 @@ LDC1.xp.Dist = 3.5175
 
 LDC2.Height = 74.9
 LDC2.Width = 204.44
+LDC2.Thickness = 13.97
 LDC2.WallThickness = 19.7
+LDC2.xPos = -140.68
+LDC2.yPos = 0.0
+LDC2.zPos = 0.0
+LDC2.Tilt = 45.0
 
 LDC2.x.WireAngle = 0.0
 LDC2.x.NumWires = 113
