@@ -552,6 +552,7 @@ void EVe::initRun(char *filename)
    GetVariables* HMS = new GetVariables("HMS.txt");
 
    /// S1X
+   /*
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
    t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
@@ -565,21 +566,21 @@ void EVe::initRun(char *filename)
      cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
    for(int i=0;i<Ndata_H_hod_1x_postdchits; i++)
      cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
-  
-   /*
-   ///S1Y
+   */
+   
+   ///Rs
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
-   //t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
-   //t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
-   SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
-   SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
+   t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
+   t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+   //SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("Rs.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("Rs.PN ="));
     
    
    /* for(int i=0;i<16; i++)
      cerr << "After Call the number of " << i << "th of 1ynegtdchits is " << H_hod_1y_negtdchits[i] << endl;
     for(int i=0;i<16; i++)
-    cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;*/ 
+    cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;
 
    /*
    ///S2X

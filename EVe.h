@@ -58,8 +58,6 @@ public:
   void SelectProj();
   void MyCloseWindow();
   void PrintToFile();
-  //void SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int size);
-  
 
 private:
   TGMainFrame *fMainFrame;
