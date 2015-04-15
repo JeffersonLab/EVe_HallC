@@ -23,7 +23,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n)
     Manager=Mgr;
     TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
     Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
-    Ray ->SetLineColor(n+2);
+    Ray ->SetLineColor(n+1);
     Top->AddNodeOverlap(Ray,1);
     path = Form("/TOP_1/TrackRayNum%d_1",n);
     cerr << "Path for " << n << " th track is "<< path << endl;
@@ -36,7 +36,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n,
     Manager=Mgr;
     TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
     Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
-    Ray ->SetLineColor(n+2);
+    Ray ->SetLineColor(n+1);
     Top->AddNodeOverlap(Ray,1);
     path = Form("/TOP_1/TrackRayNum%d_1",n);
     cerr << "Path for " << n << " th track is "<< path << endl;
@@ -112,12 +112,12 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 
     //We want draw the tracking ray till the boundary of the canvas
     // so compute the ray position on the boundaries
-    double xmin =0.0;
+    double xmin =-20.0;
     double B1x = xmin;
     double B1y = C1y + (C2y-C1y)/(C2x-C1x)*(xmin-C1x);
     double B1z = C1z + (C2z-C1z)/(C2x-C1x)*(xmin-C1x);
 
-    double xmax =370.0;
+    double xmax =390.0;
     double B2x = xmax;
     double B2y = C2y + (C2y-C1y)/(C2x-C1x)*(xmax-C2x);
     double B2z = C2z + (C2z-C1z)/(C2x-C1x)*(xmax-C2x);
