@@ -136,11 +136,8 @@ MWDC2.xp.Offset = 0.005
 MWDC2.xp.Dist = 3.5175
 
 ///PMTlength
-<<<<<<< HEAD
+
 PMTlength = 0.2936
-=======
-PMTlength=0.2936
->>>>>>> c1d0cfe... Testing: Geometry setup for BH experiment, with scintplane and wirechamber located in both 2D and 3D view
 
 // s1x-plane variables
         //s1x paddles' angle
