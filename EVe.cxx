@@ -373,21 +373,18 @@ void EVe::CreateWires()
    mwdc2 = new WireChamber((char*)"MWDC2",mwdc2_cst);
  
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
-   
-    double Cs1xX = vars -> GetDouble("canvas.s1x.x =");
-    double Cs1xY = vars -> GetDouble("canvas.s1x.y =");
-    double Cs1yX = vars -> GetDouble("canvas.s1y.x =");
-    double Cs1yY = vars -> GetDouble("canvas.s1y.y =");
 
-    double Cs2xX = vars -> GetDouble("canvas.s2x.x =");
-    double Cs2xY = vars -> GetDouble("canvas.s2x.y =");
-    double Cs2yX = vars -> GetDouble("canvas.s2y.x =");
-    double Cs2yY = vars -> GetDouble("canvas.s2y.y =");
-   
+   /*
 
-   //ajust scintplane position in 2D canvas
-   CStransform *s1x_cst = new CStransform(canvasL, Cs1xX, Cs1xY);
-   CStransform *s1y_cst = new CStransform(canvasL, Cs1yX, Cs1yY);
+   GetVariables *ScintVars = new GetVariables("HMS.txt");
+
+   double orient1 =ScintVars->GetDouble("1st Scint Array Rotation =");
+   double orient2 = ScintVars->GetDouble("2nd Scint Array Rotation =");
+   int nPaddles1 = ScintVars->GetInt("1st Scint Array NPaddles =");   
+   int nPaddles2 = ScintVars->GetInt("2nd Scint Array NPaddles =");
+   
+   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.475);
+   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.8);
    
    if (NScintPlanes == 4) {
      s2x_cst = new CStransform(canvasL, Cs2xX, Cs2xY);
@@ -404,6 +401,24 @@ void EVe::CreateWires()
      s2Y = new ScintPlane((char*)"s2y",  s2y_cst);
    }
 
+   */
+
+   GetVariables *ScintVars = new GetVariables("BH.txt");
+  
+/// Variables to generate scintillator planes planar view   
+
+    double CLsX = vars -> GetDouble("canvas.Ls.x =");
+    double CLsY = vars -> GetDouble("canvas.Ls.y =");
+
+    double CRsX = vars -> GetDouble("canvas.Rs.x =");
+    double CRsY = vars -> GetDouble("canvas.Rs.y =");
+  
+   CStransform *Ls_cst = new CStransform(canvasL, CLsX, CLsY);
+   CStransform *Rs_cst = new CStransform(canvasL, CRsX, CRsY);
+
+   Ls = new ScintPlane((char*)"Ls", Ls_cst);
+
+   Rs = new ScintPlane((char*)"Rs", Rs_cst);
 
    // In the end we plot a coordinate system
 
@@ -888,26 +903,31 @@ void EVe::DoDraw(int event)
 	
         mwdc2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
       }  
-
-   s1Y->clear();
-   s1X->clear();
-   s2X->clear();
-   s2Y->clear();
-
+   
+    /*
     s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
-
     for(int i=0;i<16; i++)
       cerr << "After hit the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
     for(int i=0;i<16; i++)
       cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
     
-    /*
+    
     s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
     s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
-    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);*/
+    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);
+    */
+    
+    
+    Ls->clear();
+    Rs->clear();
+ 
+    Rs->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
 
-    //****** Now we draw Trajectories through detectors
-    	 
+    Ls->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+    
+
+//****** Now we draw Trajectories through detectors, since data only used for HMS, now commented out
+/*    	 
    if (Ndata_H_tr_x > 0 && fTextButtonTrack->IsOn())
      {		
        for(int q =0; q<Ndata_H_tr_x; q++)
@@ -930,8 +950,8 @@ void EVe::DoDraw(int event)
 	   double y1 = y0 + ph*z1;    
 
 
-	   mwdc1->Track(x0,y0,q);
-	   mwdc2->Track(x1,y1,q);
+	   RDC1->Track(x0,y0,q);
+	   RDC2->Track(x1,y1,q);
 
 
 	  
@@ -961,11 +981,12 @@ void EVe::DoDraw(int event)
        
      }  
 
-
+*/
    c3->Draw();
    c3->Update();
    
-  }
+  
+  
 
 //_________________________ Lets handle 3D view  ______________________________________
 
@@ -1077,7 +1098,7 @@ void EVe::DoDraw(int event)
      }
    c5->Update();
       }
-}
+  }}
 
 void EVe::doThis()
 {

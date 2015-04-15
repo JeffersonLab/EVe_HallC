@@ -1,0 +1,72 @@
+Number of paddle PMTs = 2
+Number of Scint Planes = 2
+
+1st Scint Array Rotation = 90.0
+
+1st Scint Array NPaddles = 29
+
+//Data can be ajusted to change splanes and chambers position in planar view
+canvasL = 5.0
+
+
+canvas.Rs.x = 0.27
+canvas.Rs.y = 0.8
+
+
+canvas.Ls.x = 0.7
+canvas.Ls.y = 0.8
+canvas.MWDC1.x = 0.27
+canvas.MWDC1.y = 0.18
+canvas.MWDC2.x = 0.7
+canvas.MWDC2.y = 0.18
+
+//Planar view track Calculation data
+MWDC2.z = 0.81222
+s1x.z = 1.29753
+s1y.z = 1.49443
+s2x.z = 3.50743
+s2y.z = 3.70433
+
+//Projection view variables
+//x projection view
+x1.dist = 0.0
+x1p.dist = 0.0064
+x2.dist = 0.8122
+x2p.dist = 0.812284
+
+//u v projection view
+u1.dist = 0.0128
+v1.dist = 0.0192
+u2.dist = 0.825
+v2.dist = 0.8314
+
+//y projection view
+y1.dist = 0.028775
+y1p.dist = 0.035175
+y2.dist = 0.840975
+y2p.dist = 0.847375
+///PMTlength
+PMTlength = 0.1
+
+// Rsplane variables
+        //s1y paddles' angle
+
+Rs.angle = 90.0
+
+	/// number of paddles
+Rs.PN = 29
+
+/// Position and tilt of the center of the E-plane
+Rs.PaddleLength = 32.5
+Rs.PaddleHeight = 4.00
+// Lsplane variables
+//s2y paddles' angle
+
+Ls.angle = 90.0
+
+	/// number of paddles
+Ls.PN = 29
+
+/// Position and tilt of the center of the E-plane
+Ls.PaddleLength = 32.5
+Ls.PaddleHeight = 4.00

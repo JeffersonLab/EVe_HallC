@@ -136,7 +136,11 @@ MWDC2.xp.Offset = 0.005
 MWDC2.xp.Dist = 3.5175
 
 ///PMTlength
+<<<<<<< HEAD
 PMTlength = 0.2936
+=======
+PMTlength=0.2936
+>>>>>>> c1d0cfe... Testing: Geometry setup for BH experiment, with scintplane and wirechamber located in both 2D and 3D view
 
 // s1x-plane variables
         //s1x paddles' angle
@@ -177,15 +181,15 @@ s2x.tilt = 0.0
 s1y.angle = 90.0
 
 	/// number of paddles
-s1y.PN = 10
+s1y.PN = 29
 
 /// Position and tilt of the center of the E-plane
-s1y.xpos =149.555
+s1y.xpos = 200.00
 s1y.ypos = 0.0
 s1y.zpos = 0.0
-s1y.PaddleLength = 120.0
-s1y.PaddleHeight = 7.53
-s1y.PaddleThickness = 1.067
+s1y.PaddleLength = 32.5
+s1y.PaddleHeight = 4.00
+s1y.PaddleThickness = 1.00
 s1y.tilt = 0.0
 
 // s2y-plane variables
@@ -193,15 +197,15 @@ s1y.tilt = 0.0
 s2y.angle = 90.0
 
 	/// number of paddles
-s2y.PN = 10
+s2y.PN = 29
 
 /// Position and tilt of the center of the E-plane
-s2y.xpos = 370.545
+s2y.xpos = -200.0
 s2y.ypos = 0.0
 s2y.zpos = 0.0
-s2y.PaddleLength = 120.0
-s2y.PaddleHeight = 7.53
-s2y.PaddleThickness = 1.067
+s2y.PaddleLength = 32.5
+s2y.PaddleHeight = 4.00
+s2y.PaddleThickness = 1.00
 s2y.tilt = 0.0
 
 

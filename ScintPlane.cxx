@@ -22,21 +22,22 @@ ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
   splaneName = SplaneName;
   // Setup size and number of paddles, converting plenth & pheight [m] into pixels
    cst = trans;
-   GetVariables *hms = new GetVariables("HMS.txt");
+   GetVariables *BH = new GetVariables("BH.txt");
    
    // Get Values used in construct n paddles for a single ScintPlane
-   int numPMT = hms->GetInt("Number of paddle PMTs =");
+   int numPMT = BH->GetInt("Number of paddle PMTs =");
    
-   N = hms-> GetInt(Form("%s.PN =",splaneName));
+   N = BH-> GetInt(Form("%s.PN =",splaneName));
   
-   paddle_length = hms ->GetDouble(Form("%s.PaddleLength =",splaneName))/100.0;
-   paddle_height = hms ->GetDouble(Form("%s.PaddleHeight =",splaneName))/100.0;
+   paddle_length = BH ->GetDouble(Form("%s.PaddleLength =",splaneName))/100.0;
+   paddle_height = BH ->GetDouble(Form("%s.PaddleHeight =",splaneName))/100.0;
   
-   double PMTlength = hms -> GetDouble ("PMTlength =");
+   double PMTlength = BH -> GetDouble ("PMTlength =");
    PMTl = cst->transLtoCL(PMTlength);
 
-   angle = hms -> GetDouble(Form("%s.angle =",splaneName));
-   cerr << "Angle for " << splaneName << " is " << angle;
+   angle = BH -> GetDouble(Form("%s.angle =",splaneName));
+   cerr << "Angle for " << splaneName << " is " << angle << endl;
+  
   //below calculate and draw all paddles for a single scintplane
   // sx0,sy0 is the coordinate of the sicntplane in canvas
   sx0 = cst->transXtoCX(0.0);                                    ; 
@@ -48,7 +49,6 @@ ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
   
   double CL = cst->transLtoCL(paddle_length);
   double CH = cst->transLtoCL(paddle_height);  
-
      
   //Consider sxpaddle length is different from sypaddle length
   sa = CL;
@@ -131,9 +131,9 @@ void ScintPlane::Track(double x, double y, int i)
 
 void ScintPlane :: SPHit2D(int NumL, int NumR, double poshit[], double neghit[])
 {
-   GetVariables *hms = new GetVariables("HMS.txt");
+   GetVariables *BH = new GetVariables("BH.txt");
    // PN is number of paddles for a single scintplane
-   int PN = hms->GetInt(Form("%s.PN =",splaneName));
+   int PN = BH->GetInt(Form("%s.PN =",splaneName));
 
    double matchR[PN];
    double matchL[PN];
