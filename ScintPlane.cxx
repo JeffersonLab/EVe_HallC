@@ -56,11 +56,12 @@ ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
 
   for (int i=0; i<N ;i++){
     paddle[i]=new ScintillatorPaddle(i, sx0, sy0, sa ,sb ,cx0,cy0-i*CH, numPMT, PMTl,angle);} 
-          title = new TLatex(sx0-0.8*sa, sy0-11.5*sb, splaneName);
+          title = new TLatex(sx0-0.1*sa, sy0-9.5*sb, splaneName);
           title->SetTextSize(0.03);
           title->Draw(); 
   
-  for(int i = 0; i<MAX_TRACK_NUM; i++)track_circ[i] = new TEllipse(0,0,0);
+  for(int i = 0; i<MAX_TRACK_NUM; i++)
+    track_circ[i] = new TEllipse(0,0,0);
    
   cout<<"Scintillation Plane is created!"<<endl;
 }

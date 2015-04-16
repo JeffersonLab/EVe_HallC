@@ -23,7 +23,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n)
     Manager=Mgr;
     TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
     Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
-    Ray ->SetLineColor(n+1);
+    Ray ->SetLineColor(n+2);
     Top->AddNodeOverlap(Ray,1);
     path = Form("/TOP_1/TrackRayNum%d_1",n);
     cerr << "Path for " << n << " th track is "<< path << endl;
@@ -36,7 +36,7 @@ Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n,
     Manager=Mgr;
     TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
     Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
-    Ray ->SetLineColor(n+1);
+    Ray ->SetLineColor(n+2);
     Top->AddNodeOverlap(Ray,1);
     path = Form("/TOP_1/TrackRayNum%d_1",n);
     cerr << "Path for " << n << " th track is "<< path << endl;
