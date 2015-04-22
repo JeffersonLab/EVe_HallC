@@ -24,7 +24,7 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
    double CT= hms->GetDouble(Form("%s.Thickness =",ChamberName));
    double WT= hms->GetDouble(Form("%s.WallThickness =",ChamberName));
 
-   TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),1.5*CT/2.0,1.5*W/2.0,1.5*H/2.0);
+   TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),5.0*CT/2.0,1.5*W/2.0,1.5*H/2.0);
    Chamber3D = new TGeoVolume(Form("%s.Chamber",ChamberName),ChamberBox);
    //Drawing Frame of the WireChamber
 
@@ -41,8 +41,8 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
    Chamber3D->AddNode(UpperWall,2, new TGeoTranslation(0,0,-(H+WT)/2.0));
 
    //Draw all WirePlanes for the WireChamber
-   for(unsigned int i=0; i< PlaneNames.size(); i++){
-     WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+1)));}
+    for(unsigned int i=0; i< PlaneNames.size(); i++){
+     WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+2)));}
 
    //Get Rotation and Translation, AddNode to top Volume
     TGeoRotation r1;
@@ -60,6 +60,21 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     t1.SetTranslation(x0+CT/2.0, y0, z0);
     comb = new TGeoCombiTrans(t1, r1);
     top->AddNodeOverlap(Chamber3D,1,comb);
+    
+    //Chamber3D->InvisibleAll(kFALSE);
+    //Chamber3D->SetVisibility(kTRUE);
+    //Chamber3D->VisibleDaughters(kTRUE);
+    //Chamber3D->SetAttVisibility(kFALSE);
+    //Chamber3D->SetVisContainers(kFALSE);
+    //Chamber3D->SetVisOnly(kFALSE);
+    //Chamber3D->SetVisLeaves(kFALSE);
+    //LeftWall->SetVisContainers(kFALSE);
+    //LeftWall->InvisibleAll(kTRUE);
+    //LeftWall->SetVisibility(kTRUE);
+    //LeftWall->VisibleDaughters(kTRUE);
+    //LeftWall->SetAttVisibility(kTRUE);
+    //LeftWall->SetVisOnly(kTRUE);
+    //LeftWall-> SetVisLeaves(kFALSE);
 
     cout<<"Chamber 3D is created!"<<endl;
 }

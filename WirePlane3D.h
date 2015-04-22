@@ -6,6 +6,7 @@
 #include "TGeoManager.h"
 #include "TGeoMatrix.h"
 #include "TGeoTube.h"
+#include "TGeoEltu.h"
 #include "TWire3D.h"
 #include "GetVariables.h"
 

@@ -31,16 +31,17 @@ Detector3D::Detector3D()
    
       mgr = new TGeoManager("Geom", "Composite shape example");
       TGeoMedium *medium = 0;
+      mgr->SetVisOption(1);
       top = mgr->MakeBox("TOP",medium,600,300,300);
       mgr->SetTopVolume(top); 
 
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
-    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top, mgr);
+     MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top, mgr);
 
     // Second MWDC
-    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top, mgr);
+     MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top, mgr);
 
 
       //test code: check what transformation : translation and rotation did to a box in top volume

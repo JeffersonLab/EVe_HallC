@@ -56,14 +56,14 @@ y2p.dist = 0.847375
 // 2D view and 3D view
 MWDC1.Height = 1.13
 MWDC1.Width = 0.56
-MWDC1.Thickness = 30.0
+MWDC1.Thickness = 4.0
 MWDC1.WallThickness = 2.0
 MWDC1.xPos = 0.0
 MWDC1.yPos = 0.0
 MWDC1.zPos = 0.0
 MWDC1.Tilt = 0.0
 
-MWDC1.x.WireAngle = 80.0
+MWDC1.x.WireAngle = 0.0
 MWDC1.x.NumWires = 113
 MWDC1.x.Offset = 0.0
 MWDC1.x.Dist = 0.0
@@ -71,27 +71,27 @@ MWDC1.x.Dist = 0.0
 MWDC1.y.WireAngle = 90.0
 MWDC1.y.NumWires = 52
 MWDC1.y.Offset = 0.0
-MWDC1.y.Dist = 5.0
+MWDC1.y.Dist = 0.64
 
 MWDC1.u.WireAngle = -15.0
 MWDC1.u.NumWires = 107
 MWDC1.u.Offset = 0.0
-MWDC1.u.Dist = 10.0
+MWDC1.u.Dist = 1.28
 
 MWDC1.v.WireAngle = 15.0
 MWDC1.v.NumWires = 107
 MWDC1.v.Offset = 0.0
-MWDC1.v.Dist = 15.0
+MWDC1.v.Dist = 1.92
 
 MWDC1.yp.WireAngle = 90.0
 MWDC1.yp.NumWires = 52
 MWDC1.yp.Offset = 0.005
-MWDC1.yp.Dist = 20.0
+MWDC1.yp.Dist = 2.8775
 
 MWDC1.xp.WireAngle = 0.0
 MWDC1.xp.NumWires = 113
 MWDC1.xp.Offset = 0.005
-MWDC1.xp.Dist = 25.0
+MWDC1.xp.Dist = 3.5175
 
 
 

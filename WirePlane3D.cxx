@@ -217,16 +217,14 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
        }
      }
      } 
-
      
-     
-
-   cerr << "WirePlane " << PlaneName << " is created." << endl;
+     cerr << "WirePlane " << PlaneName << " is created." << endl;
     
-    TGeoTranslation* WPtrans= new TGeoTranslation(-Thickness/2.0+PlaneDist,0,0);
-    WireChamber3D->AddNodeOverlap(WirePlane,1,WPtrans);
+     TGeoTranslation* WPtrans= new TGeoTranslation(-Thickness/2.0+PlaneDist,0,0);
+     WireChamber3D->AddNodeOverlap(WirePlane,1,WPtrans);
 
     //To handle wirehit
+    /*
     mgr = Mgr;
     TGeoTube* Hittube = new TGeoTube(Form("Hittube %s %s",ChamberName,PlaneName.c_str()),0.0,0.0,0.0);
     HitTube = new TGeoVolume(Form("Hittube.%s.%s",ChamberName,PlaneName.c_str()),Hittube);
@@ -251,6 +249,7 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
     //pne -> SetPhysicalNode(PN);
     //cerr << "Path for hit wire is " << path << endl;
     //WireChamber3D->AddNodeOverlap(WirePlane,1,WPtrans);
+    */
     
 }
 
@@ -261,31 +260,35 @@ WirePlane3D::~WirePlane3D()
 void WirePlane3D::Wire3DHit(int Num)
 {   
     int Fac = Num/SPARSIFY;
-    /*
+    
     if(Fac<=WireNum)
     {
+      // Wires[Fac]->wire->InvisibleAll(kFALSE);
+      //Wires[Fac]->wire->SetLineColor(kBlack);  
        Wires[Fac]->wire->SetLineColor(wirecolor);
-       TGeoTube* tube= (TGeoTube*) Wires[Fac]->wire->GetShape();
-       tube->SetTubeDimensions(0, 10*WIRE3DRADIUS, tube->GetDz());
+      TGeoEltu* tube= (TGeoEltu*) Wires[Fac]->wire->GetShape();
+      tube->SetEltuDimensions(10.0*WIRE3DRADIUS, 10.0*WIRE3DRADIUS, tube->GetDz());
     } else {
       cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/SPARSIFY", Num, Fac, WireNum) << endl;
-      }  */
+      }
+    /*
     TGeoTube* Hittube = Wires[Fac]->Wiretube;
     TGeoCombiTrans* Hitcomb= Wires[Fac]-> Wirecomb;
     TGeoTube* Showtube = new TGeoTube("HitTube",0.0,10.0*(Hittube->GetRmax()),Hittube->GetDz());
     PN->Align(Hitcomb, Showtube);
-    
+    */    
 }
 
 void WirePlane3D::clear()
 {
-    /*
+    
     for (int i=0; i<WireNum; i++)
     {
-       Wires[i]->wire->SetLineColor(kBlack);
-       TGeoTube* tube= (TGeoTube*) Wires[i]->wire->GetShape();
-       tube->SetTubeDimensions(0, WIRE3DRADIUS, tube->GetDz());
-       }*/
+      //Wires[i]->wire->InvisibleAll(kFALSE);
+      Wires[i]->wire->SetLineColor(kBlack);
+      TGeoEltu* tube= (TGeoEltu*) Wires[i]->wire->GetShape();
+      tube->SetEltuDimensions(WIRE3DRADIUS, WIRE3DRADIUS, tube->GetDz());
+       }
   //PN= mgr -> MakePhysicalNode(path);
-  PN -> Align(new TGeoTranslation(0,0,0), new TGeoTube("Tube",0.0,0.0,0.0));
+  //PN -> Align(new TGeoTranslation(0,0,0), new TGeoTube("Tube",0.0,0.0,0.0));
 }

@@ -13,6 +13,7 @@
 #define ROOT_TWire3D
 
 #include "TGeoTube.h"
+#include "TGeoEltu.h"
 #include "TGeoVolume.h"
 #include "TGeoManager.h"
 #include "TGeoMatrix.h"
@@ -25,7 +26,7 @@ public:
   virtual ~TWire3D();
 
   TGeoVolume *wire;
-  TGeoTube* Wiretube;
+  TGeoEltu* Wiretube;
   TGeoCombiTrans* Wirecomb;
 
 };
