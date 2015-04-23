@@ -28,14 +28,14 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
    Chamber3D = new TGeoVolume(Form("%s.Chamber",ChamberName),ChamberBox);
    //Drawing Frame of the WireChamber
 
-   TGeoBBox *LRWall = new TGeoBBox("LRWall",CT/2.0,WT/2.0,H/2.0);
-   TGeoVolume *LeftWall = new TGeoVolume("LeftWall",LRWall);
+   TGeoBBox *LRWall = new TGeoBBox("LRWall",1.0*CT/2.0,WT/2.0,H/2.0);
+   LeftWall = new TGeoVolume("LeftWall",LRWall);
    LeftWall->SetLineColor(kBlack);
    Chamber3D->AddNode(LeftWall,1,new TGeoTranslation(0,(W+WT)/2.0,0));
    Chamber3D->AddNode(LeftWall,2,new TGeoTranslation(0,-(W+WT)/2.0,0));
 
-   TGeoBBox *ULWall = new TGeoBBox("ULWall",CT/2.0,W/2.0+WT,WT/2.0);
-   TGeoVolume *UpperWall = new TGeoVolume("UpperWall",ULWall);
+   TGeoBBox *ULWall = new TGeoBBox("ULWall",1.0*CT/2.0,W/2.0+WT,WT/2.0);
+   UpperWall = new TGeoVolume("UpperWall",ULWall);
    UpperWall->SetLineColor(kBlack);
    Chamber3D->AddNode(UpperWall,1, new TGeoTranslation(0,0,(H+WT)/2.0));
    Chamber3D->AddNode(UpperWall,2, new TGeoTranslation(0,0,-(H+WT)/2.0));
@@ -61,21 +61,24 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     comb = new TGeoCombiTrans(t1, r1);
     top->AddNodeOverlap(Chamber3D,1,comb);
     
-    //Chamber3D->InvisibleAll(kFALSE);
+    //Chamber3D->InvisibleAll(kTRUE);
     //Chamber3D->SetVisibility(kTRUE);
-    //Chamber3D->VisibleDaughters(kTRUE);
+    //Chamber3D->VisibleDaughters(kFALSE);
     //Chamber3D->SetAttVisibility(kFALSE);
-    //Chamber3D->SetVisContainers(kFALSE);
+    //Chamber3D->SetVisContainers(kTRUE);
     //Chamber3D->SetVisOnly(kFALSE);
     //Chamber3D->SetVisLeaves(kFALSE);
-    //LeftWall->SetVisContainers(kFALSE);
+    
+    //LeftWall->SetVisContainers(kTRUE);
     //LeftWall->InvisibleAll(kTRUE);
     //LeftWall->SetVisibility(kTRUE);
     //LeftWall->VisibleDaughters(kTRUE);
     //LeftWall->SetAttVisibility(kTRUE);
     //LeftWall->SetVisOnly(kTRUE);
     //LeftWall-> SetVisLeaves(kFALSE);
-
+    
+    //LeftWall->SetVisibility (kTRUE);
+    //UpperWall->SetVisibility (kTRUE);
     cout<<"Chamber 3D is created!"<<endl;
 }
 
@@ -86,6 +89,9 @@ void WireChamber3D::WireHit3D(string PlaneName, int WireNum)
       
   //TGeoTube *tube= (TGeoTube *) WirePlanes.find(PlaneName) ->second.Wires[(int) (WireNum/SPARSIFY)]->wire->GetShape();
        WirePlanes.find(PlaneName)->second.Wire3DHit(WireNum);
+
+       //LeftWall->SetVisibility (kTRUE);
+       //UpperWall->SetVisibility (kTRUE);
 }
 
 void WireChamber3D::clear()
@@ -94,4 +100,10 @@ void WireChamber3D::clear()
 
     for (itr=WirePlanes.begin(); itr!= WirePlanes.end(); itr++)
         itr->second.clear();
+
+    //LeftWall->SetVisibility (kTRUE);
+    //UpperWall->SetVisibility (kTRUE);
 }
+
+
+

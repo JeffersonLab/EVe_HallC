@@ -31,6 +31,7 @@ public:
     void clear();
     vector<TWire3D*> Wires;
 
+
 protected:
     int WireNum;
     int wirecolor;

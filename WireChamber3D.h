@@ -24,6 +24,10 @@ public:
     virtual ~WireChamber3D();
     void WireHit3D(string PlaneName,int  WireNum);
     void clear();
+    TGeoVolume* LeftWall;
+    TGeoVolume* UpperWall;
+
+    
 
 protected:
     TGeoVolume* Chamber3D;

@@ -30,7 +30,7 @@ TWire3D::TWire3D(double angle, double y1, double z1, double y2, double z2,
 	double length = sqrt((y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
 
 
-      	Wiretube = new TGeoEltu("tube",radius, radius, length/2.01);
+      	Wiretube = new TGeoEltu("tube",radius, radius, length/2.05);
       	wire = new TGeoVolume(Form("wire_%d", wirenum),Wiretube);
       	wire->SetLineColor(kBlack);
 
@@ -43,6 +43,9 @@ TWire3D::TWire3D(double angle, double y1, double z1, double y2, double z2,
       	TGeoTranslation t1(x0, y0,  z0);
       	Wirecomb = new TGeoCombiTrans(t1, r1);
       	WirePlane->AddNodeOverlap(wire,1,Wirecomb);
+
+        //wire -> SetVisibility(kFALSE);
+        //wire -> InvisibleAll(kFALSE);
 }
 
 TWire3D::~TWire3D()
