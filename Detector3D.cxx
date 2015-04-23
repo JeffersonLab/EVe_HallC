@@ -30,13 +30,22 @@ Detector3D::Detector3D()
 {
    
       mgr = new TGeoManager("Geom", "Composite shape example");
-      TGeoMedium *medium = 0;
-      mgr->SetVisOption(1);
-      mgr->SetVisLevel(6);
+      TGeoMedium *medium = 0;     
       top = mgr->MakeBox("TOP",medium,600,300,300);
       mgr->SetTopVolume(top); 
 
-      
+      //Test code for checking global visibility settings of 3D view
+      //1. Below there are 6 boxes, one contain another sequencially
+      //   SetVisLevel(int n) determines the deepest level of TGeoVolunme can be shown
+      //2. Notice: top volume is level 0, Box1 volume is level 1, and so on.
+      //3. https://root.cern.ch/root/html/TGeoManager.html states that SetVisOption(0)
+      //   will show intermediate volumes, but I didn't observe that.
+      //4. It seems the default level is 5: Can compare SetVisLevel(6), SetVisLevel(5)
+      //   and commented out SetVisLevel in 3D view.
+      /*
+      mgr->SetVisOption(1);
+      mgr->SetVisLevel(6);
+
       TGeoBBox *box1 = new TGeoBBox ("Box1", 128,128,128);
       TGeoTranslation bt(-200,0,0);
       TGeoRotation br;
@@ -71,13 +80,15 @@ Detector3D::Detector3D()
       TGeoVolume *Box6 = new TGeoVolume ("Box6",box6);
       Box6 -> SetLineColor(kBlack);
       Box5 -> AddNode(Box6,1);
-      
+      */
 
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
      MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top, mgr);
+     
 
+     //Test code to check visibility settings.
      //MWDC1-> LeftWall-> InvisibleAll(kFALSE);
      //MWDC1-> UpperWall->InvisibleAll(kTRUE);
 
