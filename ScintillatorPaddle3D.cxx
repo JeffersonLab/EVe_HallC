@@ -81,27 +81,26 @@ ScintillatorPaddle3D::~ScintillatorPaddle3D()
 
 //Below using the same hit method used in planar view ScintPlane and Paddle Classes
 
+void ScintillatorPaddle3D::HitPaddle()
+{
+  scint ->SetLineColor(kGreen);
+}
+
 void ScintillatorPaddle3D::HitL()
 {
-  pmt1->SetLineColor(kRed);
+  pmt1->SetLineColor(kGreen);
 }
 
 void ScintillatorPaddle3D::HitR()
 {
   //FIXME: what about single PMT case (no pmt2)?
-  pmt2->SetLineColor(kRed);
-}
-
-void ScintillatorPaddle3D::HitB()
-{
-  //FIXME: what about single PMT case (no pmt2)?
-  pmt1->SetLineColor(kGreen);
   pmt2->SetLineColor(kGreen);
 }
 
 void ScintillatorPaddle3D::clear()
 {
   //FIXME: what about single PMT case (no pmt2)?
-    pmt1->SetLineColor(kBlack);
-    pmt2->SetLineColor(kBlack);
+  pmt1->SetLineColor(kBlack);
+  pmt2->SetLineColor(kBlack);
+  scint ->SetLineColor(kBlack);
 }

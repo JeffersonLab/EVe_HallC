@@ -30,7 +30,7 @@ class ScintillatorPaddle3D {
   virtual ~ScintillatorPaddle3D();
   void HitL();
   void HitR();
-  void HitB();
+  void HitPaddle();
   void clear();
 
  protected:
