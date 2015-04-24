@@ -38,7 +38,6 @@ class ScintillatorPaddle3D {
   TGeoVolume *scint;
   TGeoVolume *pmt1;
   TGeoVolume *pmt2;
-  double plength;
 };
 
 #endif

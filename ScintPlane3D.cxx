@@ -83,22 +83,19 @@ ScintPlane3D::~ScintPlane3D()
 
 void ScintPlane3D::LHit(int numL)
 {
-  if(numL<0) // cerr<< "negative left hit index for scintplane"<< endl;
-    ;
+  if(numL<0) cerr<< "negative left hit index for scintplane"<< endl;
   else paddle[numL]->HitL();
 }
 
 void ScintPlane3D::RHit(int numR)
 {
-  if(numR<0) // cerr<< "negative right hit index for scintplane"<< endl;
-    ;
+  if(numR<0) cerr<< "negative right hit index for scintplane"<< endl;
   else paddle[numR]->HitR();
 }
 
 void ScintPlane3D::BHit(int numB)
 {
-  if(numB<0) // cerr<< "negative both hit index for scintplane"<< endl;
-    ;
+  if(numB<0) cerr<< "negative both hit index for scintplane"<< endl;
   else paddle[numB]->HitB();
 }
 

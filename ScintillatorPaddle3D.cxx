@@ -83,22 +83,25 @@ ScintillatorPaddle3D::~ScintillatorPaddle3D()
 
 void ScintillatorPaddle3D::HitL()
 {
-  pmt1->SetLineColor(2);
+  pmt1->SetLineColor(kRed);
 }
 
 void ScintillatorPaddle3D::HitR()
 {
-  pmt2->SetLineColor(2);
+  //FIXME: what about single PMT case (no pmt2)?
+  pmt2->SetLineColor(kRed);
 }
 
 void ScintillatorPaddle3D::HitB()
 {
-  pmt1->SetLineColor(3);
-  pmt2->SetLineColor(3);
+  //FIXME: what about single PMT case (no pmt2)?
+  pmt1->SetLineColor(kGreen);
+  pmt2->SetLineColor(kGreen);
 }
 
 void ScintillatorPaddle3D::clear()
 {
+  //FIXME: what about single PMT case (no pmt2)?
     pmt1->SetLineColor(kBlack);
     pmt2->SetLineColor(kBlack);
 }
