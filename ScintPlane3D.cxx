@@ -80,22 +80,31 @@ ScintPlane3D::~ScintPlane3D()
 
 //Using new hit method same as planar view
 
-void ScintPlane3D::LHit(int numL)
+void ScintPlane3D::LHit(int num)
 {
-  if(numL<0) cerr<< "negative left hit index for scintplane"<< endl;
-  else paddle[numL]->HitL();
+  if( num<0 || num >= numPaddles)
+    cerr<< "left hit index out of bounds in scintplane3D: "<< num << endl;
+  else
+    paddle[num]->HitL();
 }
 
-void ScintPlane3D::RHit(int numR)
+void ScintPlane3D::RHit(int num)
 {
-  if(numR<0) cerr<< "negative right hit index for scintplane"<< endl;
-  else paddle[numR]->HitR();
+  if( num<0 || num >= numPaddles)
+    cerr<< "right hit index out of bounds in scintplane3D: "<< num << endl;
+  else
+    paddle[num]->HitR();
 }
 
-void ScintPlane3D::BHit(int numB)
+void ScintPlane3D::BHit(int num)
 {
-  if(numB<0) cerr<< "negative both hit index for scintplane"<< endl;
-  else paddle[numB]->HitB();
+  if( num<0 || num >= numPaddles)
+    cerr<< "paddle hit index out of bounds in scintplane3D: "<< num << endl;
+  else {
+    paddle[num]->HitL();
+    paddle[num]->HitR();
+    paddle[num]->HitPaddle();
+  }
 }
 
 void ScintPlane3D::clear()
@@ -106,7 +115,7 @@ void ScintPlane3D::clear()
   }
 }
 
-void ScintPlane3D :: SPHit(int NumL, int NumR, double poshit[], double neghit[], char* splaneName)
+void ScintPlane3D::SPHit(int NumL, int NumR, double poshit[], double neghit[], char* splaneName)
 {
    GetVariables *hms = new GetVariables("HMS.txt");
    // PN is number of paddles for a single scintplane
