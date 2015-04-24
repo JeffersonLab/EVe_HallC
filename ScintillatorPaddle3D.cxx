@@ -28,17 +28,17 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
     double L=length;
     double H=height;
     double T=thickness;
-    
+
     //(x,y,z) is the coordinate of the center of this single paddle
 
     double x= 0;
     double y= -((-1)* H*((double)n-1)/2.0+(double)index*H);
     double z= 0;
-    
+
     //Drawing a single Scintillator Paddle in z direction till the end of this constructor
     //Draw scintillator Paddle and side skirt paddle first
 
-    TGeoBBox *scintb = new TGeoBBox(Form("%s.%d.ScintPaddle",PlaneName,index),T/2.0, H/2.0, L/2.0);
+    TGeoBBox *scintb = new TGeoBBox(Form("%s.%d.ScintPaddle",PlaneName,index),0.9*T/2.0, 0.9*H/2.0, L/2.0);
     TGeoTranslation *transcint = new TGeoTranslation(x,y,z);
     scint = new TGeoVolume (Form("%s.%d.Paddle",PlaneName,index), scintb);
     scint ->SetLineColor(kBlack);
