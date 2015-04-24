@@ -566,42 +566,42 @@ void EVe::initRun(char *filename)
    for(int i=0;i<Ndata_H_hod_1x_postdchits; i++)
      cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
   
-   /*
+
    ///S1Y
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
-   //t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
-   //t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
-   SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
-   SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
-    
-   
+   t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
+   t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+   //SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
+
+
    /* for(int i=0;i<16; i++)
      cerr << "After Call the number of " << i << "th of 1ynegtdchits is " << H_hod_1y_negtdchits[i] << endl;
     for(int i=0;i<16; i++)
-    cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;*/ 
+    cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;
+    */ 
 
-   /*
    ///S2X
    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
-   //t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
-   //t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);  
-   SetBranchAddress(t1, (const char*)"H.hod.2x.negtdchits",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
-   SetBranchAddress(t1, (const char*)"H.hod.2x.postdchits",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
+   t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
+   t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);  
+   //SetBranchAddress(t1, (const char*)"H.hod.2x.negtdchits",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.2x.postdchits",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
    /*
     for(int i=0;i<16; i++)
      cerr << "After Call the number of " << i << "th of 2xnegtdchits is " << H_hod_2x_negtdchits[i] << endl;
     for(int i=0;i<16; i++)
     cerr << "After Call the number of " << i << "th of 2xpostdchits is " << H_hod_2x_postdchits[i] << endl; */
-   /*
+
    ///S2Y
    t1->SetBranchAddress( "Ndata.H.hod.2y.negtdchits", &Ndata_H_hod_2y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2y.postdchits", &Ndata_H_hod_2y_postdchits);
-   //t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
-   //t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
-   SetBranchAddress(t1, (const char*)"H.hod.2y.negtdchits",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
-   SetBranchAddress(t1, (const char*)"H.hod.2y.postdchits",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
+   t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
+   t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
+   //SetBranchAddress(t1, (const char*)"H.hod.2y.negtdchits",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.2y.postdchits",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
    /*
    for(int i=0;i<16; i++)
      cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
@@ -893,17 +893,14 @@ void EVe::DoDraw(int event)
    s2X->clear();
    s2Y->clear();
 
-    s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
-
-    for(int i=0;i<16; i++)
-      cerr << "After hit the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
-    for(int i=0;i<16; i++)
-      cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
-    
-    /*
-    s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
-    s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
-    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);*/
+   s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
+       H_hod_1x_postdchits,H_hod_1x_negtdchits);
+   s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
+       H_hod_1y_postdchits,H_hod_1y_negtdchits);
+   s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
+       H_hod_2x_postdchits,H_hod_2x_negtdchits);
+   s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
+       H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
     //****** Now we draw Trajectories through detectors
     	 
@@ -1028,11 +1025,14 @@ void EVe::DoDraw(int event)
     detector->s2xplane->clear();
     detector->s2yplane->clear();
  
-    detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
-   
-    detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
-    detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
-    detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");
+    detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
+        H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
+    detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
+        H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
+    detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
+        H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
+    detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
+        H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");
 
      // Clear tracks
      detector->ClearTracks();
@@ -1072,10 +1072,9 @@ void EVe::DoDraw(int event)
                     detector->TrackList[q]->Disable();
             }
         }
-
      }
-   c5->Update();
-      }
+     c5->Update();
+  }
 }
 
 void EVe::doThis()
