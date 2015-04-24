@@ -121,7 +121,8 @@ Detector3D::Detector3D()
 	TrackList.push_back(new Trajectory3D(top,mgr,i));}
 
        mgr->CloseGeometry();
-       top->Raytrace();
+       //top->Raytrace();
+       top->Draw("ogl");
        cout<<"Detector Created!"<<endl;
 }
 
