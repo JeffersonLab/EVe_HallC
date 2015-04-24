@@ -24,8 +24,7 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
    
    // Get Values used in construct n paddles for a single ScintPlane
    int numPMT = hms->GetInt("Number of paddle PMTs =");
-   int numPaddles = hms->GetInt(Form("%s.PN =",splaneName));
-   N = numPaddles;
+   numPaddles = hms->GetInt(Form("%s.PN =",splaneName));
    double length = hms ->GetDouble(Form("%s.PaddleLength =",splaneName));
    double height = hms ->GetDouble(Form("%s.PaddleHeight =",splaneName));
    double thickness = hms ->GetDouble(Form("%s.PaddleThickness =",splaneName));
@@ -101,7 +100,7 @@ void ScintPlane3D::BHit(int numB)
 
 void ScintPlane3D::clear()
 {
-  for(int i = 0; i<N; i++)
+  for(int i = 0; i<numPaddles; i++)
   {
     paddle[i]->clear();
   }
