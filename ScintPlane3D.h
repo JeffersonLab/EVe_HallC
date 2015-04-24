@@ -22,6 +22,7 @@
 #include <string>
 #include <cstring>
 #include "TGeoManager.h"
+#include <vector>
 
 
 class ScintPlane3D {
@@ -36,10 +37,8 @@ public:
   void clear();
   TGeoVolume *ScintPlane;
 protected:
-  int N; // number of paddles
-
-  ScintillatorPaddle3D *paddle[30];
-
+  int numPaddles; // number of paddles
+  std::vector<ScintillatorPaddle3D*> paddle;
 };
 
 #endif

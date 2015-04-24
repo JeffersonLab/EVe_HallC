@@ -38,9 +38,9 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
    ScintPlane = new TGeoVolume((Form("%s.plane",splaneName)),SP);
    // Draw n paddles for a single sy plane
    for(int i = 0; i<numPaddles; i++)
-   { /// FIXME: Better use vector to draw the whole plane, may use Volume Assenblies, also fix in ScintPlane3D.h
-     paddle[i] = new ScintillatorPaddle3D(splaneName,i,numPaddles,
-					  length, height, thickness,ScintPlane, numPMT);}
+     //FIXME: Better use vector to draw the whole plane, may use Volume Assenblies, also fix in ScintPlane3D.h
+     paddle.push_back ( new ScintillatorPaddle3D(splaneName, i, numPaddles, 
+           length, height, thickness,ScintPlane, numPMT) );
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
     double angle= hms->GetDouble(Form("%s.angle =",splaneName));
