@@ -37,6 +37,7 @@ Detector3D::Detector3D()
       mgr->SetTopVolume(top); 
 
       
+  /*
       TGeoBBox *box1 = new TGeoBBox ("Box1", 128,128,128);
       TGeoTranslation bt(-200,0,0);
       TGeoRotation br;
@@ -72,6 +73,7 @@ Detector3D::Detector3D()
       Box6 -> SetLineColor(kBlack);
       Box5 -> AddNode(Box6,1);
       
+      */
 
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
@@ -87,6 +89,7 @@ Detector3D::Detector3D()
 
       //test code: check what transformation : translation and rotation did to a box in top volume
       
+     /*
       TGeoBBox *box = new TGeoBBox("Box",5, 5, 5); 
       TGeoTranslation boxt(0,0,0);
       TGeoRotation boxr;
@@ -96,6 +99,7 @@ Detector3D::Detector3D()
       TGeoVolume *Box = new TGeoVolume ("Box", box);
       Box ->SetLineColor(kBlack);
       top -> AddNode(Box,1,boxCT);
+      */
       
 
       // s1x - Scintillation Plane     
