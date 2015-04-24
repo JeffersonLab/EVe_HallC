@@ -33,7 +33,7 @@ public:
   void LHit(int numL);
   void RHit(int numR);
   void BHit(int numB);
-  void SPHit(int NumL,int NumR, double poshit[], double neghit[], char* planeName);
+  void SPHit(int NumL,int NumR, double poshit[], double neghit[]);
   void clear();
   TGeoVolume *ScintPlane;
 protected:

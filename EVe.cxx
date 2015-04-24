@@ -1026,13 +1026,13 @@ void EVe::DoDraw(int event)
     detector->s2yplane->clear();
  
     detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
-        H_hod_1x_postdchits,H_hod_1x_negtdchits, (char*)"s1x");
+        H_hod_1x_postdchits,H_hod_1x_negtdchits);
     detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
-        H_hod_1y_postdchits,H_hod_1y_negtdchits, (char*)"s1y");
+        H_hod_1y_postdchits,H_hod_1y_negtdchits);
     detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
-        H_hod_2x_postdchits,H_hod_2x_negtdchits, (char*)"s2x");
+        H_hod_2x_postdchits,H_hod_2x_negtdchits);
     detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
-        H_hod_2y_postdchits,H_hod_2y_negtdchits, (char*)"s2y");
+        H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
      // Clear tracks
      detector->ClearTracks();
