@@ -21,7 +21,7 @@ using namespace std;
 ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
 {
    GetVariables *hms = new GetVariables("HMS.txt");
-   
+
    // Get Values used in construct n paddles for a single ScintPlane
    int numPMT = hms->GetInt("Number of paddle PMTs =");
    numPaddles = hms->GetInt(Form("%s.PN =",splaneName));
@@ -29,38 +29,34 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
    double height = hms ->GetDouble(Form("%s.PaddleHeight =",splaneName));
    double thickness = hms ->GetDouble(Form("%s.PaddleThickness =",splaneName));
 
-   
-
    // Draw the Scintillator Plane in sy configuration
-   //TGeoBBox* SP = new TGeoBBox(splaneName,4.0*((double)numPaddles)*height ,1.2*thickness ,1.2*length);
-   //test data
    TGeoBBox* SP = new TGeoBBox(splaneName,1.2*thickness ,4.0*((double)numPaddles)*height ,3.0*length);
    ScintPlane = new TGeoVolume((Form("%s.plane",splaneName)),SP);
    // Draw n paddles for a single sy plane
    for(int i = 0; i<numPaddles; i++)
-     //FIXME: Better use vector to draw the whole plane, may use Volume Assenblies, also fix in ScintPlane3D.h
+     //FIXME: Better use vector to draw the whole plane, may use Volume
+     //  Assenblies, also fix in ScintPlane3D.h
      paddle.push_back ( new ScintillatorPaddle3D(splaneName, i, numPaddles, 
            length, height, thickness,ScintPlane, numPMT) );
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
     double angle= hms->GetDouble(Form("%s.angle =",splaneName));
-    
+
     TGeoRotation* scintrot= new TGeoRotation();
     scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
-    
-    
+
     /// Make the Whole ScintPlane rotation and translation combination to settle up
     // transformation used for AddNode a single ScintPlane3D to top Volume
     TGeoRotation r1;
     TGeoTranslation t1;
     TGeoCombiTrans *comb;
-    
+
     double tilt = hms-> GetDouble(Form("%s.tilt =",splaneName));
     double xpos = hms-> GetDouble(Form("%s.xpos =",splaneName));
     double ypos = hms-> GetDouble(Form("%s.ypos =",splaneName));
     double zpos = hms-> GetDouble(Form("%s.zpos =",splaneName));
 
-    cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
+    //cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
 
     TGeoBBox* Box = new TGeoBBox(splaneName,1.5*thickness ,4.5*((double)numPaddles)*height ,4.0*length);
     TGeoVolume *SBox = new TGeoVolume(Form("%s.Box",splaneName),Box);

@@ -50,6 +50,7 @@ Trajectory3D::~Trajectory3D()
 
 }
 
+// FIXME: move all the HMS specific stuff out -- the origin should be passed to this object
 void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 {
     GetVariables* HMS= new GetVariables("HMS.txt");
