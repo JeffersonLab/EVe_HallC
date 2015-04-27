@@ -21,11 +21,11 @@ using namespace std;
 Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n)
 {
     Manager=Mgr;
-    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
-    Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
+    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum_tube_%d",n), 0.0 ,0.0, 0.0);
+    Ray = new TGeoVolume(Form("TrackRayNum_vol%d",n),TrackRay);
     Ray ->SetLineColor(n+2);
     Top->AddNodeOverlap(Ray,1);
-    path = Form("/TOP_1/TrackRayNum%d_1",n);
+    path = Form("/TOP_1/TrackRayNum_vol%d_1",n);
     //cerr << "Path for " << n << " th track is "<< path << endl;
 }
 
