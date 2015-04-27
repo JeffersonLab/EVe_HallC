@@ -25,6 +25,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
 {
 
     double r_PMT = 2.0;// Change to use HMS.txt
+    double l_PMT = 8.0;// Change to use HMS.txt
     double L=length;
     double H=height;
     double T=thickness;
@@ -45,8 +46,18 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
     paddle -> AddNode(scint,1,transcint);
 
     //Draw PMT on each side
-    TGeoTrd2 *pmtedge = new TGeoTrd2("Edge",T/2.0,T/4.0,H/2.0,T/4.0,L/10.0);
-    TGeoTube *pmttube = new TGeoTube("Tube",0.0, r_PMT , 0.3*length/2.0);
+    TGeoTube *pmt = new TGeoTube(Form("PMT%d_Tube_%s.%d",1,PlaneName,index),
+        0.0, r_PMT , l_PMT);
+    pmt1= new TGeoVolume(Form("%s.%d.PMT%d",PlaneName,index,1),pmt);
+    pmt1->SetLineColor(kBlack);
+    TGeoTranslation *pmttrans1= new TGeoTranslation("pmttrans1",x,y,z+(0.5*L+l_PMT));
+    paddle->AddNode(pmt1,1,pmttrans1);
+
+    /*
+    TGeoTrd2 *pmtedge = new TGeoTrd2(Form("PMT%d_Edge_%s.%d",1,PlaneName,index),
+        T/2.0,T/4.0,H/2.0,T/4.0,L/10.0);
+    TGeoTube *pmttube = new TGeoTube(Form("PMT%d_Tube_%s.%d",1,PlaneName,index),
+        0.0, r_PMT , 0.3*L/2.0);
 
     TGeoTranslation *t1 = new TGeoTranslation("t1",0,0,-0.15*L);
     t1->RegisterYourself();
@@ -54,16 +65,24 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
     t2->RegisterYourself();
 
     TGeoCompositeShape *pmt = new TGeoCompositeShape("pmt","(Edge:t1)+(Tube:t2)");
-    pmt1= new TGeoVolume(Form("%s.%d.PMT1",PlaneName,index),pmt);
+    TGeoVolume *pmt1= new TGeoVolume(Form("%s.%d.PMT1",PlaneName,index),pmt);
     pmt1->SetLineColor(kBlack);
 
     TGeoTranslation *pmttrans= new TGeoTranslation("pmttrans",x,y,z+0.65*L);
 
     paddle->AddNode(pmt1,1,pmttrans);
+    */
 
      //Draw lower PMT if n_PMT=2
      if(numPMT==2)
      {
+         TGeoTube *pmt = new TGeoTube(Form("PMT%d_Tube_%s.%d",2,PlaneName,index),
+             0.0, r_PMT , l_PMT);
+         pmt2= new TGeoVolume(Form("%s.%d.PMT%d",PlaneName,index,2),pmt);
+         pmt2->SetLineColor(kBlack);
+         TGeoTranslation *pmttrans2 = new TGeoTranslation("pmttrans2",x,y,z-(0.5*L+l_PMT));
+         paddle->AddNode(pmt2,1,pmttrans2);
+         /*
          TGeoTranslation pmt2t(x,y,z-0.65*L);
          TGeoRotation pmt2r;
          pmt2r.SetAngles(90,180,90,90,180,0);
@@ -71,6 +90,7 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
          pmt2= new TGeoVolume(Form("%s.%d.PMT2",PlaneName,index),pmt);
          pmt2->SetLineColor(kBlack);
          paddle ->AddNode(pmt2,1,pmt2CT);
+         */
      }
 }
 
