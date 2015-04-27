@@ -34,7 +34,14 @@ Trajectory3D::~Trajectory3D()
 
 }
 
-// FIXME: move all the HMS specific stuff out -- the origin should be passed to this object
+// FIXME:
+//    - Move all the HMS specific stuff out -- the origin and any coordinate
+//    transformation should be passed to this object.
+//    - There is no reason to care about the second chamber at all.  The only
+//    thing the trajectory needs is to know how to take the x,y coord in the
+//    detector coordinate system (usually the first wirechamber plan) to the
+//    Canvas coordinate system.  (That is why the first wirechamber shouldn't
+//    be looked at here either.
 void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 {
     GetVariables* HMS= new GetVariables("HMS.txt");
