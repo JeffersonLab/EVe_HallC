@@ -58,8 +58,8 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double C1y = -x;
     double C1z = 0.0;
 
-    cerr<< "x = " << x << " ,y = " << y << endl;
-    cerr<< "C1x = " << C1x << " ,C1y= " << C1y <<endl;
+    //cerr<< "x = " << x << " ,y = " << y << endl;
+    //cerr<< "C1x = " << C1x << " ,C1y= " << C1y <<endl;
 
     double xdiff = HMS-> GetDouble("MWDC2.xPos =")- HMS-> GetDouble("MWDC1.xPos =");
     double ydiff = HMS-> GetDouble("MWDC2.yPos =")- HMS-> GetDouble("MWDC1.yPos =");
@@ -74,7 +74,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double tempx,tempy,tempz;
     tempx=C1x;tempy=C1y;tempz=C1z;
     C1x=tempz; C1y=-tempx; C1z=tempy;
-    cerr << "In canvas 1y = " << C1y << " , 1z= " << C1z << endl;
+    //cerr << "In canvas 1y = " << C1y << " , 1z= " << C1z << endl;
 
     tempx=C2x;tempy=C2y;tempz=C2z;
     C2x=tempz; C2y=-tempx; C2z=tempy;
@@ -88,7 +88,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double C1ypos= HMS-> GetDouble("MWDC1.yPos =");
     double C1zpos= HMS-> GetDouble("MWDC1.zPos =");
 
-    cerr << " Tilt of chamber 1 is : " << C1tilt << endl;
+    //cerr << " Tilt of chamber 1 is : " << C1tilt << endl;
 
     tempx= C1x*cos(C1tilt)-C1z*sin(C1tilt);
     tempz= C1x*sin(C1tilt)+C1z*cos(C1tilt);
@@ -97,6 +97,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     C1y+= C1ypos;
     C1z= tempz + C1zpos;
 
+    //FIXME: Why is the second chamber used at all?
     //Chamber2
     double C2tilt= HMS-> GetDouble("MWDC2.Tilt =");
     double C2xpos= HMS-> GetDouble("MWDC2.xPos =");
@@ -112,12 +113,12 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 
     //We want draw the tracking ray till the boundary of the canvas
     // so compute the ray position on the boundaries
-    double xmin =-20.0;
+    double xmin =-20.0;   // FIXME: where does this number come from?
     double B1x = xmin;
     double B1y = C1y + (C2y-C1y)/(C2x-C1x)*(xmin-C1x);
     double B1z = C1z + (C2z-C1z)/(C2x-C1x)*(xmin-C1x);
 
-    double xmax =390.0;
+    double xmax =390.0;   // FIXME: where does this number come from?
     double B2x = xmax;
     double B2y = C2y + (C2y-C1y)/(C2x-C1x)*(xmax-C2x);
     double B2z = C2z + (C2z-C1z)/(C2x-C1x)*(xmax-C2x);
@@ -138,7 +139,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1);
 
     TGeoPhysicalNode* pn = Manager->MakePhysicalNode(path);
-    pn ->Align(comb, new TGeoTube("Tube",0.0,1.0,Length/2.0));
+    pn->Align(comb, new TGeoTube("Tube",0.0,1.0,Length/2.0));
 }
 
 void Trajectory3D::Disable()

@@ -28,9 +28,9 @@ using namespace std;
 
 Detector3D::Detector3D()
 {
-   
-      mgr = new TGeoManager("Geom", "Composite shape example");
-      TGeoMedium *medium = 0;
+
+      mgr = new TGeoManager("Geom", "Detector Stack");
+      TGeoMedium *medium = 0; // vacuum
       mgr->SetVisOption(1);
       mgr->SetVisLevel(6);
       top = mgr->MakeBox("TOP",medium,600,300,300);
@@ -62,7 +62,8 @@ Detector3D::Detector3D()
       s2yplane = new ScintPlane3D((char*)"s2y",top);    
 
       // There will be 10 tracks for any fixed number of tracks in this code,
-      // The reason for it is after you call CloseGeometry() function, you cannot dynamically change number of TGeoVolume in root.
+      // The reason for it is after you call CloseGeometry() function, you
+      // cannot dynamically change number of TGeoVolume in root.
       for(int i=0; i<10; i++){
 	TrackList.push_back(new Trajectory3D(top,mgr,i));}
 

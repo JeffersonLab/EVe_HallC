@@ -550,7 +550,7 @@ void EVe::initRun(char *filename)
    /// Scint Planes
    /// TDC hits for all planes -- pos = left PMT, neg = right PMT
 
-   GetVariables* HMS = new GetVariables("HMS.txt");
+   //GetVariables* HMS = new GetVariables("HMS.txt");
 
    /// S1X
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
