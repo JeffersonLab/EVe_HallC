@@ -19,6 +19,7 @@
 #include "TWire3D.h"
 #include "GetVariables.h"
 #include "TGeoMatrix.h"
+#include "TGeoMedium.h"
 #include "TGLViewer.h"
 #include "TGLPerspectiveCamera.h"
 
@@ -34,11 +35,13 @@ Detector3D::Detector3D()
 {
 
       mgr = new TGeoManager("Geom", "Detector Stack");
-      TGeoMedium *medium = 0; // vacuum
+      TGeoMaterial *matVacuum = new TGeoMaterial("Vacuum", 0,0,0);
+      TGeoMedium *medium =  new TGeoMedium("Vacuum",1, matVacuum);
       mgr->SetVisOption(1);
       mgr->SetVisLevel(6);
       top = mgr->MakeBox("TOP",medium,600,300,300);
       mgr->SetTopVolume(top); 
+      mgr->SetVerboseLevel(0);
 
     string PN[6]={"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
