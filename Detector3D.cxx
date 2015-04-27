@@ -80,5 +80,8 @@ Detector3D::~Detector3D()
 
 
 void Detector3D::ClearTracks()
-{	
+{
+  for (int i=0; i<TrackList.size(); i++) {
+    TrackList[i]->Disable();
+  }
 }

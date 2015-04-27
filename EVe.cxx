@@ -19,6 +19,7 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include <TApplication.h>
 #include <TROOT.h>
 
@@ -1037,41 +1038,12 @@ void EVe::DoDraw(int event)
      // Clear tracks
      detector->ClearTracks();
 
-     // Now let's draw partial tracks through wire chambers
-
-     if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn())
-     {
-       if((unsigned int)Ndata_H_tr_x > 10)
-        {
-	  //detector->TrackList.size set to 10
-            for(int q =0; q<Ndata_H_tr_x; q++)
-            {
-                double x0 = H_tr_x[q];
-                double y0 = H_tr_y[q];
-                double th = H_tr_th[q];
-                double ph = H_tr_ph[q];
-
-		detector->TrackList[q]->Enable(q,x0,y0,th,ph);
-            }
-        }
-
-       else if(10>(unsigned int)Ndata_H_tr_x)
-        {
-	  for(unsigned int q =0; q<10; q++)
-            {
-
-	      if(q<(unsigned int)Ndata_H_tr_x)
-                {
-                    double x0 = H_tr_x[q];
-                    double y0 = H_tr_y[q];
-                    double th = H_tr_th[q];
-                    double ph = H_tr_ph[q];
-                    detector->TrackList[q]->Enable(q,x0,y0,th,ph);
-                }
-                else
-                    detector->TrackList[q]->Disable();
-            }
-        }
+     // Now draw tracks through the detector stack
+     if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn()) {
+       for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, detector->TrackList.size()); i++) {
+           detector->TrackList[i]->
+             Enable(i, H_tr_x[i], H_tr_y[i], H_tr_th[i], H_tr_ph[i]);
+       }
      }
      c5->Update();
   }
