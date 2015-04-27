@@ -19,10 +19,14 @@
 #include "TWire3D.h"
 #include "GetVariables.h"
 #include "TGeoMatrix.h"
+#include "TGLViewer.h"
+#include "TGLPerspectiveCamera.h"
 
 #include <map>
 #include <string>
 #include <vector>
+
+#define DEG2RAD 3.1415926/180.
 
 using namespace std;
 
@@ -65,12 +69,25 @@ Detector3D::Detector3D()
       // The reason for it is after you call CloseGeometry() function, you
       // cannot dynamically change number of TGeoVolume in root.
       for(int i=0; i<10; i++){
-	TrackList.push_back(new Trajectory3D(top,mgr,i));}
+        TrackList.push_back(new Trajectory3D(top,mgr,i));
+      }
 
-       mgr->CloseGeometry();
-       //top->Raytrace();
-       top->Draw("ogl");
-       cout<<"Detector Created!"<<endl;
+      mgr->CloseGeometry();
+      //top->Raytrace();
+      top->Draw("ogl");
+      TGLViewer * v = (TGLViewer *)gPad->GetViewer3D();
+      if( v != NULL ) {
+        static TGLViewer::ECameraType CamType=TGLViewer::kCameraPerspXOY;
+        static Double_t fov = 30;
+        static Double_t dolly = 300.0;            // FIXME: should be computed somehow
+        static Double_t center[3] = {150, 0, 0};  // FIXME: should be fetched from bounding box
+        static Double_t vRotate = -40.0*DEG2RAD;  // ROOT docs say degrees, it's Radians...
+        static Double_t hRotate = -40.0*DEG2RAD;  // ROOT docs say degrees, it's Radians...
+        v->SetResetCamerasOnUpdate(kFALSE);
+        v->SetPerspectiveCamera (CamType,fov,dolly,center,hRotate,vRotate);
+        v->SetCurrentCamera(CamType);
+      }
+      cout<<"Detector Created!"<<endl;
 }
 
 
