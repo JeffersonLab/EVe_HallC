@@ -36,7 +36,7 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
    if ((nWires/5.0 - int(nWires/5.0))>0) WireNum =  (int) (nWires/5.0) + 1; // must be rounded up
    else WireNum = (int) (nWires/5.0);
 
-   //Draw the Wires
+ //Draw the Wires
    double d;
    double x1,y1,x2,y2,fac;
 
@@ -55,6 +55,8 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
        }
    }
 
+
+
    else if(WireAngle==90.0)
    {
         for(int n=0;n<WireNum;n++)
@@ -67,12 +69,15 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
          wires.push_back(new TLine(x1,y1,x2,y2));
 	 wires[n]->SetLineColor(kGray);
 	 wires[n]->Draw();
-       }
-     
+       }    
    }
-   
+
+
+
    else if(fabs(th)<atan(b/a))
      {
+
+
    if(WireAngle>0.0 && WireAngle<90.0)
      {
        d=b+a*tan(th);
@@ -105,6 +110,7 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
 	    wires[n]->Draw();
        }
      }
+
    
    else if(WireAngle<0.0 && WireAngle>-90.0)
    {
@@ -142,8 +148,10 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
        }
    }
    }
+
+
+
    //when fabs(th)>arctan(b/a)
-    
     else {
     
     if(WireAngle>0.0)
@@ -177,10 +185,47 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
             wires.push_back(new TLine(x1,y1,x2,y2));
 	    wires[n]->SetLineColor(kGray);
 	    wires[n]->Draw();
-          
        }}
-    } 
-  
+    
+    else if(WireAngle<0.0)
+   {
+       th=-th;
+       d=a+b/tan(th);
+
+       for(int  n=0; n<WireNum; n++)
+   {
+	   fac=((double)n/(double)WireNum);
+
+           if((d*fac-b/tan(th))<0)
+           {
+	       x1=x;
+               y1=y+(d*fac)*tan(th);
+               x2=x+d*fac;
+               y2=y;
+           }
+           else if((d*fac-a)>0)
+           {
+	       x2=x+a;
+               y2=y+(d*fac-a)*tan(th);
+               x1=x+d*fac-b/tan(th);
+               y1=y+b;
+           }
+           else
+           {
+               x1=x+d*fac;
+               y1=y;
+               x2=x+d*fac-b/tan(th);
+               y2=y+b;
+           }
+    
+            wires.push_back(new TLine(x1,y1,x2,y2));
+	    wires[n]->SetLineColor(kGray);
+	    wires[n]->Draw();
+   }//for loop
+   }//else if(WireAngle<0.0)
+}
+
+   //else cerr<< "WirePlane2D construct error.\n";
    //Type name and draw circle represent the WirePlane;
      circ = new TEllipse(x+a+0.02,y+b*(1-(double)ind/6), b*0.03, b*0.03);
      circ->SetFillColor(kGray);
@@ -208,8 +253,7 @@ void WirePlane2D::WireHit(int Num)
     wires[quotient]->SetLineWidth(3);
     circ->SetFillColor(color);
   }
-}
-
+}   
 void WirePlane2D::clear ()
 {
     for(int n=0; n< WireNum; n++)
@@ -220,4 +264,6 @@ void WirePlane2D::clear ()
     
     circ->SetFillColor(kGray);
 }
+
+
 
