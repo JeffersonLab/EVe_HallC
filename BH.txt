@@ -62,35 +62,15 @@ RDC1.yPos = 0.0
 RDC1.zPos = 0.0
 RDC1.Tilt = 45.0
 
-RDC1.x.WireAngle = 0.0
-RDC1.x.NumWires = 113
-RDC1.x.Offset = 0.0
-RDC1.x.Dist = 0.0
-
-RDC1.y.WireAngle = 90.0
-RDC1.y.NumWires = 52
-RDC1.y.Offset = 0.0
-RDC1.y.Dist = 0.64
-
-RDC1.u.WireAngle = -15.0
-RDC1.u.NumWires = 107
+RDC1.u.WireAngle = 26.25
+RDC1.u.NumWires = 279
 RDC1.u.Offset = 0.0
-RDC1.u.Dist = 1.28
+RDC1.u.Dist = 5.715
 
-RDC1.v.WireAngle = 15.0
-RDC1.v.NumWires = 107
+RDC1.v.WireAngle = -26.25
+RDC1.v.NumWires = 279
 RDC1.v.Offset = 0.0
-RDC1.v.Dist = 1.92
-
-RDC1.yp.WireAngle = 90.0
-RDC1.yp.NumWires = 52
-RDC1.yp.Offset = 0.005
-RDC1.yp.Dist = 2.8775
-
-RDC1.xp.WireAngle = 0.0
-RDC1.xp.NumWires = 113
-RDC1.xp.Offset = 0.005
-RDC1.xp.Dist = 3.5175
+RDC1.v.Dist = 8.255
 
 //RDC2 stats
 
@@ -103,35 +83,15 @@ RDC2.yPos = 0.0
 RDC2.zPos = 0.0
 RDC2.Tilt = 45.0
 
-RDC2.x.WireAngle = 0.0
-RDC2.x.NumWires = 113
-RDC2.x.Offset = 0.0
-RDC2.x.Dist = 0.0
-
-RDC2.y.WireAngle = 90.0
-RDC2.y.NumWires = 52
-RDC2.y.Offset = 0.0
-RDC2.y.Dist = 0.64
-
-RDC2.u.WireAngle = -15.0
-RDC2.u.NumWires = 107
+RDC2.u.WireAngle = 26.25
+RDC2.u.NumWires = 279
 RDC2.u.Offset = 0.0
-RDC2.u.Dist = 1.28
+RDC2.u.Dist = 5.715
 
-RDC2.v.WireAngle = 15.0
-RDC2.v.NumWires = 107
+RDC2.v.WireAngle = -26.25
+RDC2.v.NumWires = 279
 RDC2.v.Offset = 0.0
-RDC2.v.Dist = 1.92
-
-RDC2.yp.WireAngle = 90.0
-RDC2.yp.NumWires = 52
-RDC2.yp.Offset = 0.005
-RDC2.yp.Dist = 2.8775
-
-RDC2.xp.WireAngle = 0.0
-RDC2.xp.NumWires = 113
-RDC2.xp.Offset = 0.005
-RDC2.xp.Dist = 3.5175
+RDC2.v.Dist = 8.255
 
 //LDC1 stats
 LDC1.Height = 74.9
@@ -143,35 +103,15 @@ LDC1.yPos = 0.0
 LDC1.zPos = 0.0
 LDC1.Tilt = 45.0
 
-LDC1.x.WireAngle = 0.0
-LDC1.x.NumWires = 113
-LDC1.x.Offset = 0.0
-LDC1.x.Dist = 0.0
-
-LDC1.y.WireAngle = 90.0
-LDC1.y.NumWires = 52
-LDC1.y.Offset = 0.0
-LDC1.y.Dist = 0.64
-
-LDC1.u.WireAngle = -15.0
-LDC1.u.NumWires = 107
+LDC1.u.WireAngle = 26.25
+LDC1.u.NumWires = 279
 LDC1.u.Offset = 0.0
-LDC1.u.Dist = 1.28
+LDC1.u.Dist = 5.715
 
-LDC1.v.WireAngle = 15.0
-LDC1.v.NumWires = 107
+LDC1.v.WireAngle = -26.25
+LDC1.v.NumWires = 279
 LDC1.v.Offset = 0.0
-LDC1.v.Dist = 1.92
-
-LDC1.yp.WireAngle = 90.0
-LDC1.yp.NumWires = 52
-LDC1.yp.Offset = 0.005
-LDC1.yp.Dist = 2.8775
-
-LDC1.xp.WireAngle = 0.0
-LDC1.xp.NumWires = 113
-LDC1.xp.Offset = 0.005
-LDC1.xp.Dist = 3.5175
+LDC1.v.Dist = 8.255
 
 //LDC2 stats
 
@@ -184,35 +124,15 @@ LDC2.yPos = 0.0
 LDC2.zPos = 0.0
 LDC2.Tilt = 45.0
 
-LDC2.x.WireAngle = 0.0
-LDC2.x.NumWires = 113
-LDC2.x.Offset = 0.0
-LDC2.x.Dist = 0.0
-
-LDC2.y.WireAngle = 90.0
-LDC2.y.NumWires = 52
-LDC2.y.Offset = 0.0
-LDC2.y.Dist = 0.64
-
-LDC2.u.WireAngle = -15.0
-LDC2.u.NumWires = 107
+LDC2.u.WireAngle = 26.25
+LDC2.u.NumWires = 279
 LDC2.u.Offset = 0.0
-LDC2.u.Dist = 1.28
+LDC2.u.Dist = 5.715
 
-LDC2.v.WireAngle = 15.0
-LDC2.v.NumWires = 107
+LDC2.v.WireAngle = -26.25
+LDC2.v.NumWires = 279
 LDC2.v.Offset = 0.0
-LDC2.v.Dist = 1.92
-
-LDC2.yp.WireAngle = 90.0
-LDC2.yp.NumWires = 52
-LDC2.yp.Offset = 0.005
-LDC2.yp.Dist = 2.8775
-
-LDC2.xp.WireAngle = 0.0
-LDC2.xp.NumWires = 113
-LDC2.xp.Offset = 0.005
-LDC2.xp.Dist = 3.5175
+LDC2.v.Dist = 8.255
 
 ///PMTlength
 PMTlength = 0.1

@@ -30,7 +30,6 @@
 
 using namespace std;
 
-
 EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
 {
    // main frame
@@ -373,9 +372,6 @@ void EVe::CreateWires()
 
  
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
-
-   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
-   vector<string> planeNames(&PN[0],&PN[0]+6);
 
    CStransform *RDC1_cst = new CStransform(canvasL, RDC1X, RDC1Y);
    CStransform *RDC2_cst = new CStransform(canvasL, RDC2X, RDC2Y);

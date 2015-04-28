@@ -18,8 +18,8 @@ WireChamber:: WireChamber(char* chamberName,CStransform *trans){
    
    cst=trans;
 
-   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
-   vector<string> planeNames(&PN[0],&PN[0]+6);
+   string PN[2]={"u", "v"};   
+   vector<string> planeNames(&PN[0],&PN[0]+2);
   
    GetVariables *BHvars = new GetVariables("BH.txt");
    double Height = BHvars->GetDouble(Form("%s.Height =",chamberName))/100.0;

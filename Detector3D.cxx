@@ -38,8 +38,8 @@ Detector3D::Detector3D()
       top2 = new TGeoVolume ("TOP2",top2box);
 
 
-     string PN[6]={"x", "y", "u", "v", "yp", "xp"};  
-     vector<string> PlaneNames(&PN[0],&PN[0]+6);
+     string PN[2]={"u", "v"};  
+     vector<string> PlaneNames(&PN[0],&PN[0]+2);
      
     // First MWDC
       RDC1 = new WireChamber3D((char*) "RDC1",  PlaneNames, top,mgr);
