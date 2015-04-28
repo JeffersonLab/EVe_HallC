@@ -36,7 +36,7 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
    if ((nWires/5.0 - int(nWires/5.0))>0) WireNum =  (int) (nWires/5.0) + 1; // must be rounded up
    else WireNum = (int) (nWires/5.0);
 
-   //Draw the Wires
+ //Draw the Wires
    double d;
    double x1,y1,x2,y2,fac;
 
@@ -55,6 +55,8 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
        }
    }
 
+
+
    else if(WireAngle==90.0)
    {
         for(int n=0;n<WireNum;n++)
@@ -67,12 +69,15 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
          wires.push_back(new TLine(x1,y1,x2,y2));
 	 wires[n]->SetLineColor(kGray);
 	 wires[n]->Draw();
-       }
-     
+       }    
    }
-   
+
+
+
    else if(fabs(th)<atan(b/a))
      {
+
+
    if(WireAngle>0.0 && WireAngle<90.0)
      {
        d=b+a*tan(th);
@@ -105,6 +110,7 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
 	    wires[n]->Draw();
        }
      }
+
    
    else if(WireAngle<0.0 && WireAngle>-90.0)
    {
@@ -142,8 +148,10 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
        }
    }
    }
+
+
+
    //when fabs(th)>arctan(b/a)
-    
     else {
     
     if(WireAngle>0.0)
@@ -177,9 +185,8 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
             wires.push_back(new TLine(x1,y1,x2,y2));
 	    wires[n]->SetLineColor(kGray);
 	    wires[n]->Draw();
-          
        }}
-       /*
+    
     else if(WireAngle<0.0)
    {
        th=-th;
@@ -213,21 +220,18 @@ WirePlane2D::WirePlane2D(string PlaneName, double Height, double Width, double W
     
             wires.push_back(new TLine(x1,y1,x2,y2));
 	    wires[n]->SetLineColor(kGray);
-	    wires[n]->Draw();}
-       
-	//cerr << "Draw Wire.\n";
-   }*/
-    } 
+	    wires[n]->Draw();
+   }//for loop
+   }//else if(WireAngle<0.0)
+}
 
-   
-//else cerr<< "WirePlane2D construct error.\n";
-  
+   //else cerr<< "WirePlane2D construct error.\n";
    //Type name and draw circle represent the WirePlane;
-     circ = new TEllipse(x+1.2*a,y+b*(1-(double)ind/6), b*0.03, b*0.03);
+     circ = new TEllipse(x+a+0.02,y+b*(1-(double)ind/6), b*0.03, b*0.03);
      circ->SetFillColor(kGray);
      circ->Draw();
 
-     TLatex *title = new TLatex(x+1.3*a,y+b*(1-(double)ind/6), PlaneName.c_str());
+     TLatex *title = new TLatex(x+a+0.035,y+b*(1-(double)ind/6), PlaneName.c_str());
      title->SetTextSize(0.02);
      title->Draw();
 
@@ -249,8 +253,7 @@ void WirePlane2D::WireHit(int Num)
     wires[quotient]->SetLineWidth(3);
     circ->SetFillColor(color);
   }
-}
-
+}   
 void WirePlane2D::clear ()
 {
     for(int n=0; n< WireNum; n++)
@@ -261,4 +264,6 @@ void WirePlane2D::clear ()
     
     circ->SetFillColor(kGray);
 }
+
+
 
