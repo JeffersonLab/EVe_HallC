@@ -1,12 +1,12 @@
-//************************************************************************* 
+//*************************************************************************
 //  Track.h  - 4/14/2008
-// 
+//
 //  by miham
-// 
+//
 //  This class handles Track projections in projection view
 //
-//************************************************************************* 
- 
+//*************************************************************************
+
 #ifndef ROOT_Track
 #define ROOT_Track
 
@@ -20,17 +20,18 @@
 #include "CStransform.h"
 
 
-class Track {
-  
+class Track
+{
+
 public:
-  Track(CStransform *cst);
-  virtual ~Track();
-  void DrawMe(double x1, double y1, double x2, double y2);
-  void Clear();
+    Track(CStransform *cst);
+    virtual ~Track();
+    void DrawMe(double x1, double y1, double x2, double y2);
+    void Clear();
 protected:
-  TLine *line;
-  CStransform *transformation;
-  
+    TLine *line;
+    CStransform *transformation;
+
 };
 
 #endif

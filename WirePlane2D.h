@@ -15,7 +15,8 @@
 
 using namespace std;
 
-class WirePlane2D{
+class WirePlane2D
+{
 public:
     WirePlane2D(string planeName, double Height, double Width, double wireAngle, int nWires, int wirecolor, CStransform *trans, double offset, int index);
     virtual ~WirePlane2D();
