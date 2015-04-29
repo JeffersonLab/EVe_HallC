@@ -281,8 +281,8 @@ void WirePlane3D::Wire3DHit(int Num)
       //Wires[Fac]->wire->InvisibleAll(kFALSE);
       //Wires[Fac]->wire->SetLineColor(kBlack);  
       Wires[Fac]->wire->SetLineColor(wirecolor);
-      //TGeoEltu* tube= (TGeoEltu*) Wires[Fac]->wire->GetShape();
-      //tube->SetEltuDimensions(WIRE3DRADIUS, 10.0*WIRE3DRADIUS, tube->GetDz());
+      TGeoEltu* tube= (TGeoEltu*) Wires[Fac]->wire->GetShape();
+      tube->SetEltuDimensions(WIRE3DRADIUS, 10.0*WIRE3DRADIUS, tube->GetDz());
     } else {
       cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/SPARSIFY", Num, Fac, WireNum) << endl;
       }
@@ -302,8 +302,8 @@ void WirePlane3D::clear()
       //Wires[i] -> wire -> SetVisibility(kTRUE);
       //Wires[i]->wire->InvisibleAll(kTRUE);
       Wires[i]->wire->SetLineColor(kBlack);
-      //TGeoEltu* tube= (TGeoEltu*) Wires[i]->wire->GetShape();
-      // tube->SetEltuDimensions(WIRE3DRADIUS, WIRE3DRADIUS, tube->GetDz());
+      TGeoEltu* tube= (TGeoEltu*) Wires[i]->wire->GetShape();
+      tube->SetEltuDimensions(WIRE3DRADIUS, WIRE3DRADIUS, tube->GetDz());
        }
     //PN= mgr -> MakePhysicalNode(path);
     //PN -> Align(new TGeoTranslation(0,0,0), new TGeoTube("Tube",0.0,0.0,0.0));
