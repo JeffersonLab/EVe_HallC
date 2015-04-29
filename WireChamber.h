@@ -20,7 +20,8 @@
 
 using namespace std;
 
-class WireChamber{
+class WireChamber
+{
 public:
     WireChamber (char* chamberName, CStransform *trans);
 

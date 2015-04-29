@@ -8,17 +8,18 @@
 #include "TGeoManager.h"
 
 
-class Trajectory3D{
+class Trajectory3D
+{
 public:
-  Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n);
-  virtual ~Trajectory3D();
-  void Enable(int n, double x, double y, double theta, double phi);
-  void Disable();
+    Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n);
+    virtual ~Trajectory3D();
+    void Enable(int n, double x, double y, double theta, double phi);
+    void Disable();
 
 protected:
-  TGeoVolume* Ray;
-  TGeoManager* Manager;
-  TString path;
+    TGeoVolume* Ray;
+    TGeoManager* Manager;
+    TString path;
 };
 
 #endif
