@@ -968,7 +968,7 @@ void EVe::DoDraw(int event)
 
   if (fTextButton3dView->IsOn())
   {
-    cout<<"Wait! I am working!"<<endl;
+    //cout<<"Wait! I am working!"<<endl;
 
     c5->cd();
 
