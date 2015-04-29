@@ -15,8 +15,8 @@ using namespace std;
 WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVariables* DB,
                                 TGeoVolume* top, TGeoManager* mgr)
 {
-    double H= DB->GetDouble(Form("%s.Height =",ChamberName));
-    double W= DB->GetDouble(Form("%s.Width =",ChamberName));
+    double H= 100.0*DB->GetDouble(Form("%s.Height =",ChamberName));
+    double W= 100.0*DB->GetDouble(Form("%s.Width =",ChamberName));
 
     double CT= 100.0*DB->GetDouble(Form("%s.Thickness =",ChamberName));
     double WT= 100.0*DB->GetDouble(Form("%s.WallThickness =",ChamberName));
@@ -39,7 +39,8 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVa
 
     //Draw all WirePlanes for the WireChamber
     for(unsigned int i=0; i< PlaneNames.size(); i++) {
-        WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+2)));
+        WirePlanes.insert(std::pair<string, WirePlane3D>
+                (PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+2)));
     }
 
     //Get Rotation and Translation, AddNode to top Volume
