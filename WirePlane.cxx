@@ -29,15 +29,11 @@ WirePlane::WirePlane(char *name, int n, double x, double y, double l, double a, 
     rescale_me = 1.0/1000.0*b;
     x0 = x;
     y0 = y;
-    a0 = a;
-    b0 = b;
     type = f;
     length = l;
 
     double fac = length/(WireNum);
     for (int i = 0; i<WireNum; i++) {
-
-
         wire[i] = new TEllipse(x0+a*fac*(i), y0, a*0.001, b*0.001);
         wire[i]->SetFillColor(kBlack);
         wire[i]->Draw();

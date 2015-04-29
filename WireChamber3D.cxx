@@ -18,8 +18,8 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVa
     double H= DB->GetDouble(Form("%s.Height =",ChamberName));
     double W= DB->GetDouble(Form("%s.Width =",ChamberName));
 
-    double CT= DB->GetDouble(Form("%s.Thickness =",ChamberName));
-    double WT= DB->GetDouble(Form("%s.WallThickness =",ChamberName));
+    double CT= 100.0*DB->GetDouble(Form("%s.Thickness =",ChamberName));
+    double WT= 100.0*DB->GetDouble(Form("%s.WallThickness =",ChamberName));
 
     TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),5.0*CT/2.0,1.5*W/2.0,1.5*H/2.0);
     Chamber3D = new TGeoVolume(Form("%s.Chamber",ChamberName),ChamberBox);
@@ -48,9 +48,9 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVa
     TGeoCombiTrans *comb;
 
     double tilt = DB-> GetDouble(Form("%s.Tilt =",ChamberName));
-    double x0 = DB-> GetDouble(Form("%s.xPos =",ChamberName));
-    double y0 = DB-> GetDouble(Form("%s.yPos =",ChamberName));
-    double z0 = DB-> GetDouble(Form("%s.zPos =",ChamberName));
+    double x0 = 100.0*DB-> GetDouble(Form("%s.xPos =",ChamberName));
+    double y0 = 100.0*DB-> GetDouble(Form("%s.yPos =",ChamberName));
+    double z0 = 100.0*DB-> GetDouble(Form("%s.zPos =",ChamberName));
 
     //cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 

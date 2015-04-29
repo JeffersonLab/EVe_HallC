@@ -28,13 +28,13 @@ ScintPlane::ScintPlane(char* SplaneName, GetVariables* DB, CStransform *trans)
 
     N = DB-> GetInt(Form("%s.PN =",splaneName));
 
-    paddle_length = DB ->GetDouble(Form("%s.PaddleLength =",splaneName))/100.0;
-    paddle_height = DB ->GetDouble(Form("%s.PaddleHeight =",splaneName))/100.0;
+    paddle_length = DB->GetDouble(Form("%s.PaddleLength =",splaneName));
+    paddle_height = DB->GetDouble(Form("%s.PaddleHeight =",splaneName));
 
-    double PMTlength = DB -> GetDouble ("PMTlength =");
+    double PMTlength = DB->GetDouble ("PMTlength =");
     double PMTl = cst->transLtoCL(PMTlength);
 
-    angle = DB -> GetDouble(Form("%s.angle =",splaneName));
+    angle = DB->GetDouble(Form("%s.angle =",splaneName));
     cerr << "Angle for " << splaneName << " is " << angle;
     //below calculate and draw all paddles for a single scintplane
     // sx0,sy0 is the coordinate of the sicntplane in canvas

@@ -865,6 +865,14 @@ void EVe::DoDraw(int event)
         for(int i=0;i<16; i++)
           cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
 
+        if (Ndata_H_tr_x > 0 && fTextButtonTrack->IsOn()) {
+            for(int q =0; q<Ndata_H_tr_x; q++) {
+                GetVariables *hms = new GetVariables("HMS.txt");
+                double z1 = hms->GetDouble("MWDC2.xPos =");
+                double z3 = hms->GetDouble("s1x.xPos =");
+                double z4 = hms->GetDouble("s1y.xPos =");
+                double z5 = hms->GetDouble("s2x.xPos =");
+                double z6 = hms->GetDouble("s2y.xPos =");
 
         s1Y->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
         s2X->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
