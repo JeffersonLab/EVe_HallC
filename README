@@ -1,8 +1,30 @@
 EVe_HallC is an event display program for the Hall C HMS detector stack.
 
+=== Contributions ===
+If you wish to contribute, please fork this repo and following the 'install'
+instructions outlined in the Docs/ directory.
+
+Contributions/changes to the EVe_HallC repo will follow the same development
+model as for the Hall C analyzer (hcana) outlined here:
+  https://hallcweb.jlab.org/wiki/index.php/Analyzer/Git#Setup_and_creating_a_personal_fork_of_the_analyzer
+
+They boil down to this:
+  ** Do not edit files in the develop or master branches **
+  - merge upstream/develop into your develop branch
+  - make a new 'feature' branch off of develop and work on your changes
+    - please make frequent 'atomic' commits with useful commit logs!
+    - test your code
+  - when your feature is "done"
+    - git merge origin/develop     # make sure you are still compatible 
+                                   # with any recent upstream changes
+    - git push origin <featurebranchname>
+  - make a 'pull request' from <featurebranchname> on github
+
+=== Documentation ===
 Some documentation may be found in the Docs/ directory, however it has not
 kept pace with some of the modifications so YMMV.
 
+=== Acknowledgments ===
 This code is based off an event display originally written by Miha Mihovilovic
 in 2008 for the Hall A BigBite Spectrometer -- changes are significant and
-ongoing.
+ongoing.  See 'git log' for the history.
