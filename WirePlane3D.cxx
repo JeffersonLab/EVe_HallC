@@ -222,10 +222,17 @@ WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireCham
      TGeoTranslation* WPtrans= new TGeoTranslation(-Thickness/2.0+PlaneDist,0,0);
      WireChamber3D->AddNodeOverlap(WirePlane,1,WPtrans);
 
-     
-     //WirePlane -> InvisibleAll(kTRUE); 
+     // Test code for visibility settings: all functions will follow rules explained in WireChamber3D.cxx
+
+     // This will make wires invisible.
+     //WirePlane -> InvisibleAll(kTRUE);
+
+     // This will not change visibility of wireplane, since global setting will make WirePlane always invis. 
      //WirePlane -> SetVisibility(kFALSE);
+
+     // This will make wires invisible and WirePlane visible.
      //WirePlane -> VisibleDaughters(kFALSE);
+    
     //To handle wirehit
     /*
     mgr = Mgr;
@@ -266,12 +273,16 @@ void WirePlane3D::Wire3DHit(int Num)
     
     if(Fac<=WireNum)
     { 
+
+      // As happened in WireChamber3D.cxx: If either SetVisibility or InvisibleAll or both called in Wire3DHit() and clear() (no matter kTRUE or kFALSE)
+      // will make the whole 3D view blank after 'Show this Event' has been clicked.
+
       //Wires[Fac] -> wire ->SetVisibility(kTRUE);
       //Wires[Fac]->wire->InvisibleAll(kFALSE);
       //Wires[Fac]->wire->SetLineColor(kBlack);  
       Wires[Fac]->wire->SetLineColor(wirecolor);
-      TGeoEltu* tube= (TGeoEltu*) Wires[Fac]->wire->GetShape();
-      tube->SetEltuDimensions(WIRE3DRADIUS, 10.0*WIRE3DRADIUS, tube->GetDz());
+      //TGeoEltu* tube= (TGeoEltu*) Wires[Fac]->wire->GetShape();
+      //tube->SetEltuDimensions(WIRE3DRADIUS, 10.0*WIRE3DRADIUS, tube->GetDz());
     } else {
       cerr << Form("WARNING:  WirePlane3D::Wire3DHit(%d): %d > WireNum(%d)/SPARSIFY", Num, Fac, WireNum) << endl;
       }
@@ -291,8 +302,8 @@ void WirePlane3D::clear()
       //Wires[i] -> wire -> SetVisibility(kTRUE);
       //Wires[i]->wire->InvisibleAll(kTRUE);
       Wires[i]->wire->SetLineColor(kBlack);
-      TGeoEltu* tube= (TGeoEltu*) Wires[i]->wire->GetShape();
-      tube->SetEltuDimensions(WIRE3DRADIUS, WIRE3DRADIUS, tube->GetDz());
+      //TGeoEltu* tube= (TGeoEltu*) Wires[i]->wire->GetShape();
+      // tube->SetEltuDimensions(WIRE3DRADIUS, WIRE3DRADIUS, tube->GetDz());
        }
     //PN= mgr -> MakePhysicalNode(path);
     //PN -> Align(new TGeoTranslation(0,0,0), new TGeoTube("Tube",0.0,0.0,0.0));

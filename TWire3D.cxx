@@ -1,4 +1,4 @@
-//************************************************************************* 
+////************************************************************************* 
 //  TWire3D.cxx  - 4/14/2008
 // 
 //  by miham
@@ -44,6 +44,10 @@ TWire3D::TWire3D(double angle, double y1, double z1, double y2, double z2,
       	Wirecomb = new TGeoCombiTrans(t1, r1);
       	WirePlane->AddNodeOverlap(wire,1,Wirecomb);
 
+
+	// Test code for visibility settings: when Setvisibility or InvisibleAll called here, only the wires will be invisible in 3D view.
+	// However if Setvisibility or InvisibleAll of wires are called in Wire3DHit() and clea() in WirePlane3D.cxx, it will make the
+	// whole 3D view will be blank after click 'Show this Event'.
         //wire -> SetVisibility(kFALSE);
         //wire -> InvisibleAll(kFALSE);
 }
