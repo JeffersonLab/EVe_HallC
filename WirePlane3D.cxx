@@ -9,25 +9,23 @@
 
 using namespace std;
 
-WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D,TGeoVolume* Top,TGeoManager* Mgr,int color)
+WirePlane3D::WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D,
+        GetVariables *DB, TGeoVolume* Top,TGeoManager* Mgr,int color)
 {
     wirecolor = color;
 
-    //Get all data from HMS.txt
-    GetVariables *HMS = new GetVariables("HMS.txt");
-
     //Distance of the wireplane from the front surface of chamber
-    double PlaneDist= HMS->GetDouble(Form("%s.%s.Dist =",ChamberName,PlaneName.c_str()));
-    double Thickness= HMS->GetDouble(Form("%s.Thickness =",ChamberName));
+    double PlaneDist= DB->GetDouble(Form("%s.%s.Dist =",ChamberName,PlaneName.c_str()));
+    double Thickness= DB->GetDouble(Form("%s.Thickness =",ChamberName));
 
     // Height and Width of the wireplane
-    double H= 100*HMS->GetDouble(Form("%s.Height =",ChamberName));
-    double W= 100*HMS->GetDouble(Form("%s.Width =",ChamberName));
+    double H= 100*DB->GetDouble(Form("%s.Height =",ChamberName));
+    double W= 100*DB->GetDouble(Form("%s.Width =",ChamberName));
 
     //Number of Wires,radius of wires, and Angle of Wires
-    int nWires = HMS->GetInt(Form("%s.%s.NumWires =",ChamberName,PlaneName.c_str()));
+    int nWires = DB->GetInt(Form("%s.%s.NumWires =",ChamberName,PlaneName.c_str()));
     double R = WIRE3DRADIUS;
-    double Angle = HMS->GetDouble(Form("%s.%s.WireAngle =",ChamberName,PlaneName.c_str()));
+    double Angle = DB->GetDouble(Form("%s.%s.WireAngle =",ChamberName,PlaneName.c_str()));
 
     double Ang= Angle*3.14159/180.0;
     TGeoBBox *WP= new TGeoBBox(Form("%s.%s.WirePlane",ChamberName,PlaneName.c_str()),1.5*R, W/2, H/2);
