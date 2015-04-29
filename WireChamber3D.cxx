@@ -12,17 +12,14 @@
 
 using namespace std;
 
-WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoVolume* top, TGeoManager* mgr)
+WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVariables* DB,
+                                TGeoVolume* top, TGeoManager* mgr)
 {
-    //Get Dimension data from HMS.txt
-    // Height and Width of the wireplane
+    double H= 100.0*DB->GetDouble(Form("%s.Height =",ChamberName));
+    double W= 100.0*DB->GetDouble(Form("%s.Width =",ChamberName));
 
-    GetVariables *hms = new GetVariables("HMS.txt");
-    double H= 100.0*hms->GetDouble(Form("%s.Height =",ChamberName));
-    double W= 100.0*hms->GetDouble(Form("%s.Width =",ChamberName));
-
-    double CT= hms->GetDouble(Form("%s.Thickness =",ChamberName));
-    double WT= hms->GetDouble(Form("%s.WallThickness =",ChamberName));
+    double CT= DB->GetDouble(Form("%s.Thickness =",ChamberName));
+    double WT= DB->GetDouble(Form("%s.WallThickness =",ChamberName));
 
     TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),5.0*CT/2.0,1.5*W/2.0,1.5*H/2.0);
     Chamber3D = new TGeoVolume(Form("%s.Chamber",ChamberName),ChamberBox);
@@ -50,10 +47,10 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     TGeoTranslation t1;
     TGeoCombiTrans *comb;
 
-    double tilt = hms-> GetDouble(Form("%s.Tilt =",ChamberName));
-    double x0 = hms-> GetDouble(Form("%s.xPos =",ChamberName));
-    double y0 = hms-> GetDouble(Form("%s.yPos =",ChamberName));
-    double z0 = hms-> GetDouble(Form("%s.zPos =",ChamberName));
+    double tilt = DB-> GetDouble(Form("%s.Tilt =",ChamberName));
+    double x0 = DB-> GetDouble(Form("%s.xPos =",ChamberName));
+    double y0 = DB-> GetDouble(Form("%s.yPos =",ChamberName));
+    double z0 = DB-> GetDouble(Form("%s.zPos =",ChamberName));
 
     //cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 

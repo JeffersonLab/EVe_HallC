@@ -20,7 +20,8 @@ using namespace std;
 class WireChamber3D
 {
 public:
-    WireChamber3D(char* Name, vector<string> PlaneNames, TGeoVolume* top, TGeoManager* mgr);
+    WireChamber3D(char* Name, vector<string> PlaneNames, GetVariables* DB,
+                    TGeoVolume* top, TGeoManager* mgr);
     virtual ~WireChamber3D();
     void WireHit3D(string PlaneName,int  WireNum);
     void clear();
