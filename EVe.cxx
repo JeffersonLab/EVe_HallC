@@ -377,13 +377,13 @@ void EVe::CreateWires()
     CStransform *LDC1_cst = new CStransform(canvasL, LDC1X, LDC1Y);
     CStransform *LDC2_cst = new CStransform(canvasL, LDC2X, LDC2Y);
 
-    RDC1 = new WireChamber((char*)"RDC1",RDC1_cst);
+    RDC1 = new WireChamber((char*)"RDC1", vars, RDC1_cst);
 
-    RDC2 = new WireChamber((char*)"RDC2",RDC2_cst);
+    RDC2 = new WireChamber((char*)"RDC2", vars, RDC2_cst);
 
-    LDC1 = new WireChamber((char*)"LDC1",LDC1_cst);
+    LDC1 = new WireChamber((char*)"LDC1", vars, LDC1_cst);
 
-    LDC2 = new WireChamber((char*)"LDC2",LDC2_cst);
+    LDC2 = new WireChamber((char*)"LDC2", vars, LDC2_cst);
 
 /// Variables to generate scintillator planes planar view
 
@@ -396,9 +396,8 @@ void EVe::CreateWires()
     CStransform *Ls_cst = new CStransform(canvasL, CLsX, CLsY);
     CStransform *Rs_cst = new CStransform(canvasL, CRsX, CRsY);
 
-    Ls = new ScintPlane((char*)"Ls", Ls_cst);
-
-    Rs = new ScintPlane((char*)"Rs", Rs_cst);
+    Ls = new ScintPlane((char*)"Ls", vars, Ls_cst);
+    Rs = new ScintPlane((char*)"Rs", vars, Rs_cst);
 
     // In the end we plot a coordinate system
 
@@ -859,7 +858,7 @@ void EVe::DoDraw(int event)
         LDC2->clear();
 
         /*
-        s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
+        s1X->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
 
         for(int i=0;i<16; i++)
           cerr << "After hit the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
@@ -867,18 +866,19 @@ void EVe::DoDraw(int event)
           cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
 
 
-        s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
-        s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
-        s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);
+        s1Y->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+        s2X->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
+        s2Y->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);
         */
 
 
         Ls->clear();
         Rs->clear();
 
-        Rs->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
-
-        Ls->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+        Rs->SPHit(Ndata_H_hod_1x_postdchits, Ndata_H_hod_1x_negtdchits,
+                H_hod_1x_postdchits, H_hod_1x_negtdchits);
+        Ls->SPHit(Ndata_H_hod_1y_postdchits, Ndata_H_hod_1y_negtdchits,
+                H_hod_1y_postdchits, H_hod_1y_negtdchits);
 
 
 //****** Now we draw Trajectories through detectors, since data only used for HMS, now commented out

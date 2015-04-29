@@ -75,10 +75,10 @@ Detector3D::Detector3D()
     top -> AddNodeOverlap(Box,1,boxCT);
 
     //Right Scintillation Plane
-    Rsplane = new ScintPlane3D((char*)"Rs",top);
+    Rsplane = new ScintPlane3D((char*)"Rs", BHvar, top);
 
     //Left Scint Plane
-    Lsplane = new ScintPlane3D((char*)"Ls",top2);
+    Lsplane = new ScintPlane3D((char*)"Ls", BHvar, top2);
 
     //test code: check top2 volume's origin
     TGeoTranslation top2t(-300.0, 0.0, 0.0);
