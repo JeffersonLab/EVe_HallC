@@ -25,7 +25,7 @@ public:
     virtual ~ScintillatorPaddle();
     void HitLeft();
     void HitRight();
-    void HitBoth();
+    void HitPaddle();
     void clear();
 
 protected:

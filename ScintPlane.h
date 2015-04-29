@@ -27,13 +27,13 @@
 class ScintPlane
 {
 public:
-    ScintPlane(char* splaneName, CStransform *trans);
+    ScintPlane(char* SplaneName, GetVariables* DB, CStransform *trans);
     virtual ~ScintPlane();
-    void paddleLeftHit(int padn);
+    void paddleLeftHit(int pad);
     void paddleRightHit(int pad);
-    void paddleBothHit(int padnum);
+    void paddleBothHit(int pad);
     void Track(double x, double y, int i);
-    void SPHit2D(int NumL, int NumR, double poshit[], double neghit[]);
+    void SPHit(int NumL, int NumR, double poshit[], double neghit[]);
     void clear();
 
 
@@ -45,7 +45,6 @@ protected:
     double sx0, sy0,sa,sb;
     double paddle_length;
     double paddle_height;
-    double PMTl;
     char* splaneName;
     ScintillatorPaddle *paddle[MAX_PADDLE_NUM];
     //GetVariables myvars;

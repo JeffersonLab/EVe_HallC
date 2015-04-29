@@ -10,6 +10,7 @@
 #include "TEllipse.h"
 #include "CStransform.h"
 #include "WirePlane2D.h"
+#include "GetVariables.h"
 
 #include <map>
 #include <string>
@@ -23,7 +24,7 @@ using namespace std;
 class WireChamber
 {
 public:
-    WireChamber (char* chamberName, CStransform *trans);
+    WireChamber(char* chamberName, GetVariables *DB, CStransform *trans);
 
     virtual ~WireChamber();
     void ChamberHit();
