@@ -8,122 +8,6 @@
 // 
 //
 //************************************************************************* 
-/*
-#include "Trajectory3D.h"
-#include "TMath.h"
-#include <cstring>
-#include <cstdio>
-#include <iostream>
-#include <sstream>
-#include <iostream>
-#include <fstream>
-
-#include "EVe_DB.h"
-
-#define DEBUG_LEVEL 0
-
-
-using namespace std;
-
-Trajectory3D::Trajectory3D(char *objectname, TGeoVolume *tvolume, TGeoManager *mgr, char *pot)
-{
-	for (int i = 0; i<100; i++) name[i] = 0;
-       	strcat(name,objectname);
-	
-        manager = mgr;  
-      	TGeoTube *tube = new TGeoTube("tube",0.0, 0.0, 0.0);	
-       	TGeoVolume *trajectory = new TGeoVolume(name,tube);
-       	trajectory->SetLineColor(kBlue);	
-       	tvolume->AddNodeOverlap(trajectory,1);
-
-	for (int i = 0; i<100; i++) path[i] = 0;
-	strcat(path, pot);
-	strcat(path, objectname);
-	strcat(path, "_1");
-
-#if DEBUG_LEVEL >= 3
-	cout<<"Name is: "<<name<<"... path is: "<<path<<endl;
-#endif
-	
-}
-
-Trajectory3D::~Trajectory3D()
-{
-
-}
-
-
-void Trajectory3D::Track(double xf, double yf, double zf, double thetaf, double phif)
-{	
-	double alpha = MWDC2_tilt*3.141592654/180.0;	
-
-	double xD1 = xf;
-        double yD1 = -yf;
-        double zD1 = 0.0;
-
-        double zD2 = MWDC2_z*100.0;  // ned to transform [m] to [cm]
-        //double xD2 = xD1 + tan(thetaf)*(zD2-zD1);
-        //double yD2 = yD1 + tan(-phif)*(zD2-zD1);
-	double xD2 = xD1 + thetaf*(zD2-zD1);
-        double yD2 = yD1 + (-phif)*(zD2-zD1);
-
-	
-  	// (zD2,xD2) --> (x2, z2) corresponds to second MWDC plane
-  	double xb = zD2*cos(alpha) + xD2*sin(alpha) + MWDC1_xpos; 
-  	double zb = (zD2*sin(alpha) - xD2*cos(alpha) + MWDC1_zpos);
-	double yb = yD2 + MWDC1_ypos;
-
-  	// (zD1,xD1) --> (x1, z1) corresponds to first MWDC plane
-  	double xa = zD1*cos(alpha) + xD1*sin(alpha) + MWDC1_xpos;
-  	double ya = yD1 + MWDC1_ypos;
-  	double za = zD1*sin(alpha) - xD1*cos(alpha) + MWDC1_zpos;
-
-
-
-	double x1 = xa - 70.0;
-	double z1 = za - 70.0*(zb-za)/(xb-xa); 
-	double y1 = ya - 70.0*(yb-ya)/(xb-xa);
-
-	double x2 = xa + 150.0;
-	double z2 = za + 150.0*(zb-za)/(xb-xa); 
-	double y2 = ya + 150.0*(yb-ya)/(xb-xa);
-
-	double x0 = (x1+x2)/2.0; 
-	double y0 = (y1+y2)/2.0;
-	double z0 = (z1+z2)/2.0;
-	
-
-	double theta = 180.0/3.141592654*atan2(sqrt((y2-y1)*(y2-y1) + (x2-x1)*(x2-x1)),(z2-z1));
-	double phi = 180.0/3.141592654*atan2(y2- y1, x2 - x1);
-	double length = sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
-
-#if DEBUG_LEVEL >= 3
-	cout<<"----> x0: "<<x0<<", y0: "<<y0<<", z0: "<<z0<<endl;
-	cout<<"----> Length: "<<length<<endl;
-	cout<<"----> Theta: "<<theta<<endl;
-	cout<<"----> Phi: "<<phi<<endl;
-#endif
-
-        TGeoRotation r1;
-      	r1.SetAngles(theta-90,phi, 90,phi+90,theta,phi);
-      	TGeoTranslation t1(x0, y0,  z0);
-        TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1); 
-	TGeoPhysicalNode *pn = manager->MakePhysicalNode(path);
-	pn ->Align(comb,new TGeoTube("tube",0.0, 1, length/2.0));	
-
-}
-
-
-
-void Trajectory3D::ClearTrack()
-{	
-
-	TGeoPhysicalNode *pn = manager->MakePhysicalNode(path);
-	pn ->Align(new TGeoTranslation(0,0,0), new TGeoTube("tube",0.0, 0.0, 0.0));
-
-}
-
-*/
 #include "TGeoPhysicalNode.h"
 #include "Trajectory3D.h"
 #include "TMath.h"
@@ -137,27 +21,12 @@ using namespace std;
 Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n)
 {
     Manager=Mgr;
-    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
-    Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
+    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum_tube_%d",n), 0.0 ,0.0, 0.0);
+    Ray = new TGeoVolume(Form("TrackRayNum_vol%d",n),TrackRay);
     Ray ->SetLineColor(n+2);
     Top->AddNodeOverlap(Ray,1);
-    path = Form("/TOP_1/TrackRayNum%d_1",n);
-}
-
-
-Trajectory3D::Trajectory3D(TGeoVolume* Top, TGeoManager* Mgr, int n,
-               double x, double y, double theta, double phi)
-{
-    Manager=Mgr;
-    TGeoTube* TrackRay = new TGeoTube (Form("TrackrayNum %d",n), 0.0 ,0.0, 0.0);
-    Ray = new TGeoVolume(Form("TrackRayNum%d",n),TrackRay);
-    Ray ->SetLineColor(n+2);
-    Top->AddNodeOverlap(Ray,1);
-    path = Form("/TOP_1/TrackRayNum%d_1",n);
-
-    Enable(n,x,y,theta,phi);
-
-    cerr << "Track Num "<< n << " is created." << endl;
+    path = Form("/TOP_1/TrackRayNum_vol%d_1",n);
+    //cerr << "Path for " << n << " th track is "<< path << endl;
 }
 
 Trajectory3D::~Trajectory3D()
@@ -165,6 +34,14 @@ Trajectory3D::~Trajectory3D()
 
 }
 
+// FIXME:
+//    - Move all the HMS specific stuff out -- the origin and any coordinate
+//    transformation should be passed to this object.
+//    - There is no reason to care about the second chamber at all.  The only
+//    thing the trajectory needs is to know how to take the x,y coord in the
+//    detector coordinate system (usually the first wirechamber plan) to the
+//    Canvas coordinate system.  (That is why the first wirechamber shouldn't
+//    be looked at here either.
 void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 {
     GetVariables* HMS= new GetVariables("HMS.txt");
@@ -173,8 +50,8 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double C1y = -x;
     double C1z = 0.0;
 
-    cerr<< "x = " << x << " ,y = " << y << endl;
-    cerr<< "C1x = " << C1x << " ,C1y= " << C1y <<endl;
+    //cerr<< "x = " << x << " ,y = " << y << endl;
+    //cerr<< "C1x = " << C1x << " ,C1y= " << C1y <<endl;
 
     double xdiff = HMS-> GetDouble("MWDC2.xPos =")- HMS-> GetDouble("MWDC1.xPos =");
     double ydiff = HMS-> GetDouble("MWDC2.yPos =")- HMS-> GetDouble("MWDC1.yPos =");
@@ -189,7 +66,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double tempx,tempy,tempz;
     tempx=C1x;tempy=C1y;tempz=C1z;
     C1x=tempz; C1y=-tempx; C1z=tempy;
-    cerr << "In canvas 1y = " << C1y << " , 1z= " << C1z << endl;
+    //cerr << "In canvas 1y = " << C1y << " , 1z= " << C1z << endl;
 
     tempx=C2x;tempy=C2y;tempz=C2z;
     C2x=tempz; C2y=-tempx; C2z=tempy;
@@ -203,7 +80,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double C1ypos= HMS-> GetDouble("MWDC1.yPos =");
     double C1zpos= HMS-> GetDouble("MWDC1.zPos =");
 
-    cerr << " Tilt of chamber 1 is : " << C1tilt << endl;
+    //cerr << " Tilt of chamber 1 is : " << C1tilt << endl;
 
     tempx= C1x*cos(C1tilt)-C1z*sin(C1tilt);
     tempz= C1x*sin(C1tilt)+C1z*cos(C1tilt);
@@ -212,6 +89,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     C1y+= C1ypos;
     C1z= tempz + C1zpos;
 
+    //FIXME: Why is the second chamber used at all?
     //Chamber2
     double C2tilt= HMS-> GetDouble("MWDC2.Tilt =");
     double C2xpos= HMS-> GetDouble("MWDC2.xPos =");
@@ -227,12 +105,12 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 
     //We want draw the tracking ray till the boundary of the canvas
     // so compute the ray position on the boundaries
-    double xmin =0.0;
+    double xmin =-20.0;   // FIXME: where does this number come from?
     double B1x = xmin;
     double B1y = C1y + (C2y-C1y)/(C2x-C1x)*(xmin-C1x);
     double B1z = C1z + (C2z-C1z)/(C2x-C1x)*(xmin-C1x);
 
-    double xmax =370.0;
+    double xmax =390.0;   // FIXME: where does this number come from?
     double B2x = xmax;
     double B2y = C2y + (C2y-C1y)/(C2x-C1x)*(xmax-C2x);
     double B2z = C2z + (C2z-C1z)/(C2x-C1x)*(xmax-C2x);
@@ -253,7 +131,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     TGeoCombiTrans *comb = new TGeoCombiTrans(t1, r1);
 
     TGeoPhysicalNode* pn = Manager->MakePhysicalNode(path);
-    pn ->Align(comb, new TGeoTube("Tube",0.0,1.0,Length/2.0));
+    pn->Align(comb, new TGeoTube("Tube",0.0,1.0,Length/2.0));
 }
 
 void Trajectory3D::Disable()

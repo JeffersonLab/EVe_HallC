@@ -21,57 +21,47 @@ using namespace std;
 ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
 {
    GetVariables *hms = new GetVariables("HMS.txt");
-   
+
    // Get Values used in construct n paddles for a single ScintPlane
    int numPMT = hms->GetInt("Number of paddle PMTs =");
-   int numPaddles = hms->GetInt(Form("%s.PN =",splaneName));
-   N = numPaddles;
+   numPaddles = hms->GetInt(Form("%s.PN =",splaneName));
    double length = hms ->GetDouble(Form("%s.PaddleLength =",splaneName));
    double height = hms ->GetDouble(Form("%s.PaddleHeight =",splaneName));
    double thickness = hms ->GetDouble(Form("%s.PaddleThickness =",splaneName));
 
-   
-
    // Draw the Scintillator Plane in sy configuration
-   //TGeoBBox* SP = new TGeoBBox(splaneName,4.0*((double)numPaddles)*height ,1.2*thickness ,1.2*length);
-   //test data
    TGeoBBox* SP = new TGeoBBox(splaneName,1.2*thickness ,4.0*((double)numPaddles)*height ,3.0*length);
    ScintPlane = new TGeoVolume((Form("%s.plane",splaneName)),SP);
    // Draw n paddles for a single sy plane
    for(int i = 0; i<numPaddles; i++)
-   { /// FIXME: Better use vector to draw the whole plane, may use Volume Assenblies, also fix in ScintPlane3D.h
-     paddle[i] = new ScintillatorPaddle3D(splaneName,i,numPaddles,
-					  length, height, thickness,ScintPlane, numPMT);}
-     ///So All Paddles are AddNoded to ScintVolume by calling SinctillatorPaddle3D}
-
-    
+     //FIXME: Better use vector to draw the whole plane, may use Volume
+     //  Assenblies, also fix in ScintPlane3D.h
+     paddle.push_back ( new ScintillatorPaddle3D(splaneName, i, numPaddles, 
+           length, height, thickness,ScintPlane, numPMT) );
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
     double angle= hms->GetDouble(Form("%s.angle =",splaneName));
-    
+
     TGeoRotation* scintrot= new TGeoRotation();
     scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
-    
-    
+
     /// Make the Whole ScintPlane rotation and translation combination to settle up
     // transformation used for AddNode a single ScintPlane3D to top Volume
     TGeoRotation r1;
     TGeoTranslation t1;
-    // TGeoHMatrix TotRot;
     TGeoCombiTrans *comb;
-    
+
     double tilt = hms-> GetDouble(Form("%s.tilt =",splaneName));
     double xpos = hms-> GetDouble(Form("%s.xpos =",splaneName));
     double ypos = hms-> GetDouble(Form("%s.ypos =",splaneName));
     double zpos = hms-> GetDouble(Form("%s.zpos =",splaneName));
 
-    cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
+    //cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
 
     TGeoBBox* Box = new TGeoBBox(splaneName,1.5*thickness ,4.5*((double)numPaddles)*height ,4.0*length);
     TGeoVolume *SBox = new TGeoVolume(Form("%s.Box",splaneName),Box);
     SBox->AddNode(ScintPlane,1,scintrot);
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
-    //TotRot = scintrot*r1;
     t1.SetTranslation(xpos, ypos, zpos);
     comb = new TGeoCombiTrans(t1, r1); 
     top->AddNodeOverlap(SBox,1,comb);
@@ -86,61 +76,54 @@ ScintPlane3D::~ScintPlane3D()
 
 //Using new hit method same as planar view
 
-void ScintPlane3D::LHit(int numL)
+void ScintPlane3D::LHit(int num)
 {
-  if(numL<0) // cerr<< "negative left hit index for scintplane"<< endl;
-    ;
-  else paddle[numL]->HitL();
+  if( num<0 || num >= numPaddles)
+    cerr<< "left hit index out of bounds in scintplane3D: "<< num << endl;
+  else
+    paddle[num]->HitL();
 }
 
-void ScintPlane3D::RHit(int numR)
+void ScintPlane3D::RHit(int num)
 {
-  if(numR<0) // cerr<< "negative right hit index for scintplane"<< endl;
-    ;
-  else paddle[numR]->HitR();
+  if( num<0 || num >= numPaddles)
+    cerr<< "right hit index out of bounds in scintplane3D: "<< num << endl;
+  else
+    paddle[num]->HitR();
 }
 
-void ScintPlane3D::BHit(int numB)
+void ScintPlane3D::BHit(int num)
 {
-  if(numB<0) // cerr<< "negative both hit index for scintplane"<< endl;
-    ;
-  else paddle[numB]->HitB();
+  if( num<0 || num >= numPaddles)
+    cerr<< "paddle hit index out of bounds in scintplane3D: "<< num << endl;
+  else {
+    paddle[num]->HitL();
+    paddle[num]->HitR();
+    paddle[num]->HitPaddle();
+  }
 }
 
 void ScintPlane3D::clear()
 {
-  for(int i = 0; i<N; i++)
+  for(int i = 0; i<numPaddles; i++)
   {
     paddle[i]->clear();
   }
 }
 
-void ScintPlane3D :: SPHit(int NumL, int NumR, double poshit[], double neghit[])
+void ScintPlane3D::SPHit(int NumL, int NumR, double poshit[], double neghit[])
 {
-   double matchR[16];
-   double matchL[16];
+  for (int rh=0; rh<NumL; rh++) {
+    RHit(poshit[rh]-1);
+  }
 
-   for (int q = 0; q<NumL; q++)
-     {
-       matchR[q] = poshit[q];
-       RHit(poshit[q]-1);
-     }
+  for (int lh=0; lh<NumR; lh++) {
+    LHit(neghit[lh]-1);
+  }
 
-   for (int q=0;q<NumR;q++)
-     {
-       matchL[q]= neghit[q];
-       LHit(neghit[q]-1);
-     }
-
-   for (int i=0;i<16;i++) {
-     for (int j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-
-	 BHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 BHit(matchL[i]-1);
-       }
-     }  
-     matchR[i]=0;
-     matchL[i]=0;}
- }
+  for (int rh=0; rh<NumR; rh++) {
+    for (int lh=0; lh<NumL; lh++) {
+      if(poshit[lh]==neghit[rh]) BHit(poshit[lh]-1);
+    }
+  }
+}

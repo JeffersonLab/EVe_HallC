@@ -6,16 +6,54 @@ ScintYlength =
 ScintZlength = 
 Number of paddle PMTs = 2
 Number of Scint Planes = 4	
-1st Scint Array Rotation = 0.0
-2nd Scint Array Rotation = 90.0
 
-1st Scint Array NPaddles = 16
-2nd Scint Array NPaddles = 10
-HodXpos =
-HodYpos = 
-HodPaddleN = 
+//Data can be ajusted to change splanes and chambers position in planar view
+canvasL = 5.0
+
+canvas.s1x.x = 0.27
+canvas.s1x.y = 0.475
+canvas.s1y.x = 0.27
+canvas.s1y.y = 0.8
+
+canvas.s2x.x = 0.7
+canvas.s2x.y = 0.475
+canvas.s2y.x = 0.7
+canvas.s2y.y = 0.8
+
+canvas.MWDC1.x = 0.27
+canvas.MWDC1.y = 0.18
+canvas.MWDC2.x = 0.7
+canvas.MWDC2.y = 0.18
+
+//Planar view track Calculation data
+MWDC2.z = 0.81222
+s1x.z = 1.29753
+s1y.z = 1.49443
+s2x.z = 3.50743
+s2y.z = 3.70433
+
+//Projection view variables
+//x projection view
+x1.dist = 0.0
+x1p.dist = 0.0064
+x2.dist = 0.8122
+x2p.dist = 0.812284
+
+//u v projection view
+u1.dist = 0.0128
+v1.dist = 0.0192
+u2.dist = 0.825
+v2.dist = 0.8314
+
+//y projection view
+y1.dist = 0.028775
+y1p.dist = 0.035175
+y2.dist = 0.840975
+y2p.dist = 0.847375
 
 //MWDC1 stats
+//Height and Width use units m, and Thickness and WallThickness use units cm, since there is a unit conversion between
+// 2D view and 3D view
 MWDC1.Height = 1.13
 MWDC1.Width = 0.56
 MWDC1.Thickness = 4.0
@@ -98,7 +136,7 @@ MWDC2.xp.Offset = 0.005
 MWDC2.xp.Dist = 3.5175
 
 ///PMTlength
-        const double PMTlength=0.2936
+PMTlength = 0.2936
 
 // s1x-plane variables
         //s1x paddles' angle

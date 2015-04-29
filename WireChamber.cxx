@@ -14,9 +14,15 @@
 
 using namespace std;
 
-WireChamber:: WireChamber(char* chamberName,vector<string> planeNames,
-                 double Height,double Width,CStransform *trans){
+WireChamber:: WireChamber(char* chamberName,CStransform *trans){
    cst=trans;
+
+   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
+   vector<string> planeNames(&PN[0],&PN[0]+6);
+  
+   GetVariables *HMSvars = new GetVariables("HMS.txt");
+   double Height = HMSvars->GetDouble(Form("%s.Height =",chamberName));
+   double Width = HMSvars->GetDouble(Form("%s.Width =",chamberName));
 
    double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Width)/2;
    double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
@@ -54,7 +60,7 @@ WireChamber:: WireChamber(char* chamberName,vector<string> planeNames,
           Height, Width,
           hmsVars->GetDouble(Form("%s.%s.WireAngle =", chamberName, planeNames[i].c_str())),
           hmsVars->GetInt(Form("%s.%s.NumWires =",  chamberName, planeNames[i].c_str())),
-          i+1 ,/* I'm using 'i' to set the wire color (last arg) so each
+          i+2 ,/* I'm using 'i' to set the wire color (last arg) so each
              * plane is assigned a different color */
           cst ,
           hmsVars->GetDouble(Form("%s.%s.Offset =",  chamberName, planeNames[i].c_str())),
@@ -77,8 +83,7 @@ WireChamber::~WireChamber(){}
 void WireChamber::WireHit(string planeName, int wireNum)
 {
       
-      wirePlanes.find(planeName)->second.WireHit(wireNum);  
-      //wirePlanes[planeName].WireHit(wireNum);
+      wirePlanes.find(planeName)->second.WireHit(wireNum);
 }
 
 void WireChamber::clear()
@@ -109,10 +114,7 @@ void WireChamber::Track(double x, double y, int i){
   track_circ[i]->SetY1(CY);
   track_circ[i]->SetR1(0.008);
   track_circ[i]->SetR2(0.008);
-  //track_circ[i]->SetLineColor(kOrange+8);
   track_circ[i]->SetLineColor(1+i);
   track_circ[i]->SetLineWidth(2);
-  //track_circ[i]->SetFillColor(kYellow);
-  //track_circ[i]->SetFillColor(kOrange+0-i);
   track_circ[i]->Draw();
   }

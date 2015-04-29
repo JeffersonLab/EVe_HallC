@@ -9,8 +9,6 @@
 #include "TLine.h"
 #include "TEllipse.h"
 #include "CStransform.h"
-#include "EVe_DB.h"
-//#include "HMS.txt"
 #include "WirePlane2D.h"
 
 #include <map>
@@ -18,12 +16,13 @@
 #include <cstring>
 #include <vector>
 
+#define MAX_TRACK_NUM 77
+
 using namespace std;
 
 class WireChamber{
 public:
-    WireChamber (char* chamberName, vector<string> planeNames,
-                 double Height, double Width, CStransform *trans);
+    WireChamber (char* chamberName, CStransform *trans);
 
     virtual ~WireChamber();
     void ChamberHit();

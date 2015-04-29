@@ -16,10 +16,10 @@ GetVariables::GetVariables(std::string filename)
 {
   file = filename;
   infile.open(filename.c_str());
-  if (infile.is_open()) {
-    cout << "Geometry file opened" << endl;
+  if(! infile.is_open()) {
+    cerr << "Unable to open: " << filename << endl;
+    exit;
   }
-  
 }
  
 GetVariables::~GetVariables()

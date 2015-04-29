@@ -22,7 +22,6 @@ class ScintillatorPaddle {
  public:
   ScintillatorPaddle(int index, double x, double y, double a, double b, double cx0,double cy0, int PMTn, double PMTlength, double ang);
   virtual ~ScintillatorPaddle();
-  void hit(double left, double right, double y);
   void HitLeft();
   void HitRight();
   void HitBoth();
