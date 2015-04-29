@@ -23,6 +23,19 @@ They boil down to this:
     - git push origin <featurebranchname>
   - make a 'pull request' from <featurebranchname> on github
 
+=== Formatting/Style ===
+Please follow the style conventions (4-space indent, no tabs, etc).
+Vim users can install this plugin to make use of the .lvimrc defaults file.
+From: http://www.vim.org/scripts/script.php?script_id=441
+  vim Docs/localvimrc.vba
+  :so %
+  :q
+I'd also add this to your ~/.vimrc:
+  if !exists("g:localvimrc_persistent")
+    let g:localvimrc_persistent=2    " save local vimrc responses
+  endif
+A '.dir-locals.el' defaults file is present for Emacs users.
+
 === Documentation ===
 Some documentation may be found in the Docs/ directory, however it has not
 kept pace with some of the modifications so YMMV.
