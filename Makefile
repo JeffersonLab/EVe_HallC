@@ -125,9 +125,9 @@ install:	all
 
 clean:
 		rm -f *.so *.o *~ $(USERLIB) $(USERDICT).*
+		find . -name '*.d' -delete
 
 realclean:	clean
-		rm -f *.d
 
 srcdist:
 		rm -f $(DISTFILE)
