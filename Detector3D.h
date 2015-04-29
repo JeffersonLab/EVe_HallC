@@ -1,6 +1,6 @@
 ///////////////////////////////////////
 /*  Detector3D.h  7/17/14
-    
+
     Ben Davis-Purcell
 
     Class that joins all detectors in 3D view
@@ -33,28 +33,29 @@
 #include <vector>
 #include <string>
 
-class Detector3D {
-  
+class Detector3D
+{
+
 public:
-  Detector3D();
-  virtual ~Detector3D();
-  
-  void Track(double p0x, double p0y, double p0z, 
-            double xf, double yf, double zf, double thetaf, double phif);
-  void ClearTrack();
-  void ClearTracks();
-  TGeoManager *mgr;
-  WireChamber3D *RDC1;
-  WireChamber3D *RDC2;
-  WireChamber3D *LDC1;
-  WireChamber3D *LDC2;
-  ScintPlane3D *Lsplane;
-  ScintPlane3D *Rsplane;
+    Detector3D();
+    virtual ~Detector3D();
 
-  vector<Trajectory3D* > TrackList;
+    void Track(double p0x, double p0y, double p0z,
+               double xf, double yf, double zf, double thetaf, double phif);
+    void ClearTrack();
+    void ClearTracks();
+    TGeoManager *mgr;
+    WireChamber3D *RDC1;
+    WireChamber3D *RDC2;
+    WireChamber3D *LDC1;
+    WireChamber3D *LDC2;
+    ScintPlane3D *Lsplane;
+    ScintPlane3D *Rsplane;
 
-  TGeoVolume *top;
-  TGeoVolume *top2;
+    vector<Trajectory3D* > TrackList;
+
+    TGeoVolume *top;
+    TGeoVolume *top2;
 
 };
 

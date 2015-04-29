@@ -1,30 +1,31 @@
-//************************************************************************* 
+//*************************************************************************
 //  CSTransform.h  - 4/14/2008
-// 
+//
 //  by miham
-// 
-//  We use this class to transform real coordinate values from MWDC and 
+//
+//  We use this class to transform real coordinate values from MWDC and
 //  Scintillators (that we get from data) to pixels inside a canvas, where we
-//  want to draw out data. 
-// 
+//  want to draw out data.
+//
 //
 //*************************************************************************
 #ifndef ROOT_CStransform
 #define ROOT_CStransform
 
-class CStransform {
-  
+class CStransform
+{
+
 public:
-  CStransform (double A, double cX0, double cY0);
-  CStransform (double A, double cX0, double cY0, int rotation);
-  virtual ~CStransform();
-  double transXtoCX(double x);
-  double transYtoCY(double y);
-  double transLtoCL(double l);
-  double GetAlpha();
+    CStransform (double A, double cX0, double cY0);
+    CStransform (double A, double cX0, double cY0, int rotation);
+    virtual ~CStransform();
+    double transXtoCX(double x);
+    double transYtoCY(double y);
+    double transLtoCL(double l);
+    double GetAlpha();
 protected:
-  double alpha;
-  double CX0, CY0;
+    double alpha;
+    double CX0, CY0;
 };
 
 #endif

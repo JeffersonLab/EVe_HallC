@@ -27,7 +27,7 @@ public:
     TGeoVolume* LeftWall;
     TGeoVolume* UpperWall;
 
-    
+
 
 protected:
     TGeoVolume* Chamber3D;

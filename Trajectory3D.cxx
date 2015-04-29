@@ -1,13 +1,13 @@
-//************************************************************************* 
+//*************************************************************************
 //  Trajectory3D.cxx  - 4/14/2008
-// 
+//
 //  by miham
-// 
+//
 //  This class is used to create, show and modify partial tracks in 3D view.
 //
-// 
 //
-//************************************************************************* 
+//
+//*************************************************************************
 #include "TGeoPhysicalNode.h"
 #include "Trajectory3D.h"
 #include "TMath.h"
@@ -64,14 +64,22 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 
     //Change to Canvas Coordinates: (x,y,z)->(z,x,y)
     double tempx,tempy,tempz;
-    tempx=C1x;tempy=C1y;tempz=C1z;
-    C1x=tempz; C1y=-tempx; C1z=tempy;
+    tempx=C1x;
+    tempy=C1y;
+    tempz=C1z;
+    C1x=tempz;
+    C1y=-tempx;
+    C1z=tempy;
     //cerr << "In canvas 1y = " << C1y << " , 1z= " << C1z << endl;
 
-    tempx=C2x;tempy=C2y;tempz=C2z;
-    C2x=tempz; C2y=-tempx; C2z=tempy;
+    tempx=C2x;
+    tempy=C2y;
+    tempz=C2z;
+    C2x=tempz;
+    C2y=-tempx;
+    C2z=tempy;
 
-     //Now apply transform to these 2 hit signal in 3D canvas
+    //Now apply transform to these 2 hit signal in 3D canvas
     // 1st rotate them according to tilt , then translate with their center position in canvas
 
     //Chamber1
