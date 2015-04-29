@@ -39,8 +39,8 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVa
 
     //Draw all WirePlanes for the WireChamber
     for(unsigned int i=0; i< PlaneNames.size(); i++) {
-        WirePlanes.insert(std::pair<string, WirePlane3D>
-                (PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+2)));
+        WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],
+                    WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, DB, top, mgr, i+2)));
     }
 
     //Get Rotation and Translation, AddNode to top Volume
