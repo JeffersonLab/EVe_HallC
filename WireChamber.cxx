@@ -14,23 +14,18 @@
 
 using namespace std;
 
-WireChamber:: WireChamber(char* chamberName,CStransform *trans)
+WireChamber::WireChamber(char* chamberName, GetVariables *DB, CStransform *trans)
 {
-
     cst=trans;
 
     string PN[2]= {"u", "v"};
     vector<string> planeNames(&PN[0],&PN[0]+2);
 
-    GetVariables *BHvars = new GetVariables("BH.txt");
-    double Height = BHvars->GetDouble(Form("%s.Height =",chamberName))/100.0;
-    double Width = BHvars->GetDouble(Form("%s.Width =",chamberName))/100.0;
-    // (x,y) is the canvas lower left corner of the Chamber
+    double Height = DB->GetDouble(Form("%s.Height =",chamberName));
+    double Width = DB->GetDouble(Form("%s.Width =",chamberName));
 
     double x =  cst->transXtoCX(0.0) - cst->transLtoCL(Width)/2;
     double y =  cst->transYtoCY(0.0) - cst->transLtoCL(Height)/2;
-
-    // a,b are the canvas width and height for the chamber
 
     double a = cst->transLtoCL(Width);
     double b = cst->transLtoCL(Height);
@@ -57,19 +52,19 @@ WireChamber:: WireChamber(char* chamberName,CStransform *trans)
     box2->Draw();
 
     //Draw all wire planes
-    GetVariables *BHVars = new GetVariables("BH.txt");
     for(unsigned int i=0; i<planeNames.size(); i++) {
         wirePlanes.insert (
-            std::pair<string, WirePlane2D>(planeNames[i], WirePlane2D(
-                                               planeNames[i],
-                                               Height, Width,
-                                               BHVars->GetDouble(Form("%s.%s.WireAngle =", chamberName, planeNames[i].c_str())),
-                                               BHVars->GetInt(Form("%s.%s.NumWires =",  chamberName, planeNames[i].c_str())),
-                                               i+2 /* I'm using 'i' to set the wire color (last arg) so each* plane is assigned a different color */,
-                                               cst ,
-                                               BHVars->GetDouble(Form("%s.%s.Offset =",  chamberName, planeNames[i].c_str())),
-                                               i
-                                           )));
+            std::pair<string, WirePlane2D>
+            (planeNames[i], 
+             WirePlane2D(planeNames[i], Height, Width,
+             DB->GetDouble(Form("%s.%s.WireAngle =", chamberName, planeNames[i].c_str())),
+             DB->GetInt(Form("%s.%s.NumWires =",  chamberName, planeNames[i].c_str())),
+             i+2 ,/* I'm using 'i' to set the wire color (last arg) so each
+                   * plane is assigned a different color */
+             cst ,
+             DB->GetDouble(Form("%s.%s.Offset =",  chamberName, planeNames[i].c_str())),
+             i
+        )));
     }
 
     title = new TLatex(x,b*1.06+y, chamberName);

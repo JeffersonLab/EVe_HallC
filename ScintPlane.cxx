@@ -16,28 +16,26 @@
 
 using namespace std;
 
-ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
+ScintPlane::ScintPlane(char* SplaneName, GetVariables* DB, CStransform *trans)
 {
 
     splaneName = SplaneName;
     // Setup size and number of paddles, converting plenth & pheight [m] into pixels
     cst = trans;
-    GetVariables *BH = new GetVariables("BH.txt");
 
     // Get Values used in construct n paddles for a single ScintPlane
-    int numPMT = BH->GetInt("Number of paddle PMTs =");
+    int numPMT = DB->GetInt("Number of paddle PMTs =");
 
-    N = BH-> GetInt(Form("%s.PN =",splaneName));
+    N = DB-> GetInt(Form("%s.PN =",splaneName));
 
-    paddle_length = BH ->GetDouble(Form("%s.PaddleLength =",splaneName))/100.0;
-    paddle_height = BH ->GetDouble(Form("%s.PaddleHeight =",splaneName))/100.0;
+    paddle_length = DB ->GetDouble(Form("%s.PaddleLength =",splaneName))/100.0;
+    paddle_height = DB ->GetDouble(Form("%s.PaddleHeight =",splaneName))/100.0;
 
-    double PMTlength = BH -> GetDouble ("PMTlength =");
-    PMTl = cst->transLtoCL(PMTlength);
+    double PMTlength = DB -> GetDouble ("PMTlength =");
+    double PMTl = cst->transLtoCL(PMTlength);
 
-    angle = BH -> GetDouble(Form("%s.angle =",splaneName));
-    cerr << "Angle for " << splaneName << " is " << angle << endl;
-
+    angle = DB -> GetDouble(Form("%s.angle =",splaneName));
+    cerr << "Angle for " << splaneName << " is " << angle;
     //below calculate and draw all paddles for a single scintplane
     // sx0,sy0 is the coordinate of the sicntplane in canvas
     sx0 = cst->transXtoCX(0.0);                                    ;
@@ -49,6 +47,7 @@ ScintPlane::ScintPlane(char* SplaneName, CStransform *trans)
 
     double CL = cst->transLtoCL(paddle_length);
     double CH = cst->transLtoCL(paddle_height);
+
 
     //Consider sxpaddle length is different from sypaddle length
     sa = CL;
@@ -91,11 +90,15 @@ void ScintPlane::paddleRightHit(int pad)
 
 }
 
-void ScintPlane::paddleBothHit(int padnum)
+void ScintPlane::paddleBothHit(int pad)
 {
-    if(padnum<0) cerr << "Negative paddle index" << padnum <<" \n";
-    else
-        paddle[padnum]->HitBoth();
+    if(pad<0) {
+        cerr << "Negative paddle index" << pad <<" \n";
+    } else {
+        paddle[pad]->HitLeft();
+        paddle[pad]->HitRight();
+        paddle[pad]->HitPaddle();
+    }
 }
 
 
@@ -133,35 +136,19 @@ void ScintPlane::Track(double x, double y, int i)
 
 }
 
-void ScintPlane :: SPHit2D(int NumL, int NumR, double poshit[], double neghit[])
+void ScintPlane::SPHit(int NumL, int NumR, double poshit[], double neghit[])
 {
-    GetVariables *BH = new GetVariables("BH.txt");
-    // PN is number of paddles for a single scintplane
-    int PN = BH->GetInt(Form("%s.PN =",splaneName));
-
-    double matchR[PN];
-    double matchL[PN];
-
-    for (int q = 0; q<NumR; q++) {
-        matchR[q] = neghit[q];
-        paddleRightHit(neghit[q]-1);
+    for (int rh=0; rh<NumL; rh++) {
+        paddleRightHit(poshit[rh]-1);
     }
 
-    for (int q=0; q<NumL; q++) {
-        matchL[q]= poshit[q];
-        paddleLeftHit(poshit[q]-1);
+    for (int lh=0; lh<NumR; lh++) {
+        paddleLeftHit(neghit[lh]-1);
     }
 
-    for (int i=0; i<PN; i++) {
-        for (int j=0; j<PN; j++) {
-            if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-
-                paddleBothHit(matchR[i]-1);
-            } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-                paddleBothHit(matchL[i]-1);
-            }
+    for (int rh=0; rh<NumR; rh++) {
+        for (int lh=0; lh<NumL; lh++) {
+            if(poshit[lh]==neghit[rh]) paddleBothHit(poshit[lh]-1);
         }
-        matchR[i]=0;
-        matchL[i]=0;
     }
 }

@@ -46,17 +46,19 @@ Detector3D::Detector3D()
     string PN[2]= {"u", "v"};
     vector<string> PlaneNames(&PN[0],&PN[0]+2);
 
-    // First MWDC
-    RDC1 = new WireChamber3D((char*) "RDC1",  PlaneNames, top,mgr);
-
-    // Second MWDC
-    RDC2 = new WireChamber3D((char*) "RDC2",  PlaneNames, top,mgr);
+    GetVariables *BHvar = new GetVariables("BH.txt");
 
     // First MWDC
-    LDC1 = new WireChamber3D((char*) "LDC1",  PlaneNames, top2,mgr);
+    RDC1 = new WireChamber3D((char*) "RDC1",  PlaneNames, BHvar, top,mgr);
 
     // Second MWDC
-    LDC2 = new WireChamber3D((char*) "LDC2",  PlaneNames, top2,mgr);
+    RDC2 = new WireChamber3D((char*) "RDC2",  PlaneNames, BHvar, top,mgr);
+
+    // First MWDC
+    LDC1 = new WireChamber3D((char*) "LDC1",  PlaneNames, BHvar, top2,mgr);
+
+    // Second MWDC
+    LDC2 = new WireChamber3D((char*) "LDC2",  PlaneNames, BHvar, top2,mgr);
 
     //test code: check what transformation : translation and rotation did to a box in top volume
 

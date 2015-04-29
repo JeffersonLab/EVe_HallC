@@ -15,8 +15,8 @@ using namespace std;
 WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVariables* DB,
                                 TGeoVolume* top, TGeoManager* mgr)
 {
-    double H= 100.0*DB->GetDouble(Form("%s.Height =",ChamberName));
-    double W= 100.0*DB->GetDouble(Form("%s.Width =",ChamberName));
+    double H= DB->GetDouble(Form("%s.Height =",ChamberName));
+    double W= DB->GetDouble(Form("%s.Width =",ChamberName));
 
     double CT= DB->GetDouble(Form("%s.Thickness =",ChamberName));
     double WT= DB->GetDouble(Form("%s.WallThickness =",ChamberName));
