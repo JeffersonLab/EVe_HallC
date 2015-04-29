@@ -22,7 +22,7 @@
 #include "TWire3D.h"
 #include "WirePlane3D.h"
 #include "WireChamber3D.h"
-//#include "TGeoPhysicalNode.h"
+#include "TGeoPhysicalNode.h"
 #include "Trajectory3D.h"
 #include "GetVariables.h"
 

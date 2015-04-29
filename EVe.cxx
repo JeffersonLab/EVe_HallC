@@ -19,6 +19,7 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include <TApplication.h>
 #include <TROOT.h>
 
@@ -26,14 +27,7 @@
 #include <string>
 #include <vector>
 
-#include "EVe_DB.h"
-
 #define DEBUG_LEVEL  0
-
-// If you want full tracks set FULL_TRACK = 1, but for this you will also need  // some additional variables.
-#define FULL_TRACK 0
-
-
 
 using namespace std;
 
@@ -114,11 +108,11 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
    // Here are check buttons for options 
    TGButtonGroup *fGroupFrame2 = new TGButtonGroup(fMainFrame,"Options", kVerticalFrame);
    fGroupFrame2->SetLayoutBroken(kTRUE);
-   fTextButtonRoads = new TGCheckButton(fGroupFrame2,"Show Roads");
-   fGroupFrame2->AddFrame(fTextButtonRoads, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButtonRoads->MoveResize(8,24,106,20);
+   //  fTextButtonRoads = new TGCheckButton(fGroupFrame2,"Show Roads");
+   //fGroupFrame2->AddFrame(fTextButtonRoads, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   //fTextButtonRoads->MoveResize(8,24,106,20);
 
-   fTextButtonRoads->SetState(kButtonDown);
+   //fTextButtonRoads->SetState(kButtonDown);
 
    fTextButtonTrackProj = new TGCheckButton(fGroupFrame2,"Tr. Projections");
    fGroupFrame2->AddFrame(fTextButtonTrackProj, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
@@ -189,13 +183,11 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
 
    EventNumber = 0;
    cst = new CStransform(2.2, 0.5, 0.3);
-   umrd = new MultiRoads(cst);
+  
    for (int q = 0; q<MAX_ROADS_NUM; q++) utr[q] = new Track(cst);
-   
-   vmrd = new MultiRoads(cst);
+      
    for (int q = 0; q<MAX_ROADS_NUM; q++) vtr[q] = new Track(cst);
 
-   xmrd = new MultiRoads(cst);
    for (int q = 0; q<MAX_ROADS_NUM; q++) xtr[q] = new Track(cst);
 
    fTextButtonNext->Connect("Clicked()", "EVe", this, "doNext()");
@@ -273,22 +265,22 @@ void EVe::CreateXprojection()
 
      x1 = new WirePlane((char*)"X1",HMSvar->GetDouble("MWDC1.x.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(x1_dist),
+			cst->transYtoCY(HMSvar->GetDouble("x1.dist =")),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
    
      x1p = new WirePlane((char*)"X1p",HMSvar->GetDouble("MWDC1.xp.NumWires ="),
 			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			 cst->transYtoCY(x1p_dist),
+			 cst->transYtoCY(HMSvar->GetDouble("x1p.dist =")),
 			 cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
 
      x2 = new WirePlane((char*)"X2",HMSvar->GetDouble("MWDC2.x.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(x2_dist),
+			cst->transYtoCY(HMSvar->GetDouble("x2.dist =")),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
   
      x2p = new WirePlane((char*)"X2p",HMSvar->GetDouble("MWDC2.xp.NumWires ="),
 			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			 cst->transYtoCY(x2p_dist),
+			 cst->transYtoCY(HMSvar->GetDouble("x2p.dist =")),
 			 cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
 
      c1->Update();
@@ -308,20 +300,20 @@ void EVe::CreateUVprojection()
 
      u1 = new WirePlane((char*)"U1",HMSvar->GetDouble("MWDC1.u.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(u1_dist),
+			cst->transYtoCY(HMSvar->GetDouble("u1.dist =")),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
      v1 = new WirePlane((char*)"V1",HMSvar->GetDouble("MWDC1.v.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-			cst->transYtoCY(v1_dist+0.002),
+			cst->transYtoCY(HMSvar->GetDouble("v1.dist =")+0.002),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
 
      u2 = new WirePlane((char*)"U2",HMSvar->GetDouble("MWDC2.u.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(u2_dist),
+			cst->transYtoCY(HMSvar->GetDouble("u2.dist =")),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
      v2 = new WirePlane((char*)"V2",HMSvar->GetDouble("MWDC2.v.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(v2_dist+0.002),
+			cst->transYtoCY(HMSvar->GetDouble("v2.dist =")+0.002),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
 
      c2->Update();
@@ -340,20 +332,20 @@ void EVe::CreateYprojection()
 
      y1 = new WirePlane((char*)"Y1",HMSvar->GetDouble("MWDC1.y.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(y1_dist),
+			cst->transYtoCY(HMSvar->GetDouble("y1.dist =")),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
      y1p = new WirePlane((char*)"Y1p",HMSvar->GetDouble("MWDC1.yp.NumWires ="),
 			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			 cst->transYtoCY(y1p_dist),
+			 cst->transYtoCY(HMSvar->GetDouble("y1p.dist =")),
 			 cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,1);
 
      y2 = new WirePlane((char*)"Y2",HMSvar->GetDouble("MWDC2.y.NumWires ="),
 			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(y2_dist),
+			cst->transYtoCY(HMSvar->GetDouble("y2.dist =")),
 			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
      y2p = new WirePlane((char*)"Y2p",HMSvar->GetDouble("MWDC2.yp.NumWires ="),
 			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-			 cst->transYtoCY(y2p_dist),
+			 cst->transYtoCY(HMSvar->GetDouble("y2p.dist =")),
 			 cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
 
      c4->Update();
@@ -366,64 +358,51 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-
-
-   string PN[6]={"x", "y", "u", "v", "yp", "xp"};   
-   vector<string> planeNames(&PN[0],&PN[0]+6);
-
-   CStransform *mwdc1_cst = new CStransform(canvas_length, canvas_s1x_posx, canvas_MWDC1_posy);
-   CStransform *mwdc2_cst = new CStransform(canvas_length, 0.7, canvas_MWDC2_posy);
-
-   GetVariables *HMSvars = new GetVariables("HMS.txt");
-   
-   mwdc1 = new WireChamber((char*)"MWDC1",planeNames,
-	      HMSvars->GetDouble("MWDC1.Height ="),
-              HMSvars->GetDouble("MWDC1.Width ="),mwdc1_cst);
-
-   mwdc2 = new WireChamber((char*)"MWDC2",planeNames,
-	      HMSvars->GetDouble("MWDC2.Height ="),
-              HMSvars->GetDouble("MWDC2.Width ="),mwdc2_cst);
-   
+  
    GetVariables *vars = new GetVariables("HMS.txt");
+   double canvasL = vars ->GetDouble("canvasL =");
+   double CMWDC1X = vars ->GetDouble("canvas.MWDC1.x =");
+   double CMWDC1Y = vars ->GetDouble("canvas.MWDC1.y =");
+   double CMWDC2X = vars ->GetDouble("canvas.MWDC2.x =");
+   double CMWDC2Y = vars ->GetDouble("canvas.MWDC2.y =");
+
+   CStransform *mwdc1_cst = new CStransform(canvasL, CMWDC1X, CMWDC1Y);
+   CStransform *mwdc2_cst = new CStransform(canvasL, CMWDC2X, CMWDC2Y);
+   
+   mwdc1 = new WireChamber((char*)"MWDC1",mwdc1_cst);
+
+   mwdc2 = new WireChamber((char*)"MWDC2",mwdc2_cst);
+ 
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
    
-   // FIXME: Wire number is different in different wire planes. For now we asume
-   // in planar view, that the number of wires is in all three w.p. the same. 
-   //mwdc1 = new MWDChamber((char*)"MWDC-1", MWDC1_X, L1, MWDC_width, mwdc1_cst,0);
-   //mwdc2 = new MWDChamber((char*)"MWDC-2", MWDC1_X, L2, MWDC_width, mwdc2_cst,0);
-  
-   /// Variables to generate scintillator planes
+    double Cs1xX = vars -> GetDouble("canvas.s1x.x =");
+    double Cs1xY = vars -> GetDouble("canvas.s1x.y =");
+    double Cs1yX = vars -> GetDouble("canvas.s1y.x =");
+    double Cs1yY = vars -> GetDouble("canvas.s1y.y =");
 
-   /// FIXME:: Shouldn't need this many pointers
-
-   GetVariables *ScintVars = new GetVariables("HMS.txt");
-
-   double orient1 =ScintVars->GetDouble("1st Scint Array Rotation =");
-   double orient2 = ScintVars->GetDouble("2nd Scint Array Rotation =");
-   int nPaddles1 = ScintVars->GetInt("1st Scint Array NPaddles =");   
-   int nPaddles2 = ScintVars->GetInt("2nd Scint Array NPaddles =");
+    double Cs2xX = vars -> GetDouble("canvas.s2x.x =");
+    double Cs2xY = vars -> GetDouble("canvas.s2x.y =");
+    double Cs2yX = vars -> GetDouble("canvas.s2y.x =");
+    double Cs2yY = vars -> GetDouble("canvas.s2y.y =");
    
 
-   /// FIXME:: Need to get rotated ScintPlanes (s1y, s2y) canvas positions 
-   /// consistent with Track (in ScintPlane::Track() )
-   /// Swapping x and y coords in CStransform doesn't quite work
-   /// -- just reflects both label and ScintPlane in xy line
-   CStransform *s1x_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.475);
-   CStransform *s1y_cst = new CStransform(canvas_length, canvas_s1x_posx, 0.8);
+   //ajust scintplane position in 2D canvas
+   CStransform *s1x_cst = new CStransform(canvasL, Cs1xX, Cs1xY);
+   CStransform *s1y_cst = new CStransform(canvasL, Cs1yX, Cs1yY);
    
    if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvas_length, 0.7, 0.475);
-     s2y_cst = new CStransform(canvas_length, 0.7, 0.8);
+     s2x_cst = new CStransform(canvasL, Cs2xX, Cs2xY);
+     s2y_cst = new CStransform(canvasL, Cs2yX, Cs2yY);
    }
 
-   s1X = new ScintPlane((char*)"s1x-plane", nPaddles1, s1x_length, s1x_height,PMTlength, s1x_cst, orient1);
+   s1X = new ScintPlane((char*)"s1x", s1x_cst);
    
-   s1Y = new ScintPlane((char*)"s1y-plane", nPaddles2, s1y_length, s1y_height,PMTlength, s1y_cst, orient2);
+   s1Y = new ScintPlane((char*)"s1y", s1y_cst);
    
    if (NScintPlanes == 4) {
-     s2X = new ScintPlane((char*)"s2x-plane", nPaddles1, s1x_length, s1x_height,PMTlength, s2x_cst, orient1);
+     s2X = new ScintPlane((char*)"s2x",  s2x_cst);
      
-     s2Y = new ScintPlane((char*)"s2y-plane", nPaddles2, s1y_length, s1y_height,PMTlength, s2y_cst, orient2);
+     s2Y = new ScintPlane((char*)"s2y",  s2y_cst);
    }
 
 
@@ -444,6 +423,54 @@ void EVe::CreateWires()
 
    c3->Update();
 }
+
+/*
+void EVe::SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int size)
+      {
+        //Double_t *tmp = (Double_t*) malloc(size*sizeof(Double_t));  (unsigned int)
+        Double_t *tmp = (Double_t*) malloc(size*sizeof(Double_t));          
+               
+        if( tmp == NULL ) {
+           cerr << Form("-!-> (%s:%d) Can't allocate memory for bname '%s'",
+                          __FILE__, __LINE__, bname) << endl;
+           exit(1);
+        } else {
+	  //ver 1 , uninitialized numbers	   
+	  T->SetBranchAddress( bname, &tmp);
+           *addr = tmp;
+          
+	  //ver2 , after hit still get 0 for all numbers, negtive index, no red or green shown
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //T->SetBranchAddress( bname, &tmp);
+          //*addr = tmp;
+          
+          //ver3 ,same as ver2
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //*addr = tmp;
+          //T->SetBranchAddress( bname, &tmp);
+          
+           //ver4 ,same as ver2 before call hitfunc, show event seg fault
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //T->SetBranchAddress( bname, &tmp);
+          //addr = &tmp;
+
+          //ver5, unsigned int to int, other use ver2, same as ver2
+          //for (int i=0; i<size ;i++)
+	  //  tmp[i]=0;
+          //T->SetBranchAddress( bname, &tmp);
+          //*addr = tmp;
+          
+        }
+        //cerr << " Size of the scintarray is " << size << " , and size of *tmp is " << sizeof(*tmp) << " , and size of *addr is " << sizeof(*addr) << endl;
+        for (int i=0; i<size ; i++)
+	  cerr << "Value for "<< bname << "  " << i << "th number of addr is " << (*addr)[i] << endl;
+        // cerr << "Now the " << bname << " has " << (double) (*addr) << " hitted." << endl ;
+      }
+
+*/
 
 void EVe::initRun(char *filename)
 {
@@ -523,37 +550,64 @@ void EVe::initRun(char *filename)
    /// Scint Planes
    /// TDC hits for all planes -- pos = left PMT, neg = right PMT
 
+   //GetVariables* HMS = new GetVariables("HMS.txt");
+
    /// S1X
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
    t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
    t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+   
+   
+   //SetBranchAddress(t1, (const char*)"H.hod.1x.negtdchits",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.1x.postdchits",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
+   
+   for(int i=0;i<Ndata_H_hod_1x_negtdchits; i++)
+     cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
+   for(int i=0;i<Ndata_H_hod_1x_postdchits; i++)
+     cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
   
+
    ///S1Y
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
    t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
    t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
+   //SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
 
+
+   /* for(int i=0;i<16; i++)
+     cerr << "After Call the number of " << i << "th of 1ynegtdchits is " << H_hod_1y_negtdchits[i] << endl;
+    for(int i=0;i<16; i++)
+    cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;
+    */ 
 
    ///S2X
    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
    t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
-   t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);
+   t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);  
+   //SetBranchAddress(t1, (const char*)"H.hod.2x.negtdchits",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.2x.postdchits",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
+   /*
+    for(int i=0;i<16; i++)
+     cerr << "After Call the number of " << i << "th of 2xnegtdchits is " << H_hod_2x_negtdchits[i] << endl;
+    for(int i=0;i<16; i++)
+    cerr << "After Call the number of " << i << "th of 2xpostdchits is " << H_hod_2x_postdchits[i] << endl; */
 
    ///S2Y
    t1->SetBranchAddress( "Ndata.H.hod.2y.negtdchits", &Ndata_H_hod_2y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2y.postdchits", &Ndata_H_hod_2y_postdchits);
    t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
    t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
-
-   /// FIXME:: Can implement FULL TRACKS if momenta are known
-  /* TRACKS -- 
-#if FULL_TRACK > 0
-/// insert proper momenta
-#endif
-  */
+   //SetBranchAddress(t1, (const char*)"H.hod.2y.negtdchits",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
+   //SetBranchAddress(t1, (const char*)"H.hod.2y.postdchits",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
+   /*
+   for(int i=0;i<16; i++)
+     cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
+   for(int i=0;i<16; i++)
+   cerr << "After Call the number of " << i << "th of 2ypostdchits is " << H_hod_2y_postdchits[i] << endl;*/
 
 } 
 
@@ -620,76 +674,6 @@ void EVe::DoDraw(int event)
         x2p->SetWire(H_dc_2x2_tdchits[i],H_dc_2x2_time[i]); 
       }
 
-
-    /// FIXME:: Old code to implement roads tracking
-    ///         Has not been looked at yet for this simple display
-
-//     umrd->Clear();
-//     for (int q=0; q< MAX_ROADS_NUM; q++) utr[q]->Clear();
-
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Number of roads in U projection is: "<<B_mwdc_u_nroads<<endl;
-//     cout<<"Number of good roads in U projection is: "<<B_mwdc_u_ngood<<endl;
-// #endif
-    
-//     for (int j = 0; j<B_mwdc_u_nroads; j++)
-//     { 
-// #if DEBUG_LEVEL >= 3
-//         cout<<"******** Data for road No.: "<<j<<" of: "<<B_mwdc_u_nroads<<" ************"<<endl;
-//         cout<<"-----> zL: "<<B_mwdc_u_rd_zL[j]<<endl;
-// 	cout<<"-----> zU: "<<B_mwdc_u_rd_zU[j]<<endl;
-// 	cout<<"-----> xLL: "<<B_mwdc_u_rd_xLL[j]<<endl;
-// 	cout<<"-----> xLR: "<<B_mwdc_u_rd_xLR[j]<<endl;
-// 	cout<<"-----> xUL: "<<B_mwdc_u_rd_xUL[j]<<endl;
-// 	cout<<"-----> xUR: "<<B_mwdc_u_rd_xUR[j]<<endl;
-//         cout<<endl;
-// 	cout<<"-----> good: "<<B_mwdc_u_rd_good[j]<<endl;
-// 	cout<<"-----> chi2: "<<B_mwdc_u_rd_chi2[j]<<endl;
-// 	cout<<"-----> pos: "<<B_mwdc_u_rd_pos[j]<<endl;
-// 	cout<<"-----> slope: "<<B_mwdc_u_rd_slope[j]<<endl;
-//         cout<<"************************************************"<<endl;
-// #endif
-	
-
-// cout<<"Sem tlele 1"<<endl;
-// 	 Double_t y[4] = {B_mwdc_u_rd_zL[j],
-// 			  B_mwdc_u_rd_zU[j],
-// 			  B_mwdc_u_rd_zU[j], 
-// 			  B_mwdc_u_rd_zL[j]};
-
-//         Double_t x[4] = {B_mwdc_u_rd_xLL[j],
-// 			 B_mwdc_u_rd_xUL[j], 
-// 			 B_mwdc_u_rd_xUR[j], 
-// 			 B_mwdc_u_rd_xLR[j]};
-
-// cout<<"Sem tlele 2"<<endl;	
-
-// 	if (fTextButtonRoads->IsOn()) umrd->Show(j,x,y);
-
-// cout<<"Sem tlele 3"<<endl;
-//         if (B_mwdc_u_rd_good[j]>0 && (fTextButtonTrackProj->IsOn()) )
-// 	{
-// cout<<"Sem tlele 3a"<<endl;
-// 		// If road is good, then we draw the calculated track.
-// 		double tz1 = -0.4; // in meters
-// 		double tz2 = 1.2; // in meters
-// cout<<"Sem tlele 3b"<<endl;
-// 		double tx1 = B_mwdc_u_rd_slope[j]*tz1 + B_mwdc_u_rd_pos[j];
-// cout<<"Sem tlele 3c"<<endl;
-// 		double tx2 = B_mwdc_u_rd_slope[j]*tz2 + B_mwdc_u_rd_pos[j];
-		
-// cout<<"Sem tlele 3d"<<endl;
-// cout<<j<<endl;
-// 		utr[j]->DrawMe(tx1,tz1,tx2,tz2);
-// cout<<"Sem tlele 3e"<<endl;
-// 	}
-//     }
-// cout<<"Sem tlele 4"<<endl;
-//     c1->Draw();
-//     c1->Update(); 
-
-// cout<<"Sem tlele 5"<<endl;
-
     c1->Draw();
     c1->Update();
   }
@@ -737,57 +721,6 @@ void EVe::DoDraw(int event)
         v2->SetWire(H_dc_2v1_tdchits[i],H_dc_2v1_time[i]); 
       }
 
-    /// FIXME:: Old code to implement roads tracking
-    ///         Has not been looked at yet for this simple display
-
-//     vmrd->Clear();
-//     for (int q=0; q< MAX_ROADS_NUM; q++) vtr[q]->Clear();
-
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Number of roads in V projection is: "<<B_mwdc_v_nroads<<endl;
-//     cout<<"Number of good roads in V projection is: "<<B_mwdc_v_ngood<<endl;
-// #endif
-   
-//     for (int j = 0; j<B_mwdc_v_nroads; j++)
-//     { 
-// #if DEBUG_LEVEL >= 3
-//         cout<<"******** Data for V road No.: "<<j<<" ************"<<endl;
-//         cout<<"-----> zL: "<<B_mwdc_v_rd_zL[j]<<endl;
-// 	cout<<"-----> zU: "<<B_mwdc_v_rd_zU[j]<<endl;
-// 	cout<<"-----> xLL: "<<B_mwdc_v_rd_xLL[j]<<endl;
-// 	cout<<"-----> xLR: "<<B_mwdc_v_rd_xLR[j]<<endl;
-// 	cout<<"-----> xUL: "<<B_mwdc_v_rd_xUL[j]<<endl;
-// 	cout<<"-----> xUR: "<<B_mwdc_v_rd_xUR[j]<<endl;
-//         cout<<endl;
-// 	cout<<"-----> good: "<<B_mwdc_v_rd_good[j]<<endl;
-// 	cout<<"-----> chi2: "<<B_mwdc_v_rd_chi2[j]<<endl;
-// 	cout<<"-----> pos: "<<B_mwdc_v_rd_pos[j]<<endl;
-// 	cout<<"-----> slope: "<<B_mwdc_v_rd_slope[j]<<endl;
-//         cout<<"************************************************"<<endl;
-// #endif
-// 	 Double_t y[4] = {B_mwdc_v_rd_zL[j],
-// 			  B_mwdc_v_rd_zU[j],
-// 			  B_mwdc_v_rd_zU[j], 
-// 			  B_mwdc_v_rd_zL[j]};
-
-//         Double_t x[4] = {B_mwdc_v_rd_xLL[j],
-// 			 B_mwdc_v_rd_xUL[j], 
-// 			 B_mwdc_v_rd_xUR[j], 
-// 			 B_mwdc_v_rd_xLR[j]};
-	
-// 	if (fTextButtonRoads->IsOn()) vmrd->Show(j,x,y);
-
-//         if (B_mwdc_v_rd_good[j]>0 && fTextButtonTrackProj->IsOn() )
-// 	{
-// 		// If road is good, then we draw the calculated track.
-// 		double tz1 = -0.4; // in meters
-// 		double tz2 = 1.2; // in meters
-// 		double tx1 = B_mwdc_v_rd_slope[j]*tz1 + B_mwdc_v_rd_pos[j];
-// 		double tx2 = B_mwdc_v_rd_slope[j]*tz2 + B_mwdc_v_rd_pos[j];
-		
-// 		vtr[j]->DrawMe(tx1,tz1,tx2,tz2);
-// 	}
-//     }
       c2->Draw();
       c2->Update(); 
     }
@@ -835,63 +768,9 @@ void EVe::DoDraw(int event)
 	  
 	  y2p->SetWire(H_dc_2y2_tdchits[i],H_dc_2y2_time[i]); 
 	}
-
-    /// FIXME:: Old code to implement roads tracking
-    ///         Has not been looked at yet for this simple display
-
-//     xmrd->Clear();
-//     for (int q=0; q< MAX_ROADS_NUM; q++) xtr[q]->Clear();
-
-// #if DEBUG_LEVEL >= 3
-//     cout<<"Number of roads in X projection is: "<<B_mwdc_x_nroads<<endl;
-//     cout<<"Number of good roads in X projection is: "<<B_mwdc_x_ngood<<endl;
-// #endif
-
-//     for (int j = 0; j<B_mwdc_x_nroads; j++)
-//     { 
-// #if DEBUG_LEVEL >= 3
-//         cout<<"******** Data for X road No.: "<<" ************"<<endl;
-//         cout<<"-----> zL: "<<B_mwdc_x_rd_zL[j]<<endl;
-// 	cout<<"-----> zU: "<<B_mwdc_x_rd_zU[j]<<endl;
-// 	cout<<"-----> xLL: "<<B_mwdc_x_rd_xLL[j]<<endl;
-// 	cout<<"-----> xLR: "<<B_mwdc_x_rd_xLR[j]<<endl;
-// 	cout<<"-----> xUL: "<<B_mwdc_x_rd_xUL[j]<<endl;
-// 	cout<<"-----> xUR: "<<B_mwdc_x_rd_xUR[j]<<endl;
-//         cout<<endl;
-// 	cout<<"-----> good: "<<B_mwdc_x_rd_good[j]<<endl;
-// 	cout<<"-----> chi2: "<<B_mwdc_x_rd_chi2[j]<<endl;
-// 	cout<<"-----> pos: "<<B_mwdc_x_rd_pos[j]<<endl;
-// 	cout<<"-----> slope: "<<B_mwdc_x_rd_slope[j]<<endl;
-//         cout<<"************************************************"<<endl;
-// #endif	
-// 	 Double_t y[4] = {B_mwdc_x_rd_zL[j],
-// 			  B_mwdc_x_rd_zU[j],
-// 			  B_mwdc_x_rd_zU[j], 
-// 			  B_mwdc_x_rd_zL[j]};
-
-//         Double_t x[4] = {B_mwdc_x_rd_xLL[j],
-// 			 B_mwdc_x_rd_xUL[j], 
-// 			 B_mwdc_x_rd_xUR[j], 
-// 			 B_mwdc_x_rd_xLR[j]};
-	
-// 	if (fTextButtonRoads->IsOn()) xmrd->Show(j,x,y);
-
-//         if (B_mwdc_x_rd_good[j]>0 && fTextButtonTrackProj->IsOn())
-// 	{
-// 		// If road is good, then we draw the calculated track.
-// 		double tz1 = -0.4; // in meters
-// 		double tz2 = 1.2; // in meters
-// 		double tx1 = B_mwdc_x_rd_slope[j]*tz1 + B_mwdc_x_rd_pos[j];
-// 		double tx2 = B_mwdc_x_rd_slope[j]*tz2 + B_mwdc_x_rd_pos[j];
-		
-// 		xtr[j]->DrawMe(tx1,tz1,tx2,tz2);
-// 	}
-//     }
   
       c4->Draw();
       c4->Update(); 
-//   }
-
     }
 
 //_________________________ Lets handle Planar view  ______________________________
@@ -1008,181 +887,21 @@ void EVe::DoDraw(int event)
       {
 	
         mwdc2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
-      } 
- 
-
-    /////  ******** Now scintillation planes
-
-
-    /// NOTE:: Old hodoscope 'hit' method has been commented out in
-    ///        favour of new tdchit method looking at left and right
-    ///        PMT hits. The old method is still there for reference.
-    ///        The current data does not have individual scintillator
-    ///        paddle position information as the old BigBite data
-    ///        did (ypos arrays).
-
-
-    //   double Ebar_ypos[s1y_PN];
-    //  double dEbar_ypos[s1x_PN];
-   double matchR[16];
-   double matchL[16];
+      }  
 
    s1Y->clear();
    s1X->clear();
    s2X->clear();
    s2Y->clear();
-   //   for (int q = 0; q<s1y_PN; q++) Ebar_ypos[q] = 0.0;
-   //  for (int q = 0; q<s1x_PN; q++) dEbar_ypos[q] = 0.0;
 
-
-	
-   ///S1X
-
-   //   for (Int_t q = 0; q<B_tp_e_nhit; q++)
-   for (Int_t q = 0; q<Ndata_H_hod_1x_negtdchits; q++)
-     {
-     //	int bar = (int)(B_tp_e_hit_bar[q]);
-     //  double ypos = B_tp_e_hit_ypos[q];
-       //	Ebar_ypos[bar] = ypos;
-       //  cout << Ndata_H_hod_1x_negtdchits <<"  " <<  H_hod_1x_negtdchits[q]  << endl;
-       matchR[q] = H_hod_1x_negtdchits[q];
-       s1X->paddleRightHit(H_hod_1x_negtdchits[q]-1);
-       
-
-     }
-
-   for (Int_t q=0;q<Ndata_H_hod_1x_postdchits;q++)
-     {
-     
-       matchL[q]= H_hod_1x_postdchits[q];
-       s1X->paddleLeftHit(H_hod_1x_postdchits[q]-1);
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 
-	 s1X->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s1X->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-   ///S1Y
-
-   //   for (int q = 0; q<B_tp_de_nhit; q++)
-   cerr << "new event" << endl;
-   cerr << Form("Number is %d",Ndata_H_hod_1y_negtdchits) << endl;
-   for (int q = 0; q<Ndata_H_hod_1y_negtdchits; q++)
-     {
-       //	int bar = (int)(B_tp_de_hit_bar[q]);
-       // double ypos = B_tp_de_hit_ypos[q];
-       //	dEbar_ypos[bar] = ypos;
-       //cout << Ndata_H_hod_1y_negtdchits <<"  " <<  H_hod_1y_negtdchits[q]  << endl;
-       matchR[q] = H_hod_1y_negtdchits[q];
-       s1Y->paddleRightHit(H_hod_1y_negtdchits[q]-1);
-       cerr << Form("%f th paddle of s1y Rhit",H_hod_1y_negtdchits[q]) << endl;
-
-     }
-   for (int q = 0; q<Ndata_H_hod_1y_postdchits; q++)
-     {
-  
-       matchL[q]= H_hod_1y_postdchits[q];
-       s1Y->paddleLeftHit(H_hod_1y_postdchits[q]-1);
-       cerr << Form("%f th paddle of s1y Lhit",H_hod_1y_postdchits[q]) << endl;
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 s1Y->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s1Y->paddleBothHit(matchL[i]-1);
-       }
-     }
-     //if (matchR[i] !=0 )cerr << Form("%f th paddle of s1y Bothhit",matchR[i]) << endl;
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-   /// S2X PLANE
-   for (Int_t q = 0; q<Ndata_H_hod_2x_negtdchits; q++)
-     {
-       
-       matchR[q] = H_hod_2x_negtdchits[q];
-       s2X->paddleRightHit(H_hod_2x_negtdchits[q]-1);
-       
-     }
-   
-   for (Int_t q=0;q<Ndata_H_hod_2x_postdchits;q++)
-     {
-     
-       matchL[q]= H_hod_2x_postdchits[q];
-       s2X->paddleLeftHit(H_hod_2x_postdchits[q]-1);
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 
-	 s2X->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s2X->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-   /// S2Y PLANE
-   for (Int_t q = 0; q<Ndata_H_hod_2y_negtdchits; q++)
-     {
-       
-       matchR[q] = H_hod_2y_negtdchits[q];
-       s2Y->paddleRightHit(H_hod_2y_negtdchits[q]-1);
-       
-     }
-   
-   for (Int_t q=0;q<Ndata_H_hod_2y_postdchits;q++)
-     {
-     
-       matchL[q]= H_hod_2y_postdchits[q];
-       s2Y->paddleLeftHit(H_hod_2y_postdchits[q]-1);
-     }
-
-   for (Int_t i=0;i<16;i++) {
-     for (Int_t j=0;j<16;j++) {
-       if ( (matchR[i]==matchL[j])  && (matchR[i]!=0) ) {
-	 
-	 s2Y->paddleBothHit(matchR[i]-1);
-       } else if ( (matchL[i]==matchR[j])  && (matchL[i]!=0) ) {
-	 s2Y->paddleBothHit(matchL[i]-1);
-       }
-     }
-     matchR[i]=0;
-     matchL[i]=0;
-   }
-
-  //  for (int i = 0; i<s1x_PN; i++)
-//      {
-
-// //	sdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i] , -dEbar_ypos[i]);
-
-//        //   sE->paddleHit(i,H_hod_1x_negtdchits[i] ,H_hod_1x_postdchits[i] , -dEbar_ypos[i]);
-//      }  
-
-//    for (int i = 0; i<s1y_PN; i++)
-//      {
-
-// //	sE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i] , -Ebar_ypos[i]);
-//        sdE->paddleHit(i,H_hod_1y_negtdchits[i] ,H_hod_1y_postdchits[i] , -Ebar_ypos[i]);
-//      }  
-
-
+   s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
+       H_hod_1x_postdchits,H_hod_1x_negtdchits);
+   s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
+       H_hod_1y_postdchits,H_hod_1y_negtdchits);
+   s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
+       H_hod_2x_postdchits,H_hod_2x_negtdchits);
+   s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
+       H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
     //****** Now we draw Trajectories through detectors
     	 
@@ -1190,21 +909,20 @@ void EVe::DoDraw(int event)
      {		
        for(int q =0; q<Ndata_H_tr_x; q++)
 	 {
+	   GetVariables *hms = new GetVariables("HMS.txt");
+           double z1 = hms->GetDouble("MWDC2.z =");
+	   double z3 = hms->GetDouble("s1x.z =");
+	   double z4 = hms->GetDouble("s1y.z =");
+	   double z5 = hms->GetDouble("s2x.z =");
+	   double z6 = hms->GetDouble("s2y.z =");
+
 	   /// Real track information
 	   double x0 = -H_tr_y[q]/100; /// [cm] to [m]
 	   double y0 = -H_tr_x[q]/100;
 	   double th = -H_tr_ph[q];
 	   double ph = -H_tr_th[q];
-	   
-	   /// Fake track testing data
-	   //double x0 = 0.0;
-	   //double y0 = 0.0;
-	   //double th = 0.0;
-	   //double ph = 0.0;
 
-	   double z1 = MWDC2_z; 
-	   //double x1 = x0 + tan(th)*cos(ph)*z1;
-	   //double y1 = y0 + tan(th)*sin(ph)*z1;
+	    
 	   double x1 = x0 + th*z1;
 	   double y1 = y0 + ph*z1;    
 
@@ -1213,30 +931,25 @@ void EVe::DoDraw(int event)
 	   mwdc2->Track(x1,y1,q);
 
 
-	   double z3 = s1x_z;
+	  
 	   double x3 = x0 + th*z3;
 	   double y3 = y0 + ph*z3;
-	   //double x3 = x0 + tan(th)*cos(ph)*z3;
-	   //double y3 = y0 + tan(th)*sin(ph)*z3;
 	   
 	   s1X->Track(x3,y3,q);
 	   
-	   double z4 = s1y_z;
+	   ;
 	   double x4 = x0 + th*z4;
 	   double y4 = y0 + ph*z4;
-	   //double x4 = x0 + th*z4;
-	   //double y4 = y0 + ph*z4;
-
 	   
 	   s1Y->Track(x4,y4,q);
 	   
-	   double z5 = s2x_z;
+	   
 	   double x5 = x0 + th*z5;
 	   double y5 = y0 + ph*z5;
 	   
 	   s2X->Track(x5,y5,q);
 	   
-	   double z6 = s2y_z;
+	   
 	   double x6 = x0 + th*z6;
 	   double y6 = y0 + ph*z6;
 	   
@@ -1264,10 +977,6 @@ void EVe::DoDraw(int event)
     title->SetTextSize(0.03);
     title->Draw();   
 
-    /// FIXME:: 3D view tracking not yet implemented. 
-    ///         Below is old 3D tracking code that must be updated.
-
-
     //***************** First chamber
     GetVariables* HMSvars= new GetVariables("HMS.txt");
     int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
@@ -1284,14 +993,15 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
         detector->MWDC1->WireHit3D("u",H_dc_1u1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
-        detector->MWDC1->WireHit3D("v",v1NW+1-H_dc_1v1_tdchits[i]);
+    detector->MWDC1->WireHit3D("v",v1NW+1-H_dc_1v1_tdchits[i]);
     /// Y,XP plane
     for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
-        detector->MWDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
+      detector->MWDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
-        detector->MWDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
+      detector->MWDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
 
     detector->MWDC2->clear();
+    
     //X,Xp,Plane
     for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
         detector->MWDC2->WireHit3D("x",x1NW+1-H_dc_2x1_tdchits[i]);
@@ -1308,254 +1018,32 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
         detector->MWDC2->WireHit3D("y",H_dc_2y1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
-        detector->MWDC2->WireHit3D("yp",y1NW+1-H_dc_2y2_tdchits[i]);
-
-    //detector->MWDC2->clear();
-
- 
-//     detector->mwdc1->clear();
-//     for(int i = 0; i<B_mwdc_u1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire u1 : "<<i<<" je: "<<B_mwdc_u1_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc1->u1WireHit(B_mwdc_u1_hit_wire[i]);
-//     } 
-
-//     for(int i = 0; i<B_mwdc_u1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire u1p : "<<i<<" je: "<<B_mwdc_u1p_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc1->u2WireHit(B_mwdc_u1p_hit_wire[i]);
-//     } 
-
-//     for(int i = 0; i<B_mwdc_v1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire v1 : "<<i<<" je: "<<B_mwdc_v1_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc1->v1WireHit(B_mwdc_v1_hit_wire[i]);
-//     } 
-
-//     for(int i = 0; i<B_mwdc_v1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire v1p : "<<i<<" je: "<<B_mwdc_v1p_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc1->v2WireHit(B_mwdc_v1p_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x1_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire x1 : "<<i<<" je: "<<B_mwdc_x1_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc1->x1WireHit(B_mwdc_x1_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x1p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire x1p : "<<i<<" je: "<<B_mwdc_x1p_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc1->x2WireHit(B_mwdc_x1p_hit_wire[i]);
-//     } 
-
-//     //***************** Second chamber
-
-   
-//     detector->mwdc2->clear();
-//     for(int i = 0; i<B_mwdc_u2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire u2 : "<<i<<" je: "<<B_mwdc_u2_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc2->u1WireHit(B_mwdc_u2_hit_wire[i]);
-//     } 
-
-//     for(int i = 0; i<B_mwdc_u2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire u2p : "<<i<<" je: "<<B_mwdc_u2p_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc2->u2WireHit(B_mwdc_u2p_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_v2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire v2 : "<<i<<" je: "<<B_mwdc_v2_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc2->v1WireHit(B_mwdc_v2_hit_wire[i]);
-//     } 
-
-//     for(int i = 0; i<B_mwdc_v2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire v2p : "<<i<<" je: "<<B_mwdc_v2p_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc2->v2WireHit(B_mwdc_v2p_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x2_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire x2 : "<<i<<" je: "<<B_mwdc_x2_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc2->x1WireHit(B_mwdc_x2_hit_wire[i]);
-//     } 
-
-
-//     for(int i = 0; i<B_mwdc_x2p_nhits; i++)
-//     {
-// #if DEBUG_LEVEL >= 3	
-// 	cout<<"Wire x2p : "<<i<<" je: "<<B_mwdc_x2p_hit_wire[i]<<endl;
-// #endif
-//         detector->mwdc2->x2WireHit(B_mwdc_x2p_hit_wire[i]);
-//     } 
     detector->s1xplane->clear();
     detector->s1yplane->clear();
     detector->s2xplane->clear();
     detector->s2yplane->clear();
-    // Now scintillaion plane 
-    //Ndata_H_hod_1x_negtdchits 
-    detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
-    detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
-    detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
-    detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
-//     for (int i = 0; i<s1x_PN; i++) detector->scintdE->paddleHit(i,B_tp_de_LT[i] ,B_tp_de_RT[i]);
-//     for (int i = 0; i<s1y_PN; i++) detector->scintE->paddleHit(i,B_tp_e_LT[i] ,B_tp_e_RT[i]);
-
-//     // Clear tracks
-//     detector->ClearTracks();
-
-//     // Now let's draw partial tracks through wire chambers
-// #if DEBUG_LEVEL >= 3	
-//     cout<<"Number of Partial Tracks: "<<B_tr_n<<endl;
-// #endif
-
-//     if (B_tr_n>0 && fTextButtonTrack->IsOn())
-//     {		
-// 	for(int q =0; q<B_tr_n; q++)
-// 	{
-// 	    if (q < 10)
-// 	    {
-// 		double x0 = B_tr_x[q];
-// 		double y0 = B_tr_y[q];
-//  		double th = B_tr_th[q];
-// 		double ph = B_tr_ph[q];
-
-// 		detector->partialTrack[q]->Track(100.0*x0, 100.0*y0, 0.0, th, ph);
-// 	    }
-// 	}
-  
-//     }
-
+    detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
+        H_hod_1x_postdchits,H_hod_1x_negtdchits);
+    detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
+        H_hod_1y_postdchits,H_hod_1y_negtdchits);
+    detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
+        H_hod_2x_postdchits,H_hod_2x_negtdchits);
+    detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
+        H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
      // Clear tracks
      detector->ClearTracks();
 
-     // Now let's draw partial tracks through wire chambers
-
-     if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn())
-     {
-       if((unsigned int)Ndata_H_tr_x > 10)
-        {
-	  //detector->TrackList.size set to 10
-            for(int q =0; q<Ndata_H_tr_x; q++)
-            {
-                double x0 = H_tr_x[q];
-                double y0 = H_tr_y[q];
-                double th = H_tr_th[q];
-                double ph = H_tr_ph[q];
-
-                // if((unsigned int)q<detector->TrackList.size())
-                //    detector->TrackList[q]->Enable(q,x0,y0,th,ph);
-		// else
-                //  detector->TrackList.push_back(new Trajectory3D(detector->top,detector->mgr,q,x0,y0,th,ph));
-		detector->TrackList[q]->Enable(q,x0,y0,th,ph);
-            }
-        }
-
-       else if(10>(unsigned int)Ndata_H_tr_x)
-        {
-	  for(unsigned int q =0; q<10; q++)
-            {
-
-	      if(q<(unsigned int)Ndata_H_tr_x)
-                {
-                    double x0 = H_tr_x[q];
-                    double y0 = H_tr_y[q];
-                    double th = H_tr_th[q];
-                    double ph = H_tr_ph[q];
-                    detector->TrackList[q]->Enable(q,x0,y0,th,ph);
-                }
-                else
-                    detector->TrackList[q]->Disable();
-            }
-        }
-
+     // Now draw tracks through the detector stack
+     if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn()) {
+       for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, detector->TrackList.size()); i++) {
+           detector->TrackList[i]->
+             Enable(i, H_tr_x[i], H_tr_y[i], H_tr_th[i], H_tr_ph[i]);
+       }
      }
-
-
-// #if FULL_TRACK > 0
-//     if (B_tr_n>0 && fTextButtonTrack->IsOn()) // check if we should proceed at all
-//     { 	 
-//       for(int q = 0; q<B_tr_n; q++)
-//       {
-// 	if (q<10)  // for now we support only 10 tracks
-// 	{
-
-// 	  double BB_px  = cos(BB_angle)*B_tr_px[q] - sin(BB_angle)*B_tr_pz[q];
-// 	  double BB_pz  = sin(BB_angle)*B_tr_px[q] + cos(BB_angle)*B_tr_pz[q];
-// 	  double BB_py  = B_tr_py[q];
- 
-// #if DEBUG_LEVEL >= 3	
-//           cout<<"----->"<<q<<endl;
-//           cout<<"BB.tr.x: "<<B_tr_x[q]<<endl;
-// 	  cout<<"BB.tr.x: "<<B_tr_y[q]<<endl;
-// 	  cout<<"BB.tr.th: "<<B_tr_th[q]<<endl;
-// 	  cout<<"BB.tr.ph: "<<B_tr_ph[q]<<endl;
-
-// 	  cout<<"LAB. Momentum px: "<<B_tr_px[q]<<endl;
-// 	  cout<<"LAB. Momentum py: "<<B_tr_py[q]<<endl;
-// 	  cout<<"LAB. Momentum pz: "<<B_tr_pz[q]<<endl;
-// 	  cout<<"------------------"<<endl;
-
-
-// 	  cout<<"BB. Momentum px: "<<BB_px<<endl;
-// 	  cout<<"BB. Momentum py: "<<BB_py<<endl;
-// 	  cout<<"BB. Momentum pz: "<<BB_pz<<endl;
-// 	  cout<<"BB. Momentum p: "<<B_tr_p[q]<<endl;
-
-// #endif
-// 	  detector->fullTrack[q]->Track(BB_px, BB_py, BB_pz, 100.0*B_tr_x[q], 100.0*B_tr_y[q], 0.0, B_tr_th[q], B_tr_ph[q]);
-// 	}
-// #if DEBUG_LEVEL >= 3	
-// 	else cout<<"Track is not valid!"<<endl;
-// #endif
-//       }
-//     }
-// #endif
-    
-
-//     detector->mgr->GetMasterVolume()->Raytrace();	
-//     c5->Update();
-//     cout<<"Thanks! I am done!"<<endl;
-  
-//   } 
- 
-// #if DEBUG_LEVEL >= 3	
-//   cout<<"Event number is: "<<EventNumber<<endl;
-// #endif
-   c5->Update();
-      }
+     c5->Update();
+  }
 }
 
 void EVe::doThis()

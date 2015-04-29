@@ -24,11 +24,9 @@
 #include "TFile.h"
 
 #include "WirePlane.h"
-//#include "MWDChamber.h"
 #include "WirePlane2D.h"
 #include "WireChamber.h"
 #include "CStransform.h"
-#include "MultiRoads.h"
 #include "Track.h"
 #include "ScintPlane.h"
 #include "Detector3D.h"
@@ -37,7 +35,8 @@
 #include <TGFileDialog.h>
 #include <TStyle.h>
 
-
+#define MAX_ROADS_NUM 500
+#define MAX_HITS_NUM 100
 
 class EVe{
   RQ_OBJECT("EVe")
@@ -59,6 +58,8 @@ public:
   void SelectProj();
   void MyCloseWindow();
   void PrintToFile();
+  //void SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int size);
+  
 
 private:
   TGMainFrame *fMainFrame;
@@ -77,7 +78,6 @@ private:
   TGRadioButton *fTextButtonWires;
   TGCheckButton *fTextButtonTrackProj;
   TGCheckButton *fTextButtonTrack;
-  TGCheckButton *fTextButtonRoads;
   TGNumberEntry *fNumberEntry1;
 
   WireChamber *mwdc1;
@@ -109,13 +109,11 @@ private:
   CStransform *cst;
   CStransform *s2x_cst;
   CStransform *s2y_cst;
-  MultiRoads *umrd;
-  Track *utr[MAX_ROADS_NUM];
-  MultiRoads *vmrd;
-  Track *vtr[MAX_ROADS_NUM];
-  MultiRoads *xmrd;
-  Track *xtr[MAX_ROADS_NUM];
 
+  Track *vtr[MAX_ROADS_NUM];
+  Track *utr[MAX_ROADS_NUM];
+  Track *xtr[MAX_ROADS_NUM];
+  
   TTree *t1;
 
   /// MWDC1 nhits
@@ -182,18 +180,29 @@ private:
   Int_t Ndata_H_hod_1x_postdchits;
   Double_t H_hod_1x_negtdchits[16];
   Double_t H_hod_1x_postdchits[16];
+  //Double_t* H_hod_1x_negtdchits;
+  //Double_t* H_hod_1x_postdchits;
+   
   Int_t Ndata_H_hod_1y_negtdchits;
   Int_t Ndata_H_hod_1y_postdchits;
   Double_t H_hod_1y_negtdchits[16];
   Double_t H_hod_1y_postdchits[16];
+  //Double_t* H_hod_1y_negtdchits;
+  //Double_t* H_hod_1y_postdchits;
+  
   Int_t Ndata_H_hod_2x_negtdchits;
   Int_t Ndata_H_hod_2x_postdchits;
   Double_t H_hod_2x_negtdchits[16];
   Double_t H_hod_2x_postdchits[16];
+  //Double_t* H_hod_2x_negtdchits;
+  //Double_t* H_hod_2x_postdchits;
+  
   Int_t Ndata_H_hod_2y_negtdchits;
   Int_t Ndata_H_hod_2y_postdchits;
   Double_t H_hod_2y_negtdchits[16];
   Double_t H_hod_2y_postdchits[16];
+  //Double_t* H_hod_2y_negtdchits;
+  //Double_t* H_hod_2y_postdchits;
 
   Detector3D *detector;
 

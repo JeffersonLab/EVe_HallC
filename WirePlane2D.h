@@ -9,7 +9,6 @@
 #include "TLine.h"
 #include "TEllipse.h"
 #include "CStransform.h"
-#include "EVe_DB.h"
 #include <cstring>
 #include <string>
 #include <vector>

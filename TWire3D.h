@@ -9,37 +9,11 @@
 //
 //************************************************************************* 
 
-/*
 #ifndef ROOT_TWire3D
 #define ROOT_TWire3D
 
 #include "TGeoTube.h"
-#include "TGeoVolume.h"
-#include "TGeoManager.h"
-#include "TGeoMatrix.h"
-#include "TGeoBBox.h"
-#include "TGeoTrd2.h"
-#include "TColor.h"
-
-class TWire3D {
-  
-public:
-  TWire3D(double x1, double y1, double z1, double x2,  double y2, double z2,double radius, TGeoVolume *volume);
-  virtual ~TWire3D();
-  void SetColor(Style_t colour);
-
-protected:
-
- TGeoVolume *wire;
-
-};
-
-#endif
-*/
-#ifndef ROOT_TWire3D
-#define ROOT_TWire3D
-
-#include "TGeoTube.h"
+#include "TGeoEltu.h"
 #include "TGeoVolume.h"
 #include "TGeoManager.h"
 #include "TGeoMatrix.h"
@@ -52,6 +26,8 @@ public:
   virtual ~TWire3D();
 
   TGeoVolume *wire;
+  TGeoEltu* Wiretube;
+  TGeoCombiTrans* Wirecomb;
 
 };
 

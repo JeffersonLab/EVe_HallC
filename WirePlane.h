@@ -20,8 +20,6 @@
 #include "TLatex.h"
 #include "TLine.h"
 #include "TEllipse.h"
-#include "EVe_DB.h"
-
 
 class WirePlane {
   
