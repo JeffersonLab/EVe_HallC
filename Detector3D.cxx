@@ -90,23 +90,24 @@ Detector3D::Detector3D()
     string PN[6]= {"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
-    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, top, mgr);
+    GetVariables *hmsDB = new GetVariables("HMS.txt");
+    MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, hmsDB, top, mgr);
 
     // Second MWDC
-    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, top, mgr);
+    MWDC2 = new WireChamber3D((char*) "MWDC2",  PlaneNames, hmsDB, top, mgr);
 
     // s1x - Scintillation Plane
-    s1xplane = new ScintPlane3D((char*)"s1x",top);
+    s1xplane = new ScintPlane3D((char*)"s1x", hmsDB, top);
 
     // s1y - Scintillation Plane
-    s1yplane = new ScintPlane3D((char*)"s1y",top);
+    s1yplane = new ScintPlane3D((char*)"s1y", hmsDB, top);
 
     //s2x Scint Plane
-    s2xplane = new ScintPlane3D((char*)"s2x",top);
+    s2xplane = new ScintPlane3D((char*)"s2x", hmsDB, top);
 
     //s2y Scint Plane
     // changed volume size to 60
-    s2yplane = new ScintPlane3D((char*)"s2y",top);
+    s2yplane = new ScintPlane3D((char*)"s2y", hmsDB, top);
 
     // There will be 10 tracks for any fixed number of tracks in this code,
     // The reason for it is after you call CloseGeometry() function, you

@@ -365,9 +365,8 @@ void EVe::CreateWires()
     CStransform *mwdc1_cst = new CStransform(canvasL, CMWDC1X, CMWDC1Y);
     CStransform *mwdc2_cst = new CStransform(canvasL, CMWDC2X, CMWDC2Y);
 
-    mwdc1 = new WireChamber((char*)"MWDC1",mwdc1_cst);
-
-    mwdc2 = new WireChamber((char*)"MWDC2",mwdc2_cst);
+    mwdc1 = new WireChamber((char*)"MWDC1", vars, mwdc1_cst);
+    mwdc2 = new WireChamber((char*)"MWDC2", vars, mwdc2_cst);
 
     int NScintPlanes = vars->GetInt("Number of Scint Planes =");
 
@@ -391,14 +390,12 @@ void EVe::CreateWires()
         s2y_cst = new CStransform(canvasL, Cs2yX, Cs2yY);
     }
 
-    s1X = new ScintPlane((char*)"s1x", s1x_cst);
-
-    s1Y = new ScintPlane((char*)"s1y", s1y_cst);
+    s1X = new ScintPlane((char*)"s1x", vars, s1x_cst);
+    s1Y = new ScintPlane((char*)"s1y", vars, s1y_cst);
 
     if (NScintPlanes == 4) {
-        s2X = new ScintPlane((char*)"s2x",  s2x_cst);
-
-        s2Y = new ScintPlane((char*)"s2y",  s2y_cst);
+        s2X = new ScintPlane((char*)"s2x", vars, s2x_cst);
+        s2Y = new ScintPlane((char*)"s2y", vars, s2y_cst);
     }
 
 
@@ -862,13 +859,13 @@ void EVe::DoDraw(int event)
         s2X->clear();
         s2Y->clear();
 
-        s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
+        s1X->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
                      H_hod_1x_postdchits,H_hod_1x_negtdchits);
-        s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
+        s1Y->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
                      H_hod_1y_postdchits,H_hod_1y_negtdchits);
-        s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
+        s2X->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
                      H_hod_2x_postdchits,H_hod_2x_negtdchits);
-        s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
+        s2Y->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
                      H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
         //****** Now we draw Trajectories through detectors
