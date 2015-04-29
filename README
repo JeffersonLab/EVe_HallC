@@ -1,0 +1,8 @@
+EVe_HallC is an event display program for the Hall C HMS detector stack.
+
+Some documentation may be found in the Docs/ directory, however it has not
+kept pace with some of the modifications so YMMV.
+
+This code is based off an event display originally written by Miha Mihovilovic
+in 2008 for the Hall A BigBite Spectrometer -- changes are significant and
+ongoing.
