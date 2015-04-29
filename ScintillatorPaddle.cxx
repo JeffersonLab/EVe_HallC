@@ -67,9 +67,17 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     double* yr=yR;
     double* xs=xscint;
     double* ys=yscint;
+        
+    double xT;
+    double yT;
      
-    double xT=a*1.0+2*pl+cx0;
-    double yT=b*0.125+cy0;
+    if ((index%2)!=0)
+      {  xT=a*1.0+2*pl+cx0;
+	 yT=b*0.125+cy0;}
+    else
+      {  xT=cx0-1.75*b;
+	 yT=cy0+b*0.125; }
+
     double* tx=& xT;
     double* ty=& yT;
 
@@ -105,7 +113,7 @@ ScintillatorPaddle::ScintillatorPaddle(int index, double x, double y, double a, 
     const char *name = Buff.Data();
     
     index_text = new TLatex((Double_t)xT,(Double_t)yT, name);
-    index_text->SetTextSize(0.02);
+    index_text->SetTextSize(1.75*b);
     index_text->Draw();
 }
 

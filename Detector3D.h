@@ -44,16 +44,17 @@ public:
   void ClearTrack();
   void ClearTracks();
   TGeoManager *mgr;
-  WireChamber3D *MWDC1;
-  WireChamber3D *MWDC2;
-  ScintPlane3D *s1xplane;
-  ScintPlane3D *s1yplane;
-  ScintPlane3D *s2xplane;
-  ScintPlane3D *s2yplane;
+  WireChamber3D *RDC1;
+  WireChamber3D *RDC2;
+  WireChamber3D *LDC1;
+  WireChamber3D *LDC2;
+  ScintPlane3D *Lsplane;
+  ScintPlane3D *Rsplane;
 
   vector<Trajectory3D* > TrackList;
 
   TGeoVolume *top;
+  TGeoVolume *top2;
 
 };
 

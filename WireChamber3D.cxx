@@ -17,50 +17,54 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
    //Get Dimension data from HMS.txt
    // Height and Width of the wireplane
 
-   GetVariables *hms = new GetVariables("HMS.txt");
-   double H= 100.0*hms->GetDouble(Form("%s.Height =",ChamberName));
-   double W= 100.0*hms->GetDouble(Form("%s.Width =",ChamberName));
+   GetVariables *BH = new GetVariables("BH.txt");
+   double H= BH->GetDouble(Form("%s.Height =",ChamberName));
+   double W= BH->GetDouble(Form("%s.Width =",ChamberName));
+   
+   // WireChamber Thickness and WallThickness
+   double CT= BH->GetDouble(Form("%s.Thickness =",ChamberName));
+   double WT= BH->GetDouble(Form("%s.WallThickness =",ChamberName));
 
-   double CT= hms->GetDouble(Form("%s.Thickness =",ChamberName));
-   double WT= hms->GetDouble(Form("%s.WallThickness =",ChamberName));
-
-   TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),5.0*CT/2.0,1.5*W/2.0,1.5*H/2.0);
+   TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),1.5*CT/2.0,1.5*W/2.0,1.5*H/2.0);
    Chamber3D = new TGeoVolume(Form("%s.Chamber",ChamberName),ChamberBox);
    //Drawing Frame of the WireChamber
 
-   TGeoBBox *LRWall = new TGeoBBox("LRWall",1.0*CT/2.0,WT/2.0,H/2.0);
-   LeftWall = new TGeoVolume("LeftWall",LRWall);
+   TGeoBBox *LRWall = new TGeoBBox("LRWall",CT/2.0,WT/2.0,H/2.0);
+   TGeoVolume *LeftWall = new TGeoVolume("LeftWall",LRWall);
    LeftWall->SetLineColor(kBlack);
-   Chamber3D->AddNode(LeftWall,1,new TGeoTranslation(0,(W+WT)/2.0,0));
-   Chamber3D->AddNode(LeftWall,2,new TGeoTranslation(0,-(W+WT)/2.0,0));
+   Chamber3D->AddNodeOverlap(LeftWall,1,new TGeoTranslation(0,(W+WT)/2.0,0));
+   Chamber3D->AddNodeOverlap(LeftWall,2,new TGeoTranslation(0,-(W+WT)/2.0,0));
 
-   TGeoBBox *ULWall = new TGeoBBox("ULWall",1.0*CT/2.0,W/2.0+WT,WT/2.0);
-   UpperWall = new TGeoVolume("UpperWall",ULWall);
+   TGeoBBox *ULWall = new TGeoBBox("ULWall",CT/2.0,W/2.0+WT,WT/2.0);
+   TGeoVolume *UpperWall = new TGeoVolume("UpperWall",ULWall);
    UpperWall->SetLineColor(kBlack);
-   Chamber3D->AddNode(UpperWall,1, new TGeoTranslation(0,0,(H+WT)/2.0));
-   Chamber3D->AddNode(UpperWall,2, new TGeoTranslation(0,0,-(H+WT)/2.0));
+   Chamber3D->AddNodeOverlap(UpperWall,1, new TGeoTranslation(0,0,(H+WT)/2.0));
+   Chamber3D->AddNodeOverlap(UpperWall,2, new TGeoTranslation(0,0,-(H+WT)/2.0));
 
    //Draw all WirePlanes for the WireChamber
-    for(unsigned int i=0; i< PlaneNames.size(); i++){
-     WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+2)));}
+   for(unsigned int i=0; i< PlaneNames.size(); i++){
+     WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+1)));}
 
    //Get Rotation and Translation, AddNode to top Volume
     TGeoRotation r1;
     TGeoTranslation t1;
     TGeoCombiTrans *comb;
 
-    double tilt = hms-> GetDouble(Form("%s.Tilt =",ChamberName));
-    double x0 = hms-> GetDouble(Form("%s.xPos =",ChamberName));
-    double y0 = hms-> GetDouble(Form("%s.yPos =",ChamberName));
-    double z0 = hms-> GetDouble(Form("%s.zPos =",ChamberName));
+    double tilt = BH-> GetDouble(Form("%s.Tilt =",ChamberName));
+    double x0 = BH-> GetDouble(Form("%s.xPos =",ChamberName));
+    double y0 = BH-> GetDouble(Form("%s.yPos =",ChamberName));
+    double z0 = BH-> GetDouble(Form("%s.zPos =",ChamberName));
     
     //cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 
     r1.SetAngles(90 - tilt,0,90,90,tilt,180);
-    t1.SetTranslation(x0+CT/2.0, y0, z0);
-    comb = new TGeoCombiTrans(t1, r1);
-    top->AddNodeOverlap(Chamber3D,1,comb);
     
+    if(x0 > 0)
+      t1.SetTranslation(x0, y0, z0);
+    else
+      t1.SetTranslation(-300.0-x0, y0, z0);
+    comb = new TGeoCombiTrans(t1, r1);  
+    top->AddNodeOverlap(Chamber3D,1,comb);
 
     // Test all TGeoVolume visibility related setting function:
     
@@ -138,6 +142,3 @@ void WireChamber3D::clear()
     //LeftWall->SetVisibility (kTRUE);
     //UpperWall->SetVisibility (kTRUE);
 }
-
-
-

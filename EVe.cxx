@@ -261,27 +261,27 @@ void EVe::CreateXprojection()
      c1->cd();
      c1->Clear();
 
-     GetVariables *HMSvar = new GetVariables("HMS.txt");
+     GetVariables *BHvar = new GetVariables("BH.txt");
 
-     x1 = new WirePlane((char*)"X1",HMSvar->GetDouble("MWDC1.x.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("x1.dist =")),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
+     x1 = new WirePlane((char*)"X1",BHvar->GetDouble("RDC1.x.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC1.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(BHvar->GetDouble("x1.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC1.Height =")),1.0,1.0,-1);
    
-     x1p = new WirePlane((char*)"X1p",HMSvar->GetDouble("MWDC1.xp.NumWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			 cst->transYtoCY(HMSvar->GetDouble("x1p.dist =")),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
+     x1p = new WirePlane((char*)"X1p",BHvar->GetDouble("RDC1.xp.NumWires ="),
+			 -0.5*cst->transLtoCL(BHvar->GetDouble("RDC1.Height ="))+cst->transXtoCX(0.0), 
+			 cst->transYtoCY(BHvar->GetDouble("x1p.dist =")),
+			 cst->transLtoCL(BHvar->GetDouble("RDC1.Height =")),1.0,1.0,+1);
 
-     x2 = new WirePlane((char*)"X2",HMSvar->GetDouble("MWDC2.x.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("x2.dist =")),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
+     x2 = new WirePlane((char*)"X2",BHvar->GetDouble("RDC2.x.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC2.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(BHvar->GetDouble("x2.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC2.Height =")),1.0,1.0,-1);
   
-     x2p = new WirePlane((char*)"X2p",HMSvar->GetDouble("MWDC2.xp.NumWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			 cst->transYtoCY(HMSvar->GetDouble("x2p.dist =")),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
+     x2p = new WirePlane((char*)"X2p",BHvar->GetDouble("RDC2.xp.NumWires ="),
+			 -0.5*cst->transLtoCL(BHvar->GetDouble("RDC2.Height ="))+cst->transXtoCX(0.0), 
+			 cst->transYtoCY(BHvar->GetDouble("x2p.dist =")),
+			 cst->transLtoCL(BHvar->GetDouble("RDC2.Height =")),1.0,1.0,+1);
 
      c1->Update();
   }
@@ -296,25 +296,25 @@ void EVe::CreateUVprojection()
      c2->cd();
      c2->Clear();
      
-     GetVariables *HMSvar = new GetVariables("HMS.txt");
+     GetVariables *BHvar = new GetVariables("BH.txt");
 
-     u1 = new WirePlane((char*)"U1",HMSvar->GetDouble("MWDC1.u.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("u1.dist =")),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
-     v1 = new WirePlane((char*)"V1",HMSvar->GetDouble("MWDC1.v.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-			cst->transYtoCY(HMSvar->GetDouble("v1.dist =")+0.002),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
+     u1 = new WirePlane((char*)"U1",BHvar->GetDouble("RDC1.u.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC1.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(BHvar->GetDouble("u1.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC1.Height =")),1.0,1.0,-1);
+     v1 = new WirePlane((char*)"V1",BHvar->GetDouble("RDC1.v.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC1.Height ="))+cst->transXtoCX(0.0),
+			cst->transYtoCY(0.002+BHvar->GetDouble("v1.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC1.Height =")),1.0,1.0,+1);
 
-     u2 = new WirePlane((char*)"U2",HMSvar->GetDouble("MWDC2.u.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("u2.dist =")),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
-     v2 = new WirePlane((char*)"V2",HMSvar->GetDouble("MWDC2.v.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("v2.dist =")+0.002),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
+     u2 = new WirePlane((char*)"U2",BHvar->GetDouble("RDC2.u.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC2.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(BHvar->GetDouble("u2.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC2.Height =")),1.0,1.0,-1);
+     v2 = new WirePlane((char*)"V2",BHvar->GetDouble("RDC2.v.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC2.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(0.002+BHvar->GetDouble("v2.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC2.Height =")),1.0,1.0,+1);
 
      c2->Update();
   }
@@ -328,25 +328,25 @@ void EVe::CreateYprojection()
      c4->cd();
      c4->Clear();
      
-     GetVariables *HMSvar = new GetVariables("HMS.txt");
+     GetVariables *BHvar = new GetVariables("BH.txt");
 
-     y1 = new WirePlane((char*)"Y1",HMSvar->GetDouble("MWDC1.y.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("y1.dist =")),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
-     y1p = new WirePlane((char*)"Y1p",HMSvar->GetDouble("MWDC1.yp.NumWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0), 
-			 cst->transYtoCY(HMSvar->GetDouble("y1p.dist =")),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,1);
+     y1 = new WirePlane((char*)"Y1",BHvar->GetDouble("RDC1.y.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC1.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(BHvar->GetDouble("y1.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC1.Height =")),1.0,1.0,-1);
+     y1p = new WirePlane((char*)"Y1p",BHvar->GetDouble("RDC1.yp.NumWires ="),
+			 -0.5*cst->transLtoCL(BHvar->GetDouble("RDC1.Height ="))+cst->transXtoCX(0.0), 
+			 cst->transYtoCY(BHvar->GetDouble("y1p.dist =")),
+			 cst->transLtoCL(BHvar->GetDouble("RDC1.Height =")),1.0,1.0,1);
 
-     y2 = new WirePlane((char*)"Y2",HMSvar->GetDouble("MWDC2.y.NumWires ="),
-			-0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0), 
-			cst->transYtoCY(HMSvar->GetDouble("y2.dist =")),
-			cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
-     y2p = new WirePlane((char*)"Y2p",HMSvar->GetDouble("MWDC2.yp.NumWires ="),
-			 -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-			 cst->transYtoCY(HMSvar->GetDouble("y2p.dist =")),
-			 cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
+     y2 = new WirePlane((char*)"Y2",BHvar->GetDouble("RDC2.y.NumWires ="),
+			-0.5*cst->transLtoCL(BHvar->GetDouble("RDC2.Height ="))+cst->transXtoCX(0.0), 
+			cst->transYtoCY(BHvar->GetDouble("y2.dist =")),
+			cst->transLtoCL(BHvar->GetDouble("RDC2.Height =")),1.0,1.0,-1);
+     y2p = new WirePlane((char*)"Y2p",BHvar->GetDouble("RDC2.yp.NumWires ="),
+			 -0.5*cst->transLtoCL(BHvar->GetDouble("RDC2.Height ="))+cst->transXtoCX(0.0),
+			 cst->transYtoCY(BHvar->GetDouble("y2p.dist =")),
+			 cst->transLtoCL(BHvar->GetDouble("RDC2.Height =")),1.0,1.0,+1);
 
      c4->Update();
   }
@@ -358,53 +358,51 @@ void EVe::CreateWires()
    fRootEmbeddedCanvas->AdoptCanvas(c3);
    c3->cd();
    c3->Clear();
-  
-   GetVariables *vars = new GetVariables("HMS.txt");
-   double canvasL = vars ->GetDouble("canvasL =");
-   double CMWDC1X = vars ->GetDouble("canvas.MWDC1.x =");
-   double CMWDC1Y = vars ->GetDouble("canvas.MWDC1.y =");
-   double CMWDC2X = vars ->GetDouble("canvas.MWDC2.x =");
-   double CMWDC2Y = vars ->GetDouble("canvas.MWDC2.y =");
-
-   CStransform *mwdc1_cst = new CStransform(canvasL, CMWDC1X, CMWDC1Y);
-   CStransform *mwdc2_cst = new CStransform(canvasL, CMWDC2X, CMWDC2Y);
    
-   mwdc1 = new WireChamber((char*)"MWDC1",mwdc1_cst);
+   //below are data used for positioning Chambers2D view in canvas, can be changed in BH.txt
+   GetVariables *vars = new GetVariables("BH.txt");
+   double canvasL = vars ->GetDouble("canvasL =");
+   double RDC1X = vars ->GetDouble("canvas.RDC1.x =");
+   double RDC1Y = vars ->GetDouble("canvas.RDC1.y =");
+   double RDC2X = vars ->GetDouble("canvas.RDC2.x =");
+   double RDC2Y = vars ->GetDouble("canvas.RDC2.y =");
+   
+   double LDC1X = vars ->GetDouble("canvas.LDC1.x =");
+   double LDC1Y = vars ->GetDouble("canvas.LDC1.y =");
+   double LDC2X = vars ->GetDouble("canvas.LDC2.x =");
+   double LDC2Y = vars ->GetDouble("canvas.LDC2.y =");
 
-   mwdc2 = new WireChamber((char*)"MWDC2",mwdc2_cst);
  
    int NScintPlanes = vars->GetInt("Number of Scint Planes =");
-   
-    double Cs1xX = vars -> GetDouble("canvas.s1x.x =");
-    double Cs1xY = vars -> GetDouble("canvas.s1x.y =");
-    double Cs1yX = vars -> GetDouble("canvas.s1y.x =");
-    double Cs1yY = vars -> GetDouble("canvas.s1y.y =");
 
-    double Cs2xX = vars -> GetDouble("canvas.s2x.x =");
-    double Cs2xY = vars -> GetDouble("canvas.s2x.y =");
-    double Cs2yX = vars -> GetDouble("canvas.s2y.x =");
-    double Cs2yY = vars -> GetDouble("canvas.s2y.y =");
-   
+   CStransform *RDC1_cst = new CStransform(canvasL, RDC1X, RDC1Y);
+   CStransform *RDC2_cst = new CStransform(canvasL, RDC2X, RDC2Y);
 
-   //ajust scintplane position in 2D canvas
-   CStransform *s1x_cst = new CStransform(canvasL, Cs1xX, Cs1xY);
-   CStransform *s1y_cst = new CStransform(canvasL, Cs1yX, Cs1yY);
+   CStransform *LDC1_cst = new CStransform(canvasL, LDC1X, LDC1Y);
+   CStransform *LDC2_cst = new CStransform(canvasL, LDC2X, LDC2Y);
    
-   if (NScintPlanes == 4) {
-     s2x_cst = new CStransform(canvasL, Cs2xX, Cs2xY);
-     s2y_cst = new CStransform(canvasL, Cs2yX, Cs2yY);
-   }
+   RDC1 = new WireChamber((char*)"RDC1",RDC1_cst);
 
-   s1X = new ScintPlane((char*)"s1x", s1x_cst);
+   RDC2 = new WireChamber((char*)"RDC2",RDC2_cst);
    
-   s1Y = new ScintPlane((char*)"s1y", s1y_cst);
-   
-   if (NScintPlanes == 4) {
-     s2X = new ScintPlane((char*)"s2x",  s2x_cst);
-     
-     s2Y = new ScintPlane((char*)"s2y",  s2y_cst);
-   }
+   LDC1 = new WireChamber((char*)"LDC1",LDC1_cst);
 
+   LDC2 = new WireChamber((char*)"LDC2",LDC2_cst);
+  
+/// Variables to generate scintillator planes planar view   
+
+    double CLsX = vars -> GetDouble("canvas.Ls.x =");
+    double CLsY = vars -> GetDouble("canvas.Ls.y =");
+
+    double CRsX = vars -> GetDouble("canvas.Rs.x =");
+    double CRsY = vars -> GetDouble("canvas.Rs.y =");
+  
+   CStransform *Ls_cst = new CStransform(canvasL, CLsX, CLsY);
+   CStransform *Rs_cst = new CStransform(canvasL, CRsX, CRsY);
+
+   Ls = new ScintPlane((char*)"Ls", Ls_cst);
+
+   Rs = new ScintPlane((char*)"Rs", Rs_cst);
 
    // In the end we plot a coordinate system
 
@@ -550,9 +548,8 @@ void EVe::initRun(char *filename)
    /// Scint Planes
    /// TDC hits for all planes -- pos = left PMT, neg = right PMT
 
-   //GetVariables* HMS = new GetVariables("HMS.txt");
-
    /// S1X
+   /*
    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
    t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
@@ -566,9 +563,9 @@ void EVe::initRun(char *filename)
      cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
    for(int i=0;i<Ndata_H_hod_1x_postdchits; i++)
      cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
-  
-
-   ///S1Y
+   */
+   
+   ///Rs
    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
    t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
@@ -583,6 +580,7 @@ void EVe::initRun(char *filename)
     cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;
     */ 
 
+   /*
    ///S2X
    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
    t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
@@ -787,26 +785,26 @@ void EVe::DoDraw(int event)
 
     //***************** First Wire Chamber
 
-    mwdc1->clear();
+    RDC1->clear();
     
-    GetVariables* HMSvars= new GetVariables("HMS.txt");
+    GetVariables* BHvars= new GetVariables("BH.txt");
     
-    int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
-    int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
-    int yp1NW= HMSvars->GetInt("MWDC1.yp.NumWires =");
+    int x1NW= BHvars->GetInt("RDC1.x.NumWires =");
+    int v1NW= BHvars->GetInt("RDC1.v.NumWires =");
+    int yp1NW= BHvars->GetInt("RDC1.yp.NumWires =");
 
     /// X plane
 
     for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("x",x1NW+1-H_dc_1x1_tdchits[i]);
+        RDC1->WireHit("x",x1NW+1-H_dc_1x1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
       {
 	
-        mwdc1->WireHit("xp",H_dc_1x2_tdchits[i]);
+        RDC1->WireHit("xp",H_dc_1x2_tdchits[i]);
       } 
 
     /// UV plane
@@ -814,13 +812,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("u",H_dc_1u1_tdchits[i]);
+        RDC1->WireHit("u",H_dc_1u1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("v",v1NW+1-H_dc_1v1_tdchits[i]);
+        RDC1->WireHit("v",v1NW+1-H_dc_1v1_tdchits[i]);
       } 
 
     /// YP,XP plane
@@ -828,37 +826,37 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
       {
 	
-        mwdc1->WireHit("y",H_dc_1y1_tdchits[i]);
+        RDC1->WireHit("y",H_dc_1y1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
       {
 	
-        mwdc1->WireHit("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
+        RDC1->WireHit("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
       } 
 
 
    //***************** Second Wire Chamber
 
-    mwdc2->clear();
+    RDC2->clear();
 
     
-    int x2NW= HMSvars->GetInt("MWDC2.x.NumWires =");
-    int v2NW= HMSvars->GetInt("MWDC2.v.NumWires =");
-    int yp2NW= HMSvars->GetInt("MWDC2.yp.NumWires =");
+    int x2NW= BHvars->GetInt("RDC2.x.NumWires =");
+    int v2NW= BHvars->GetInt("RDC2.v.NumWires =");
+    int yp2NW= BHvars->GetInt("RDC2.yp.NumWires =");
 
     /// X plane
 
     for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("x",x2NW+1-H_dc_2x1_tdchits[i]);
+        RDC2->WireHit("x",x2NW+1-H_dc_2x1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
       {
 	
-        mwdc2->WireHit("xp",H_dc_2x2_tdchits[i]);
+        RDC2->WireHit("xp",H_dc_2x2_tdchits[i]);
       } 
 
     /// UV plane
@@ -866,13 +864,13 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("u",H_dc_2u1_tdchits[i]);
+        RDC2->WireHit("u",H_dc_2u1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("v",v2NW+1-H_dc_2v1_tdchits[i]);
+        RDC2->WireHit("v",v2NW+1-H_dc_2v1_tdchits[i]);
       } 
 
     /// Y plane
@@ -880,31 +878,43 @@ void EVe::DoDraw(int event)
     for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
       {
 	
-        mwdc2->WireHit("y",H_dc_2y1_tdchits[i]);
+        RDC2->WireHit("y",H_dc_2y1_tdchits[i]);
       } 
     
     for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
       {
 	
-        mwdc2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
-      }  
+        RDC2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
+      } 
+    
+    LDC1->clear();
+    LDC2->clear();
+   
+    /*
+    s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
 
-   s1Y->clear();
-   s1X->clear();
-   s2X->clear();
-   s2Y->clear();
+    for(int i=0;i<16; i++)
+      cerr << "After hit the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
+    for(int i=0;i<16; i++)
+      cerr << "After hit the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
+    
+    
+    s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+    s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,H_hod_2x_postdchits,H_hod_2x_negtdchits);
+    s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,H_hod_2y_postdchits,H_hod_2y_negtdchits);
+    */
+    
+    
+    Ls->clear();
+    Rs->clear();
+ 
+    Rs->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,H_hod_1x_postdchits,H_hod_1x_negtdchits);
 
-   s1X->SPHit2D(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
-       H_hod_1x_postdchits,H_hod_1x_negtdchits);
-   s1Y->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
-       H_hod_1y_postdchits,H_hod_1y_negtdchits);
-   s2X->SPHit2D(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
-       H_hod_2x_postdchits,H_hod_2x_negtdchits);
-   s2Y->SPHit2D(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
-       H_hod_2y_postdchits,H_hod_2y_negtdchits);
+    Ls->SPHit2D(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,H_hod_1y_postdchits,H_hod_1y_negtdchits);
+    
 
-    //****** Now we draw Trajectories through detectors
-    	 
+//****** Now we draw Trajectories through detectors, since data only used for HMS, now commented out
+/*    	 
    if (Ndata_H_tr_x > 0 && fTextButtonTrack->IsOn())
      {		
        for(int q =0; q<Ndata_H_tr_x; q++)
@@ -927,8 +937,8 @@ void EVe::DoDraw(int event)
 	   double y1 = y0 + ph*z1;    
 
 
-	   mwdc1->Track(x0,y0,q);
-	   mwdc2->Track(x1,y1,q);
+	   RDC1->Track(x0,y0,q);
+	   RDC2->Track(x1,y1,q);
 
 
 	  
@@ -958,11 +968,13 @@ void EVe::DoDraw(int event)
        
      }  
 
-
+*/
    c3->Draw();
    c3->Update();
-   
   }
+   
+  
+  
 
 //_________________________ Lets handle 3D view  ______________________________________
 
@@ -978,59 +990,57 @@ void EVe::DoDraw(int event)
     title->Draw();   
 
     //***************** First chamber
-    GetVariables* HMSvars= new GetVariables("HMS.txt");
-    int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
-    int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
-    int y1NW= HMSvars->GetInt("MWDC1.y.NumWires =");
+    GetVariables* BHvars= new GetVariables("BH.txt");
+    int x1NW= BHvars->GetInt("RDC1.x.NumWires =");
+    int v1NW= BHvars->GetInt("RDC1.v.NumWires =");
+    int y1NW= BHvars->GetInt("RDC1.y.NumWires =");
 
-    detector->MWDC1->clear();
+    detector->RDC1->clear();
     //X,Xp,Plane
     for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
-        detector->MWDC1->WireHit3D("x",x1NW+1-H_dc_1x1_tdchits[i]);
+        detector->RDC1->WireHit3D("x",x1NW+1-H_dc_1x1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
-        detector->MWDC1->WireHit3D("xp",H_dc_1x2_tdchits[i]);
+        detector->RDC1->WireHit3D("xp",H_dc_1x2_tdchits[i]);
     /// UV plane
     for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
-        detector->MWDC1->WireHit3D("u",H_dc_1u1_tdchits[i]);
+        detector->RDC1->WireHit3D("u",H_dc_1u1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
-    detector->MWDC1->WireHit3D("v",v1NW+1-H_dc_1v1_tdchits[i]);
+        detector->RDC1->WireHit3D("v",v1NW+1-H_dc_1v1_tdchits[i]);
     /// Y,XP plane
     for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
-      detector->MWDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
+        detector->RDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
-      detector->MWDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
+        detector->RDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
+    detector->RDC2->clear();
 
-    detector->MWDC2->clear();
-    
     //X,Xp,Plane
     for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
-        detector->MWDC2->WireHit3D("x",x1NW+1-H_dc_2x1_tdchits[i]);
+        detector->RDC2->WireHit3D("x",x1NW+1-H_dc_2x1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
-        detector->MWDC2->WireHit3D("xp",H_dc_2x2_tdchits[i]);
+        detector->RDC2->WireHit3D("xp",H_dc_2x2_tdchits[i]);
     /// UV plane
     for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
-        detector->MWDC2->WireHit3D("u",H_dc_2u1_tdchits[i]);
-
-    
+        detector->RDC2->WireHit3D("u",H_dc_2u1_tdchits[i]);    
     for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
-        detector->MWDC2->WireHit3D("v",v1NW+1-H_dc_2v1_tdchits[i]);
+        detector->RDC2->WireHit3D("v",v1NW+1-H_dc_2v1_tdchits[i]);
     /// Y,XP plane
     for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
-        detector->MWDC2->WireHit3D("y",H_dc_2y1_tdchits[i]);
+        detector->RDC2->WireHit3D("y",H_dc_2y1_tdchits[i]);
     for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
-    detector->s1xplane->clear();
-    detector->s1yplane->clear();
-    detector->s2xplane->clear();
-    detector->s2yplane->clear();
+        detector->RDC2->WireHit3D("yp",y1NW+1-H_dc_2y2_tdchits[i]);
 
-    detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
-        H_hod_1x_postdchits,H_hod_1x_negtdchits);
-    detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
-        H_hod_1y_postdchits,H_hod_1y_negtdchits);
-    detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
-        H_hod_2x_postdchits,H_hod_2x_negtdchits);
-    detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
+    detector->LDC1->clear();
+    detector->LDC2->clear();
+    
+     // Now scintillaion plane
+    detector->Rsplane->clear();
+    detector->Lsplane->clear();
+ 
+    detector->Rsplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
+        H_hod_1y_postdchits, H_hod_1y_negtdchits);
+    detector->Lsplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
         H_hod_2y_postdchits,H_hod_2y_negtdchits);
+
 
      // Clear tracks
      detector->ClearTracks();

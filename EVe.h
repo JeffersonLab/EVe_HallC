@@ -58,8 +58,6 @@ public:
   void SelectProj();
   void MyCloseWindow();
   void PrintToFile();
-  //void SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int size);
-  
 
 private:
   TGMainFrame *fMainFrame;
@@ -80,13 +78,15 @@ private:
   TGCheckButton *fTextButtonTrack;
   TGNumberEntry *fNumberEntry1;
 
-  WireChamber *mwdc1;
-  WireChamber *mwdc2;
+  WireChamber *RDC1;
+  WireChamber *RDC2;
+  WireChamber *LDC1;
+  WireChamber *LDC2; 
 
-  ScintPlane *s1X;
-  ScintPlane *s1Y;
-  ScintPlane *s2X;
-  ScintPlane *s2Y;
+  ScintPlane *Ls;
+  ScintPlane *Rs;
+
+  CStransform *cst;
 
   int EventNumber;
   int TotalNumberOfEvents;
@@ -105,10 +105,6 @@ private:
   WirePlane *y1p;
   WirePlane *y2;
   WirePlane *y2p;
- 
-  CStransform *cst;
-  CStransform *s2x_cst;
-  CStransform *s2y_cst;
 
   Track *vtr[MAX_ROADS_NUM];
   Track *utr[MAX_ROADS_NUM];

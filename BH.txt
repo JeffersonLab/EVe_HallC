@@ -1,0 +1,172 @@
+Number of paddle PMTs = 2
+Number of Scint Planes = 2
+
+1st Scint Array Rotation = 90.0
+
+1st Scint Array NPaddles = 29
+
+//Data can be ajusted to change splanes and chambers position in planar view
+canvasL = 5.0
+
+
+canvas.Rs.x = 0.27
+canvas.Rs.y = 0.8
+
+canvas.RDC1.x = 0.27
+canvas.RDC1.y = 0.18
+canvas.RDC2.x = 0.7
+canvas.RDC2.y = 0.18
+
+canvas.Ls.x = 0.7
+canvas.Ls.y = 0.8
+
+canvas.LDC1.x = 0.27
+canvas.LDC1.y = 0.475
+canvas.LDC2.x = 0.7
+canvas.LDC2.y = 0.475
+
+//Planar view track Calculation data
+MWDC2.z = 0.81222
+s1x.z = 1.29753
+s1y.z = 1.49443
+s2x.z = 3.50743
+s2y.z = 3.70433
+
+//Projection view variables
+
+//x projection view
+x1.dist = 0.0
+x1p.dist = 0.0064
+x2.dist = 0.8122
+x2p.dist = 0.812284
+
+//u v projection view
+u1.dist = 0.0128
+v1.dist = 0.0192
+u2.dist = 0.825
+v2.dist = 0.8314
+
+//y projection view
+y1.dist = 0.028775
+y1p.dist = 0.035175
+y2.dist = 0.840975
+y2p.dist = 0.847375
+
+//RDC1 stats
+RDC1.Height = 74.9
+RDC1.Width = 204.44
+RDC1.Thickness = 13.97
+RDC1.WallThickness = 19.7
+RDC1.xPos = 85.0
+RDC1.yPos = 0.0
+RDC1.zPos = 0.0
+RDC1.Tilt = 45.0
+
+RDC1.u.WireAngle = 26.25
+RDC1.u.NumWires = 279
+RDC1.u.Offset = 0.0
+RDC1.u.Dist = 5.715
+
+RDC1.v.WireAngle = -26.25
+RDC1.v.NumWires = 279
+RDC1.v.Offset = 0.0
+RDC1.v.Dist = 8.255
+
+//RDC2 stats
+
+RDC2.Height = 74.9
+RDC2.Width = 204.44
+RDC2.Thickness = 13.97
+RDC2.WallThickness = 19.7
+RDC2.xPos = 140.68
+RDC2.yPos = 0.0
+RDC2.zPos = 0.0
+RDC2.Tilt = 45.0
+
+RDC2.u.WireAngle = 26.25
+RDC2.u.NumWires = 279
+RDC2.u.Offset = 0.0
+RDC2.u.Dist = 5.715
+
+RDC2.v.WireAngle = -26.25
+RDC2.v.NumWires = 279
+RDC2.v.Offset = 0.0
+RDC2.v.Dist = 8.255
+
+//LDC1 stats
+LDC1.Height = 74.9
+LDC1.Width = 204.44
+LDC1.Thickness = 13.97
+LDC1.WallThickness = 19.7
+LDC1.xPos = -85.0
+LDC1.yPos = 0.0
+LDC1.zPos = 0.0
+LDC1.Tilt = 45.0
+
+LDC1.u.WireAngle = 26.25
+LDC1.u.NumWires = 279
+LDC1.u.Offset = 0.0
+LDC1.u.Dist = 5.715
+
+LDC1.v.WireAngle = -26.25
+LDC1.v.NumWires = 279
+LDC1.v.Offset = 0.0
+LDC1.v.Dist = 8.255
+
+//LDC2 stats
+
+LDC2.Height = 74.9
+LDC2.Width = 204.44
+LDC2.Thickness = 13.97
+LDC2.WallThickness = 19.7
+LDC2.xPos = -140.68
+LDC2.yPos = 0.0
+LDC2.zPos = 0.0
+LDC2.Tilt = 45.0
+
+LDC2.u.WireAngle = 26.25
+LDC2.u.NumWires = 279
+LDC2.u.Offset = 0.0
+LDC2.u.Dist = 5.715
+
+LDC2.v.WireAngle = -26.25
+LDC2.v.NumWires = 279
+LDC2.v.Offset = 0.0
+LDC2.v.Dist = 8.255
+
+///PMTlength
+PMTlength = 0.1
+
+// Rsplane variables
+        //s1y paddles' angle
+
+Rs.angle = 90.0
+
+	/// number of paddles
+Rs.PN = 29
+
+/// Position and tilt of the center of the E-plane
+Rs.xpos = 200.00
+Rs.ypos = 0.0
+Rs.zpos = 0.0
+Rs.PaddleLength = 32.5
+Rs.PaddleHeight = 4.00
+Rs.PaddleThickness = 1.00
+Rs.tilt = 0.0
+
+// Lsplane variables
+//s2y paddles' angle
+
+Ls.angle = 90.0
+
+	/// number of paddles
+Ls.PN = 29
+
+/// Position and tilt of the center of the E-plane
+Ls.xpos = -200.0
+Ls.ypos = 0.0
+Ls.zpos = 0.0
+Ls.PaddleLength = 32.5
+Ls.PaddleHeight = 4.00
+Ls.PaddleThickness = 1.00
+Ls.tilt = 0.0
