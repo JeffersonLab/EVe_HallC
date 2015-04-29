@@ -29,7 +29,7 @@ class ScintPlane3D
 {
 
 public:
-    ScintPlane3D(char* splaneName, TGeoVolume* top);
+    ScintPlane3D(char* splaneName, GetVariables* DB, TGeoVolume* top);
     virtual ~ScintPlane3D();
     void LHit(int numL);
     void RHit(int numR);

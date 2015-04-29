@@ -135,36 +135,29 @@ void rotransline(double ang, double * x, double * y,double sx0, double sy0, int 
 
 }
 
-
-
 ScintillatorPaddle::~ScintillatorPaddle()
 {
     //Destructor
 }
 
-// NEW hit method (3 functions) -- must be similarly implemented in 3D paddles
 void ScintillatorPaddle::HitLeft()
 {
-    plineL->SetFillColor(2);
-
+    plineL->SetFillColor(kGreen);
 }
-
 
 void ScintillatorPaddle::HitRight()
 {
-    plineR->SetFillColor(2);
-
+    plineR->SetFillColor(kGreen);
 }
 
-void ScintillatorPaddle::HitBoth()
+void ScintillatorPaddle::HitPaddle()
 {
-    plineR->SetFillColor(3);
-    plineL->SetFillColor(3);
+    scint->SetFillColor(kGreen);
 }
-
 
 void ScintillatorPaddle::clear()
 {
     plineR->SetFillColor(38);
     plineL->SetFillColor(38);
+    scint->SetFillColor(38);
 }

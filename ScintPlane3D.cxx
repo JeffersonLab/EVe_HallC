@@ -18,16 +18,14 @@
 
 using namespace std;
 
-ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
+ScintPlane3D::ScintPlane3D(char* splaneName, GetVariables* DB, TGeoVolume* top)
 {
-    GetVariables *hms = new GetVariables("HMS.txt");
-
     // Get Values used in construct n paddles for a single ScintPlane
-    int numPMT = hms->GetInt("Number of paddle PMTs =");
-    numPaddles = hms->GetInt(Form("%s.PN =",splaneName));
-    double length = hms ->GetDouble(Form("%s.PaddleLength =",splaneName));
-    double height = hms ->GetDouble(Form("%s.PaddleHeight =",splaneName));
-    double thickness = hms ->GetDouble(Form("%s.PaddleThickness =",splaneName));
+    int numPMT = DB->GetInt("Number of paddle PMTs =");
+    numPaddles = DB->GetInt(Form("%s.PN =",splaneName));
+    double length = DB ->GetDouble(Form("%s.PaddleLength =",splaneName));
+    double height = DB ->GetDouble(Form("%s.PaddleHeight =",splaneName));
+    double thickness = DB ->GetDouble(Form("%s.PaddleThickness =",splaneName));
 
     // Draw the Scintillator Plane in sy configuration
     TGeoBBox* SP = new TGeoBBox(splaneName,1.2*thickness ,4.0*((double)numPaddles)*height ,3.0*length);
@@ -40,7 +38,7 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
                            length, height, thickness,ScintPlane, numPMT) );
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
-    double angle= hms->GetDouble(Form("%s.angle =",splaneName));
+    double angle= DB->GetDouble(Form("%s.angle =",splaneName));
 
     TGeoRotation* scintrot= new TGeoRotation();
     scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
@@ -51,10 +49,10 @@ ScintPlane3D::ScintPlane3D(char* splaneName, TGeoVolume* top)
     TGeoTranslation t1;
     TGeoCombiTrans *comb;
 
-    double tilt = hms-> GetDouble(Form("%s.tilt =",splaneName));
-    double xpos = hms-> GetDouble(Form("%s.xpos =",splaneName));
-    double ypos = hms-> GetDouble(Form("%s.ypos =",splaneName));
-    double zpos = hms-> GetDouble(Form("%s.zpos =",splaneName));
+    double tilt = DB-> GetDouble(Form("%s.tilt =",splaneName));
+    double xpos = DB-> GetDouble(Form("%s.xpos =",splaneName));
+    double ypos = DB-> GetDouble(Form("%s.ypos =",splaneName));
+    double zpos = DB-> GetDouble(Form("%s.zpos =",splaneName));
 
     //cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
 

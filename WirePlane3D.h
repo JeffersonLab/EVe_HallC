@@ -26,7 +26,8 @@ using namespace std;
 class WirePlane3D
 {
 public:
-    WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D,TGeoVolume* Top,TGeoManager* Mgr,int color);
+    WirePlane3D(char* ChamberName,string PlaneName,TGeoVolume* WireChamber3D,
+        GetVariables *DB, TGeoVolume* Top,TGeoManager* Mgr,int color);
     virtual ~WirePlane3D();
     void Wire3DHit(int Num);
     void clear();
