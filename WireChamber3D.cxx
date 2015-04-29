@@ -12,20 +12,16 @@
 
 using namespace std;
 
-WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoVolume* top, TGeoManager* mgr)
+WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, GetVariables* DB,
+                                TGeoVolume* top, TGeoManager* mgr)
 {
-    //Get Dimension data from HMS.txt
-    // Height and Width of the wireplane
+    double H= 100.0*DB->GetDouble(Form("%s.Height =",ChamberName));
+    double W= 100.0*DB->GetDouble(Form("%s.Width =",ChamberName));
 
-    GetVariables *BH = new GetVariables("BH.txt");
-    double H= BH->GetDouble(Form("%s.Height =",ChamberName));
-    double W= BH->GetDouble(Form("%s.Width =",ChamberName));
+    double CT= DB->GetDouble(Form("%s.Thickness =",ChamberName));
+    double WT= DB->GetDouble(Form("%s.WallThickness =",ChamberName));
 
-    // WireChamber Thickness and WallThickness
-    double CT= BH->GetDouble(Form("%s.Thickness =",ChamberName));
-    double WT= BH->GetDouble(Form("%s.WallThickness =",ChamberName));
-
-    TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),1.5*CT/2.0,1.5*W/2.0,1.5*H/2.0);
+    TGeoBBox *ChamberBox = new TGeoBBox(Form("%s.ChamberBox",ChamberName),5.0*CT/2.0,1.5*W/2.0,1.5*H/2.0);
     Chamber3D = new TGeoVolume(Form("%s.Chamber",ChamberName),ChamberBox);
     //Drawing Frame of the WireChamber
 
@@ -43,7 +39,7 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
 
     //Draw all WirePlanes for the WireChamber
     for(unsigned int i=0; i< PlaneNames.size(); i++) {
-        WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+1)));
+        WirePlanes.insert(std::pair<string, WirePlane3D>(PlaneNames[i],WirePlane3D(ChamberName,PlaneNames[i],Chamber3D, top,mgr, i+2)));
     }
 
     //Get Rotation and Translation, AddNode to top Volume
@@ -51,10 +47,10 @@ WireChamber3D::WireChamber3D(char* ChamberName, vector<string> PlaneNames, TGeoV
     TGeoTranslation t1;
     TGeoCombiTrans *comb;
 
-    double tilt = BH-> GetDouble(Form("%s.Tilt =",ChamberName));
-    double x0 = BH-> GetDouble(Form("%s.xPos =",ChamberName));
-    double y0 = BH-> GetDouble(Form("%s.yPos =",ChamberName));
-    double z0 = BH-> GetDouble(Form("%s.zPos =",ChamberName));
+    double tilt = DB-> GetDouble(Form("%s.Tilt =",ChamberName));
+    double x0 = DB-> GetDouble(Form("%s.xPos =",ChamberName));
+    double y0 = DB-> GetDouble(Form("%s.yPos =",ChamberName));
+    double z0 = DB-> GetDouble(Form("%s.zPos =",ChamberName));
 
     //cerr << Form("%s.xpos is ",ChamberName) << x0 <<Form(" %s.ypos is ",ChamberName) << y0 <<Form(" %s.zpos is ",ChamberName) << z0 << endl;
 
