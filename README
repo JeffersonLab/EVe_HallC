@@ -1,5 +1,8 @@
 EVe_HallC is an event display program for the Hall C HMS detector stack.
 
+The BetheHeitler branch contains geometry changes to match the Bethe Heitler
+setup at HIGS.
+
 === Contributions ===
 If you wish to contribute, please fork this repo and following the 'install'
 instructions outlined in the Docs/ directory.
