@@ -1022,7 +1022,7 @@ void EVe::DoDraw(int event)
 
         // Now draw tracks through the detector stack
         if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn()) {
-            for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, detector->TrackList.size()); i++) {
+            for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, (unsigned int)detector->TrackList.size()); i++) {
                 detector->TrackList[i]->
                 Enable(i, H_tr_x[i], H_tr_y[i], H_tr_th[i], H_tr_ph[i]);
             }
