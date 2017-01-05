@@ -484,26 +484,26 @@ void EVe::initRun(char *filename)
     /// Branch Addresses for all root Tree leaves that are needed
 
     /// Wire Chamber Nhits
-    t1->SetBranchAddress( "Ndata.H.dc.1u1.tdchits", &Ndata_H_dc_1u1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.1v1.tdchits", &Ndata_H_dc_1v1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.2u1.tdchits", &Ndata_H_dc_2u1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.2v1.tdchits", &Ndata_H_dc_2v1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.1u1.wirenum", &Ndata_H_dc_1u1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.1v1.wirenum", &Ndata_H_dc_1v1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.2u1.wirenum", &Ndata_H_dc_2u1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.2v1.wirenum", &Ndata_H_dc_2v1_tdchits);
 
-    t1->SetBranchAddress( "Ndata.H.dc.1x1.tdchits", &Ndata_H_dc_1x1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.1x2.tdchits", &Ndata_H_dc_1x2_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.2x1.tdchits", &Ndata_H_dc_2x1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.2x2.tdchits", &Ndata_H_dc_2x2_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.1x1.wirenum", &Ndata_H_dc_1x1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.1x2.wirenum", &Ndata_H_dc_1x2_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.2x1.wirenum", &Ndata_H_dc_2x1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.2x2.wirenum", &Ndata_H_dc_2x2_tdchits);
 
-    t1->SetBranchAddress( "Ndata.H.dc.1y1.tdchits", &Ndata_H_dc_1y1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.1y2.tdchits", &Ndata_H_dc_1y2_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.2y1.tdchits", &Ndata_H_dc_2y1_tdchits);
-    t1->SetBranchAddress( "Ndata.H.dc.2y2.tdchits", &Ndata_H_dc_2y2_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.1y1.wirenum", &Ndata_H_dc_1y1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.1y2.wirenum", &Ndata_H_dc_1y2_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.2y1.wirenum", &Ndata_H_dc_2y1_tdchits);
+    t1->SetBranchAddress( "Ndata.H.dc.2y2.wirenum", &Ndata_H_dc_2y2_tdchits);
 
     /// UV Wire plane hits and hit times
-    t1->SetBranchAddress( "H.dc.1u1.tdchits", &H_dc_1u1_tdchits);
-    t1->SetBranchAddress( "H.dc.1v1.tdchits", &H_dc_1v1_tdchits);
-    t1->SetBranchAddress( "H.dc.2u1.tdchits", &H_dc_2u1_tdchits);
-    t1->SetBranchAddress( "H.dc.2v1.tdchits", &H_dc_2v1_tdchits);
+    t1->SetBranchAddress( "H.dc.1u1.wirenum", &H_dc_1u1_tdchits);
+    t1->SetBranchAddress( "H.dc.1v1.wirenum", &H_dc_1v1_tdchits);
+    t1->SetBranchAddress( "H.dc.2u1.wirenum", &H_dc_2u1_tdchits);
+    t1->SetBranchAddress( "H.dc.2v1.wirenum", &H_dc_2v1_tdchits);
 
     t1->SetBranchAddress( "H.dc.1u1.time", &H_dc_1u1_time);
     t1->SetBranchAddress( "H.dc.1v1.time", &H_dc_1v1_time);
@@ -511,10 +511,10 @@ void EVe::initRun(char *filename)
     t1->SetBranchAddress( "H.dc.2v1.time", &H_dc_2v1_time);
 
     /// X Wire plane hits and hit times
-    t1->SetBranchAddress( "H.dc.1x1.tdchits", &H_dc_1x1_tdchits);
-    t1->SetBranchAddress( "H.dc.1x2.tdchits", &H_dc_1x2_tdchits);
-    t1->SetBranchAddress( "H.dc.2x1.tdchits", &H_dc_2x1_tdchits);
-    t1->SetBranchAddress( "H.dc.2x2.tdchits", &H_dc_2x2_tdchits);
+    t1->SetBranchAddress( "H.dc.1x1.wirenum", &H_dc_1x1_tdchits);
+    t1->SetBranchAddress( "H.dc.1x2.wirenum", &H_dc_1x2_tdchits);
+    t1->SetBranchAddress( "H.dc.2x1.wirenum", &H_dc_2x1_tdchits);
+    t1->SetBranchAddress( "H.dc.2x2.wirenum", &H_dc_2x2_tdchits);
 
     t1->SetBranchAddress( "H.dc.1x1.time", &H_dc_1x1_time);
     t1->SetBranchAddress( "H.dc.1x2.time", &H_dc_1x2_time);
@@ -522,10 +522,10 @@ void EVe::initRun(char *filename)
     t1->SetBranchAddress( "H.dc.2x2.time", &H_dc_2x2_time);
 
     /// Y Wire plane hits and hit times
-    t1->SetBranchAddress( "H.dc.1y1.tdchits", &H_dc_1y1_tdchits);
-    t1->SetBranchAddress( "H.dc.1y2.tdchits", &H_dc_1y2_tdchits);
-    t1->SetBranchAddress( "H.dc.2y1.tdchits", &H_dc_2y1_tdchits);
-    t1->SetBranchAddress( "H.dc.2y2.tdchits", &H_dc_2y2_tdchits);
+    t1->SetBranchAddress( "H.dc.1y1.wirenum", &H_dc_1y1_tdchits);
+    t1->SetBranchAddress( "H.dc.1y2.wirenum", &H_dc_1y2_tdchits);
+    t1->SetBranchAddress( "H.dc.2y1.wirenum", &H_dc_2y1_tdchits);
+    t1->SetBranchAddress( "H.dc.2y2.wirenum", &H_dc_2y2_tdchits);
 
     t1->SetBranchAddress( "H.dc.1y1.time", &H_dc_1y1_time);
     t1->SetBranchAddress( "H.dc.1y2.time", &H_dc_1y2_time);
@@ -546,14 +546,14 @@ void EVe::initRun(char *filename)
     //GetVariables* HMS = new GetVariables("HMS.txt");
 
     /// S1X
-    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdchits", &Ndata_H_hod_1x_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.1x.postdchits", &Ndata_H_hod_1x_postdchits);
-    t1->SetBranchAddress( "H.hod.1x.negtdchits", &H_hod_1x_negtdchits);
-    t1->SetBranchAddress( "H.hod.1x.postdchits", &H_hod_1x_postdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdcpad", &Ndata_H_hod_1x_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.1x.postdcpad", &Ndata_H_hod_1x_postdchits);
+    t1->SetBranchAddress( "H.hod.1x.negtdcpad", &H_hod_1x_negtdchits);
+    t1->SetBranchAddress( "H.hod.1x.postdcpad", &H_hod_1x_postdchits);
 
 
-    //SetBranchAddress(t1, (const char*)"H.hod.1x.negtdchits",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.1x.postdchits",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
+    //SetBranchAddress(t1, (const char*)"H.hod.1x.negtdcpad",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
+    //SetBranchAddress(t1, (const char*)"H.hod.1x.postdcpad",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
 
     for(int i=0; i<Ndata_H_hod_1x_negtdchits; i++)
         cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
@@ -562,12 +562,12 @@ void EVe::initRun(char *filename)
 
 
     ///S1Y
-    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdchits", &Ndata_H_hod_1y_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.1y.postdchits", &Ndata_H_hod_1y_postdchits);
-    t1->SetBranchAddress( "H.hod.1y.negtdchits", &H_hod_1y_negtdchits);
-    t1->SetBranchAddress( "H.hod.1y.postdchits", &H_hod_1y_postdchits);
-    //SetBranchAddress(t1, (const char*)"H.hod.1y.negtdchits",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.1y.postdchits",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
+    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdcpad", &Ndata_H_hod_1y_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.1y.postdcpad", &Ndata_H_hod_1y_postdchits);
+    t1->SetBranchAddress( "H.hod.1y.negtdcpad", &H_hod_1y_negtdchits);
+    t1->SetBranchAddress( "H.hod.1y.postdcpad", &H_hod_1y_postdchits);
+    //SetBranchAddress(t1, (const char*)"H.hod.1y.negtdcpad",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
+    //SetBranchAddress(t1, (const char*)"H.hod.1y.postdcpad",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
 
 
     /* for(int i=0;i<16; i++)
@@ -577,12 +577,12 @@ void EVe::initRun(char *filename)
      */
 
     ///S2X
-    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdchits", &Ndata_H_hod_2x_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.2x.postdchits", &Ndata_H_hod_2x_postdchits);
-    t1->SetBranchAddress( "H.hod.2x.negtdchits", &H_hod_2x_negtdchits);
-    t1->SetBranchAddress( "H.hod.2x.postdchits", &H_hod_2x_postdchits);
-    //SetBranchAddress(t1, (const char*)"H.hod.2x.negtdchits",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.2x.postdchits",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
+    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdcpad", &Ndata_H_hod_2x_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.2x.postdcpad", &Ndata_H_hod_2x_postdchits);
+    t1->SetBranchAddress( "H.hod.2x.negtdcpad", &H_hod_2x_negtdchits);
+    t1->SetBranchAddress( "H.hod.2x.postdcpad", &H_hod_2x_postdchits);
+    //SetBranchAddress(t1, (const char*)"H.hod.2x.negtdcpad",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
+    //SetBranchAddress(t1, (const char*)"H.hod.2x.postdcpad",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
     /*
      for(int i=0;i<16; i++)
       cerr << "After Call the number of " << i << "th of 2xnegtdchits is " << H_hod_2x_negtdchits[i] << endl;
@@ -590,12 +590,12 @@ void EVe::initRun(char *filename)
      cerr << "After Call the number of " << i << "th of 2xpostdchits is " << H_hod_2x_postdchits[i] << endl; */
 
     ///S2Y
-    t1->SetBranchAddress( "Ndata.H.hod.2y.negtdchits", &Ndata_H_hod_2y_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.2y.postdchits", &Ndata_H_hod_2y_postdchits);
-    t1->SetBranchAddress( "H.hod.2y.negtdchits", &H_hod_2y_negtdchits);
-    t1->SetBranchAddress( "H.hod.2y.postdchits", &H_hod_2y_postdchits);
-    //SetBranchAddress(t1, (const char*)"H.hod.2y.negtdchits",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.2y.postdchits",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
+    t1->SetBranchAddress( "Ndata.H.hod.2y.negtdcpad", &Ndata_H_hod_2y_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.2y.postdcpad", &Ndata_H_hod_2y_postdchits);
+    t1->SetBranchAddress( "H.hod.2y.negtdcpad", &H_hod_2y_negtdchits);
+    t1->SetBranchAddress( "H.hod.2y.postdcpad", &H_hod_2y_postdchits);
+    //SetBranchAddress(t1, (const char*)"H.hod.2y.negtdcpad",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
+    //SetBranchAddress(t1, (const char*)"H.hod.2y.postdcpad",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
     /*
     for(int i=0;i<16; i++)
       cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
@@ -999,7 +999,7 @@ void EVe::DoDraw(int event)
 
         // Now draw tracks through the detector stack
         if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn()) {
-            for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, detector->TrackList.size()); i++) {
+            for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, (unsigned int)detector->TrackList.size()); i++) {
                 detector->TrackList[i]->
                 Enable(i, H_tr_x[i], H_tr_y[i], H_tr_th[i], H_tr_ph[i]);
             }
