@@ -33,7 +33,7 @@ public:
     std::string file;
 
 protected:
-    ifstream infile;
+    std::ifstream infile;
 
     std::string intvar;
     std::string dblvar;
