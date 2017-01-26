@@ -17,8 +17,9 @@
     0
   };
   while( found==0 ) {
-    cout << "Run number?\n";
-    cin >> nrun;
+    //cout << "Run number?\n";
+    //cin >> nrun;
+    nrun = 95;
     if( nrun<0 ) break;
 
     path=paths;

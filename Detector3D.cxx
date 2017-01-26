@@ -109,10 +109,16 @@ Detector3D::Detector3D()
     // changed volume size to 60
     s2yplane = new ScintPlane3D((char*)"s2y", hmsDB, top);
 
+    // HMS calorimeter
+    c1prplane = new ScintPlane3D((char*)"c1pr", hmsDB, top);
+    c2taplane = new ScintPlane3D((char*)"c2ta", hmsDB, top);
+    c3taplane = new ScintPlane3D((char*)"c3ta", hmsDB, top);
+    c4taplane = new ScintPlane3D((char*)"c4ta", hmsDB, top);
+
     // There will be 10 tracks for any fixed number of tracks in this code,
     // The reason for it is after you call CloseGeometry() function, you
     // cannot dynamically change number of TGeoVolume in root.
-    for(int i=0; i<10; i++) {
+    for(uint i=0; i<10; i++) {
         TrackList.push_back(new Trajectory3D(top,mgr,i));
     }
 
@@ -143,7 +149,7 @@ Detector3D::~Detector3D()
 
 void Detector3D::ClearTracks()
 {
-    for (int i=0; i<TrackList.size(); i++) {
+    for (uint i=0; i<TrackList.size(); i++) {
         TrackList[i]->Disable();
     }
 }
