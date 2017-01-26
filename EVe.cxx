@@ -380,10 +380,23 @@ void EVe::CreateWires()
     double Cs2yX = vars -> GetDouble("canvas.s2y.x =");
     double Cs2yY = vars -> GetDouble("canvas.s2y.y =");
 
+    double Cc1prX = vars->GetDouble("canvas.c1pr.x = ");
+    double Cc1prY = vars->GetDouble("canvas.c1pr.y = ");
+    double Cc2taX = vars->GetDouble("canvas.c2ta.x = ");
+    double Cc2taY = vars->GetDouble("canvas.c2ta.y = ");
+    double Cc3taX = vars->GetDouble("canvas.c3ta.x = ");
+    double Cc3taY = vars->GetDouble("canvas.c3ta.y = ");
+    double Cc4taX = vars->GetDouble("canvas.c4ta.x = ");
+    double Cc4taY = vars->GetDouble("canvas.c4ta.y = ");
 
     //ajust scintplane position in 2D canvas
     CStransform *s1x_cst = new CStransform(canvasL, Cs1xX, Cs1xY);
     CStransform *s1y_cst = new CStransform(canvasL, Cs1yX, Cs1yY);
+
+    CStransform *c1pr_cst = new CStransform(canvasL, Cc1prX, Cc1prY);
+    CStransform *c2ta_cst = new CStransform(canvasL, Cc2taX, Cc2taY);
+    CStransform *c3ta_cst = new CStransform(canvasL, Cc3taX, Cc3taY);
+    CStransform *c4ta_cst = new CStransform(canvasL, Cc4taX, Cc4taY);
 
     if (NScintPlanes == 4) {
         s2x_cst = new CStransform(canvasL, Cs2xX, Cs2xY);
@@ -398,19 +411,24 @@ void EVe::CreateWires()
         s2Y = new ScintPlane((char*)"s2y", vars, s2y_cst);
     }
 
+    // HMS calorimeter
+    c1pr = new ScintPlane((char*)"c1pr", vars, c1pr_cst);
+    c2ta = new ScintPlane((char*)"c2ta", vars, c2ta_cst);
+    c3ta = new ScintPlane((char*)"c3ta", vars, c3ta_cst);
+    c4ta = new ScintPlane((char*)"c4ta", vars, c4ta_cst);
 
     // In the end we plot a coordinate system
 
-    TArrow *xaxis = new TArrow(0.82, 0.02, 0.95, 0.02, 0.02, "|>");
+    TArrow *xaxis = new TArrow(0.02, 0.02, 0.12, 0.02, 0.02, "|>");
     xaxis->Draw();
-    TArrow *yaxis = new TArrow(0.82, 0.02, 0.82, 0.15, 0.02, "|>");
+    TArrow *yaxis = new TArrow(0.02, 0.02, 0.02, 0.12, 0.02, "|>");
     yaxis->Draw();
 
-    TLatex *xtext = new TLatex(0.94,0.03, "x");
+    TLatex *xtext = new TLatex(0.14, 0.02, "x");
     xtext->SetTextSize(0.03);
     xtext->Draw();
 
-    TLatex *ytext = new TLatex(0.83, 0.122, "y");
+    TLatex *ytext = new TLatex(0.02, 0.14, "y");
     ytext->SetTextSize(0.03);
     ytext->Draw();
 
@@ -436,12 +454,12 @@ void EVe::SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int siz
           //for (int i=0; i<size ;i++)
 	  //  tmp[i]=0;
           //T->SetBranchAddress( bname, &tmp);
-          //*addr = tmp;
+          // *addr = tmp;
 
           //ver3 ,same as ver2
           //for (int i=0; i<size ;i++)
 	  //  tmp[i]=0;
-          //*addr = tmp;
+          // *addr = tmp;
           //T->SetBranchAddress( bname, &tmp);
 
            //ver4 ,same as ver2 before call hitfunc, show event seg fault
@@ -454,7 +472,7 @@ void EVe::SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int siz
           //for (int i=0; i<size ;i++)
 	  //  tmp[i]=0;
           //T->SetBranchAddress( bname, &tmp);
-          //*addr = tmp;
+          // *addr = tmp;
 
         }
         //cerr << " Size of the scintarray is " << size << " , and size of *tmp is " << sizeof(*tmp) << " , and size of *addr is " << sizeof(*addr) << endl;
@@ -601,6 +619,26 @@ void EVe::initRun(char *filename)
       cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
     for(int i=0;i<16; i++)
     cerr << "After Call the number of " << i << "th of 2ypostdchits is " << H_hod_2y_postdchits[i] << endl;*/
+
+    // c1pr
+    t1->SetBranchAddress("Ndata.H.cal.1pr.negAdcCounter", &Ndata_H_cal_1pr_negAdcCounter);
+    t1->SetBranchAddress("Ndata.H.cal.1pr.posAdcCounter", &Ndata_H_cal_1pr_posAdcCounter);
+    t1->SetBranchAddress("H.cal.1pr.negAdcCounter", &H_cal_1pr_negAdcCounter);
+    t1->SetBranchAddress("H.cal.1pr.posAdcCounter", &H_cal_1pr_posAdcCounter);
+
+    // c2ta
+    t1->SetBranchAddress("Ndata.H.cal.2ta.negAdcCounter", &Ndata_H_cal_2ta_negAdcCounter);
+    t1->SetBranchAddress("Ndata.H.cal.2ta.posAdcCounter", &Ndata_H_cal_2ta_posAdcCounter);
+    t1->SetBranchAddress("H.cal.2ta.negAdcCounter", &H_cal_2ta_negAdcCounter);
+    t1->SetBranchAddress("H.cal.2ta.posAdcCounter", &H_cal_2ta_posAdcCounter);
+
+    // c3ta
+    t1->SetBranchAddress("Ndata.H.cal.3ta.posAdcCounter", &Ndata_H_cal_3ta_posAdcCounter);
+    t1->SetBranchAddress("H.cal.3ta.posAdcCounter", &H_cal_3ta_posAdcCounter);
+
+    // c4ta
+    t1->SetBranchAddress("Ndata.H.cal.4ta.posAdcCounter", &Ndata_H_cal_4ta_posAdcCounter);
+    t1->SetBranchAddress("H.cal.4ta.posAdcCounter", &H_cal_4ta_posAdcCounter);
 
 }
 
@@ -758,7 +796,7 @@ void EVe::DoDraw(int event)
 
 
         if (title != NULL) delete title;
-        title = new TLatex(0.02,0.02, graph_title);
+        title = new TLatex(0.50,0.02, graph_title);
         title->SetTextSize(0.03);
         title->Draw();
 
@@ -867,6 +905,28 @@ void EVe::DoDraw(int event)
                      H_hod_2x_postdchits,H_hod_2x_negtdchits);
         s2Y->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
                      H_hod_2y_postdchits,H_hod_2y_negtdchits);
+
+        c1pr->clear();
+        c2ta->clear();
+        c3ta->clear();
+        c4ta->clear();
+
+        c1pr->SPHit(
+          Ndata_H_cal_1pr_posAdcCounter, Ndata_H_cal_1pr_negAdcCounter,
+          H_cal_1pr_posAdcCounter, H_cal_1pr_negAdcCounter
+        );
+        c2ta->SPHit(
+          Ndata_H_cal_2ta_posAdcCounter, Ndata_H_cal_2ta_negAdcCounter,
+          H_cal_2ta_posAdcCounter, H_cal_2ta_negAdcCounter
+        );
+        c3ta->SPHit(
+          Ndata_H_cal_3ta_posAdcCounter, Ndata_H_cal_3ta_posAdcCounter,
+          H_cal_3ta_posAdcCounter, H_cal_3ta_posAdcCounter
+        );
+        c4ta->SPHit(
+          Ndata_H_cal_4ta_posAdcCounter, Ndata_H_cal_4ta_posAdcCounter,
+          H_cal_4ta_posAdcCounter, H_cal_4ta_posAdcCounter
+        );
 
         //****** Now we draw Trajectories through detectors
 
@@ -994,12 +1054,34 @@ void EVe::DoDraw(int event)
         detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
                                   H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
+        detector->c1prplane->clear();
+        detector->c2taplane->clear();
+        detector->c3taplane->clear();
+        detector->c4taplane->clear();
+
+        detector->c1prplane->SPHit(
+          Ndata_H_cal_1pr_posAdcCounter, Ndata_H_cal_1pr_negAdcCounter,
+          H_cal_1pr_posAdcCounter, H_cal_1pr_negAdcCounter
+        );
+        detector->c2taplane->SPHit(
+          Ndata_H_cal_2ta_posAdcCounter, Ndata_H_cal_2ta_negAdcCounter,
+          H_cal_2ta_posAdcCounter, H_cal_2ta_negAdcCounter
+        );
+        detector->c3taplane->SPHit(
+          Ndata_H_cal_3ta_posAdcCounter, Ndata_H_cal_3ta_posAdcCounter,
+          H_cal_3ta_posAdcCounter, H_cal_3ta_posAdcCounter
+        );
+        detector->c4taplane->SPHit(
+          Ndata_H_cal_4ta_posAdcCounter, Ndata_H_cal_4ta_posAdcCounter,
+          H_cal_4ta_posAdcCounter, H_cal_4ta_posAdcCounter
+        );
+
         // Clear tracks
         detector->ClearTracks();
 
         // Now draw tracks through the detector stack
         if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn()) {
-            for(int i=0; i < std::min((unsigned int)Ndata_H_tr_x, (unsigned int)detector->TrackList.size()); i++) {
+            for(uint i=0; i < std::min((unsigned int)Ndata_H_tr_x, (unsigned int)detector->TrackList.size()); i++) {
                 detector->TrackList[i]->
                 Enable(i, H_tr_x[i], H_tr_y[i], H_tr_th[i], H_tr_ph[i]);
             }

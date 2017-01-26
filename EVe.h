@@ -41,7 +41,7 @@
 class EVe
 {
     RQ_OBJECT("EVe")
-public:
+  public:
     EVe(const TGWindow *p, UInt_t w, UInt_t h);
     ~EVe();
     void CreateXprojection();
@@ -62,7 +62,7 @@ public:
     //void SetBranchAddress(TTree* T, const char* bname, Double_t** addr, int size);
 
 
-private:
+  private:
     TGMainFrame *fMainFrame;
     TRootEmbeddedCanvas *fRootEmbeddedCanvas;
     TCanvas *c1;
@@ -88,6 +88,12 @@ private:
     ScintPlane *s1Y;
     ScintPlane *s2X;
     ScintPlane *s2Y;
+
+    // HMS calorimeter.
+    ScintPlane *c1pr;  // 2 PMTs
+    ScintPlane *c2ta;  // 2 PMTs
+    ScintPlane *c3ta;  // 1 PMT
+    ScintPlane *c4ta;  // 1 PMT
 
     int EventNumber;
     int TotalNumberOfEvents;
@@ -204,6 +210,24 @@ private:
     Double_t H_hod_2y_postdchits[16];
     //Double_t* H_hod_2y_negtdchits;
     //Double_t* H_hod_2y_postdchits;
+
+    // HMS calorimeter
+    Int_t Ndata_H_cal_1pr_negAdcCounter;
+    Int_t Ndata_H_cal_1pr_posAdcCounter;
+    Double_t H_cal_1pr_negAdcCounter[50];
+    Double_t H_cal_1pr_posAdcCounter[50];
+
+    Int_t Ndata_H_cal_2ta_negAdcCounter;
+    Int_t Ndata_H_cal_2ta_posAdcCounter;
+    Double_t H_cal_2ta_negAdcCounter[50];
+    Double_t H_cal_2ta_posAdcCounter[50];
+
+    Int_t Ndata_H_cal_3ta_posAdcCounter;
+    Double_t H_cal_3ta_posAdcCounter[50];
+
+    Int_t Ndata_H_cal_4ta_posAdcCounter;
+    Double_t H_cal_4ta_posAdcCounter[50];
+
 
     Detector3D *detector;
 
