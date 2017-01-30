@@ -50,22 +50,29 @@ y1p.dist = 0.035175
 y2.dist = 0.840975
 y2p.dist = 0.847375
 
-//MWDC1 stats
-//Height and Width use units m, and Thickness and WallThickness use units cm, since there is a unit conversion between
-// 2D view and 3D view
-MWDC1.Height = 1.13
-MWDC1.Width = 0.56
-MWDC1.Thickness = 4.0
+// Drift chambers.
+// .Height and .Width : m
+// .Thickness and .WallThickness : cm
+
+// DC1 variables.
+MWDC1.Height = 0.8
+MWDC1.Width = 0.8
+MWDC1.Thickness = 9.0
 MWDC1.WallThickness = 2.0
-MWDC1.xPos = 0.0
+MWDC1.xPos = -40.0
 MWDC1.yPos = 0.0
 MWDC1.zPos = 0.0
 MWDC1.Tilt = 0.0
 
+// DC1.x variables.
 MWDC1.x.WireAngle = 0.0
-MWDC1.x.NumWires = 113
+MWDC1.x.NumWires = 80
 MWDC1.x.Offset = 0.0
 MWDC1.x.Dist = 0.0
+
+
+//MWDC1 stats
+
 
 MWDC1.y.WireAngle = 90.0
 MWDC1.y.NumWires = 52
@@ -93,16 +100,17 @@ MWDC1.xp.Offset = 0.005
 MWDC1.xp.Dist = 3.5175
 
 
-
-//MWDC-2 stats
-MWDC2.Height = 1.13
-MWDC2.Width = 0.56
-MWDC2.Thickness = 4.0
+// DC2 variables.
+MWDC2.Height = 0.8
+MWDC2.Width = 0.8
+MWDC2.Thickness = 9.0
 MWDC2.WallThickness = 2.0
-MWDC2.xPos = 81.45
+MWDC2.xPos = 40.0
 MWDC2.yPos = 0.0
 MWDC2.zPos = 0.0
 MWDC2.Tilt = 0.0
+
+//MWDC-2 stats
 
 MWDC2.x.WireAngle = 0.0
 MWDC2.x.NumWires = 113
