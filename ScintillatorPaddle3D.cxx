@@ -24,8 +24,8 @@ ScintillatorPaddle3D::ScintillatorPaddle3D(char* PlaneName, int index, int n,
         TGeoVolume *paddle, int numPMT)
 {
 
-    double r_PMT = 2.0;// Change to use HMS.txt
-    double l_PMT = 8.0;// Change to use HMS.txt
+    double r_PMT = 2.0;// Change to use SHMS.txt
+    double l_PMT = 8.0;// Change to use SHMS.txt
     double L=length;
     double H=height;
     double T=thickness;

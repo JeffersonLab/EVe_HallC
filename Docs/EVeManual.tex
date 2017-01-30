@@ -124,7 +124,7 @@ This class is used to draw complete tracks in 3D view. It can take into account 
 This class has not yet been tested in the new version of EVe and has not yet been set up to work properly. The code is unchanged from the original version.
 
 \subsection{GetVariables}
-The GetVariables class was written so that variables (ex. geometry variables) could be dynamically called from a text file to be used anywhere in EVe. When this class is instantiated, it takes in a text file. This is the file that contains all geometry information. Currently, the test file used is \textit{HMS.txt}. GetVariables then contains two functions that parse through the text file, searching for a specific string, for example, \textit{``Number of paddle PMTs = 2"}. All strings must end with a \textit{`= some\_number'} for the code to work. The functions take in this specific string and output a number to be used in the code. The GetVariables class does not necessarily need to be used, but was written as a means of cleaning up the code and allowing multiple variables to be input from multiple sources, instead of one geometry file.
+The GetVariables class was written so that variables (ex. geometry variables) could be dynamically called from a text file to be used anywhere in EVe. When this class is instantiated, it takes in a text file. This is the file that contains all geometry information. Currently, the test file used is \textit{SHMS.txt}. GetVariables then contains two functions that parse through the text file, searching for a specific string, for example, \textit{``Number of paddle PMTs = 2"}. All strings must end with a \textit{`= some\_number'} for the code to work. The functions take in this specific string and output a number to be used in the code. The GetVariables class does not necessarily need to be used, but was written as a means of cleaning up the code and allowing multiple variables to be input from multiple sources, instead of one geometry file.
 
 \subsubsection{Function: GetDouble}
 This function takes in a \textit{string} and outputs a \textit{double} variable. This is to be used whenever a non-integer is needed.
@@ -239,7 +239,7 @@ This file lists all of the file types that will not be included in a commit to g
 The EVeDict files are regenerated each time EVe is compiled, and should not be modified.
 
 \subsection{EVe\_DB.h}
-This is the file that previously contained all geometry information. It still contains most of it, but now some of the information comes from \textit{HMS.txt} using GetVariables. The variables in this DataBase file are constants and are hard-coded, used throughout EVe when needed. Ideally a hard-coded system like this one is discarded in place of a dynamic variable extraction system, but for now this works fine.
+This is the file that previously contained all geometry information. It still contains most of it, but now some of the information comes from \textit{SHMS.txt} using GetVariables. The variables in this DataBase file are constants and are hard-coded, used throughout EVe when needed. Ideally a hard-coded system like this one is discarded in place of a dynamic variable extraction system, but for now this works fine.
 \\
 \\
 Most of the HMS variable details are contained in \url{https://github.com/JeffersonLab/simc_gfortran/blob/master/hms/mc_hms_hut.f}.

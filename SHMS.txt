@@ -1,0 +1,194 @@
+////// Input text file for Eve Event Display.     ////////
+////// SHMS for Hall C text file                  ////////
+
+Scintillator Paddle Length =
+ScintYlength =
+ScintZlength =
+Number of paddle PMTs = 2
+Number of Scint Planes = 4
+
+//Data can be ajusted to change splanes and chambers position in planar view
+canvasL = 6.0
+
+canvas.MWDC1.x = 0.25
+canvas.MWDC1.y = 0.167
+canvas.MWDC2.x = 0.75
+canvas.MWDC2.y = 0.167
+
+canvas.s1x.x = 0.125
+canvas.s1x.y = 0.50
+canvas.s1y.x = 0.375
+canvas.s1y.y = 0.50
+canvas.s2x.x = 0.625
+canvas.s2x.y = 0.50
+canvas.s2y.x = 0.875
+canvas.s2y.y = 0.50
+
+canvas.c1pr.x = 0.125
+canvas.c1pr.y = 0.833
+canvas.c2ta.x = 0.375
+canvas.c2ta.y = 0.833
+canvas.c3ta.x = 0.625
+canvas.c3ta.y = 0.833
+canvas.c4ta.x = 0.875
+canvas.c4ta.y = 0.833
+
+//Planar view track Calculation data
+MWDC2.z = 0.81222
+s1x.z = 1.29753
+s1y.z = 1.49443
+s2x.z = 3.50743
+s2y.z = 3.70433
+
+//Projection view variables
+//x projection view
+x1.dist = 0.0
+x1p.dist = 0.0064
+x2.dist = 0.8122
+x2p.dist = 0.812284
+
+//u v projection view
+u1.dist = 0.0128
+v1.dist = 0.0192
+u2.dist = 0.825
+v2.dist = 0.8314
+
+//y projection view
+y1.dist = 0.028775
+y1p.dist = 0.035175
+y2.dist = 0.840975
+y2p.dist = 0.847375
+
+//MWDC1 stats
+//Height and Width use units m, and Thickness and WallThickness use units cm, since there is a unit conversion between
+// 2D view and 3D view
+MWDC1.Height = 1.13
+MWDC1.Width = 0.56
+MWDC1.Thickness = 4.0
+MWDC1.WallThickness = 2.0
+MWDC1.xPos = 0.0
+MWDC1.yPos = 0.0
+MWDC1.zPos = 0.0
+MWDC1.Tilt = 0.0
+
+MWDC1.x.WireAngle = 0.0
+MWDC1.x.NumWires = 113
+MWDC1.x.Offset = 0.0
+MWDC1.x.Dist = 0.0
+
+MWDC1.y.WireAngle = 90.0
+MWDC1.y.NumWires = 52
+MWDC1.y.Offset = 0.0
+MWDC1.y.Dist = 0.64
+
+MWDC1.u.WireAngle = -15.0
+MWDC1.u.NumWires = 107
+MWDC1.u.Offset = 0.0
+MWDC1.u.Dist = 1.28
+
+MWDC1.v.WireAngle = 15.0
+MWDC1.v.NumWires = 107
+MWDC1.v.Offset = 0.0
+MWDC1.v.Dist = 1.92
+
+MWDC1.yp.WireAngle = 90.0
+MWDC1.yp.NumWires = 52
+MWDC1.yp.Offset = 0.005
+MWDC1.yp.Dist = 2.8775
+
+MWDC1.xp.WireAngle = 0.0
+MWDC1.xp.NumWires = 113
+MWDC1.xp.Offset = 0.005
+MWDC1.xp.Dist = 3.5175
+
+
+
+//MWDC-2 stats
+MWDC2.Height = 1.13
+MWDC2.Width = 0.56
+MWDC2.Thickness = 4.0
+MWDC2.WallThickness = 2.0
+MWDC2.xPos = 81.45
+MWDC2.yPos = 0.0
+MWDC2.zPos = 0.0
+MWDC2.Tilt = 0.0
+
+MWDC2.x.WireAngle = 0.0
+MWDC2.x.NumWires = 113
+MWDC2.x.Offset = 0.0
+MWDC2.x.Dist = 0.0
+
+MWDC2.y.WireAngle = 90.0
+MWDC2.y.NumWires = 52
+MWDC2.y.Offset = 0.0
+MWDC2.y.Dist = 0.64
+
+MWDC2.u.WireAngle = -15.0
+MWDC2.u.NumWires = 107
+MWDC2.u.Offset = 0.0
+MWDC2.u.Dist = 1.28
+
+MWDC2.v.WireAngle = 15.0
+MWDC2.v.NumWires = 107
+MWDC2.v.Offset = 0.0
+MWDC2.v.Dist = 1.92
+
+MWDC2.yp.WireAngle = 90.0
+MWDC2.yp.NumWires = 52
+MWDC2.yp.Offset = 0.005
+MWDC2.yp.Dist = 2.8775
+
+MWDC2.xp.WireAngle = 0.0
+MWDC2.xp.NumWires = 113
+MWDC2.xp.Offset = 0.005
+MWDC2.xp.Dist = 3.5175
+
+
+// Hodoscope settings.
+Number of paddle PMTs = 2
+Number of Scint Planes = 4
+PMTlength = 0.2963
+
+// s1x variables.
+s1x.angle = 0.0
+s1x.PN = 13
+s1x.xpos = 51.85
+s1x.ypos = 0.0
+s1x.zpos = 0.0
+s1x.PaddleLength = 90.0
+s1x.PaddleHeight = 7.538
+s1x.PaddleThickness = 0.5
+s1x.tilt = 0.0
+
+// s1y variables.
+s1y.angle = 90.0
+s1y.PN = 13
+s1y.xpos = 60.85
+s1y.ypos = 0.0
+s1y.zpos = 0.0
+s1y.PaddleLength = 90.0
+s1y.PaddleHeight = 7.538
+s1y.PaddleThickness = 0.5
+s1y.tilt = 0.0
+
+// s2x variables.
+s2x.angle = 0.0
+s2x.PN = 14
+s2x.xpos = 271.85
+s2x.ypos = 0.0
+s2x.zpos = 0.0
+s2x.PaddleLength = 110.0
+s2x.PaddleHeight = 9.536
+s2x.PaddleThickness = 0.5
+s2x.tilt = 0.0
+
+// s2y variables.
+s2y.angle = 90.0
+s2y.PN = 21
+s2y.xpos = 280.85
+s2y.ypos = 0.0
+s2y.zpos = 0.0
+s2y.PaddleLength = 115.5
+s2y.PaddleHeight = 5.024
+s2y.PaddleThickness = 2.5
+s2y.tilt = 0.0

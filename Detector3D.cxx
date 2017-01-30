@@ -90,7 +90,7 @@ Detector3D::Detector3D()
     string PN[6]= {"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
-    GetVariables *hmsDB = new GetVariables("HMS.txt");
+    GetVariables *hmsDB = new GetVariables("SHMS.txt");
     MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, hmsDB, top, mgr);
 
     // Second MWDC
