@@ -51,12 +51,6 @@ public:
     ScintPlane3D *s1yplane;
     ScintPlane3D *s2xplane;
     ScintPlane3D *s2yplane;
-
-    ScintPlane3D *c1prplane;
-    ScintPlane3D *c2taplane;
-    ScintPlane3D *c3taplane;
-    ScintPlane3D *c4taplane;
-
     vector<Trajectory3D* > TrackList;
 
     TGeoVolume *top;

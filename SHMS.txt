@@ -24,15 +24,6 @@ canvas.s2x.y = 0.50
 canvas.s2y.x = 0.875
 canvas.s2y.y = 0.50
 
-canvas.c1pr.x = 0.125
-canvas.c1pr.y = 0.833
-canvas.c2ta.x = 0.375
-canvas.c2ta.y = 0.833
-canvas.c3ta.x = 0.625
-canvas.c3ta.y = 0.833
-canvas.c4ta.x = 0.875
-canvas.c4ta.y = 0.833
-
 //Planar view track Calculation data
 MWDC2.z = 0.81222
 s1x.z = 1.29753

@@ -89,12 +89,6 @@ class EVe
     ScintPlane *s2X;
     ScintPlane *s2Y;
 
-    // HMS calorimeter.
-    ScintPlane *c1pr;  // 2 PMTs
-    ScintPlane *c2ta;  // 2 PMTs
-    ScintPlane *c3ta;  // 1 PMT
-    ScintPlane *c4ta;  // 1 PMT
-
     int EventNumber;
     int TotalNumberOfEvents;
 
