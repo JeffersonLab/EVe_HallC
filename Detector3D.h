@@ -25,6 +25,7 @@
 #include "TGeoPhysicalNode.h"
 #include "Trajectory3D.h"
 #include "GetVariables.h"
+#include "CalorimeterPlane3D.h"
 
 #include <cstring>
 #include <cstdio>
@@ -51,6 +52,7 @@ public:
     ScintPlane3D *s1yplane;
     ScintPlane3D *s2xplane;
     ScintPlane3D *s2yplane;
+    CalorimeterPlane3D* pr[2];
     vector<Trajectory3D* > TrackList;
 
     TGeoVolume *top;

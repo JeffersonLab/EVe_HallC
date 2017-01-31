@@ -22,7 +22,7 @@ using namespace std;
 CalorimeterPlane3D::CalorimeterPlane3D(char* splaneName, GetVariables* DB, TGeoVolume* top,int shift)
 {
     // Get Values used in construct n paddles for a single ScintPlane
-    int numPMT = 2;//DB->GetInt("Number of paddle PMTs =");
+    int numPMT = 1;//DB->GetInt("Number of paddle PMTs =");
 
 //string stringName;
 std::string stringName(splaneName);
@@ -53,7 +53,7 @@ if(stringName.compare(Form("Cal%dx",i))==0){
 
 //zrotation variable rotates the calorimeter plane through the xy-plane
     double zrotation = DB->GetDouble(Form("%s.zrotation =",splaneName));
- 
+
     TGeoRotation* scintrot= new TGeoRotation();
 
   //  scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
@@ -79,7 +79,7 @@ scintrot->SetAngles(zrotation,90,0);
     double xpos = DB-> GetDouble(Form("%s.xpos =",splaneName));
     double ypos = DB-> GetDouble(Form("%s.ypos =",splaneName));
 
-//FIXMEEEE pass in new parameter? calorimeters facing each other(alternating) or same direction 
+//FIXMEEEE pass in new parameter? calorimeters facing each other(alternating) or same direction
 
 //If the calorimeter plane gets rotated, then the x-direction does not change, and all the calorimeter planes get put next to one another in the y-plane
  if(zrotation!=0){
@@ -98,17 +98,17 @@ else{
 
    if(shift%2!=0){
      xpos=xpos+(shift-1)*10;
-    }  
+    }
 
    // double ypos = DB-> GetDouble(Form("%s.ypos =",splaneName));
 
 //Every odd indexed plane gets moved in the y-direction so that it can be placed directly next to one another in the y-direction
- 
+
    if(shift%2!=0)
    {
       ypos=-ypos;
    }
-} 
+}
     double zpos = DB-> GetDouble(Form("%s.zpos =",splaneName));
 
     //cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
@@ -179,4 +179,3 @@ void CalorimeterPlane3D::SPHit(int NumL, int NumR, double poshit[], double neghi
         }
     }
 }
-

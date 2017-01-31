@@ -600,6 +600,17 @@ void EVe::initRun(char *filename)
       cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
     for(int i=0;i<16; i++)
     cerr << "After Call the number of " << i << "th of 2ypostdchits is " << H_hod_2y_postdchits[i] << endl;*/
+
+    // C1PR
+    t1->SetBranchAddress("Ndata.P.cal.pr.negAdcCounter", &Ndata_H_cal_1pr_negAdcCounter);
+    t1->SetBranchAddress("Ndata.P.cal.pr.posAdcCounter", &Ndata_H_cal_1pr_posAdcCounter);
+    t1->SetBranchAddress("P.cal.pr.negAdcCounter", &H_cal_1pr_negAdcCounter);
+    t1->SetBranchAddress("P.cal.pr.posAdcCounter", &H_cal_1pr_posAdcCounter);
+
+    // C2FLY
+    //t1->SetBranchAddress("Ndata.P.cal.fly.negAdcCounter", &Ndata_H_cal_1fly_negAdcCounter);
+    //t1->SetBranchAddress("P.cal.fly.negAdcCounter", &H_cal_1fly_negAdcCounter);
+
 }
 
 void EVe::DoDraw(int event)
@@ -1000,6 +1011,18 @@ void EVe::DoDraw(int event)
                                   H_hod_2x_postdchits,H_hod_2x_negtdchits);
         detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
                                   H_hod_2y_postdchits,H_hod_2y_negtdchits);
+
+        detector->pr[0]->clear();
+        detector->pr[1]->clear();
+
+        detector->pr[0]->SPHit(
+          Ndata_H_cal_1pr_negAdcCounter, Ndata_H_cal_1pr_negAdcCounter,
+          H_cal_1pr_negAdcCounter, H_cal_1pr_negAdcCounter
+        );
+        detector->pr[1]->SPHit(
+          Ndata_H_cal_1pr_posAdcCounter, Ndata_H_cal_1pr_posAdcCounter,
+          H_cal_1pr_posAdcCounter, H_cal_1pr_posAdcCounter
+        );
 
         // Clear tracks
         detector->ClearTracks();

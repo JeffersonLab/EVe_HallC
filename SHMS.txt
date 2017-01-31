@@ -196,3 +196,18 @@ s2y.PaddleLength = 115.5
 s2y.PaddleHeight = 5.024
 s2y.PaddleThickness = 2.5
 s2y.tilt = 0.0
+
+
+// Calorimeter variables.
+
+// Preshower variables.
+pr.angle = 0.0
+pr.PN = 14
+pr.xpos = 297.64
+pr.ypos = -35.2
+pr.zpos = 0.0
+pr.PaddleLength = 70.0
+pr.PaddleHeight = 10.0
+pr.PaddleThickness = 10.00
+pr.tilt = 2.0
+pr.zrotation = 0.0

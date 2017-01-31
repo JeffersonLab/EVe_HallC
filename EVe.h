@@ -165,7 +165,6 @@ class EVe
     Double_t H_dc_2y1_time[MAX_HITS_NUM];
     Double_t H_dc_2y2_time[MAX_HITS_NUM];
 
-
     /// TRACKING
     Int_t Ndata_H_tr_x;
     Double_t H_tr_x[MAX_TRACK_NUM];
@@ -205,23 +204,14 @@ class EVe
     //Double_t* H_hod_2y_negtdchits;
     //Double_t* H_hod_2y_postdchits;
 
-    // HMS calorimeter
+    // SHMS calorimeter.
     Int_t Ndata_H_cal_1pr_negAdcCounter;
     Int_t Ndata_H_cal_1pr_posAdcCounter;
-    Double_t H_cal_1pr_negAdcCounter[50];
-    Double_t H_cal_1pr_posAdcCounter[50];
+    Double_t H_cal_1pr_negAdcCounter[16];
+    Double_t H_cal_1pr_posAdcCounter[16];
 
-    Int_t Ndata_H_cal_2ta_negAdcCounter;
-    Int_t Ndata_H_cal_2ta_posAdcCounter;
-    Double_t H_cal_2ta_negAdcCounter[50];
-    Double_t H_cal_2ta_posAdcCounter[50];
-
-    Int_t Ndata_H_cal_3ta_posAdcCounter;
-    Double_t H_cal_3ta_posAdcCounter[50];
-
-    Int_t Ndata_H_cal_4ta_posAdcCounter;
-    Double_t H_cal_4ta_posAdcCounter[50];
-
+    //Int_t Ndata_H_cal_1fly_negAdcCounter;
+    //Double_t H_cal_1fly_negAdcCounter[16];
 
     Detector3D *detector;
 
