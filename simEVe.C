@@ -25,7 +25,7 @@
     path=paths;
 
     while ( path && *path ) {
-      sprintf(filename,"%s/phodo_replay_%d.root",*path,nrun);
+      sprintf(filename,"%s/shms_all_%05d.root",*path,nrun);
       cout << filename << endl;
       fd = fopen(filename,"r");
       if (fd != NULL) {

@@ -483,53 +483,53 @@ void EVe::initRun(char *filename)
     /// Branch Addresses for all root Tree leaves that are needed
 
     /// Wire Chamber Nhits
-    t1->SetBranchAddress( "Ndata.P.dc.1u1.wirenum", &Ndata_H_dc_1u1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.1v1.wirenum", &Ndata_H_dc_1v1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.2u1.wirenum", &Ndata_H_dc_2u1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.2v1.wirenum", &Ndata_H_dc_2v1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.1x1.wirenum", &Ndata_H_dc_1u1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.1x2.wirenum", &Ndata_H_dc_1v1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.2x2.wirenum", &Ndata_H_dc_2u1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.2x1.wirenum", &Ndata_H_dc_2v1_tdchits);
 
-    t1->SetBranchAddress( "Ndata.P.dc.1x1.wirenum", &Ndata_H_dc_1x1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.1x2.wirenum", &Ndata_H_dc_1x2_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.2x1.wirenum", &Ndata_H_dc_2x1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.2x2.wirenum", &Ndata_H_dc_2x2_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.1u1.wirenum", &Ndata_H_dc_1x1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.1v2.wirenum", &Ndata_H_dc_1x2_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.2v2.wirenum", &Ndata_H_dc_2x1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.2u1.wirenum", &Ndata_H_dc_2x2_tdchits);
 
-    t1->SetBranchAddress( "Ndata.P.dc.1y1.wirenum", &Ndata_H_dc_1y1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.1y2.wirenum", &Ndata_H_dc_1y2_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.2y1.wirenum", &Ndata_H_dc_2y1_tdchits);
-    t1->SetBranchAddress( "Ndata.P.dc.2y2.wirenum", &Ndata_H_dc_2y2_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.1u2.wirenum", &Ndata_H_dc_1y1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.1v1.wirenum", &Ndata_H_dc_1y2_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.2v1.wirenum", &Ndata_H_dc_2y1_tdchits);
+    t1->SetBranchAddress( "Ndata.P.dc.2u2.wirenum", &Ndata_H_dc_2y2_tdchits);
 
     /// UV Wire plane hits and hit times
-    t1->SetBranchAddress( "P.dc.1u1.wirenum", &H_dc_1u1_tdchits);
-    t1->SetBranchAddress( "P.dc.1v1.wirenum", &H_dc_1v1_tdchits);
-    t1->SetBranchAddress( "P.dc.2u1.wirenum", &H_dc_2u1_tdchits);
-    t1->SetBranchAddress( "P.dc.2v1.wirenum", &H_dc_2v1_tdchits);
+    t1->SetBranchAddress( "P.dc.1x1.wirenum", &H_dc_1u1_tdchits);
+    t1->SetBranchAddress( "P.dc.1x2.wirenum", &H_dc_1v1_tdchits);
+    t1->SetBranchAddress( "P.dc.2x2.wirenum", &H_dc_2u1_tdchits);
+    t1->SetBranchAddress( "P.dc.2x1.wirenum", &H_dc_2v1_tdchits);
 
-    t1->SetBranchAddress( "P.dc.1u1.time", &H_dc_1u1_time);
-    t1->SetBranchAddress( "P.dc.1v1.time", &H_dc_1v1_time);
-    t1->SetBranchAddress( "P.dc.2u1.time", &H_dc_2u1_time);
-    t1->SetBranchAddress( "P.dc.2v1.time", &H_dc_2v1_time);
+    t1->SetBranchAddress( "P.dc.1x1.time", &H_dc_1u1_time);
+    t1->SetBranchAddress( "P.dc.1x2.time", &H_dc_1v1_time);
+    t1->SetBranchAddress( "P.dc.2x2.time", &H_dc_2u1_time);
+    t1->SetBranchAddress( "P.dc.2x1.time", &H_dc_2v1_time);
 
     /// X Wire plane hits and hit times
-    t1->SetBranchAddress( "P.dc.1x1.wirenum", &H_dc_1x1_tdchits);
-    t1->SetBranchAddress( "P.dc.1x2.wirenum", &H_dc_1x2_tdchits);
-    t1->SetBranchAddress( "P.dc.2x1.wirenum", &H_dc_2x1_tdchits);
-    t1->SetBranchAddress( "P.dc.2x2.wirenum", &H_dc_2x2_tdchits);
+    t1->SetBranchAddress( "P.dc.1u1.wirenum", &H_dc_1x1_tdchits);
+    t1->SetBranchAddress( "P.dc.1v2.wirenum", &H_dc_1x2_tdchits);
+    t1->SetBranchAddress( "P.dc.2v2.wirenum", &H_dc_2x1_tdchits);
+    t1->SetBranchAddress( "P.dc.2u1.wirenum", &H_dc_2x2_tdchits);
 
-    t1->SetBranchAddress( "P.dc.1x1.time", &H_dc_1x1_time);
-    t1->SetBranchAddress( "P.dc.1x2.time", &H_dc_1x2_time);
-    t1->SetBranchAddress( "P.dc.2x1.time", &H_dc_2x1_time);
-    t1->SetBranchAddress( "P.dc.2x2.time", &H_dc_2x2_time);
+    t1->SetBranchAddress( "P.dc.1u1.time", &H_dc_1x1_time);
+    t1->SetBranchAddress( "P.dc.1v2.time", &H_dc_1x2_time);
+    t1->SetBranchAddress( "P.dc.2v2.time", &H_dc_2x1_time);
+    t1->SetBranchAddress( "P.dc.2u1.time", &H_dc_2x2_time);
 
     /// Y Wire plane hits and hit times
-    t1->SetBranchAddress( "P.dc.1y1.wirenum", &H_dc_1y1_tdchits);
-    t1->SetBranchAddress( "P.dc.1y2.wirenum", &H_dc_1y2_tdchits);
-    t1->SetBranchAddress( "P.dc.2y1.wirenum", &H_dc_2y1_tdchits);
-    t1->SetBranchAddress( "P.dc.2y2.wirenum", &H_dc_2y2_tdchits);
+    t1->SetBranchAddress( "P.dc.1u2.wirenum", &H_dc_1y1_tdchits);
+    t1->SetBranchAddress( "P.dc.1v1.wirenum", &H_dc_1y2_tdchits);
+    t1->SetBranchAddress( "P.dc.2v1.wirenum", &H_dc_2y1_tdchits);
+    t1->SetBranchAddress( "P.dc.2u2.wirenum", &H_dc_2y2_tdchits);
 
-    t1->SetBranchAddress( "P.dc.1y1.time", &H_dc_1y1_time);
-    t1->SetBranchAddress( "P.dc.1y2.time", &H_dc_1y2_time);
-    t1->SetBranchAddress( "P.dc.2y1.time", &H_dc_2y1_time);
-    t1->SetBranchAddress( "P.dc.2y2.time", &H_dc_2y2_time);
+    t1->SetBranchAddress( "P.dc.1u2.time", &H_dc_1y1_time);
+    t1->SetBranchAddress( "P.dc.1v1.time", &H_dc_1y2_time);
+    t1->SetBranchAddress( "P.dc.2v1.time", &H_dc_2y1_time);
+    t1->SetBranchAddress( "P.dc.2u2.time", &H_dc_2y2_time);
 
     /// TRACKS
     t1->SetBranchAddress( "Ndata.P.tr.x", &Ndata_H_tr_x);
@@ -941,7 +941,7 @@ void EVe::DoDraw(int event)
         GetVariables* HMSvars= new GetVariables("SHMS.txt");
         int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
         int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
-        int y1NW= HMSvars->GetInt("MWDC1.y.NumWires =");
+        int yp1NW= HMSvars->GetInt("MWDC1.yp.NumWires =");
 
         detector->MWDC1->clear();
         //X,Xp,Plane
@@ -958,13 +958,17 @@ void EVe::DoDraw(int event)
         for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
             detector->MWDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
         for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
-            detector->MWDC1->WireHit3D("yp",y1NW+1-H_dc_1y2_tdchits[i]);
+            detector->MWDC1->WireHit3D("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
+
+        int x2NW= HMSvars->GetInt("MWDC2.x.NumWires =");
+        int v2NW= HMSvars->GetInt("MWDC2.v.NumWires =");
+        int yp2NW= HMSvars->GetInt("MWDC2.yp.NumWires =");
 
         detector->MWDC2->clear();
 
         //X,Xp,Plane
         for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
-            detector->MWDC2->WireHit3D("x",x1NW+1-H_dc_2x1_tdchits[i]);
+            detector->MWDC2->WireHit3D("x",x2NW+1-H_dc_2x1_tdchits[i]);
         for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
             detector->MWDC2->WireHit3D("xp",H_dc_2x2_tdchits[i]);
         /// UV plane
@@ -973,12 +977,14 @@ void EVe::DoDraw(int event)
 
 
         for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
-            detector->MWDC2->WireHit3D("v",v1NW+1-H_dc_2v1_tdchits[i]);
-        /// Y,XP plane
+            detector->MWDC2->WireHit3D("v",v2NW+1-H_dc_2v1_tdchits[i]);
+        /// Y,YP plane
         for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
             detector->MWDC2->WireHit3D("y",H_dc_2y1_tdchits[i]);
         for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
-            detector->s1xplane->clear();
+            detector->MWDC2->WireHit3D("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
+
+        detector->s1xplane->clear();
         detector->s1yplane->clear();
         detector->s2xplane->clear();
         detector->s2yplane->clear();
