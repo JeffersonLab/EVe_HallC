@@ -90,13 +90,13 @@ else{
 //Every even indexed plane gets shifted in the x-direction so that it gets lined up behind the previous even indexed plane
 
    if(shift%2==0){
-     xpos=xpos+10*shift;
+     xpos=xpos+thickness*shift;
     }
 
 //The odd plane gets shifted the same amount as the previous even plane so that they are lined up next to one another in the x-direction
 
    if(shift%2!=0){
-     xpos=xpos+(shift-1)*10;
+     xpos=xpos+(shift-1)*thickness;
     }
 
    // double ypos = DB-> GetDouble(Form("%s.ypos =",splaneName));
