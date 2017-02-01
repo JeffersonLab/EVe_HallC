@@ -82,7 +82,7 @@ scintrot->SetAngles(zrotation,90,0);
 
 //If the calorimeter plane gets rotated, then the x-direction does not change, and all the calorimeter planes get put next to one another in the y-plane
  if(zrotation!=0){
-   ypos=ypos+10*shift/2;
+   ypos=ypos+thickness*shift/2;
 }
 
 else{
