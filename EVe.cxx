@@ -608,8 +608,8 @@ void EVe::initRun(char *filename)
     t1->SetBranchAddress("P.cal.pr.posAdcCounter", &H_cal_1pr_posAdcCounter);
 
     // C2FLY
-    //t1->SetBranchAddress("Ndata.P.cal.fly.negAdcCounter", &Ndata_H_cal_1fly_negAdcCounter);
-    //t1->SetBranchAddress("P.cal.fly.negAdcCounter", &H_cal_1fly_negAdcCounter);
+    t1->SetBranchAddress("Ndata.P.cal.fly.adcCounter", &Ndata_H_cal_fly_adcCounter);
+    t1->SetBranchAddress("P.cal.fly.adcCounter", &H_cal_fly_adcCounter);
 
 }
 
@@ -1028,6 +1028,7 @@ void EVe::DoDraw(int event)
         detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
                                   H_hod_2y_postdchits,H_hod_2y_negtdchits);
 
+        // Calorimeter : preshower.
         detector->pr[0]->clear();
         detector->pr[1]->clear();
 
@@ -1039,6 +1040,43 @@ void EVe::DoDraw(int event)
           Ndata_H_cal_1pr_posAdcCounter, Ndata_H_cal_1pr_posAdcCounter,
           H_cal_1pr_posAdcCounter, H_cal_1pr_posAdcCounter
         );
+
+        //cout << endl << "nData : " << Ndata_H_cal_fly_adcCounter << endl;
+        //for (int iData=0; iData<Ndata_H_cal_fly_adcCounter; ++ iData) {
+        //  int row = ((int)H_cal_fly_adcCounter[iData]-1) % 16 + 1;
+        //  int col = ((int)H_cal_fly_adcCounter[iData]-1) / 16 + 1;
+        //  cout
+        //    << "  " << H_cal_fly_adcCounter[iData]
+        //    << " : " << col
+        //    << " - " << row
+        //    << endl;
+        //}
+
+        // Calorimeter : shower.
+        for (int iCol=0; iCol<14; ++iCol) {
+          detector->fly[iCol]->clear();
+
+          int nDataFlyBar = 0;
+          double dataFlyBar[1024];
+          for (int iData=0; iData<Ndata_H_cal_fly_adcCounter; ++iData) {
+            int row = ((int)H_cal_fly_adcCounter[iData]-1) % 16 + 1;
+            int col = ((int)H_cal_fly_adcCounter[iData]-1) / 16 + 1;
+            if (col-1 == iCol) {
+              dataFlyBar[nDataFlyBar] = row;
+              ++nDataFlyBar;
+            }
+          }
+
+          detector->fly[iCol]->SPHit(
+            nDataFlyBar, nDataFlyBar,
+            dataFlyBar, dataFlyBar
+          );
+        }
+
+        //detector->pr[1]->SPHit(
+        //  Ndata_H_cal_1pr_posAdcCounter, Ndata_H_cal_1pr_posAdcCounter,
+        //  H_cal_1pr_posAdcCounter, H_cal_1pr_posAdcCounter
+        //);
 
         // Clear tracks
         detector->ClearTracks();

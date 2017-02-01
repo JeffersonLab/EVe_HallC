@@ -210,8 +210,8 @@ class EVe
     Double_t H_cal_1pr_negAdcCounter[16];
     Double_t H_cal_1pr_posAdcCounter[16];
 
-    //Int_t Ndata_H_cal_1fly_negAdcCounter;
-    //Double_t H_cal_1fly_negAdcCounter[16];
+    Int_t Ndata_H_cal_fly_adcCounter;
+    Double_t H_cal_fly_adcCounter[1024];
 
     Detector3D *detector;
 
