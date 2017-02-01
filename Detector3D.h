@@ -53,6 +53,7 @@ public:
     ScintPlane3D *s2xplane;
     ScintPlane3D *s2yplane;
     CalorimeterPlane3D* pr[2];
+    CalorimeterPlane3D* fly[14];
     vector<Trajectory3D* > TrackList;
 
     TGeoVolume *top;

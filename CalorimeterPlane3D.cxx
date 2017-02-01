@@ -50,13 +50,13 @@ if(stringName.compare(Form("Cal%dx",i))==0){
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
     double angle= DB->GetDouble(Form("%s.angle =",splaneName));
-
+    cout << "   angle = " << angle << endl;
 //zrotation variable rotates the calorimeter plane through the xy-plane
     double zrotation = DB->GetDouble(Form("%s.zrotation =",splaneName));
 
     TGeoRotation* scintrot= new TGeoRotation();
 
-  //  scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
+    //scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
 
 //SetAngles rotates the calorimeter planes
 scintrot->SetAngles(zrotation,90,0);
@@ -83,7 +83,8 @@ scintrot->SetAngles(zrotation,90,0);
 
 //If the calorimeter plane gets rotated, then the x-direction does not change, and all the calorimeter planes get put next to one another in the y-plane
  if(zrotation!=0){
-ypos=ypos+10*shift;
+   ypos=ypos+10*shift/2;
+   cout << "here" << endl;
 }
 
 else{

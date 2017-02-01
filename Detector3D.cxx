@@ -112,6 +112,10 @@ Detector3D::Detector3D()
     pr[0] = new CalorimeterPlane3D((char*)"pr", hmsDB, top, 0);
     pr[1] = new CalorimeterPlane3D((char*)"pr", hmsDB, top, 1);
 
+    for (int i=0; i<14; ++i) {
+      fly[i] = new CalorimeterPlane3D((char*)"fly", hmsDB, top, 2*i);
+    }
+
     // There will be 10 tracks for any fixed number of tracks in this code,
     // The reason for it is after you call CloseGeometry() function, you
     // cannot dynamically change number of TGeoVolume in root.
