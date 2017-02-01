@@ -112,13 +112,13 @@ MWDC2.zPos = 0.0
 MWDC2.Tilt = 0.0
 
 // DC2.v2 variables.
-MWDC2.x.WireAngle = 60.0
+MWDC2.x.WireAngle = -60.0
 MWDC2.x.NumWires = 109
 MWDC2.x.Offset = 0.0
 MWDC2.x.Dist = 0.0
 
 // DC2.v1 variables.
-MWDC2.y.WireAngle = 60.0
+MWDC2.y.WireAngle = -60.0
 MWDC2.y.NumWires = 109
 MWDC2.y.Offset = 0.0
 MWDC2.y.Dist = 1.8
@@ -136,13 +136,13 @@ MWDC2.v.Offset = 0.0
 MWDC2.v.Dist = 5.4
 
 // DC2.u2 variables.
-MWDC2.yp.WireAngle = -60.0
+MWDC2.yp.WireAngle = 60.0
 MWDC2.yp.NumWires = 109
 MWDC2.yp.Offset = 0.0
 MWDC2.yp.Dist = 7.2
 
 // DC2.u1 variables.
-MWDC2.xp.WireAngle = -60.0
+MWDC2.xp.WireAngle = 60.0
 MWDC2.xp.NumWires = 109
 MWDC2.xp.Offset = 0.0
 MWDC2.xp.Dist = 9.0

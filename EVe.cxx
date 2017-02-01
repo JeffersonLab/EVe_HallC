@@ -950,53 +950,69 @@ void EVe::DoDraw(int event)
 
         //***************** First chamber
         GetVariables* HMSvars= new GetVariables("SHMS.txt");
-        int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
-        int u1NW= HMSvars->GetInt("MWDC1.u.NumWires =");
-        int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
-        int yp1NW= HMSvars->GetInt("MWDC1.yp.NumWires =");
+        int x1NW = HMSvars->GetInt("MWDC1.x.NumWires =");
+        int y1NW = HMSvars->GetInt("MWDC1.y.NumWires =");
 
         detector->MWDC1->clear();
-        //X,Xp,Plane
-        for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++)
-            detector->MWDC1->WireHit3D("x",H_dc_1x1_tdchits[i]);
-        for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++)
-            detector->MWDC1->WireHit3D("xp",H_dc_1x2_tdchits[i]);
-        /// UV plane
-        for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++)
-            detector->MWDC1->WireHit3D("u",u1NW+1-H_dc_1u1_tdchits[i]);
-        for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++)
-            detector->MWDC1->WireHit3D("v",v1NW+1-H_dc_1v1_tdchits[i]);
-        /// Y,XP plane
-        for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++)
-            detector->MWDC1->WireHit3D("y",H_dc_1y1_tdchits[i]);
-        for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++)
-            detector->MWDC1->WireHit3D("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
 
-        int x2NW= HMSvars->GetInt("MWDC2.x.NumWires =");
-        int u2NW= HMSvars->GetInt("MWDC2.u.NumWires =");
-        int v2NW= HMSvars->GetInt("MWDC2.v.NumWires =");
-        int y2NW= HMSvars->GetInt("MWDC2.y.NumWires =");
-        int yp2NW= HMSvars->GetInt("MWDC2.yp.NumWires =");
+        //detector->MWDC1->WireHit3D("x", x1NW+1-10);  // 2v2
+        //detector->MWDC1->WireHit3D("y", y1NW+1-10);  // 2v1
+        //detector->MWDC1->WireHit3D("u", 10);  // 2x2
+        //detector->MWDC1->WireHit3D("v", 10);  // 2x1
+        //detector->MWDC1->WireHit3D("yp", 10);  // 2u2
+        //detector->MWDC1->WireHit3D("xp", 10);  // 2u1
+
+        for (int i=0; i<Ndata_H_dc_1x1_tdchits; ++i) {  // 1u1
+          detector->MWDC1->WireHit3D("x", x1NW+1-H_dc_1x1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_1y1_tdchits; ++i) {  // 1u2
+          detector->MWDC1->WireHit3D("y", y1NW+1-H_dc_1y1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_1u1_tdchits; ++i) {  // 1x1
+          detector->MWDC1->WireHit3D("u", H_dc_1u1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_1v1_tdchits; ++i) {  // 1x2
+          detector->MWDC1->WireHit3D("v", H_dc_1v1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_1y2_tdchits; ++i) {  // 1v1
+          detector->MWDC1->WireHit3D("yp", H_dc_1y2_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_1x2_tdchits; ++i) {  // 1v2
+          detector->MWDC1->WireHit3D("xp", H_dc_1x2_tdchits[i]);
+        }
+
+
+        int x2NW = HMSvars->GetInt("MWDC2.x.NumWires =");
+        int y2NW = HMSvars->GetInt("MWDC2.y.NumWires =");
 
         detector->MWDC2->clear();
 
-        //X,Xp,Plane
-        for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++)
-            detector->MWDC2->WireHit3D("x",x2NW+1-H_dc_2x1_tdchits[i]);
-        for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++)
-            detector->MWDC2->WireHit3D("xp",H_dc_2x2_tdchits[i]);
-        /// UV plane
-        for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++)
-            detector->MWDC2->WireHit3D("u",u2NW+1-H_dc_2u1_tdchits[i]);
+        //detector->MWDC2->WireHit3D("x", x2NW+1-10);  // 2v2
+        //detector->MWDC2->WireHit3D("y", y2NW+1-10);  // 2v1
+        //detector->MWDC2->WireHit3D("u", 10);  // 2x2
+        //detector->MWDC2->WireHit3D("v", 10);  // 2x1
+        //detector->MWDC2->WireHit3D("yp", 10);  // 2u2
+        //detector->MWDC2->WireHit3D("xp", 10);  // 2u1
 
+        for (int i=0; i<Ndata_H_dc_2x1_tdchits; ++i) {  // 2v2
+          detector->MWDC2->WireHit3D("x", x2NW+1-H_dc_2x1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_2y1_tdchits; ++i) {  // 2v1
+          detector->MWDC2->WireHit3D("y", y2NW+1-H_dc_2y1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_2u1_tdchits; ++i) {  // 2x2
+          detector->MWDC2->WireHit3D("u", H_dc_2u1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_2v1_tdchits; ++i) {  // 2x1
+          detector->MWDC2->WireHit3D("v", H_dc_2v1_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_2x2_tdchits; ++i) {  // 2u2
+          detector->MWDC2->WireHit3D("yp", H_dc_2x2_tdchits[i]);
+        }
+        for (int i=0; i<Ndata_H_dc_2y2_tdchits; ++i) {  // 2u1
+          detector->MWDC2->WireHit3D("xp", H_dc_2y2_tdchits[i]);
+        }
 
-        for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++)
-            detector->MWDC2->WireHit3D("v",v2NW+1-H_dc_2v1_tdchits[i]);
-        /// Y,YP plane
-        for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++)
-            detector->MWDC2->WireHit3D("y",y2NW+1-H_dc_2y1_tdchits[i]);
-        for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++)
-            detector->MWDC2->WireHit3D("yp",H_dc_2y2_tdchits[i]);
 
         detector->s1xplane->clear();
         detector->s1yplane->clear();
