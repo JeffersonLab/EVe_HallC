@@ -1019,18 +1019,40 @@ void EVe::DoDraw(int event)
         detector->s2xplane->clear();
         detector->s2yplane->clear();
 
-        detector->s1xplane->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
-                                  H_hod_1x_postdchits,H_hod_1x_negtdchits);
-        detector->s1yplane->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
-                                  H_hod_1y_postdchits,H_hod_1y_negtdchits);
-        detector->s2xplane->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
-                                  H_hod_2x_postdchits,H_hod_2x_negtdchits);
-        detector->s2yplane->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
-                                  H_hod_2y_postdchits,H_hod_2y_negtdchits);
+        //int __nData = 2;
+        //double __negData[2] = {1, 3};
+        //double __posData[2] = {2, 4};
+        //detector->s1xplane->SPHit(__nData, __nData, __posData, __negData);
+        //detector->s1yplane->SPHit(__nData, __nData, __posData, __negData);
+        //detector->s2xplane->SPHit(__nData, __nData, __posData, __negData);
+        //detector->s2yplane->SPHit(__nData, __nData, __posData, __negData);
+
+        detector->s1xplane->SPHit(
+          Ndata_H_hod_1x_postdchits, Ndata_H_hod_1x_negtdchits,
+          H_hod_1x_postdchits, H_hod_1x_negtdchits
+        );
+        detector->s1yplane->SPHit(
+          Ndata_H_hod_1y_postdchits, Ndata_H_hod_1y_negtdchits,
+          H_hod_1y_postdchits, H_hod_1y_negtdchits
+        );
+        detector->s2xplane->SPHit(
+          Ndata_H_hod_2x_postdchits, Ndata_H_hod_2x_negtdchits,
+          H_hod_2x_postdchits, H_hod_2x_negtdchits
+        );
+        detector->s2yplane->SPHit(
+          Ndata_H_hod_2y_postdchits, Ndata_H_hod_2y_negtdchits,
+          H_hod_2y_postdchits, H_hod_2y_negtdchits
+        );
 
         // Calorimeter : preshower.
         detector->pr[0]->clear();
         detector->pr[1]->clear();
+
+        //int __nData = 2;
+        //double __negData[2] = {1, 3};
+        //double __posData[2] = {2, 4};
+        //detector->pr[0]->SPHit(__nData, __nData, __negData, __negData);
+        //detector->pr[1]->SPHit(__nData, __nData, __posData, __posData);
 
         detector->pr[0]->SPHit(
           Ndata_H_cal_1pr_negAdcCounter, Ndata_H_cal_1pr_negAdcCounter,
@@ -1041,6 +1063,9 @@ void EVe::DoDraw(int event)
           H_cal_1pr_posAdcCounter, H_cal_1pr_posAdcCounter
         );
 
+        //int __ndata = 6;
+        //double __data[6] = {1, 3, 16, 17, 209, 224};
+
         //cout << endl << "nData : " << Ndata_H_cal_fly_adcCounter << endl;
         //for (int iData=0; iData<Ndata_H_cal_fly_adcCounter; ++ iData) {
         //  int row = ((int)H_cal_fly_adcCounter[iData]-1) % 16 + 1;
@@ -1049,6 +1074,7 @@ void EVe::DoDraw(int event)
         //    << "  " << H_cal_fly_adcCounter[iData]
         //    << " : " << col
         //    << " - " << row
+        //    << " :: " << 14-col
         //    << endl;
         //}
 
@@ -1061,7 +1087,7 @@ void EVe::DoDraw(int event)
           for (int iData=0; iData<Ndata_H_cal_fly_adcCounter; ++iData) {
             int row = ((int)H_cal_fly_adcCounter[iData]-1) % 16 + 1;
             int col = ((int)H_cal_fly_adcCounter[iData]-1) / 16 + 1;
-            if (col-1 == iCol) {
+            if (iCol == 14-col) {
               dataFlyBar[nDataFlyBar] = row;
               ++nDataFlyBar;
             }
