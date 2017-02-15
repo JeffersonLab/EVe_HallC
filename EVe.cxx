@@ -537,69 +537,45 @@ void EVe::initRun(char *filename)
     t1->SetBranchAddress( "P.tr.y", &H_tr_y);
     t1->SetBranchAddress( "P.tr.ph", &H_tr_ph);
     t1->SetBranchAddress( "P.tr.th", &H_tr_th);
+    //t1->SetBranchAddress( "Ndata.P.dc.x_BJ", &Ndata_H_tr_x);
+    //t1->SetBranchAddress( "P.dc.x_BJ", &H_tr_x);
+    //t1->SetBranchAddress( "P.dc.y_BJ", &H_tr_y);
+    //t1->SetBranchAddress( "P.dc.dx_BJ", &H_tr_th);
+    //t1->SetBranchAddress( "P.dc.dy_BJ", &H_tr_ph);
 
 
-    /// Scint Planes
-    /// TDC hits for all planes -- pos = left PMT, neg = right PMT
+    // Scint Planes
+    // TDC hits:
+    //   X : +L; -R
+    //   Y : +B; -T
 
-    //GetVariables* HMS = new GetVariables("SHMS.txt");
+    // S1X
+    t1->SetBranchAddress("Ndata.P.hod.1x.negTdcCounter", &Ndata_H_hod_1x_negtdchits);
+    t1->SetBranchAddress("Ndata.P.hod.1x.posTdcCounter", &Ndata_H_hod_1x_postdchits);
+    t1->SetBranchAddress("P.hod.1x.negTdcCounter", &H_hod_1x_negtdchits);
+    t1->SetBranchAddress("P.hod.1x.posTdcCounter", &H_hod_1x_postdchits);
 
-    /// S1X
-    t1->SetBranchAddress( "Ndata.P.hod.1x.negtdcpad", &Ndata_H_hod_1x_negtdchits);
-    t1->SetBranchAddress( "Ndata.P.hod.1x.postdcpad", &Ndata_H_hod_1x_postdchits);
-    t1->SetBranchAddress( "P.hod.1x.negtdcpad", &H_hod_1x_negtdchits);
-    t1->SetBranchAddress( "P.hod.1x.postdcpad", &H_hod_1x_postdchits);
+    // S1Y
+    t1->SetBranchAddress( "Ndata.P.hod.1y.negTdcCounter", &Ndata_H_hod_1y_negtdchits);
+    t1->SetBranchAddress( "Ndata.P.hod.1y.posTdcCounter", &Ndata_H_hod_1y_postdchits);
+    t1->SetBranchAddress( "P.hod.1y.negTdcCounter", &H_hod_1y_negtdchits);
+    t1->SetBranchAddress( "P.hod.1y.posTdcCounter", &H_hod_1y_postdchits);
 
+    // S2X
+    t1->SetBranchAddress( "Ndata.P.hod.2x.negTdcCounter", &Ndata_H_hod_2x_negtdchits);
+    t1->SetBranchAddress( "Ndata.P.hod.2x.posTdcCounter", &Ndata_H_hod_2x_postdchits);
+    t1->SetBranchAddress( "P.hod.2x.negTdcCounter", &H_hod_2x_negtdchits);
+    t1->SetBranchAddress( "P.hod.2x.posTdcCounter", &H_hod_2x_postdchits);
 
-    //SetBranchAddress(t1, (const char*)"P.hod.1x.negtdcpad",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
-    //SetBranchAddress(t1, (const char*)"P.hod.1x.postdcpad",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
-
-    for(int i=0; i<Ndata_H_hod_1x_negtdchits; i++)
-        cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
-    for(int i=0; i<Ndata_H_hod_1x_postdchits; i++)
-        cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
-
-
-    ///S1Y
-    t1->SetBranchAddress( "Ndata.P.hod.1y.negtdcpad", &Ndata_H_hod_1y_negtdchits);
-    t1->SetBranchAddress( "Ndata.P.hod.1y.postdcpad", &Ndata_H_hod_1y_postdchits);
-    t1->SetBranchAddress( "P.hod.1y.negtdcpad", &H_hod_1y_negtdchits);
-    t1->SetBranchAddress( "P.hod.1y.postdcpad", &H_hod_1y_postdchits);
-    //SetBranchAddress(t1, (const char*)"P.hod.1y.negtdcpad",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
-    //SetBranchAddress(t1, (const char*)"P.hod.1y.postdcpad",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
+    // S2Y
+    t1->SetBranchAddress( "Ndata.P.hod.2y.negTdcCounter", &Ndata_H_hod_2y_negtdchits);
+    t1->SetBranchAddress( "Ndata.P.hod.2y.posTdcCounter", &Ndata_H_hod_2y_postdchits);
+    t1->SetBranchAddress( "P.hod.2y.negTdcCounter", &H_hod_2y_negtdchits);
+    t1->SetBranchAddress( "P.hod.2y.posTdcCounter", &H_hod_2y_postdchits);
 
 
-    /* for(int i=0;i<16; i++)
-      cerr << "After Call the number of " << i << "th of 1ynegtdchits is " << H_hod_1y_negtdchits[i] << endl;
-     for(int i=0;i<16; i++)
-     cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;
-     */
-
-    ///S2X
-    t1->SetBranchAddress( "Ndata.P.hod.2x.negtdcpad", &Ndata_H_hod_2x_negtdchits);
-    t1->SetBranchAddress( "Ndata.P.hod.2x.postdcpad", &Ndata_H_hod_2x_postdchits);
-    t1->SetBranchAddress( "P.hod.2x.negtdcpad", &H_hod_2x_negtdchits);
-    t1->SetBranchAddress( "P.hod.2x.postdcpad", &H_hod_2x_postdchits);
-    //SetBranchAddress(t1, (const char*)"P.hod.2x.negtdcpad",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
-    //SetBranchAddress(t1, (const char*)"P.hod.2x.postdcpad",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
-    /*
-     for(int i=0;i<16; i++)
-      cerr << "After Call the number of " << i << "th of 2xnegtdchits is " << H_hod_2x_negtdchits[i] << endl;
-     for(int i=0;i<16; i++)
-     cerr << "After Call the number of " << i << "th of 2xpostdchits is " << H_hod_2x_postdchits[i] << endl; */
-
-    ///S2Y
-    t1->SetBranchAddress( "Ndata.P.hod.2y.negtdcpad", &Ndata_H_hod_2y_negtdchits);
-    t1->SetBranchAddress( "Ndata.P.hod.2y.postdcpad", &Ndata_H_hod_2y_postdchits);
-    t1->SetBranchAddress( "P.hod.2y.negtdcpad", &H_hod_2y_negtdchits);
-    t1->SetBranchAddress( "P.hod.2y.postdcpad", &H_hod_2y_postdchits);
-    //SetBranchAddress(t1, (const char*)"P.hod.2y.negtdcpad",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
-    //SetBranchAddress(t1, (const char*)"P.hod.2y.postdcpad",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
-    /*
-    for(int i=0;i<16; i++)
-      cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
-    for(int i=0;i<16; i++)
-    cerr << "After Call the number of " << i << "th of 2ypostdchits is " << H_hod_2y_postdchits[i] << endl;*/
+    // Calorimeter planes
+    //   PR : +L; -R
 
     // C1PR
     t1->SetBranchAddress("Ndata.P.cal.pr.negAdcCounter", &Ndata_H_cal_1pr_negAdcCounter);
@@ -950,67 +926,71 @@ void EVe::DoDraw(int event)
 
         //***************** First chamber
         GetVariables* HMSvars= new GetVariables("SHMS.txt");
-        int x1NW = HMSvars->GetInt("MWDC1.x.NumWires =");
-        int y1NW = HMSvars->GetInt("MWDC1.y.NumWires =");
+        int u1NW = HMSvars->GetInt("MWDC1.u.NumWires =");
+        int v1NW = HMSvars->GetInt("MWDC1.v.NumWires =");
+        int yp1NW = HMSvars->GetInt("MWDC1.yp.NumWires =");
+        int xp1NW = HMSvars->GetInt("MWDC1.xp.NumWires =");
 
         detector->MWDC1->clear();
 
-        //detector->MWDC1->WireHit3D("x", x1NW+1-10);  // 2v2
-        //detector->MWDC1->WireHit3D("y", y1NW+1-10);  // 2v1
-        //detector->MWDC1->WireHit3D("u", 10);  // 2x2
-        //detector->MWDC1->WireHit3D("v", 10);  // 2x1
-        //detector->MWDC1->WireHit3D("yp", 10);  // 2u2
-        //detector->MWDC1->WireHit3D("xp", 10);  // 2u1
+        //detector->MWDC1->WireHit3D("x", 10);  // 1u1
+        //detector->MWDC1->WireHit3D("y", 15);  // 1u2
+        //detector->MWDC1->WireHit3D("u", u1NW+1-10);  // 1x1
+        //detector->MWDC1->WireHit3D("v", v1NW+1-15);  // 1x2
+        //detector->MWDC1->WireHit3D("yp", yp1NW+1-10);  // 1v1
+        //detector->MWDC1->WireHit3D("xp", xp1NW+1-15);  // 1v2
 
         for (int i=0; i<Ndata_H_dc_1x1_tdchits; ++i) {  // 1u1
-          detector->MWDC1->WireHit3D("x", x1NW+1-H_dc_1x1_tdchits[i]);
+          detector->MWDC1->WireHit3D("x", H_dc_1x1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_1y1_tdchits; ++i) {  // 1u2
-          detector->MWDC1->WireHit3D("y", y1NW+1-H_dc_1y1_tdchits[i]);
+          detector->MWDC1->WireHit3D("y", H_dc_1y1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_1u1_tdchits; ++i) {  // 1x1
-          detector->MWDC1->WireHit3D("u", H_dc_1u1_tdchits[i]);
+          detector->MWDC1->WireHit3D("u", u1NW+1-H_dc_1u1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_1v1_tdchits; ++i) {  // 1x2
-          detector->MWDC1->WireHit3D("v", H_dc_1v1_tdchits[i]);
+          detector->MWDC1->WireHit3D("v", v1NW+1-H_dc_1v1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_1y2_tdchits; ++i) {  // 1v1
-          detector->MWDC1->WireHit3D("yp", H_dc_1y2_tdchits[i]);
+          detector->MWDC1->WireHit3D("yp", yp1NW+1-H_dc_1y2_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_1x2_tdchits; ++i) {  // 1v2
-          detector->MWDC1->WireHit3D("xp", H_dc_1x2_tdchits[i]);
+          detector->MWDC1->WireHit3D("xp", xp1NW+1-H_dc_1x2_tdchits[i]);
         }
 
 
-        int x2NW = HMSvars->GetInt("MWDC2.x.NumWires =");
-        int y2NW = HMSvars->GetInt("MWDC2.y.NumWires =");
+        int u2NW = HMSvars->GetInt("MWDC2.u.NumWires =");
+        int v2NW = HMSvars->GetInt("MWDC2.v.NumWires =");
+        int yp2NW = HMSvars->GetInt("MWDC2.yp.NumWires =");
+        int xp2NW = HMSvars->GetInt("MWDC2.xp.NumWires =");
 
         detector->MWDC2->clear();
 
-        //detector->MWDC2->WireHit3D("x", x2NW+1-10);  // 2v2
-        //detector->MWDC2->WireHit3D("y", y2NW+1-10);  // 2v1
-        //detector->MWDC2->WireHit3D("u", 10);  // 2x2
-        //detector->MWDC2->WireHit3D("v", 10);  // 2x1
-        //detector->MWDC2->WireHit3D("yp", 10);  // 2u2
-        //detector->MWDC2->WireHit3D("xp", 10);  // 2u1
+        //detector->MWDC2->WireHit3D("x", 10);  // 2v2
+        //detector->MWDC2->WireHit3D("y", 15);  // 2v1
+        //detector->MWDC2->WireHit3D("u", u2NW+1-10);  // 2x2
+        //detector->MWDC2->WireHit3D("v", v2NW+1-15);  // 2x1
+        //detector->MWDC2->WireHit3D("yp", yp2NW+1-10);  // 2u2
+        //detector->MWDC2->WireHit3D("xp", xp2NW+1-15);  // 2u1
 
         for (int i=0; i<Ndata_H_dc_2x1_tdchits; ++i) {  // 2v2
-          detector->MWDC2->WireHit3D("x", x2NW+1-H_dc_2x1_tdchits[i]);
+          detector->MWDC2->WireHit3D("x", H_dc_2x1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_2y1_tdchits; ++i) {  // 2v1
-          detector->MWDC2->WireHit3D("y", y2NW+1-H_dc_2y1_tdchits[i]);
+          detector->MWDC2->WireHit3D("y", H_dc_2y1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_2u1_tdchits; ++i) {  // 2x2
-          detector->MWDC2->WireHit3D("u", H_dc_2u1_tdchits[i]);
+          detector->MWDC2->WireHit3D("u", u2NW+1-H_dc_2u1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_2v1_tdchits; ++i) {  // 2x1
-          detector->MWDC2->WireHit3D("v", H_dc_2v1_tdchits[i]);
+          detector->MWDC2->WireHit3D("v", v2NW+1-H_dc_2v1_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_2x2_tdchits; ++i) {  // 2u2
-          detector->MWDC2->WireHit3D("yp", H_dc_2x2_tdchits[i]);
+          detector->MWDC2->WireHit3D("yp", yp2NW+1-H_dc_2x2_tdchits[i]);
         }
         for (int i=0; i<Ndata_H_dc_2y2_tdchits; ++i) {  // 2u1
-          detector->MWDC2->WireHit3D("xp", H_dc_2y2_tdchits[i]);
+          detector->MWDC2->WireHit3D("xp", xp2NW+1-H_dc_2y2_tdchits[i]);
         }
 
 
@@ -1106,7 +1086,7 @@ void EVe::DoDraw(int event)
 
         // Clear tracks
         detector->ClearTracks();
-
+        cout << endl << endl << "New Tracks!" << endl;
         // Now draw tracks through the detector stack
         if (Ndata_H_tr_x>0 && fTextButtonTrack->IsOn()) {
             for(uint i=0; i < std::min((unsigned int)Ndata_H_tr_x, (unsigned int)detector->TrackList.size()); i++) {

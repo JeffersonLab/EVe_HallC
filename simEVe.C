@@ -13,6 +13,7 @@
   FILE *fd;
   const char* paths[] = {
     "/home/bericic/programming/hallc_replay_r5/ROOTfiles",
+    "./spoof",
     "./",
     0
   };
@@ -26,6 +27,7 @@
 
     while ( path && *path ) {
       sprintf(filename,"%s/shms_all_%05d.root",*path,nrun);
+      //sprintf(filename,"%s/test.root",*path);
       cout << filename << endl;
       fd = fopen(filename,"r");
       if (fd != NULL) {

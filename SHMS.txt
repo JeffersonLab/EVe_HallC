@@ -66,37 +66,37 @@ MWDC1.Tilt = 0.0
 
 // DC1.u1 variables.
 MWDC1.x.WireAngle = -60.0
-MWDC1.x.NumWires = 109
+MWDC1.x.NumWires = 107
 MWDC1.x.Offset = 0.0
 MWDC1.x.Dist = 0.0
 
 // DC1.u2 variables.
 MWDC1.y.WireAngle = -60.0
-MWDC1.y.NumWires = 109
+MWDC1.y.NumWires = 107
 MWDC1.y.Offset = 0.0
 MWDC1.y.Dist = 1.8
 
 // DC1.x1 variables.
 MWDC1.u.WireAngle = 0.0
-MWDC1.u.NumWires = 80
+MWDC1.u.NumWires = 79
 MWDC1.u.Offset = 0.0
 MWDC1.u.Dist = 3.6
 
 // DC1.x2 variables.
 MWDC1.v.WireAngle = 0.0
-MWDC1.v.NumWires = 80
+MWDC1.v.NumWires = 79
 MWDC1.v.Offset = 0.0
 MWDC1.v.Dist = 5.4
 
 // DC1.v1 variables.
 MWDC1.yp.WireAngle = 60.0
-MWDC1.yp.NumWires = 109
+MWDC1.yp.NumWires = 107
 MWDC1.yp.Offset = 0.0
 MWDC1.yp.Dist = 7.2
 
 // DC1.v2 variables.
 MWDC1.xp.WireAngle = 60.0
-MWDC1.xp.NumWires = 109
+MWDC1.xp.NumWires = 107
 MWDC1.xp.Offset = 0.0
 MWDC1.xp.Dist = 9.0
 
