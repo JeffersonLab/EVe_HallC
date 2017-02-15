@@ -90,7 +90,7 @@ Detector3D::Detector3D()
     string PN[6]= {"x", "y", "u", "v", "yp", "xp"};
     vector<string> PlaneNames(&PN[0],&PN[0]+6);
     // First MWDC
-    GetVariables *hmsDB = new GetVariables("HMS.txt");
+    GetVariables *hmsDB = new GetVariables("SHMS.txt");
     MWDC1 = new WireChamber3D((char*) "MWDC1",  PlaneNames, hmsDB, top, mgr);
 
     // Second MWDC
@@ -109,11 +109,12 @@ Detector3D::Detector3D()
     // changed volume size to 60
     s2yplane = new ScintPlane3D((char*)"s2y", hmsDB, top);
 
-    // HMS calorimeter
-    c1prplane = new ScintPlane3D((char*)"c1pr", hmsDB, top);
-    c2taplane = new ScintPlane3D((char*)"c2ta", hmsDB, top);
-    c3taplane = new ScintPlane3D((char*)"c3ta", hmsDB, top);
-    c4taplane = new ScintPlane3D((char*)"c4ta", hmsDB, top);
+    pr[0] = new CalorimeterPlane3D((char*)"pr", hmsDB, top, 0);
+    pr[1] = new CalorimeterPlane3D((char*)"pr", hmsDB, top, 1);
+
+    for (int i=0; i<14; ++i) {
+      fly[i] = new CalorimeterPlane3D((char*)"fly", hmsDB, top, 2*i);
+    }
 
     // There will be 10 tracks for any fixed number of tracks in this code,
     // The reason for it is after you call CloseGeometry() function, you

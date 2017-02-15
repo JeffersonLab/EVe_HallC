@@ -1,0 +1,225 @@
+////// Input text file for Eve Event Display.     ////////
+////// SHMS for Hall C text file                  ////////
+
+Scintillator Paddle Length =
+ScintYlength =
+ScintZlength =
+Number of paddle PMTs = 2
+Number of Scint Planes = 4
+
+//Data can be ajusted to change splanes and chambers position in planar view
+canvasL = 6.0
+
+canvas.MWDC1.x = 0.25
+canvas.MWDC1.y = 0.167
+canvas.MWDC2.x = 0.75
+canvas.MWDC2.y = 0.167
+
+canvas.s1x.x = 0.125
+canvas.s1x.y = 0.50
+canvas.s1y.x = 0.375
+canvas.s1y.y = 0.50
+canvas.s2x.x = 0.625
+canvas.s2x.y = 0.50
+canvas.s2y.x = 0.875
+canvas.s2y.y = 0.50
+
+//Planar view track Calculation data
+MWDC2.z = 0.81222
+s1x.z = 1.29753
+s1y.z = 1.49443
+s2x.z = 3.50743
+s2y.z = 3.70433
+
+//Projection view variables
+//x projection view
+x1.dist = 0.0
+x1p.dist = 0.0064
+x2.dist = 0.8122
+x2p.dist = 0.812284
+
+//u v projection view
+u1.dist = 0.0128
+v1.dist = 0.0192
+u2.dist = 0.825
+v2.dist = 0.8314
+
+//y projection view
+y1.dist = 0.028775
+y1p.dist = 0.035175
+y2.dist = 0.840975
+y2p.dist = 0.847375
+
+// Drift chambers.
+// .Height and .Width : m
+// .Thickness and .WallThickness : cm
+
+// DC1 variables.
+MWDC1.Height = 0.8
+MWDC1.Width = 0.8
+MWDC1.Thickness = 9.0
+MWDC1.WallThickness = 2.0
+MWDC1.xPos = -40.0
+MWDC1.yPos = 0.0
+MWDC1.zPos = 0.0
+MWDC1.Tilt = 0.0
+
+// DC1.u1 variables.
+MWDC1.x.WireAngle = -60.0
+MWDC1.x.NumWires = 109
+MWDC1.x.Offset = 0.0
+MWDC1.x.Dist = 0.0
+
+// DC1.u2 variables.
+MWDC1.y.WireAngle = -60.0
+MWDC1.y.NumWires = 109
+MWDC1.y.Offset = 0.0
+MWDC1.y.Dist = 1.8
+
+// DC1.x1 variables.
+MWDC1.u.WireAngle = 0.0
+MWDC1.u.NumWires = 80
+MWDC1.u.Offset = 0.0
+MWDC1.u.Dist = 3.6
+
+// DC1.x2 variables.
+MWDC1.v.WireAngle = 0.0
+MWDC1.v.NumWires = 80
+MWDC1.v.Offset = 0.0
+MWDC1.v.Dist = 5.4
+
+// DC1.v1 variables.
+MWDC1.yp.WireAngle = 60.0
+MWDC1.yp.NumWires = 109
+MWDC1.yp.Offset = 0.0
+MWDC1.yp.Dist = 7.2
+
+// DC1.v2 variables.
+MWDC1.xp.WireAngle = 60.0
+MWDC1.xp.NumWires = 109
+MWDC1.xp.Offset = 0.0
+MWDC1.xp.Dist = 9.0
+
+
+// DC2 variables.
+MWDC2.Height = 0.8
+MWDC2.Width = 0.8
+MWDC2.Thickness = 9.0
+MWDC2.WallThickness = 2.0
+MWDC2.xPos = 40.0
+MWDC2.yPos = 0.0
+MWDC2.zPos = 0.0
+MWDC2.Tilt = 0.0
+
+// DC2.v2 variables.
+MWDC2.x.WireAngle = -60.0
+MWDC2.x.NumWires = 109
+MWDC2.x.Offset = 0.0
+MWDC2.x.Dist = 0.0
+
+// DC2.v1 variables.
+MWDC2.y.WireAngle = -60.0
+MWDC2.y.NumWires = 109
+MWDC2.y.Offset = 0.0
+MWDC2.y.Dist = 1.8
+
+// DC2.x2 variables.
+MWDC2.u.WireAngle = 0.0
+MWDC2.u.NumWires = 80
+MWDC2.u.Offset = 0.0
+MWDC2.u.Dist = 3.6
+
+// DC2.x1 variables.
+MWDC2.v.WireAngle = 0.0
+MWDC2.v.NumWires = 80
+MWDC2.v.Offset = 0.0
+MWDC2.v.Dist = 5.4
+
+// DC2.u2 variables.
+MWDC2.yp.WireAngle = 60.0
+MWDC2.yp.NumWires = 109
+MWDC2.yp.Offset = 0.0
+MWDC2.yp.Dist = 7.2
+
+// DC2.u1 variables.
+MWDC2.xp.WireAngle = 60.0
+MWDC2.xp.NumWires = 109
+MWDC2.xp.Offset = 0.0
+MWDC2.xp.Dist = 9.0
+
+
+// Hodoscope settings.
+Number of paddle PMTs = 2
+Number of Scint Planes = 4
+PMTlength = 0.2963
+
+// s1x variables.
+s1x.angle = 0.0
+s1x.PN = 13
+s1x.xpos = 51.85
+s1x.ypos = 0.0
+s1x.zpos = 0.0
+s1x.PaddleLength = 90.0
+s1x.PaddleHeight = 7.538
+s1x.PaddleThickness = 0.5
+s1x.tilt = 0.0
+
+// s1y variables.
+s1y.angle = 90.0
+s1y.PN = 13
+s1y.xpos = 60.85
+s1y.ypos = 0.0
+s1y.zpos = 0.0
+s1y.PaddleLength = 90.0
+s1y.PaddleHeight = 7.538
+s1y.PaddleThickness = 0.5
+s1y.tilt = 0.0
+
+// s2x variables.
+s2x.angle = 0.0
+s2x.PN = 14
+s2x.xpos = 271.85
+s2x.ypos = 0.0
+s2x.zpos = 0.0
+s2x.PaddleLength = 110.0
+s2x.PaddleHeight = 9.536
+s2x.PaddleThickness = 0.5
+s2x.tilt = 0.0
+
+// s2y variables.
+s2y.angle = 90.0
+s2y.PN = 21
+s2y.xpos = 280.85
+s2y.ypos = 0.0
+s2y.zpos = 0.0
+s2y.PaddleLength = 115.5
+s2y.PaddleHeight = 5.024
+s2y.PaddleThickness = 0.5
+s2y.tilt = 0.0
+
+
+// Calorimeter variables.
+
+// Preshower variables.
+pr.angle = 0.0
+pr.PN = 14
+pr.xpos = 297.64
+pr.ypos = -35.2
+pr.zpos = 0.0
+pr.PaddleLength = 70.0
+pr.PaddleHeight = 10.0
+pr.PaddleThickness = 10.00
+pr.tilt = 2.0
+pr.zrotation = 0.0
+
+// Shower variables.
+fly.angle = 0.0
+fly.PN = 16
+fly.xpos = 331.44
+fly.ypos = -58.5
+fly.zpos = 2.0
+fly.PaddleLength = 50.0
+fly.PaddleHeight = 9.0
+fly.PaddleThickness = 9.0
+fly.tilt = 1.8
+fly.zrotation = 90.0

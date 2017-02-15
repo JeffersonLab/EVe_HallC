@@ -22,7 +22,7 @@ using namespace std;
 CalorimeterPlane3D::CalorimeterPlane3D(char* splaneName, GetVariables* DB, TGeoVolume* top,int shift)
 {
     // Get Values used in construct n paddles for a single ScintPlane
-    int numPMT = 2;//DB->GetInt("Number of paddle PMTs =");
+    int numPMT = 1;//DB->GetInt("Number of paddle PMTs =");
 
 //string stringName;
 std::string stringName(splaneName);
@@ -50,13 +50,12 @@ if(stringName.compare(Form("Cal%dx",i))==0){
 
     /// Make the Whole ScintPlan rotate according to if the plane is sx or sy
     double angle= DB->GetDouble(Form("%s.angle =",splaneName));
-
 //zrotation variable rotates the calorimeter plane through the xy-plane
     double zrotation = DB->GetDouble(Form("%s.zrotation =",splaneName));
- 
+
     TGeoRotation* scintrot= new TGeoRotation();
 
-  //  scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
+    //scintrot->SetAngles(90, 0, angle, 90, 90-angle, -90);
 
 //SetAngles rotates the calorimeter planes
 scintrot->SetAngles(zrotation,90,0);
@@ -79,11 +78,11 @@ scintrot->SetAngles(zrotation,90,0);
     double xpos = DB-> GetDouble(Form("%s.xpos =",splaneName));
     double ypos = DB-> GetDouble(Form("%s.ypos =",splaneName));
 
-//FIXMEEEE pass in new parameter? calorimeters facing each other(alternating) or same direction 
+//FIXMEEEE pass in new parameter? calorimeters facing each other(alternating) or same direction
 
 //If the calorimeter plane gets rotated, then the x-direction does not change, and all the calorimeter planes get put next to one another in the y-plane
  if(zrotation!=0){
-ypos=ypos+10*shift;
+   ypos=ypos+thickness*shift/2;
 }
 
 else{
@@ -91,24 +90,24 @@ else{
 //Every even indexed plane gets shifted in the x-direction so that it gets lined up behind the previous even indexed plane
 
    if(shift%2==0){
-     xpos=xpos+10*shift;
+     xpos=xpos+thickness*shift;
     }
 
 //The odd plane gets shifted the same amount as the previous even plane so that they are lined up next to one another in the x-direction
 
    if(shift%2!=0){
-     xpos=xpos+(shift-1)*10;
-    }  
+     xpos=xpos+(shift-1)*thickness;
+    }
 
    // double ypos = DB-> GetDouble(Form("%s.ypos =",splaneName));
 
 //Every odd indexed plane gets moved in the y-direction so that it can be placed directly next to one another in the y-direction
- 
+
    if(shift%2!=0)
    {
       ypos=-ypos;
    }
-} 
+}
     double zpos = DB-> GetDouble(Form("%s.zpos =",splaneName));
 
     //cerr << Form("%s.xpos is ",splaneName) << xpos <<  Form(" %s.ypos is ",splaneName) << ypos << Form(" %s.zpos is ",splaneName) << zpos <<endl;
@@ -121,7 +120,7 @@ else{
     comb = new TGeoCombiTrans(t1, r1);
     top->AddNodeOverlap(SBox,1,comb);
 
-    cout<<"Calorimeter Plane 3D is created!"<<endl;
+    cout<<"  Calorimeter Plane 3D is created!"<<endl;
 }
 
 CalorimeterPlane3D::~CalorimeterPlane3D()
@@ -179,4 +178,3 @@ void CalorimeterPlane3D::SPHit(int NumL, int NumR, double poshit[], double neghi
         }
     }
 }
-

@@ -19,13 +19,13 @@
   while( found==0 ) {
     //cout << "Run number?\n";
     //cin >> nrun;
-    nrun = 95;
+    nrun = 279;
     if( nrun<0 ) break;
 
     path=paths;
 
     while ( path && *path ) {
-      sprintf(filename,"%s/test_%d.root",*path,nrun);
+      sprintf(filename,"%s/shms_all_%05d.root",*path,nrun);
       cout << filename << endl;
       fd = fopen(filename,"r");
       if (fd != NULL) {
