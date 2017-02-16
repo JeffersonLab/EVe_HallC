@@ -23,7 +23,7 @@
     path=paths;
 
     while ( path && *path ) {
-      sprintf(filename,"%s/test_%5d.root",*path,nrun);
+      sprintf(filename,"%s/hms_replay_%5d.root",*path,nrun);
       cout << filename << endl;
       fd = fopen(filename,"r");
       if (fd != NULL) {
