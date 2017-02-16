@@ -12,22 +12,18 @@
   char filename[300];
   FILE *fd;
   const char* paths[] = {
-    "/home/bericic/programming/hallc_replay_r5/ROOTfiles",
-    "./spoof",
-    "./",
+    "./ROOTfiles"
     0
   };
   while( found==0 ) {
-    //cout << "Run number?\n";
-    //cin >> nrun;
-    nrun = 279;
+    cout << "Run number?\n";
+    cin >> nrun;
     if( nrun<0 ) break;
 
     path=paths;
 
     while ( path && *path ) {
-      sprintf(filename,"%s/shms_all_%05d.root",*path,nrun);
-      //sprintf(filename,"%s/test.root",*path);
+      sprintf(filename,"%s/shms_replay_%5d.root",*path,nrun);
       cout << filename << endl;
       fd = fopen(filename,"r");
       if (fd != NULL) {
