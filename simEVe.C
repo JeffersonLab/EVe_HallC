@@ -12,7 +12,7 @@
   char filename[300];
   FILE *fd;
   const char* paths[] = {
-    "./ROOTfiles"
+    "./ROOTfiles",
     0
   };
   while( found==0 ) {
@@ -23,7 +23,7 @@
     path=paths;
 
     while ( path && *path ) {
-      sprintf(filename,"%s/hms_replay_%5d.root",*path,nrun);
+      sprintf(filename,"%s/hms_replay_%05d.root",*path,nrun);
       cout << filename << endl;
       fd = fopen(filename,"r");
       if (fd != NULL) {

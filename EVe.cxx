@@ -564,61 +564,28 @@ void EVe::initRun(char *filename)
     //GetVariables* HMS = new GetVariables("HMS.txt");
 
     /// S1X
-    t1->SetBranchAddress( "Ndata.H.hod.1x.negtdcpad", &Ndata_H_hod_1x_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.1x.postdcpad", &Ndata_H_hod_1x_postdchits);
-    t1->SetBranchAddress( "H.hod.1x.negtdcpad", &H_hod_1x_negtdchits);
-    t1->SetBranchAddress( "H.hod.1x.postdcpad", &H_hod_1x_postdchits);
-
-
-    //SetBranchAddress(t1, (const char*)"H.hod.1x.negtdcpad",&H_hod_1x_negtdchits,HMS->GetInt("s1x.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.1x.postdcpad",&H_hod_1x_postdchits,HMS->GetInt("s1x.PN ="));
-
-    for(int i=0; i<Ndata_H_hod_1x_negtdchits; i++)
-        cerr << "After Call the number of " << i << "th of 1xnegtdchits is " << (Double_t)(H_hod_1x_negtdchits[i]) << endl;
-    for(int i=0; i<Ndata_H_hod_1x_postdchits; i++)
-        cerr << "After Call the number of " << i << "th of 1xpostdchits is " << (Double_t)(H_hod_1x_postdchits[i]) << endl;
-
+    t1->SetBranchAddress( "Ndata.H.hod.1x.negTdcCounter", &Ndata_H_hod_1x_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.1x.posTdcCounter", &Ndata_H_hod_1x_postdchits);
+    t1->SetBranchAddress( "H.hod.1x.negTdcCounter", &H_hod_1x_negtdchits);
+    t1->SetBranchAddress( "H.hod.1x.posTdcCounter", &H_hod_1x_postdchits);
 
     ///S1Y
-    t1->SetBranchAddress( "Ndata.H.hod.1y.negtdcpad", &Ndata_H_hod_1y_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.1y.postdcpad", &Ndata_H_hod_1y_postdchits);
-    t1->SetBranchAddress( "H.hod.1y.negtdcpad", &H_hod_1y_negtdchits);
-    t1->SetBranchAddress( "H.hod.1y.postdcpad", &H_hod_1y_postdchits);
-    //SetBranchAddress(t1, (const char*)"H.hod.1y.negtdcpad",&H_hod_1y_negtdchits,HMS->GetInt("s1y.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.1y.postdcpad",&H_hod_1y_postdchits,HMS->GetInt("s1y.PN ="));
-
-
-    /* for(int i=0;i<16; i++)
-      cerr << "After Call the number of " << i << "th of 1ynegtdchits is " << H_hod_1y_negtdchits[i] << endl;
-     for(int i=0;i<16; i++)
-     cerr << "After Call the number of " << i << "th of 1ypostdchits is " << H_hod_1y_postdchits[i] << endl;
-     */
+    t1->SetBranchAddress( "Ndata.H.hod.1y.negTdcCounter", &Ndata_H_hod_1y_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.1y.posTdcCounter", &Ndata_H_hod_1y_postdchits);
+    t1->SetBranchAddress( "H.hod.1y.negTdcCounter", &H_hod_1y_negtdchits);
+    t1->SetBranchAddress( "H.hod.1y.posTdcCounter", &H_hod_1y_postdchits);
 
     ///S2X
-    t1->SetBranchAddress( "Ndata.H.hod.2x.negtdcpad", &Ndata_H_hod_2x_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.2x.postdcpad", &Ndata_H_hod_2x_postdchits);
-    t1->SetBranchAddress( "H.hod.2x.negtdcpad", &H_hod_2x_negtdchits);
-    t1->SetBranchAddress( "H.hod.2x.postdcpad", &H_hod_2x_postdchits);
-    //SetBranchAddress(t1, (const char*)"H.hod.2x.negtdcpad",&H_hod_2x_negtdchits,HMS->GetInt("s2x.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.2x.postdcpad",&H_hod_2x_postdchits,HMS->GetInt("s2x.PN ="));
-    /*
-     for(int i=0;i<16; i++)
-      cerr << "After Call the number of " << i << "th of 2xnegtdchits is " << H_hod_2x_negtdchits[i] << endl;
-     for(int i=0;i<16; i++)
-     cerr << "After Call the number of " << i << "th of 2xpostdchits is " << H_hod_2x_postdchits[i] << endl; */
+    t1->SetBranchAddress( "Ndata.H.hod.2x.negTdcCounter", &Ndata_H_hod_2x_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.2x.posTdcCounter", &Ndata_H_hod_2x_postdchits);
+    t1->SetBranchAddress( "H.hod.2x.negTdcCounter", &H_hod_2x_negtdchits);
+    t1->SetBranchAddress( "H.hod.2x.posTdcCounter", &H_hod_2x_postdchits);
 
     ///S2Y
-    t1->SetBranchAddress( "Ndata.H.hod.2y.negtdcpad", &Ndata_H_hod_2y_negtdchits);
-    t1->SetBranchAddress( "Ndata.H.hod.2y.postdcpad", &Ndata_H_hod_2y_postdchits);
-    t1->SetBranchAddress( "H.hod.2y.negtdcpad", &H_hod_2y_negtdchits);
-    t1->SetBranchAddress( "H.hod.2y.postdcpad", &H_hod_2y_postdchits);
-    //SetBranchAddress(t1, (const char*)"H.hod.2y.negtdcpad",&H_hod_2y_negtdchits,HMS->GetInt("s2y.PN ="));
-    //SetBranchAddress(t1, (const char*)"H.hod.2y.postdcpad",&H_hod_2y_postdchits,HMS->GetInt("s2y.PN ="));
-    /*
-    for(int i=0;i<16; i++)
-      cerr << "After Call the number of " << i << "th of 2ynegtdchits is " << H_hod_2y_negtdchits[i] << endl;
-    for(int i=0;i<16; i++)
-    cerr << "After Call the number of " << i << "th of 2ypostdchits is " << H_hod_2y_postdchits[i] << endl;*/
+    t1->SetBranchAddress( "Ndata.H.hod.2y.negTdcCounter", &Ndata_H_hod_2y_negtdchits);
+    t1->SetBranchAddress( "Ndata.H.hod.2y.posTdcCounter", &Ndata_H_hod_2y_postdchits);
+    t1->SetBranchAddress( "H.hod.2y.negTdcCounter", &H_hod_2y_negtdchits);
+    t1->SetBranchAddress( "H.hod.2y.posTdcCounter", &H_hod_2y_postdchits);
 
     // c1pr
     t1->SetBranchAddress("Ndata.H.cal.1pr.negAdcCounter", &Ndata_H_cal_1pr_negAdcCounter);

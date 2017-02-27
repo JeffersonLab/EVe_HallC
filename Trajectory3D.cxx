@@ -46,17 +46,14 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
 {
     GetVariables* HMS= new GetVariables("HMS.txt");
 
-    double C1x = -y;
-    double C1y = -x;
-    double C1z = 0.0;
-
-    //cerr<< "x = " << x << " ,y = " << y << endl;
-    //cerr<< "C1x = " << C1x << " ,C1y= " << C1y <<endl;
-
     double xdiff = HMS-> GetDouble("MWDC2.xPos =")- HMS-> GetDouble("MWDC1.xPos =");
     double ydiff = HMS-> GetDouble("MWDC2.yPos =")- HMS-> GetDouble("MWDC1.yPos =");
     double zdiff = HMS-> GetDouble("MWDC2.zPos =")- HMS-> GetDouble("MWDC1.zPos =");
     double Dist = sqrt(xdiff*xdiff+ydiff*ydiff+zdiff*zdiff);
+
+    double C1x = -y - (-phi)*52;  // DC1 is actually at -52cm from focal plane.
+    double C1y = -x - (-theta)*52;
+    double C1z = 0.0;
 
     double C2z = 0.0;
     double C2x = C1x + (-phi)*Dist;
@@ -118,7 +115,7 @@ void Trajectory3D::Enable(int n, double x, double y, double theta, double phi)
     double B1y = C1y + (C2y-C1y)/(C2x-C1x)*(xmin-C1x);
     double B1z = C1z + (C2z-C1z)/(C2x-C1x)*(xmin-C1x);
 
-    double xmax =390.0;   // FIXME: where does this number come from?
+    double xmax =500.0;   // FIXME: where does this number come from?
     double B2x = xmax;
     double B2y = C2y + (C2y-C1y)/(C2x-C1x)*(xmax-C2x);
     double B2z = C2z + (C2z-C1z)/(C2x-C1x)*(xmax-C2x);
