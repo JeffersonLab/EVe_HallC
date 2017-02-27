@@ -1,6 +1,9 @@
 ////// Input text file for Eve Event Display.     ////////
 ////// HMS for Hall C text file                   ////////
 
+// z positions are offset, as the focal plane is here not at 0, but at +52cm.
+// Vertical and horizontal offsets are not input.
+
 Scintillator Paddle Length =
 ScintYlength =
 ScintZlength =
