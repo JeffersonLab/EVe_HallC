@@ -60,77 +60,31 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
     fGroupFrame3->SetLayoutManager(new TGVerticalLayout(fGroupFrame3));
     fGroupFrame3->Resize(128,100);
 
-    fTextButtonWires = new TGRadioButton(fGroupFrame3,"Planar view");
-    fGroupFrame3->AddFrame(fTextButtonWires, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonWires->MoveResize(8,24,106,20);
-
     fTextButton3dView = new TGRadioButton(fGroupFrame3,"3D View");
     fGroupFrame3->AddFrame(fTextButton3dView, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
     fTextButton3dView->MoveResize(8,40,106,20);
 
-    fTextButtonProj = new TGRadioButton(fGroupFrame3,"Projection view");
-    fGroupFrame3->AddFrame(fTextButtonProj, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonProj->MoveResize(8,56,106,20);
-
-    fTextButtonWires->SetState(kButtonDown);
-    //fTextButtonProj->SetState(kButtonDown);
-    //fTextButton3dView->SetState(kButtonDown);
+    fTextButton3dView->SetState(kButtonDown);
 
     fMainFrame->AddFrame(fGroupFrame3, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
     fGroupFrame3->MoveResize(w-16-128-128, 100,128,100);
 
 
-    //______________ Second group of buttons____________________
-    // Here are ratio buttons for selecting MWDC
-    TGButtonGroup *fGroupFrame1 = new TGButtonGroup(fMainFrame,"Projections:", kVerticalFrame);
-    fGroupFrame1->SetLayoutBroken(kTRUE);
-    fTextButtonXPlane = new TGRadioButton(fGroupFrame1,"X-Projection");
-    fGroupFrame1->AddFrame(fTextButtonXPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonXPlane->MoveResize(8,24,106,20);
-
-    fTextButtonUVPlane = new TGRadioButton(fGroupFrame1,"UV-Projection");
-    fGroupFrame1->AddFrame(fTextButtonUVPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonUVPlane->MoveResize(8,40,106,20);
-
-    fTextButtonYPlane = new TGRadioButton(fGroupFrame1,"Y-Projection");
-    fGroupFrame1->AddFrame(fTextButtonYPlane, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonYPlane->MoveResize(8,56,106,20);
-
-    // In the beginning the first button is down
-    fTextButtonXPlane->SetState(kButtonDown);
-
-    fGroupFrame1->SetLayoutManager(new TGVerticalLayout(fGroupFrame1));
-    fGroupFrame1->Resize(128,120);
-    fMainFrame->AddFrame(fGroupFrame1, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fGroupFrame1->MoveResize(w-8-128, 100,128, 100);
-
     //______________ Third group of buttons____________________
     // Here are check buttons for options
     TGButtonGroup *fGroupFrame2 = new TGButtonGroup(fMainFrame,"Options", kVerticalFrame);
     fGroupFrame2->SetLayoutBroken(kTRUE);
-    //  fTextButtonRoads = new TGCheckButton(fGroupFrame2,"Show Roads");
-    //fGroupFrame2->AddFrame(fTextButtonRoads, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    //fTextButtonRoads->MoveResize(8,24,106,20);
-
-    //fTextButtonRoads->SetState(kButtonDown);
-
-    fTextButtonTrackProj = new TGCheckButton(fGroupFrame2,"Tr. Projections");
-    fGroupFrame2->AddFrame(fTextButtonTrackProj, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonTrackProj->MoveResize(8,40,106,20);
-
-    fTextButtonTrackProj->SetState(kButtonDown);
 
     fTextButtonTrack = new TGCheckButton(fGroupFrame2,"Show Tracks");
     fGroupFrame2->AddFrame(fTextButtonTrack, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fTextButtonTrack->MoveResize(8,56,106,20);
+    fTextButtonTrack->MoveResize(8,40,106,20);
 
     fTextButtonTrack->SetState(kButtonDown);
 
     fGroupFrame2->SetLayoutManager(new TGVerticalLayout(fGroupFrame2));
     fGroupFrame2->Resize(128,96);
     fMainFrame->AddFrame(fGroupFrame2, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-    fGroupFrame2->MoveResize(w-8-192,200,128,96);
-
+    fGroupFrame2->MoveResize(w-8-128, 100,128, 100);
 
 
     //________________________ Buttons___________________________________
@@ -197,23 +151,10 @@ EVe::EVe(const TGWindow *p, UInt_t w, UInt_t h)
     fTextButtonPreviousGood->Connect("Clicked()", "EVe", this, "doPreviousGood()");
     fTextButtonPrint->Connect("Clicked()", "EVe", this, "PrintToFile()");
 
-    if (fTextButtonProj->IsOn()) {
-        if (fTextButtonXPlane->IsOn()) CreateXprojection();
-        if (fTextButtonUVPlane->IsOn()) CreateUVprojection();
-        if (fTextButtonYPlane->IsOn()) CreateYprojection();
-        if (fTextButton3dView->IsOn()) Create3DView();
-    }
-
-    if (fTextButtonWires->IsOn()) CreateWires();
 
     if (fTextButton3dView->IsOn()) Create3DView();
 
-    fTextButtonXPlane->Connect("Clicked()", "EVe", this, "CreateXprojection()");
-    fTextButtonUVPlane->Connect("Clicked()", "EVe", this, "CreateUVprojection()");
-    fTextButtonYPlane->Connect("Clicked()", "EVe", this, "CreateYprojection()");
-    fTextButtonWires->Connect("Clicked()", "EVe", this, "CreateWires()");
     fTextButton3dView->Connect("Clicked()", "EVe", this, "Create3DView()");
-    fTextButtonProj->Connect("Clicked()", "EVe", this, "SelectProj()");
 
     cout<<"EVe created!!!"<<endl;
 }
@@ -245,108 +186,14 @@ void EVe::Create3DView()
 
 void EVe::SelectProj()
 {
-    if (fTextButtonXPlane->IsOn()) CreateXprojection();
-    if (fTextButtonUVPlane->IsOn()) CreateUVprojection();
-    if (fTextButtonYPlane->IsOn()) CreateYprojection();
     if (fTextButton3dView->IsOn()) Create3DView();
 }
 
-void EVe::CreateXprojection()
-{
+void EVe::CreateXprojection() {}
 
-    if (fTextButtonProj->IsOn()) {
-        fRootEmbeddedCanvas->AdoptCanvas(c1);
-        c1->cd();
-        c1->Clear();
+void EVe::CreateUVprojection() {}
 
-        GetVariables *HMSvar = new GetVariables("SHMS.txt");
-
-        x1 = new WirePlane((char*)"X1",HMSvar->GetDouble("MWDC1.x.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("x1.dist =")),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
-
-        x1p = new WirePlane((char*)"X1p",HMSvar->GetDouble("MWDC1.xp.NumWires ="),
-                            -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-                            cst->transYtoCY(HMSvar->GetDouble("x1p.dist =")),
-                            cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
-
-        x2 = new WirePlane((char*)"X2",HMSvar->GetDouble("MWDC2.x.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("x2.dist =")),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
-
-        x2p = new WirePlane((char*)"X2p",HMSvar->GetDouble("MWDC2.xp.NumWires ="),
-                            -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-                            cst->transYtoCY(HMSvar->GetDouble("x2p.dist =")),
-                            cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
-
-        c1->Update();
-    }
-}
-
-void EVe::CreateUVprojection()
-{
-    if (fTextButtonProj->IsOn()) {
-
-        fRootEmbeddedCanvas->AdoptCanvas(c2);
-        c2->cd();
-        c2->Clear();
-
-        GetVariables *HMSvar = new GetVariables("SHMS.txt");
-
-        u1 = new WirePlane((char*)"U1",HMSvar->GetDouble("MWDC1.u.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("u1.dist =")),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
-        v1 = new WirePlane((char*)"V1",HMSvar->GetDouble("MWDC1.v.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("v1.dist =")+0.002),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,+1);
-
-        u2 = new WirePlane((char*)"U2",HMSvar->GetDouble("MWDC2.u.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("u2.dist =")),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
-        v2 = new WirePlane((char*)"V2",HMSvar->GetDouble("MWDC2.v.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("v2.dist =")+0.002),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
-
-        c2->Update();
-    }
-}
-
-void EVe::CreateYprojection()
-{
-    if (fTextButtonProj->IsOn()) {
-        fRootEmbeddedCanvas->AdoptCanvas(c4);
-        c4->cd();
-        c4->Clear();
-
-        GetVariables *HMSvar = new GetVariables("SHMS.txt");
-
-        y1 = new WirePlane((char*)"Y1",HMSvar->GetDouble("MWDC1.y.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("y1.dist =")),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,-1);
-        y1p = new WirePlane((char*)"Y1p",HMSvar->GetDouble("MWDC1.yp.NumWires ="),
-                            -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height ="))+cst->transXtoCX(0.0),
-                            cst->transYtoCY(HMSvar->GetDouble("y1p.dist =")),
-                            cst->transLtoCL(HMSvar->GetDouble("MWDC1.Height =")),1.0,1.0,1);
-
-        y2 = new WirePlane((char*)"Y2",HMSvar->GetDouble("MWDC2.y.NumWires ="),
-                           -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-                           cst->transYtoCY(HMSvar->GetDouble("y2.dist =")),
-                           cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,-1);
-        y2p = new WirePlane((char*)"Y2p",HMSvar->GetDouble("MWDC2.yp.NumWires ="),
-                            -0.5*cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height ="))+cst->transXtoCX(0.0),
-                            cst->transYtoCY(HMSvar->GetDouble("y2p.dist =")),
-                            cst->transLtoCL(HMSvar->GetDouble("MWDC2.Height =")),1.0,1.0,+1);
-
-        c4->Update();
-    }
-}
+void EVe::CreateYprojection() {}
 
 
 void EVe::CreateWires()
@@ -606,311 +453,6 @@ void EVe::DoDraw(int event)
     graph_title = Buff.Data();
     //cout<<"Char #: "<<graph_title<<endl;
 
-
-//_______________________ Lets handle X-projection view _______________________________________
-
-    if (fTextButtonProj->IsOn() && fTextButtonXPlane->IsOn()) {
-
-        c1->cd();
-        x1->clear();
-        x1p->clear();
-        x2->clear();
-        x2p->clear();
-
-        c1->Update();
-
-
-        if (title != NULL) delete title;
-        title = new TLatex(0.02,0.96, graph_title);
-        title->SetTextSize(0.03);
-        title->Draw();
-
-
-
-        for (int i = 0; i<Ndata_H_dc_1x1_tdchits; i++) {
-
-            x1->SetWire(H_dc_1x1_tdchits[i],H_dc_1x1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_1x2_tdchits; i++) {
-
-            x1p->SetWire(H_dc_1x2_tdchits[i],H_dc_1x2_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_2x1_tdchits; i++) {
-
-            x2->SetWire(H_dc_2x1_tdchits[i],H_dc_2x1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_2x2_tdchits; i++) {
-
-            x2p->SetWire(H_dc_2x2_tdchits[i],H_dc_2x2_time[i]);
-        }
-
-        c1->Draw();
-        c1->Update();
-    }
-
-// //_________________________ Lets handle UV-projection view ______________________________
-
-    if (fTextButtonProj->IsOn() && fTextButtonUVPlane->IsOn()) {
-
-        c2->cd();
-        u1->clear();
-        v1->clear();
-        u2->clear();
-        v2->clear();
-
-        c2->Update();
-
-
-        if (title != NULL) delete title;
-        title = new TLatex(0.02,0.96, graph_title);
-        title->SetTextSize(0.03);
-        title->Draw();
-
-        for (int i = 0; i<Ndata_H_dc_1u1_tdchits; i++) {
-
-            u1->SetWire(H_dc_1u1_tdchits[i],H_dc_1u1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_1v1_tdchits; i++) {
-
-            v1->SetWire(H_dc_1v1_tdchits[i],H_dc_1v1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_2u1_tdchits; i++) {
-
-            u2->SetWire(H_dc_2u1_tdchits[i],H_dc_2u1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_2v1_tdchits; i++) {
-
-            v2->SetWire(H_dc_2v1_tdchits[i],H_dc_2v1_time[i]);
-        }
-
-        c2->Draw();
-        c2->Update();
-    }
-
-// //_________________________ Lets handle Y-projection view ______________________________
-
-    if (fTextButtonProj->IsOn() && fTextButtonYPlane->IsOn()) {
-
-        c4->cd();
-        y1->clear();
-        y1p->clear();
-        y2->clear();
-        y2p->clear();
-
-        c4->Update();
-
-
-        if (title != NULL) delete title;
-        title = new TLatex(0.02,0.96, graph_title);
-        title->SetTextSize(0.03);
-        title->Draw();
-
-
-        for (int i = 0; i<Ndata_H_dc_1y1_tdchits; i++) {
-
-            y1->SetWire(H_dc_1y1_tdchits[i],H_dc_1y1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_1y2_tdchits; i++) {
-
-            y1p->SetWire(H_dc_1y2_tdchits[i],H_dc_1y2_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_2y1_tdchits; i++) {
-
-            y2->SetWire(H_dc_2y1_tdchits[i],H_dc_2y1_time[i]);
-        }
-
-        for (int i = 0; i<Ndata_H_dc_2y2_tdchits; i++) {
-
-            y2p->SetWire(H_dc_2y2_tdchits[i],H_dc_2y2_time[i]);
-        }
-
-        c4->Draw();
-        c4->Update();
-    }
-
-//_________________________ Lets handle Planar view  ______________________________
-
-    if (fTextButtonWires->IsOn()) {
-        c3->cd();
-
-
-        if (title != NULL) delete title;
-        title = new TLatex(0.50,0.02, graph_title);
-        title->SetTextSize(0.03);
-        title->Draw();
-
-        //***************** First Wire Chamber
-
-        mwdc1->clear();
-
-        GetVariables* HMSvars= new GetVariables("SHMS.txt");
-
-        int x1NW= HMSvars->GetInt("MWDC1.x.NumWires =");
-        int v1NW= HMSvars->GetInt("MWDC1.v.NumWires =");
-        int yp1NW= HMSvars->GetInt("MWDC1.yp.NumWires =");
-
-        /// X plane
-
-        for(int i = 0; i<Ndata_H_dc_1x1_tdchits; i++) {
-
-            mwdc1->WireHit("x",x1NW+1-H_dc_1x1_tdchits[i]);
-        }
-
-        for(int i = 0; i<Ndata_H_dc_1x2_tdchits; i++) {
-
-            mwdc1->WireHit("xp",H_dc_1x2_tdchits[i]);
-        }
-
-        /// UV plane
-
-        for(int i = 0; i<Ndata_H_dc_1u1_tdchits; i++) {
-
-            mwdc1->WireHit("u",H_dc_1u1_tdchits[i]);
-        }
-
-        for(int i = 0; i<Ndata_H_dc_1v1_tdchits; i++) {
-
-            mwdc1->WireHit("v",v1NW+1-H_dc_1v1_tdchits[i]);
-        }
-
-        /// YP,XP plane
-
-        for(int i = 0; i<Ndata_H_dc_1y1_tdchits; i++) {
-
-            mwdc1->WireHit("y",H_dc_1y1_tdchits[i]);
-        }
-
-        for(int i = 0; i<Ndata_H_dc_1y2_tdchits; i++) {
-
-            mwdc1->WireHit("yp",yp1NW+1-H_dc_1y2_tdchits[i]);
-        }
-
-
-        //***************** Second Wire Chamber
-
-        mwdc2->clear();
-
-
-        int x2NW= HMSvars->GetInt("MWDC2.x.NumWires =");
-        int v2NW= HMSvars->GetInt("MWDC2.v.NumWires =");
-        int yp2NW= HMSvars->GetInt("MWDC2.yp.NumWires =");
-
-        /// X plane
-
-        for(int i = 0; i<Ndata_H_dc_2x1_tdchits; i++) {
-
-            mwdc2->WireHit("x",x2NW+1-H_dc_2x1_tdchits[i]);
-        }
-
-        for(int i = 0; i<Ndata_H_dc_2x2_tdchits; i++) {
-
-            mwdc2->WireHit("xp",H_dc_2x2_tdchits[i]);
-        }
-
-        /// UV plane
-
-        for(int i = 0; i<Ndata_H_dc_2u1_tdchits; i++) {
-
-            mwdc2->WireHit("u",H_dc_2u1_tdchits[i]);
-        }
-
-        for(int i = 0; i<Ndata_H_dc_2v1_tdchits; i++) {
-
-            mwdc2->WireHit("v",v2NW+1-H_dc_2v1_tdchits[i]);
-        }
-
-        /// Y plane
-
-        for(int i = 0; i<Ndata_H_dc_2y1_tdchits; i++) {
-
-            mwdc2->WireHit("y",H_dc_2y1_tdchits[i]);
-        }
-
-        for(int i = 0; i<Ndata_H_dc_2y2_tdchits; i++) {
-
-            mwdc2->WireHit("yp",yp2NW+1-H_dc_2y2_tdchits[i]);
-        }
-
-        s1Y->clear();
-        s1X->clear();
-        s2X->clear();
-        s2Y->clear();
-
-        s1X->SPHit(Ndata_H_hod_1x_postdchits,Ndata_H_hod_1x_negtdchits,
-                     H_hod_1x_postdchits,H_hod_1x_negtdchits);
-        s1Y->SPHit(Ndata_H_hod_1y_postdchits,Ndata_H_hod_1y_negtdchits,
-                     H_hod_1y_postdchits,H_hod_1y_negtdchits);
-        s2X->SPHit(Ndata_H_hod_2x_postdchits,Ndata_H_hod_2x_negtdchits,
-                     H_hod_2x_postdchits,H_hod_2x_negtdchits);
-        s2Y->SPHit(Ndata_H_hod_2y_postdchits,Ndata_H_hod_2y_negtdchits,
-                     H_hod_2y_postdchits,H_hod_2y_negtdchits);
-
-        //****** Now we draw Trajectories through detectors
-
-        if (Ndata_H_tr_x > 0 && fTextButtonTrack->IsOn()) {
-            for(int q =0; q<Ndata_H_tr_x; q++) {
-                GetVariables *hms = new GetVariables("SHMS.txt");
-                double z1 = hms->GetDouble("MWDC2.z =");
-                double z3 = hms->GetDouble("s1x.z =");
-                double z4 = hms->GetDouble("s1y.z =");
-                double z5 = hms->GetDouble("s2x.z =");
-                double z6 = hms->GetDouble("s2y.z =");
-
-                /// Real track information
-                double x0 = -H_tr_y[q]/100; /// [cm] to [m]
-                double y0 = -H_tr_x[q]/100;
-                double th = -H_tr_ph[q];
-                double ph = -H_tr_th[q];
-
-
-                double x1 = x0 + th*z1;
-                double y1 = y0 + ph*z1;
-
-
-                mwdc1->Track(x0,y0,q);
-                mwdc2->Track(x1,y1,q);
-
-
-
-                double x3 = x0 + th*z3;
-                double y3 = y0 + ph*z3;
-
-                s1X->Track(x3,y3,q);
-
-                ;
-                double x4 = x0 + th*z4;
-                double y4 = y0 + ph*z4;
-
-                s1Y->Track(x4,y4,q);
-
-
-                double x5 = x0 + th*z5;
-                double y5 = y0 + ph*z5;
-
-                s2X->Track(x5,y5,q);
-
-
-                double x6 = x0 + th*z6;
-                double y6 = y0 + ph*z6;
-
-                s2Y->Track(x6,y6,q);
-            }
-
-        }
-
-
-        c3->Draw();
-        c3->Update();
-
-    }
 
 //_________________________ Lets handle 3D view  ______________________________________
 
